@@ -5,11 +5,14 @@ from selenium.webdriver.chrome.service import Service
 from bs4 import BeautifulSoup
 import time
 import pandas as pd
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
+from sklearn.ensemble import ExtraTreesClassifier
+from sklearn.multioutput import ClassifierChain
 import math
 import pandas as pd
+import os
 
 
 # Configuración de Selenium con ChromeDriver
@@ -21,26 +24,16 @@ equipo_objetivo_1 = "Real Madrid"#input("Ingresa el primer equipo objetivo: ")
 equipo_objetivo_2 = "LOSC"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
-estadisticas_excluidas = ["Posesión", "Precisión de los pases", "Posición adelantada"]
+estadisticas_excluidas = ["Posición adelantada"]
 
 # Ingreso de URLs
 #num_urls = int(input("¿Cuántas URLs deseas ingresar? "))
-urls_equipo_1 = ["https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11w3rxw5kw;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D",
-"https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11w3rxnbjt;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D",
-"https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11y5mkfnwd;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D",
-"https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11wbz936w3;2;/m/0c1q0;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D",
-"https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11w1j0_cxv;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D",
-"https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11w3s1nv6p;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D",
+urls_equipo_1 = ["https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11w3s1nv6p;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D",
 "https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11w1j102n4;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D",
 "https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11y5mkw2gl;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D",
 "https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11w1j0jtm7;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D",
 "https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11y4ydk586;2;/m/01xml3;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D"]
-urls_equipo_2 = ["https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w3vpn404;2;/m/044hxl;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D",
-"https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w1lq1bpq;2;/m/044hxl;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D",
-"https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11wbz9rl0d;2;/m/0c1q0;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D",
-"https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11y5qblzhl;2;/m/044hxl;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D",
-"https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w1lqsgjw;2;/m/044hxl;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D",
-"https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w9n40kyg;2;/m/0c1q0;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D",
+urls_equipo_2 = ["https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w9n40kyg;2;/m/0c1q0;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D",
 "https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11y5qbh0bl;2;/m/044hxl;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D",
 "https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w39t5tp1;2;/m/0c1q0;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D",
 "https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w1lqp059;2;/m/044hxl;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D",
@@ -70,7 +63,7 @@ def obtener_estadisticas(soup, equipo_objetivo):
         for row in rows:
             stat_name = row.find('th').text
             if stat_name not in estadisticas_excluidas:
-                stat_value = int(row.find_all('td')[equipo_columna].text.strip())
+                stat_value = int(row.find_all('td')[equipo_columna].text.strip()[:2])
                 partido_stats[stat_name] = stat_value        
 
         return partido_stats
@@ -83,7 +76,11 @@ def obtener_goles_por_tiempo(soup, equipo_objetivo):
         'goles_primera_mitad': 0, 
         'goles_segunda_mitad': 0,
         'goles_totales': 0,  # Campo para goles totales
-        'gano': 0  # Nuevo campo booleano para indicar si ganó o no
+        'gano': 0,  # Nuevo campo booleano para indicar si ganó o no
+        'empato': 0,
+        'perdio': 0,
+        'visitante' : 0,
+        'local': 0
     }
 
     try:
@@ -128,15 +125,19 @@ def obtener_goles_por_tiempo(soup, equipo_objetivo):
         if equipo_objetivo == equipo_local:
             goles_objetivo = marcador_local
             goles_rival = marcador_visitante
+            goles_por_tiempo['local'] = 1
         else:
+            goles_por_tiempo['visitante'] = 1
             goles_objetivo = marcador_visitante
             goles_rival = marcador_local
 
         # Si el equipo objetivo tiene más goles que el rival, ganó (1), si no, perdió o empató (0)
         if goles_objetivo > goles_rival:
             goles_por_tiempo['gano'] = 1
+        elif goles_objetivo == goles_rival:
+            goles_por_tiempo['empato'] = 1
         else:
-            goles_por_tiempo['gano'] = 0
+            goles_por_tiempo['perdio'] = 1
 
         return goles_por_tiempo
 
@@ -344,40 +345,64 @@ def convertir_a_dataframe(stats):
     datos = []
     for equipo, partidos in stats.items():
         for partido, estadisticas in partidos.items():
-            fila = {'Equipo': equipo, 'Partido': partido}
-            fila.update(estadisticas)
+            fila = estadisticas
             datos.append(fila)
-    
     df = pd.DataFrame(datos)
     return df
 
-df_stats = convertir_a_dataframe(stats)
+    #Manejo de csv
+# Verificar si el archivo existe
+if os.path.isfile('datos.csv'):
+    # Leer el CSV existente
+    df_existente = pd.read_csv('datos.csv', sep=';', quotechar='"')
+    # Crear un nuevo DataFrame con los nuevos datos
+    df_nuevo = convertir_a_dataframe(stats)
+    # Concatenar los DataFrames
+    df_stats = pd.concat([df_existente, df_nuevo], ignore_index=True)
+    #df_stats = df_stats.drop_duplicates()
+    df_stats.to_csv('datos.csv', sep=';', index=False)
+else:
+    df_stats = convertir_a_dataframe(stats)
+    df_stats.to_csv('datos.csv', sep=';', index=False)
+    # Si no existe, se crea desde 0
 
 # 2. Preparar los datos para el modelo
 # Seleccionamos las columnas con estadísticas y el objetivo
-X = df_stats[['Remates', 'Remates al arco', 'Pases', 'Faltas', 'Tarjetas amarillas', 'Tarjetas rojas', 'Tiros de esquina', 'goles_primera_mitad', 'goles_segunda_mitad', 'goles_totales']]
-y = df_stats['gano']
+x = df_stats[['Remates', 'Remates al arco', 'Pases', 'Faltas', 'Tarjetas amarillas', 'Tarjetas rojas', 'goles_primera_mitad', 'goles_segunda_mitad', 'visitante', 'local']]
+y = df_stats['gano', 'Tiros de esquina', 'perdio', 'empato', 'goles_totales']
 
 # Dividir los datos en conjunto de entrenamiento y prueba
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
-# Escalar los datos (es importante hacerlo después de la división del conjunto de datos)
-X_train_scaled = X_train
-X_test_scaled = X_test
+etc = ExtraTreesClassifier(random_state =21)
 
-# Entrenar el modelo de regresión logística con más iteraciones
-modelo = LogisticRegression(solver='lbfgs', max_iter=20)  # Incrementa el valor de max_iter a 1000
-modelo.fit(X_train_scaled, y_train)
+etc.fit(x_train, y_train)
 
-# Hacer predicciones
-y_pred = modelo.predict(X_test_scaled)
+#precision del modelo
+print("Precision: ",cross_val_score(etc, x_train, y_train, scoring= 'accuracy', cv =5, n_jobs=-1).mean())
 
-# 5. Evaluar el modelo
-precision = accuracy_score(y_test, y_pred)
-print(f"Precisión del modelo: {precision * 100:.2f}%")
+param_grid = {
+    'criterion':['gini', 'entropy'],
+    'n_estimators': [100,250,500],
+    'min_samples_leaf': [5, 15, 25],
+    'max_features': [3, 5, 7, 9]
+}
 
-# Mostrar las predicciones
-print("Predicciones:", y_pred)
+etc2 = GridSearchCV(etc, param_grid, cv=3, n_jobs=-1)
+
+etc2.fit(x_train, y_train)
+
+print(etc2.best_params_)
+print(etc2.best_score_)
+
+# Entrenar el modelo de Extra trees classifier 
+base_model = ExtraTreesClassifier(n_estimators =100, random_state=42) 
+# Crear la cadena de clasificadores
+model = ClassifierChain(base_model, order=[1, 4, 0, 2, 3])  # Orden en el que se predicen las variables de Y
+
+# Entrenar la cadena de clasificadores
+model.fit(x_train, y_train)
+
 
 #--------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
 # Predecir si ganará el próximo partido (usando nuevas estadísticas)
@@ -392,7 +417,8 @@ estadisticas_equipo1 = {
     'Tiros de esquina': 0,
     'goles_primera_mitad': 0,
     'goles_segunda_mitad': 0,
-    'goles_totales': 0
+    'Posesión': 0,
+    'Precisión de los pases': 0
 }
 
 estadisticas_equipo2 = {
@@ -405,7 +431,8 @@ estadisticas_equipo2 = {
     'Tiros de esquina': 0,
     'goles_primera_mitad': 0,
     'goles_segunda_mitad': 0,
-    'goles_totales': 0
+    'Posesión': 0,
+    'Precisión de los pases': 0
 }
 
 equipo1, equipo2 = list(stats.keys())
@@ -420,7 +447,8 @@ for partido, stats_partido in stats[equipo1].items():
     estadisticas_equipo1['Tiros de esquina'] += stats_partido['Tiros de esquina']
     estadisticas_equipo1['goles_primera_mitad'] += stats_partido['goles_primera_mitad']
     estadisticas_equipo1['goles_segunda_mitad'] += stats_partido['goles_segunda_mitad']
-    estadisticas_equipo1['goles_totales'] += stats_partido['goles_totales']
+    estadisticas_equipo1['Posesión'] += stats_partido['Posesión']
+    estadisticas_equipo1['Precisión de los pases'] += stats_partido['Precisión de los pases']
 
 # Calcular estadísticas para el equipo 2
 for partido, stats_partido in stats[equipo2].items():
@@ -433,7 +461,8 @@ for partido, stats_partido in stats[equipo2].items():
     estadisticas_equipo2['Tiros de esquina'] += stats_partido['Tiros de esquina']
     estadisticas_equipo2['goles_primera_mitad'] += stats_partido['goles_primera_mitad']
     estadisticas_equipo2['goles_segunda_mitad'] += stats_partido['goles_segunda_mitad']
-    estadisticas_equipo2['goles_totales'] += stats_partido['goles_totales']
+    estadisticas_equipo2['Posesión'] += stats_partido['Posesión']
+    estadisticas_equipo2['Precisión de los pases'] += stats_partido['Precisión de los pases']
 
 #Imprime probabilidad estadisticas de solo los primeros 6 partidos
 calcular_desviacion_estandar_y_datos(stats)
@@ -533,20 +562,28 @@ estadisticas_equipo2['goles_totales'] = weighted_average(
 estadisticas_equipo1_df = pd.DataFrame([estadisticas_equipo1])
 estadisticas_equipo2_df = pd.DataFrame([estadisticas_equipo2])
 
+#prediccion equipo1
+predicciones_categoricas_equipo1= model.predict(estadisticas_equipo1_df)
+prediccion_probabilidades_equipo1= model.predict_proba(estadisticas_equipo1_df)
+
+#prediccion equipo2
+predicciones_categoricas_equipo2 = model.predict(estadisticas_equipo2_df)
+prediccion_probabilidades_equipo2= model.predict_proba(estadisticas_equipo2_df)
+
+
 print("\n-----------------PREDICCIONES-----------------")
-# Obtener probabilidades de la predicción para el equipo 1
-probabilidades = modelo.predict_proba(estadisticas_equipo1_df)[0]
+# Mostrar las predicciones de manera organizada
+print("Predicciones y probabilidades para el equipo ",equipo_objetivo_1,":")
+for idx, variable in enumerate(y.columns):
+    if variable in ['gano', 'perdio', 'empato']:
+        print(f"{variable}: Predicción: {predicciones_categoricas_equipo1[0][idx]} (Probabilidad: {prediccion_probabilidades_equipo1[idx][1]})")
+    elif variable in ['Tiros de esquina', 'goles_totales']:
+        print(f"{variable}: Probabilidad (Tiros de esquina): {prediccion_probabilidades_equipo1[idx][1]:.2f}")
 
-# Obtener probabilidades de la predicción para el equipo 2
-probabilidades2 = modelo.predict_proba(estadisticas_equipo2_df)[0]
-
-# Imprimir las probabilidades de ganar y perder para el equipo 1
-print(f"Probabilidades para {equipo1}:")
-print(f"  Ganar: {probabilidades[1] * 100:.2f}%")
-print(f"  Perder: {probabilidades[0] * 100:.2f}%")
-
-# Imprimir las probabilidades de ganar y perder para el equipo 2
-print(f"Probabilidades para {equipo2}:")
-print(f"  Ganar: {probabilidades2[1] * 100:.2f}%")
-print(f"  Perder: {probabilidades2[0] * 100:.2f}%")
+print("Predicciones y probabilidades para el equipo ",equipo_objetivo_2,":")
+for idx, variable in enumerate(y.columns):
+    if variable in ['gano', 'perdio', 'empato']:
+        print(f"{variable}: Predicción: {predicciones_categoricas_equipo2[0][idx]} (Probabilidad: {prediccion_probabilidades_equipo2[idx][1]})")
+    elif variable in ['Tiros de esquina', 'goles_totales']:
+        print(f"{variable}: Probabilidad (Tiros de esquina): {prediccion_probabilidades_equipo2[idx][1]:.2f}")
 #--------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
