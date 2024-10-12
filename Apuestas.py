@@ -5,11 +5,11 @@ from selenium.webdriver.chrome.service import Service
 from bs4 import BeautifulSoup
 import time
 import pandas as pd
-from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
-from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.ensemble import ExtraTreesClassifier, ExtraTreesRegressor
+from sklearn.multioutput import MultiOutputRegressor
+from sklearn.metrics import root_mean_squared_error, mean_absolute_error, r2_score
 from sklearn.metrics import accuracy_score
-from sklearn.ensemble import ExtraTreesClassifier
-from sklearn.multioutput import ClassifierChain
 import math
 import pandas as pd
 import os
@@ -21,41 +21,147 @@ driver = webdriver.Chrome(service=service)
 
 # Ingreso de datos por parte del usuario
 equipo_objetivo_1 = "Real Madrid"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "LOSC"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_2 = "Villareal"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
 
 # Ingreso de URLs
 #num_urls = int(input("¿Cuántas URLs deseas ingresar? "))
-urls_equipo_1 = ["https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11w3s1nv6p;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D",
-"https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11w1j102n4;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D",
-"https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11y5mkw2gl;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D",
-"https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11w1j0jtm7;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D",
-"https://www.google.com/search?sca_esv=22628e78e0652884&sca_upv=1&rlz=1C1UEAD_esCO992CO992&cs=0&q=Real+Madrid+Club+de+F%C3%BAtbol&stick=H4sIAAAAAAAAAONgVuLQz9U3MMsxMnrEaMwt8PLHPWEprUlrTl5jVOHiCs7IL3fNK8ksqRQS42KDsnikuLjgmngWsUoHpSbmKPgmphRlpig455QmKaSkKrgd3lWSlJ8DAEwS8v5gAAAA&ved=2ahUKEwjw6JLx2e6IAxUy8MkDHQtML4EQukt6BAgBEBY#sie=m;/g/11y4ydk586;2;/m/01xml3;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D"]
-urls_equipo_2 = ["https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w9n40kyg;2;/m/0c1q0;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D",
-"https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11y5qbh0bl;2;/m/044hxl;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D",
-"https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w39t5tp1;2;/m/0c1q0;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D",
-"https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w1lqp059;2;/m/044hxl;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D",
-"https://www.google.com/search?q=losc&rlz=1C1UEAD_esCO992CO992&oq=LosC&gs_lcrp=EgZjaHJvbWUqFQgAEAAYQxiDARjjAhixAxiABBiKBTIVCAAQABhDGIMBGOMCGLEDGIAEGIoFMhIIARAuGEMYgwEYsQMYgAQYigUyDAgCEAAYQxiABBiKBTIGCAMQABgDMg8IBBAuGAoYrwEYxwEYgAQyCQgFEAAYChiABDINCAYQLhivARjHARiABDIPCAcQLhgKGK8BGMcBGIAEMgcICBAuGIAEMgkICRAuGAoYgATSAQc4MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w2x8pl9c;2;/m/0c1q0;dt;fp;1;;;&wptab=si:ACC90nxHVIQmruDWnwTL6DMm0w-fRIRhUxoHPNsJnEnV8zCuM5KLSWnMImIlpppFk_AeipYNPv1FwwzpZBUBlVSSfdvbonUvznept0lvJfSshjU2m85FZvNhYYWz3dx8wDv5Gwv566dzjLlYPXYup3sib3lzjWch_4OnxPTQ0aSv0KWanTvMYLbiOMwD_FqjmHVs0x7FCqLXSCGU0Y_Jkiaso8ei-8y6kKZcWZqISOWmXHX2Y_xf8Ys%3D"]
+urls_equipo_1 = ['https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w8l5yqmr;2;/m/0c1q0;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
+'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w3rxw5kw;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
+'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w3rxnbjt;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
+'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11y5mkfnwd;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
+'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11wbz936w3;2;/m/0c1q0;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
+'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w1j0_cxv;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D'
+]
 
-#print("Ingresa las URLs para el primer equipo:")
-#for _ in range(num_urls):
-#    url = input(f"URL #{len(urls_equipo_1) + 1}: ")
-#    urls_equipo_1.append(url)
+urls_equipo_2 = ['https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11w3rxnztq;2;/m/09gqx;dt;fp;1;;;',
+'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11w3rxmmgf;2;/m/09gqx;dt;fp;1;;;',
+'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11w3ry1x7c;2;/m/09gqx;dt;fp;1;;;',
+'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11w3rxmt0b;2;/m/09gqx;dt;fp;1;;;',
+'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11y5mkk286;2;/m/09gqx;dt;fp;1;;;',
+'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11y5mk9xmf;2;/m/09gqx;dt;fp;1;;;'
+]
 
-#print("Ingresa las URLs para el segundo equipo:")
-#for _ in range(num_urls):
-#    url = input(f"URL #{len(urls_equipo_2) + 1}: ")
-#    urls_equipo_2.append(url)
+Torneo = 1 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+
+# Diccionario de torneos
+torneos_dict = {
+    "Champions League": 0,
+    "LaLiga": 1,
+    "Ligue 1": 2,
+    "Premier League": 3,
+    "Serie A": 4,
+    "Europa League":5,
+    "Amistosos": 6,
+    "Segunda División":7,
+    "Conference League": 8,
+    "Bundesliga": 9,
+    "Brasileirão Serie A": 10,
+    "Copa Libertadores": 11,
+    "Copa de Brasil": 12,
+    "Copa de Francia": 13,
+    "EFL Cup": 14,
+    "FA Cup": 15,
+    "Championship": 16,
+    "Supercopa de Europa": 17,
+    "Supercopa de España": 18,
+    "Copa del Rey": 19,
+    "Mundial de Clubes": 20,
+    "Liga Conferencia": 21,
+    "Serie B": 22,
+    "DFB Pokal": 23,
+    "2. Bundesliga": 24,
+    "Copa Emirates": 25,
+    "Torneo desconocido": -1
+    # Agrega otros torneos según necesites
+}
+
+#Alineacion de partido a predecir, para saber que numero poner, vaya al metodo obtener estadisticas en el diccionario Alineaciones
+Alineacion_local = 1
+Alineacion_visitante = 0
+# Alineaciones
+alineaciones_dict = {
+    "4-3-3": 0,
+    "4-4-2": 1,
+    "3-5-2": 2,
+    "4-2-3-1": 3,
+    "5-3-2": 4,
+    "4-5-1": 5,
+    "3-4-3": 6,
+    "4-1-4-1": 7,
+    "4-4-1-1": 8,
+    "5-4-1": 9,
+    "5-3-1-1": 10,
+    "5-2-3": 11,
+    "6-3-1": 12,
+    "4-2-2-2": 13,
+    "4-1-3-2": 14,
+    "3-6-1": 15,
+    "3-3-3-1": 16,
+    "3-4-2-1": 17,
+    "2-3-5": 18,
+    "4-2-4": 19,
+    "4-3-2-1": 20,
+    "3-2-5": 21,
+    "4-1-2-1-2": 22,
+    "3-5-1-1": 23,
+    "3-3-1-3": 24,
+    "4-2-1-3": 25,
+    "5-2-2-1": 26,
+    "3-2-2-3": 27,
+    "4-3-1-2": 28,
+    "3-4-1-2": 29,
+    "No encontrado":-1
+}
 
 # Diccionario para almacenar las estadísticas de los partidos
 stats = {equipo_objetivo_1: {}, equipo_objetivo_2: {}}
 
 def obtener_estadisticas(soup, equipo_objetivo):
     try:
+        fecha_div = soup.find('div', class_= 'imso_mh__pst-m-stts-l')
+        fecha = fecha_div.find('div', class_= 'imso-hide-overflow').find_all('span')[4].text.strip()
         stats_table = soup.find('div', class_='lr-imso-ss-wdm')
         partido_stats = {}
+
+        fecha = fecha.split(",")
+        if(len(fecha) > 1):
+            fecha = fecha[1].replace(' ', '')+"/24" #Esto debe modificarse segun el año en el que estemos
+        elif(len(fecha[0]) <= 5):
+            fecha = fecha[0]+"/24"
+        else:
+            fecha = fecha[0]
+        partido_stats["Fecha"] = fecha
+        partido_stats["Equipo"] = equipo_objetivo
+
+        alineacion = ""
+        # Obtener el nombre del torneo
+        torneo_div = soup.find('div', class_='imso-hide-overflow')
+        torneo_span = torneo_div.find('span', class_='imso-loa imso-ln')
+        torneo_nombre = torneo_span.text.strip() if torneo_span else "Torneo desconocido"
+        # Obtener la alineacion del equipo objetivo
+        alineacion_div = soup.find('div', class_='lr-imso-lineups-container')
+        local_div = alineacion_div.find('div', class_='lr-vl-hf lrvl-btrc')
+        visitante_div = alineacion_div.find('div', class_='lr-vl-hf lrvl-bbrc')
+        local_all_span = local_div.find_all('span')
+        visitante_all_span = visitante_div.find_all('span')
+
+        if(local_all_span[0].text.strip() == equipo_objetivo):
+            alineacion = local_all_span[1].text.strip()
+        else:
+            alineacion = visitante_all_span[1].text.strip()
+
+        # Buscar el torneo en el diccionario y agregar el valor numérico
+        torneo_valor = torneos_dict.get(torneo_nombre, -1)  # Si no lo encuentra, asigna -1
+
+        # Agregar el valor numérico del torneo a las estadísticas del partido
+        partido_stats["Torneo"] = torneo_valor
+
+        # Buscar la alineacion en el diccionario y agregar el valor numérico
+        alineacion_valor = alineaciones_dict.get(alineacion, -1)
+        partido_stats["Alineacion"] = alineacion_valor
 
         headers = stats_table.find_all('th', class_='jqZdce')
         equipo_columna = 0 if headers[0].find('img')['alt'] == equipo_objetivo else 1
@@ -63,7 +169,7 @@ def obtener_estadisticas(soup, equipo_objetivo):
         for row in rows:
             stat_name = row.find('th').text
             if stat_name not in estadisticas_excluidas:
-                stat_value = int(row.find_all('td')[equipo_columna].text.strip()[:2])
+                stat_value = int(row.find_all('td')[equipo_columna].text.strip().replace('%', ''))
                 partido_stats[stat_name] = stat_value        
 
         return partido_stats
@@ -79,7 +185,7 @@ def obtener_goles_por_tiempo(soup, equipo_objetivo):
         'gano': 0,  # Nuevo campo booleano para indicar si ganó o no
         'empato': 0,
         'perdio': 0,
-        'visitante' : 0,
+        'visitante': 0,
         'local': 0
     }
 
@@ -95,8 +201,42 @@ def obtener_goles_por_tiempo(soup, equipo_objetivo):
         # Si ambos equipos tienen 0 goles, retornar directamente
         if marcador_local == 0 and marcador_visitante == 0:
             print(f"Ambos equipos no tienen goles en el partido actual ({equipo_local} vs {equipo_visitante}).")
+                # Determinar si el equipo objetivo ganó o no
+            if equipo_objetivo == equipo_local:
+                goles_objetivo = marcador_local
+                goles_rival = marcador_visitante
+                goles_por_tiempo['local'] = 1
+            else:
+                goles_por_tiempo['visitante'] = 1
+                goles_objetivo = marcador_visitante
+                goles_rival = marcador_local
+
+            # Si el equipo objetivo tiene más goles que el rival, ganó (1), si no, perdió o empató (0)
+            if goles_objetivo > goles_rival:
+                goles_por_tiempo['gano'] = 1
+            elif goles_objetivo == goles_rival:
+                goles_por_tiempo['empato'] = 1
+            else:
+                goles_por_tiempo['perdio'] = 1
             return goles_por_tiempo
 
+        if equipo_objetivo == equipo_local:
+            goles_objetivo = marcador_local
+            goles_rival = marcador_visitante
+            goles_por_tiempo['local'] = 1
+        else:
+            goles_por_tiempo['visitante'] = 1
+            goles_objetivo = marcador_visitante
+            goles_rival = marcador_local
+
+        # Si el equipo objetivo tiene más goles que el rival, ganó (1), si no, perdió o empató (0)
+        if goles_objetivo > goles_rival:
+            goles_por_tiempo['gano'] = 1
+        elif goles_objetivo == goles_rival:
+            goles_por_tiempo['empato'] = 1
+        else:
+            goles_por_tiempo['perdio'] = 1
+                
         # Buscar todos los eventos de goles directamente desde los spans
         eventos_goles = soup.find_all('span', class_='liveresults-sports-immersive__game-minute')
 
@@ -120,25 +260,6 @@ def obtener_goles_por_tiempo(soup, equipo_objetivo):
 
         # Calcular la cantidad total de goles
         goles_por_tiempo['goles_totales'] = goles_por_tiempo['goles_primera_mitad'] + goles_por_tiempo['goles_segunda_mitad']
-
-        # Determinar si el equipo objetivo ganó o no
-        if equipo_objetivo == equipo_local:
-            goles_objetivo = marcador_local
-            goles_rival = marcador_visitante
-            goles_por_tiempo['local'] = 1
-        else:
-            goles_por_tiempo['visitante'] = 1
-            goles_objetivo = marcador_visitante
-            goles_rival = marcador_local
-
-        # Si el equipo objetivo tiene más goles que el rival, ganó (1), si no, perdió o empató (0)
-        if goles_objetivo > goles_rival:
-            goles_por_tiempo['gano'] = 1
-        elif goles_objetivo == goles_rival:
-            goles_por_tiempo['empato'] = 1
-        else:
-            goles_por_tiempo['perdio'] = 1
-
         return goles_por_tiempo
 
     except Exception as e:
@@ -153,7 +274,7 @@ def procesar_urls(urls, equipo_objetivo):
         try:
             driver.delete_all_cookies()
             driver.get(url)
-            time.sleep(2)
+            time.sleep(2.5)
             soup = BeautifulSoup(driver.page_source, 'html.parser')
 
             stats = obtener_estadisticas(soup, equipo_objetivo)
@@ -359,7 +480,7 @@ if os.path.isfile('datos.csv'):
     df_nuevo = convertir_a_dataframe(stats)
     # Concatenar los DataFrames
     df_stats = pd.concat([df_existente, df_nuevo], ignore_index=True)
-    #df_stats = df_stats.drop_duplicates()
+    df_stats = df_stats.drop_duplicates()
     df_stats.to_csv('datos.csv', sep=';', index=False)
 else:
     df_stats = convertir_a_dataframe(stats)
@@ -368,40 +489,36 @@ else:
 
 # 2. Preparar los datos para el modelo
 # Seleccionamos las columnas con estadísticas y el objetivo
-x = df_stats[['Remates', 'Remates al arco', 'Pases', 'Faltas', 'Tarjetas amarillas', 'Tarjetas rojas', 'goles_primera_mitad', 'goles_segunda_mitad', 'visitante', 'local']]
-y = df_stats['gano', 'Tiros de esquina', 'perdio', 'empato', 'goles_totales']
+x = df_stats[['Remates', 'Remates al arco', 'Pases', 'Faltas', 'Tarjetas amarillas', 'Tarjetas rojas', 'goles_primera_mitad', 'goles_segunda_mitad', 'Posesión', 'Precisión de los pases', 'visitante', 'local', 'Torneo', 'Alineacion']]
+y = df_stats[['gano', 'Tiros de esquina', 'perdio', 'empato', 'goles_totales']]
+# Dividir las variables de salida (Y)
+y_categoricas = y[['gano', 'perdio', 'empato']]
+y_continuas = y[['Tiros de esquina', 'goles_totales']]
 
 # Dividir los datos en conjunto de entrenamiento y prueba
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
-
-etc = ExtraTreesClassifier(random_state =21)
-
-etc.fit(x_train, y_train)
-
-#precision del modelo
-print("Precision: ",cross_val_score(etc, x_train, y_train, scoring= 'accuracy', cv =5, n_jobs=-1).mean())
+x_train, x_test, y_train_categoricas, y_test_categoricas = train_test_split(x, y_categoricas, test_size=0.2, random_state=42)
+_, _, y_train_continuas, y_test_continuas = train_test_split(x, y_continuas, test_size=0.2, random_state=42)
 
 param_grid = {
     'criterion':['gini', 'entropy'],
-    'n_estimators': [100,250,500],
-    'min_samples_leaf': [5, 15, 25],
-    'max_features': [3, 5, 7, 9]
+    'n_estimators': [100, 250, 500],
+    'min_samples_leaf':[5, 15, 25],
+    'max_features': [3,5, 7,9]
 }
 
-etc2 = GridSearchCV(etc, param_grid, cv=3, n_jobs=-1)
+# 1. Entrenar el modelo de clasificación para las variables categóricas
 
-etc2.fit(x_train, y_train)
+etc = ExtraTreesClassifier(random_state=21)
+etc.fit(x_train, y_train_categoricas)
 
-print(etc2.best_params_)
-print(etc2.best_score_)
+model_clasificacion = GridSearchCV(etc, param_grid, cv=3, n_jobs=-1)
+model_clasificacion.fit(x_train, y_train_categoricas)
+print("the best ", model_clasificacion.best_estimator_, " the best scors ", model_clasificacion.best_score_)
 
-# Entrenar el modelo de Extra trees classifier 
-base_model = ExtraTreesClassifier(n_estimators =100, random_state=42) 
-# Crear la cadena de clasificadores
-model = ClassifierChain(base_model, order=[1, 4, 0, 2, 3])  # Orden en el que se predicen las variables de Y
-
-# Entrenar la cadena de clasificadores
-model.fit(x_train, y_train)
+# 2. Entrenar el modelo de regresión para las variables continuas
+regresor = ExtraTreesRegressor(n_estimators=150, random_state=42)
+model_regresion = MultiOutputRegressor(regresor)
+model_regresion.fit(x_train, y_train_continuas)
 
 
 #--------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
@@ -414,11 +531,14 @@ estadisticas_equipo1 = {
     'Faltas': 0,
     'Tarjetas amarillas': 0,
     'Tarjetas rojas': 0,
-    'Tiros de esquina': 0,
     'goles_primera_mitad': 0,
     'goles_segunda_mitad': 0,
     'Posesión': 0,
-    'Precisión de los pases': 0
+    'Precisión de los pases': 0, 
+    'visitante': 0, 
+    'local': 1, #Se inicializa en 1 porque el equipo 1 siempre va ser el local y el equipo 2 el visitante
+    'Torneo': Torneo,
+    'Alineacion': Alineacion_local
 }
 
 estadisticas_equipo2 = {
@@ -428,11 +548,14 @@ estadisticas_equipo2 = {
     'Faltas': 0,
     'Tarjetas amarillas': 0,
     'Tarjetas rojas': 0,
-    'Tiros de esquina': 0,
     'goles_primera_mitad': 0,
     'goles_segunda_mitad': 0,
     'Posesión': 0,
-    'Precisión de los pases': 0
+    'Precisión de los pases': 0, 
+    'visitante': 1, #Se inicializa en 1 porque el equipo 2 siempre va ser el visitante y el equipo 1 el local
+    'local': 0, #Se inicializa en 1 porque el equipo 1 siempre va ser el local y el equipo 2 el visitante
+    'Torneo': Torneo,
+    'Alineacion': Alineacion_visitante
 }
 
 equipo1, equipo2 = list(stats.keys())
@@ -444,7 +567,6 @@ for partido, stats_partido in stats[equipo1].items():
     estadisticas_equipo1['Faltas'] += stats_partido['Faltas']
     estadisticas_equipo1['Tarjetas amarillas'] += stats_partido['Tarjetas amarillas']
     estadisticas_equipo1['Tarjetas rojas'] += stats_partido['Tarjetas rojas']
-    estadisticas_equipo1['Tiros de esquina'] += stats_partido['Tiros de esquina']
     estadisticas_equipo1['goles_primera_mitad'] += stats_partido['goles_primera_mitad']
     estadisticas_equipo1['goles_segunda_mitad'] += stats_partido['goles_segunda_mitad']
     estadisticas_equipo1['Posesión'] += stats_partido['Posesión']
@@ -458,7 +580,6 @@ for partido, stats_partido in stats[equipo2].items():
     estadisticas_equipo2['Faltas'] += stats_partido['Faltas']
     estadisticas_equipo2['Tarjetas amarillas'] += stats_partido['Tarjetas amarillas']
     estadisticas_equipo2['Tarjetas rojas'] += stats_partido['Tarjetas rojas']
-    estadisticas_equipo2['Tiros de esquina'] += stats_partido['Tiros de esquina']
     estadisticas_equipo2['goles_primera_mitad'] += stats_partido['goles_primera_mitad']
     estadisticas_equipo2['goles_segunda_mitad'] += stats_partido['goles_segunda_mitad']
     estadisticas_equipo2['Posesión'] += stats_partido['Posesión']
@@ -499,10 +620,6 @@ estadisticas_equipo1['Tarjetas rojas'] = weighted_average(
     [stats_partido['Tarjetas rojas'] for stats_partido in stats[equipo1].values()],
     pesos
 )
-estadisticas_equipo1['Tiros de esquina'] = weighted_average(
-    [stats_partido['Tiros de esquina'] for stats_partido in stats[equipo1].values()],
-    pesos
-)
 estadisticas_equipo1['goles_primera_mitad'] = weighted_average(
     [stats_partido['goles_primera_mitad'] for stats_partido in stats[equipo1].values()],
     pesos
@@ -511,10 +628,15 @@ estadisticas_equipo1['goles_segunda_mitad'] = weighted_average(
     [stats_partido['goles_segunda_mitad'] for stats_partido in stats[equipo1].values()],
     pesos
 )
-estadisticas_equipo1['goles_totales'] = weighted_average(
-    [stats_partido['goles_totales'] for stats_partido in stats[equipo1].values()],
+estadisticas_equipo1['Posesión'] = weighted_average(
+    [stats_partido['Posesión'] for stats_partido in stats[equipo1].values()],
     pesos
 )
+estadisticas_equipo1['Precisión de los pases'] = weighted_average(
+    [stats_partido['Precisión de los pases'] for stats_partido in stats[equipo1].values()],
+    pesos
+)
+
 
 # Repetir para el equipo 2
 estadisticas_equipo2['Remates'] = weighted_average(
@@ -541,10 +663,6 @@ estadisticas_equipo2['Tarjetas rojas'] = weighted_average(
     [stats_partido['Tarjetas rojas'] for stats_partido in stats[equipo2].values()],
     pesos
 )
-estadisticas_equipo2['Tiros de esquina'] = weighted_average(
-    [stats_partido['Tiros de esquina'] for stats_partido in stats[equipo2].values()],
-    pesos
-)
 estadisticas_equipo2['goles_primera_mitad'] = weighted_average(
     [stats_partido['goles_primera_mitad'] for stats_partido in stats[equipo1].values()],
     pesos
@@ -553,8 +671,12 @@ estadisticas_equipo2['goles_segunda_mitad'] = weighted_average(
     [stats_partido['goles_segunda_mitad'] for stats_partido in stats[equipo1].values()],
     pesos
 )
-estadisticas_equipo2['goles_totales'] = weighted_average(
-    [stats_partido['goles_totales'] for stats_partido in stats[equipo1].values()],
+estadisticas_equipo1['Posesión'] = weighted_average(
+    [stats_partido['Posesión'] for stats_partido in stats[equipo1].values()],
+    pesos
+)
+estadisticas_equipo1['Precisión de los pases'] = weighted_average(
+    [stats_partido['Precisión de los pases'] for stats_partido in stats[equipo1].values()],
     pesos
 )
 
@@ -562,28 +684,85 @@ estadisticas_equipo2['goles_totales'] = weighted_average(
 estadisticas_equipo1_df = pd.DataFrame([estadisticas_equipo1])
 estadisticas_equipo2_df = pd.DataFrame([estadisticas_equipo2])
 
-#prediccion equipo1
-predicciones_categoricas_equipo1= model.predict(estadisticas_equipo1_df)
-prediccion_probabilidades_equipo1= model.predict_proba(estadisticas_equipo1_df)
+# Predicciones categóricas (gano, perdio, empato)
+predicciones_categoricas_equipo1 = model_clasificacion.predict(estadisticas_equipo1_df)
+predicciones_probabilidades_equipo1 = model_clasificacion.predict_proba(estadisticas_equipo1_df)
 
-#prediccion equipo2
-predicciones_categoricas_equipo2 = model.predict(estadisticas_equipo2_df)
-prediccion_probabilidades_equipo2= model.predict_proba(estadisticas_equipo2_df)
+predicciones_categoricas_equipo2 = model_clasificacion.predict(estadisticas_equipo2_df)
+predicciones_probabilidades_equipo2 = model_clasificacion.predict_proba(estadisticas_equipo2_df)
 
+# Predicciones continuas (Tiros de esquina, goles_totales)
+predicciones_continuas_equipo1 = model_regresion.predict(estadisticas_equipo1_df)
+predicciones_continuas_equipo2 = model_regresion.predict(estadisticas_equipo2_df)
 
-print("\n-----------------PREDICCIONES-----------------")
+#Predicción
+y_pred_categoricas = model_clasificacion.predict(x_test)
+y_pred_continuas = model_regresion.predict(x_test)
+
+# Evaluación de las variables continuas (regresión)
+mse_continuas = root_mean_squared_error(y_test_continuas, y_pred_continuas)
+mse_continuas = math.pow(mse_continuas,2)
+mae_continuas = mean_absolute_error(y_test_continuas, y_pred_continuas)
+r2_continuas = r2_score(y_test_continuas, y_pred_continuas)
+
+print("\n\nEvaluacion del modelo y probabilidad de aciertos en datos de prueba\n")
+#Evaluación del modelo
+#categoricas
+accuracy_clasificacion = accuracy_score(y_test_categoricas, y_pred_categoricas)
+print(f'Precisión categoricas: {accuracy_clasificacion:.3f}')
+
+#continuas
+print(f'Error cuadrático medio (RMSE) continuas: {math.sqrt(mse_continuas):.3f}')
+print(f'Error cuadrático medio (MSE) continuas al cuadrado: {mse_continuas:.3f}')
+print(f'Error absoluto medio (MAE) continuas: {mae_continuas:.3f}')
+print(f'Coeficiente de determinación (R2) continuas: {r2_continuas:.3f}')
+
 # Mostrar las predicciones de manera organizada
-print("Predicciones y probabilidades para el equipo ",equipo_objetivo_1,":")
-for idx, variable in enumerate(y.columns):
-    if variable in ['gano', 'perdio', 'empato']:
-        print(f"{variable}: Predicción: {predicciones_categoricas_equipo1[0][idx]} (Probabilidad: {prediccion_probabilidades_equipo1[idx][1]})")
-    elif variable in ['Tiros de esquina', 'goles_totales']:
-        print(f"{variable}: Probabilidad (Tiros de esquina): {prediccion_probabilidades_equipo1[idx][1]:.2f}")
+print("\n-----------------PREDICCIONES DEL", equipo_objetivo_1,"-----------------")
+# Predicciones categóricas (gano, perdio, empato)
+for idx, variable in enumerate(y_categoricas.columns):
+    probabilidad = predicciones_probabilidades_equipo1[idx]
 
-print("Predicciones y probabilidades para el equipo ",equipo_objetivo_2,":")
-for idx, variable in enumerate(y.columns):
-    if variable in ['gano', 'perdio', 'empato']:
-        print(f"{variable}: Predicción: {predicciones_categoricas_equipo2[0][idx]} (Probabilidad: {prediccion_probabilidades_equipo2[idx][1]})")
-    elif variable in ['Tiros de esquina', 'goles_totales']:
-        print(f"{variable}: Probabilidad (Tiros de esquina): {prediccion_probabilidades_equipo2[idx][1]:.2f}")
-#--------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
+    # Comprobar cuántos elementos hay en la probabilidad
+    if len(probabilidad[0]) == 1:
+        # Solo hay una probabilidad (el modelo está seguro)
+        prob = probabilidad[0][0]
+        print(f"{variable}: Predicción segura, Probabilidad: {prob:.2f}")
+    else:
+        # Acceder a ambas probabilidades
+        prob_0 = probabilidad[0][0]  # Probabilidad de la clase
+        prob_1 = probabilidad[0][1]  # Probabilidad de la clase complementaria
+        print(f"{variable}: Predicción: {predicciones_categoricas_equipo1[0][idx]} "
+              f"(Probabilidad de clase 0: {prob_0:.2f}, Probabilidad de clase 1: {prob_1:.2f})")
+
+# Predicciones continuas (Tiros de esquina, goles_totales)
+for idx, variable in enumerate(y_continuas.columns):
+    prediccion = predicciones_continuas_equipo1[0][idx]
+    prediccion_menos_mse = prediccion - mse_continuas
+    prediccion_mas_mse = prediccion + mse_continuas
+    print(f"{variable}: Predicción: {prediccion_menos_mse:.2f} ---- {prediccion:.2f} ---- {prediccion_mas_mse:.2f}")
+
+print("\n-----------------PREDICCIONES DEL", equipo_objetivo_2,"-----------------")
+# Predicciones categóricas (gano, perdio, empato)
+for idx, variable in enumerate(y_categoricas.columns):
+    probabilidad = predicciones_probabilidades_equipo2[idx]
+
+    # Comprobar cuántos elementos hay en la probabilidad
+    if len(probabilidad[0]) == 1:
+        # Solo hay una probabilidad (el modelo está seguro)
+        prob = probabilidad[0][0]
+        print(f"{variable}: Predicción segura, Probabilidad: {prob:.2f}")
+    else:
+        # Acceder a ambas probabilidades
+        prob_0 = probabilidad[0][0]  # Probabilidad de la clase
+        prob_1 = probabilidad[0][1]  # Probabilidad de la clase complementaria
+        print(f"{variable}: Predicción: {predicciones_categoricas_equipo1[0][idx]} "
+              f"(Probabilidad de clase 0: {prob_0:.2f}, Probabilidad de clase 1: {prob_1:.2f})")
+
+# Predicciones continuas (Tiros de esquina, goles_totales)
+for idx, variable in enumerate(y_continuas.columns):
+    prediccion = predicciones_continuas_equipo2[0][idx]
+    prediccion_menos_mse = prediccion - mse_continuas
+    prediccion_mas_mse = prediccion + mse_continuas
+    print(f"{variable}: Predicción: {prediccion_menos_mse:.2f} ---- {prediccion:.2f} ---- {prediccion_mas_mse:.2f}")
+#-------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
