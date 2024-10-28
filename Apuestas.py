@@ -20,31 +20,19 @@ service =  Service(executable_path= 'chromedriver.exe')
 driver = webdriver.Chrome(service=service)
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Real Madrid"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Villareal"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Cruzeiro"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Bahía"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
 
 # Ingreso de URLs
 #num_urls = int(input("¿Cuántas URLs deseas ingresar? "))
-urls_equipo_1 = ['https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w8l5yqmr;2;/m/0c1q0;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
-'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w3rxw5kw;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
-'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w3rxnbjt;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
-'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11y5mkfnwd;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
-'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11wbz936w3;2;/m/0c1q0;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
-'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w1j0_cxv;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D'
-]
+urls_equipo_1 = []
 
-urls_equipo_2 = ['https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11w3rxnztq;2;/m/09gqx;dt;fp;1;;;',
-'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11w3rxmmgf;2;/m/09gqx;dt;fp;1;;;',
-'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11w3ry1x7c;2;/m/09gqx;dt;fp;1;;;',
-'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11w3rxmt0b;2;/m/09gqx;dt;fp;1;;;',
-'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11y5mkk286;2;/m/09gqx;dt;fp;1;;;',
-'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11y5mk9xmf;2;/m/09gqx;dt;fp;1;;;'
-]
+urls_equipo_2 = []
 
-Torneo = 1 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+Torneo = 10 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
 
 # Diccionario de torneos
 torneos_dict = {
@@ -74,13 +62,22 @@ torneos_dict = {
     "DFB Pokal": 23,
     "2. Bundesliga": 24,
     "Copa Emirates": 25,
+    "Copa Sudamericana": 26,
+    "Campeonato Paulista": 27,
+    "Copa Paulista": 28,
+    "Brasileirão Série B": 29,
+    "Copa do Nordeste": 30,
+    "Campeonato Cearense": 31,
+    "Campeonato Mineiro": 32,
+    "Supercopa de Brasil": 33,
+    "Carioca Serie A": 34,
     "Torneo desconocido": -1
     # Agrega otros torneos según necesites
 }
 
 #Alineacion de partido a predecir, para saber que numero poner, vaya al metodo obtener estadisticas en el diccionario Alineaciones
-Alineacion_local = 1
-Alineacion_visitante = 0
+Alineacion_local = 3
+Alineacion_visitante = 14
 # Alineaciones
 alineaciones_dict = {
     "4-3-3": 0,
@@ -113,6 +110,8 @@ alineaciones_dict = {
     "3-2-2-3": 27,
     "4-3-1-2": 28,
     "3-4-1-2": 29,
+    "3-1-4-2": 30,
+    "3-2-4-1": 31,
     "No encontrado":-1
 }
 
@@ -274,7 +273,7 @@ def procesar_urls(urls, equipo_objetivo):
         try:
             driver.delete_all_cookies()
             driver.get(url)
-            time.sleep(2.5)
+            time.sleep(5)
             soup = BeautifulSoup(driver.page_source, 'html.parser')
 
             stats = obtener_estadisticas(soup, equipo_objetivo)
