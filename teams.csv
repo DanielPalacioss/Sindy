@@ -1,0 +1,842 @@
+Equipo;ID
+Desconocido;-1
+Aston Villa;1
+Liverpool;2
+Manchester City;3
+Mónaco;4
+Stade Brestois;5
+Leverkusen;6
+Inter;7
+Sporting Lisboa;8
+Arsenal;9
+Barcelona;10
+Dortmund;11
+Real Madrid;12
+Benfica;13
+Juventus;14
+LOSC;15
+Feyenoord;16
+Atalanta;17
+Stuttgart;18
+PSG;19
+Celtic F. C.;20
+Sparta Praha;21
+Dinamo Zagreb;22
+Bayern;23
+Girona;24
+Milan;25
+Club Brujas;26
+Atlético Madrid;27
+PSV;28
+Bolonia;29
+Shakhtar;30
+RB Leipzig;31
+Sturm;32
+Estrella Roja;33
+RB Salzburg;34
+Young Boys;35
+Slovan Bratislava;36
+Villarreal;37
+Athletic;38
+Betis;39
+R.C.D. Mallorca;40
+Osasuna;41
+Rayo Vallecano;42
+Sevilla;43
+Celta de Vigo;44
+Alavés;45
+Real Sociedad;46
+Leganés;47
+Getafe;48
+RCD Espanyol;49
+U. D. Las Palmas;50
+Valladolid;51
+Valencia C. F.;52
+Chelsea;53
+Brighton;54
+Nottingham Forest;55
+Tottenham;56
+Brentford;57
+Fulham;58
+Bournemouth;59
+Newcastle;60
+West Ham;61
+Manchester United;62
+Leicester City;63
+Everton;64
+Crystal Palace;65
+Ipswich;66
+Wolves;67
+Southampton;68
+Napoli;69
+Fiorentina;70
+Lazio;71
+Udinese;72
+Torino;73
+Roma;74
+Empoli;75
+Parma;76
+Hellas Verona;77
+Como;78
+Cagliari;79
+Monza;80
+Venezia;81
+Lecce;82
+Genoa;83
+Anderlecht;84
+Ajax;85
+Galatasaray;86
+Frankfurt;87
+Midtjylland;88
+Bodø/Glimt;89
+Lyon;90
+Rangers;91
+Olympiacos;92
+FCSB;93
+Fenerbahçe;94
+Porto;95
+Slavia Praga;96
+Hoffenheim;97
+Viktoria Plzeň;98
+Elfsborg;99
+Ferencváros;100
+AZ;101
+Malmö;102
+Braga;103
+Beşiktaş;104
+Twente;105
+Union Saint-Gilloise;106
+PAOK;107
+Rigas FS;108
+Niza;109
+Ludogorets;110
+M. Tel-Aviv;111
+Dinamo;112
+Qarabağ;113
+Racing de Santander;114
+Levante;115
+Mirandés;116
+Real Zaragoza;117
+Castellón;118
+Granada;119
+Sporting Gijón;120
+Real Oviedo;121
+S. D. Huesca;122
+Elche C. F.;123
+Eibar;124
+Málaga;125
+Almería;126
+Albacete;127
+Córdoba;128
+Burgos;129
+Cádiz;130
+CD Eldense;131
+Racing Ferrol;132
+La Coruña;133
+Tenerife;134
+Cartagena;135
+Legia de Varsovia;136
+Lugano;137
+Guimarães;138
+Hearts;139
+Jagiellonia Białystok;140
+Rapid Viena;141
+Heidenheim;142
+Shamrock Rovers;143
+Borac;144
+Cercle Brugge;145
+Celje;146
+Pafos;147
+Molde FK;148
+Omonia;149
+Olimpija Ljubljana;150
+Noah;151
+The New Saints;152
+Gent;153
+FC Astana;154
+Víkingur;155
+HJK;156
+Djurgården;157
+København;158
+APOEL FC;159
+LASK;160
+Panathinaikos;161
+Dinamo Minsk;162
+Mladá Boleslav;163
+TSC;164
+Istanbul BB;165
+Petrocub;166
+St Gallen;167
+Larne;168
+FC Union Berlin;169
+Friburgo;170
+Werder Bremen;171
+Mönchengladbach;172
+Augsburgo;173
+Mainz 05;174
+Wolfsburg;175
+St. Pauli;176
+KSV Holstein;177
+Bochum;178
+Düsseldorf;179
+Hannover 96;180
+Paderborn;181
+Karlsruher;182
+Hamburg;183
+Hertha Berlin;184
+SV Elversberg;185
+Nürnberg;186
+1. FC Magdeburg;187
+1. FCK;188
+Greuther Fürth;189
+Colonia;190
+SV Darmstadt 98;191
+Preußen Münster;192
+SSV Ulm Fußball;193
+Schalke 04;194
+Eintracht Braunschweig;195
+Jahn Regensburg;196
+Fluminense;197
+Colo-Colo;198
+Cerro;199
+Alianza Lima;200
+São Paulo;201
+Talleres;202
+Barcelona SC;203
+Cobresal;204
+The Strongest;205
+Grêmio;206
+Huachipato;207
+Estudiantes;208
+Junior;209
+Botafogo;210
+LDU Quito;211
+Universitario;212
+Bolívar;213
+Flamengo;214
+Palestino;215
+Millonarios;216
+Palmeiras;217
+San Lorenzo;218
+Independiente del Valle;219
+Atlético Mineiro;220
+Peñarol;221
+Rosario Central;222
+Caracas;223
+River Plate;224
+Nacional;225
+Libertad;226
+Deportivo Táchira;227
+Racing Club Grasse;228
+Le Puy Foot 43 Auvergne;229
+Groupement football de l'Albanais 74;230
+Hyères Football Club;231
+Sporting Club Toulon;232
+AS Nancy Lorraine;233
+Concarneau;234
+Boulogne;235
+US Orléans;236
+Valenciennes;237
+FC Bassin d'Arcachon;238
+Union sportive Colomiers football;239
+Canet Roussillon Football Club;240
+Aviron Bayona;241
+Alberes Argelès;242
+Birmingham City;243
+Wycombe Wanderers;244
+Wrexham;245
+Mansfield;246
+Lincoln City;247
+Bolton Wanderers;248
+Huddersfield Town;249
+Barnsley;250
+Reading;251
+Stockport County;252
+Exeter City;253
+Charlton;254
+Peterborough United;255
+Rotherham;256
+Stevenage F. C.;257
+Blackpool;258
+Bristol Rovers;259
+Northampton Town;260
+Wigan;261
+Leyton Orient F.C.;262
+Cambridge;263
+Crawley Town;264
+Shrewsbury Town;265
+Burton Albion;266
+Estradense;267
+Sarriana;268
+UD Ourense;269
+Celta C;270
+Arosa;271
+Silva;272
+Noia;273
+Valladares;274
+Racing Villalbés;275
+Polvorín;276
+Viveiro CF;277
+Alondras;278
+Boiro;279
+Somozas;280
+Barbadás;281
+Betanzos;282
+Villalonga;283
+Arteixo;284
+Covadonga;285
+Real Oviedo B;286
+Sporting Gijón B;287
+Caudal;288
+Real Titánico;289
+L'Entregu;290
+Lenense;291
+Lealtad;292
+Avilés Stadium;293
+Mosconia;294
+Urraca;295
+San Martín;296
+Colunga;297
+Condal;298
+Ceares;299
+C. D. Tuilla;300
+Praviano;301
+Roces;302
+Castro;303
+Sámano;304
+Atlético Albericia;305
+Barquereño;306
+Tropezón;307
+Cultural;308
+Bezana;309
+Vimenor;310
+Torina;311
+Revilla;312
+Gama;313
+Siete Villas;314
+Colindres;315
+Barreda;316
+Atlético Mineros;317
+Monte;318
+Naval;319
+Cayón;320
+Portugalete;321
+Deusto;322
+Touring;323
+Leioa;324
+Aretxabaleta;325
+Lagun Onak;326
+Basconia;327
+Eibar Urko;328
+San Ignacio;329
+Derio;330
+Pasaia;331
+Urduliz;332
+Santurtzi;333
+Durango;334
+Padura;335
+Deportivo Alavés III;336
+Beasain;337
+San Viator;338
+Reus FCR;339
+Manresa;340
+Girona B;341
+AE Prat;342
+Tona;343
+L'Escala;344
+C. E. L'Hospitalet;345
+Montañesa;346
+San Cristóbal;347
+Europa B;348
+Peralada;349
+Mollerussa;350
+Cerdanyola del Vallès;351
+Vilassar de Mar;352
+Badalona II;353
+Atlètic Lleida;354
+Sabadell B;355
+Grama;356
+Saguntino;357
+Atzeneta;358
+Soneja;359
+Castellonense;360
+Utiel;361
+Villarreal C;362
+Castellón B;363
+Vall de Uxó;364
+La Roda;365
+La Nucía;366
+Crevillente;367
+Ontinyent 1931;368
+Jove Español;369
+Athletic Torrellano;370
+Atlético Levante;371
+Patacona;372
+CF Benidorm;373
+Rayo Ibense;374
+RSD Alcalá;375
+Trival Valderas;376
+CUC Villalba;377
+Rayo Vallecano B;378
+Aravaca;379
+Leganés B;380
+CDF Tres Cantos;381
+Alcorcón B;382
+Las Rozas;383
+Villaverde Boetticher;384
+Torrejón;385
+Cala Pozuelo;386
+Galapagar;387
+Carabanchel;388
+Canillas;389
+Alcobendas Sport;390
+Parla;391
+El Álamo;392
+Atlético Astorga;393
+Becerril;394
+Arandina;395
+La Virgen del Camino;396
+Villaralbo;397
+Palencia CF;398
+Júpiter;399
+Mojados;400
+Atlético Tordesillas;401
+UD Santa Marta;402
+Burgos Promesas;403
+Almazán;404
+Cristo Atlético;405
+Mirandés B;406
+Atlético Mansillés;407
+Ciudad Rodrigo;408
+Briviesca;409
+Bembibre;410
+Laguna de Duero;411
+Atlético Malagueño;412
+Real Jaén;413
+Huétor Tájar;414
+Torre del Mar;415
+Huétor Vega;416
+Torreperogil;417
+Motril;418
+El Palo;419
+Martos;420
+Mijas Las Lagunas;421
+Mancha Real;422
+Arenas Armilla;423
+El Ejido;424
+Ciudad de Torredonjimeno;425
+Marbellí;426
+CP Almería;427
+Atlético Porcuna;428
+Málaga City;429
+Ciudad de Lucena;430
+Puente Genil;431
+Utrera;432
+CA Central;433
+Bollullos;434
+Ceuta B;435
+San Roque;436
+Córdoba B;437
+Cartaya;438
+Conil;439
+Coria CF;440
+C.D. Pozoblanco;441
+Sevilla C;442
+Atlético Espeleño;443
+Tomares;444
+Inter Sevilla;445
+Atlético Onubense;446
+La Palma;447
+Penya Independent;448
+Poblense;449
+Santanyí;450
+Felanitx;451
+Porreres;452
+Platges de Calvià;453
+Formentera;454
+Manacor;455
+Constancia;456
+Binissalem;457
+Llosetense;458
+Collerense;459
+Mercadal;460
+Portmany;461
+Campos;462
+Alcúdia;463
+PE Sant Jordi;464
+Migjorn;465
+Villa de Santa Brígida;466
+Arucas;467
+Tamaraceite;468
+Las Palmas Atlético;469
+Marino;470
+UD San Fernando;471
+Lanzarote;472
+Panadería Pulido;473
+San Miguel;474
+Ibarra;475
+San Bartolomé;476
+Santa Úrsula;477
+Unión Viera;478
+Llanos Aridane;479
+Buzanada;480
+Herbania;481
+Mensajero;482
+Estrella;483
+Cieza;484
+Unión Molinense;485
+EG El Palmar;486
+Atlético Pulpileño;487
+Lorca Deportiva CF;488
+Águilas FC B;489
+Bullense;490
+Santomera;491
+UCAM Murcia B;492
+UD Caravaca;493
+Cartagena II;494
+Bala Azul;495
+Muleño;496
+Balsicas Atlético;497
+Real Murcia B;498
+Minerva;499
+Plus Ultra;500
+Alcantarilla FC;501
+Badajoz;502
+Jaraíz;503
+Llerenense;504
+Diocesano;505
+Extremadura;506
+Azuaga;507
+Jerez;508
+Arroyo;509
+Trujillo;510
+Calamonte;511
+Santa Amalia;512
+Villafranca;513
+Moralo;514
+UD Montijo;515
+Castuera;516
+Pueblonuevo;517
+Olivenza;518
+Puebla Calzada;519
+Mutilvera;520
+Egüés;521
+Peña Sport;522
+Pamplona;523
+Huarte;524
+Bidezarra;525
+Chantrea;526
+AD San Juan;527
+CA Cirbonero;528
+Cortes;529
+Beti Kozkor;530
+Ardoi;531
+Atlético Artajonés;532
+Rotxapea;533
+Burladés;534
+Cantolagua;535
+Beti Onak;536
+Garés;537
+Náxara;538
+UD Logroñés B;539
+La Calzada;540
+Varea;541
+Arnedo;542
+Yagüe;543
+Oyonesa;544
+Calahorra B;545
+Tedeón;546
+Peña Balsamaiso;547
+Autol;548
+Agoncillo;549
+Comillas;550
+Berceo;551
+Haro Deportivo;552
+River Ebro;553
+Casalarreina;554
+Vianés;555
+Binéfar;556
+Caspe;557
+Andorra C. F.;558
+C. D. Ebro;559
+Huesca B;560
+Cuarte;561
+CF Épila;562
+Fraga;563
+CDJ Tamarite;564
+Almudévar;565
+Atlético Monzón;566
+La Almunia;567
+Calamocha;568
+Utrillas;569
+Zuera;570
+Fuentes;571
+Belchite 97;572
+Brea;573
+Toledo;574
+Quintanar del Rey;575
+Villarrubia;576
+Villacañas;577
+Albacete B;578
+Tarancón;579
+Calvo Sotelo;580
+Socuéllamos;581
+Villarrobledo;582
+Huracán Balazote;583
+Azuqueca;584
+Pedroñeras;585
+Cazalegas;586
+Manchego Ciudad Real;587
+Valdepeñas;588
+Manzanares;589
+Noblejas;590
+Marchamalo;591
+Pisa;592
+Sassuolo;593
+Spezia;594
+Cremonese;595
+Palermo;596
+Juve Stabia;597
+Sampdoria;598
+Cesena Football Club;599
+Brescia;600
+Bari;601
+Unione Sportiva Catanzaro 1929;602
+Mantova 1911;603
+FC Südtirol;604
+Carrarese Calcio 1908;605
+Associazione Calcio Reggiana 1919;606
+Salernitana;607
+Modena;608
+Cosenza Calcio;609
+Cittadella;610
+Frosinone;611
+Energie Cottbus;612
+SV Sandhausen;613
+Arminia;614
+Dynamo Dresden;615
+Saarbrücken;616
+Wehen Wiesbaden;617
+Viktoria Köln;618
+Erzgebirge Aue;619
+Alemannia Aachen;620
+Waldhof Mannheim;621
+FC Ingolstadt;622
+B. Dortmund II;623
+SC Verl;624
+1860 Múnich;625
+Hansa Rostock;626
+Stuttgart II;627
+Rot-Weiss Essen;628
+Hannover 96 II;629
+Unterhaching;630
+VfL Osnabrück;631
+Medellín;632
+Always Ready;633
+Defensa y Justicia;634
+César Vallejo;635
+Cruzeiro;636
+U. Católica;637
+Alianza;638
+U. La Calera;639
+Belgrano;640
+Internacional;641
+Delfín;642
+Real Tomayapo;643
+Fortaleza;644
+Boca Juniors;645
+Nacional Potosí;646
+Sportivo Trinidense;647
+Sportivo Ameliano;648
+Paranaense;649
+Danubio;650
+Rayo Zuliano;651
+Corinthians;652
+Racing;653
+Argentinos Jrs.;654
+Lanús;655
+Cuiabá;656
+Deportivo Garcilaso;657
+Metropolitanos FC;658
+Bragantino;659
+Coquimbo Unido;660
+Sportivo Luqueño;661
+Santos;662
+Portuguesa;663
+Santo André;664
+Ituano;665
+Ponte Preta;666
+Água Santa;667
+Guarani;668
+Associação Atlética Internacional;669
+Mirassol;670
+Novorizontino;671
+São Bernardo;672
+Botafogo RP;673
+Esporte Clube XV de Novembro (Jaú);674
+Clube Atlético Votuporanguense;675
+Vila Operária Clube Esporte Mariano;676
+Mirassol B;677
+Grêmio Desportivo Prudente;678
+Sport Recife;679
+Ceará;680
+Vila Nova;681
+América-MG;682
+Goiás;683
+Coritiba;684
+Operário;685
+Avaí;686
+Amazonas;687
+Chapecoense;688
+Paysandu;689
+CRB;690
+Brusque;691
+Botafogo PB;692
+Vitória;693
+Maranhão Atlético Clube;694
+América RN;695
+Ríver AC;696
+Bahía;697
+Altos;698
+Náutico;699
+ABC;700
+Juazeirense;701
+Treze;702
+Itabaiana;703
+Calcio Padova;704
+Vicenza;705
+Alcione Milano;706
+Feralpisalò;707
+Atalanta Bergamasca Calcio U23;708
+Trento;709
+Associazione Calcio Renate;710
+Calcio Lecco 1912;711
+Football Club Lumezzane;712
+Virtus Verona;713
+Novara;714
+Unione Calcio AlbinoLeffe;715
+Calcio Caldiero Terme;716
+Pro Patria;717
+Associazione Sportiva Giana Erminio;718
+Unione Sportiva Pergolettese 1932;719
+Pro Vercelli;720
+Football Club Arzignano Valchiampo;721
+Union Clodiense Chioggia;722
+Unione Sportiva Triestina Calcio 1918;723
+Pescara;724
+Torres;725
+Ternana;726
+Virtus Entella;727
+Società Sportiva Arezzo;728
+Campobasso Football Club;729
+Vis Pesaro dal 1898;730
+Unione Sportiva Pianese;731
+Rimini Football Club;732
+Associazione Sportiva Gubbio 1910;733
+Associazione Sportiva Pineto Calcio;734
+Athletic Carpi;735
+Perugia;736
+Lucchese 1905;737
+Unione Sportiva Città di Pontedera;738
+Unione Sportiva Sestri Levante 1919;739
+Ascoli;740
+Milan Futuro;741
+SPAL;742
+Football Club Legnago Salus;743
+Benevento;744
+Società Sportiva Audace Cerignola;745
+Avellino;746
+Società Sportiva Monopoli 1966;747
+Potenza Calcio;748
+Giugliano Calcio 1928;749
+Catania;750
+Sorrento Calcio 1945;751
+Trapani 1905;752
+AZ Picerno;753
+Crotone;754
+Cavese 1919;755
+Team Altamura;756
+Turris;757
+Casertana Football Club;758
+Foggia Calcio;759
+Latina;760
+Associazioni Calcio Rinascita Messina;761
+Taranto Football Club 1927;762
+Juventus Sub'23;763
+Marsella;764
+Lens;765
+Reims;766
+Racing de Estrasburgo;767
+Rennes;768
+Nantes;769
+Auxerre;770
+Angers;771
+Toulouse;772
+Saint-Étienne;773
+Le Havre;774
+Montpellier;775
+Atlético Goianiense;776
+Vasco da Gama;777
+Criciúma;778
+Juventude;779
+Newell;800
+Tombense;801
+CSA;802
+Sampaio;803
+Águia de Marabá;804
+Tigre;805
+Tolima;806
+Puerto Cabello;807
+Águilas Doradas;808
+Tacuary;809
+Unionistas;810
+Antwerp;811
+América;812
+Vissel;813
+AD Ceuta;814
+UD San Pedro;815
+Amorebieta;816
+Sestao River;817
+Turégano;818
+Gernika;819
+Algar;820
+FK Mačva Šabac;801
+FK Mladost Novi Sad;802
+FK Javor;803
+OFK Vršac;804
+Radnik Surdulica;805
+FK Grafičar Beograd;806
+Borac Čačak;807
+Voždovac;808
+Fudbalski Klub Smederevo;809
+Radnički Sr. Mitrovica;810
+FK Indija;811
+Trayal Kruševac;812
+Fudbalski Klub Zemun Belgrado;813
+FK Sloboda Užice;814
+FK Dubočica;815
+FK Sloven Ruma;816
+Leeds;817
+Sheffield United;818
+Burnley;819
+Sunderland AFC;820
+Watford;821
+Middlesbrough;822
+Albion;823
+Blackburn Rovers;824
+Millwall;825
+Norwich;826
+Swansea;827
+Bristol City;828
+Sheffield Wednesday;829
+Stoke City;830
+Derby County;831
+Luton;832
+Coventry City;833
+Oxford United;834
+Preston;835
+Plymouth Argyle;836
+Cardiff;837
+Hull City;838
+QPR;839
+Portsmouth;840

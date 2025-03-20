@@ -7,45 +7,67 @@ import time
 import pandas as pd
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import ExtraTreesClassifier, ExtraTreesRegressor
-from sklearn.multioutput import MultiOutputRegressor
-from sklearn.metrics import root_mean_squared_error, mean_absolute_error, r2_score
-from sklearn.metrics import accuracy_score
+from sklearn.multioutput import MultiOutputRegressor, MultiOutputClassifier
+from sklearn.metrics import root_mean_squared_error, mean_absolute_error, r2_score, accuracy_score
+from sklearn.preprocessing import LabelEncoder
 import math
 import pandas as pd
 import os
+from RecoleccionEquipos import EquipmentCollection
+from selenium.webdriver.chrome.options import Options
+
+options = Options()
+options.add_argument("start-maximized")
+options.add_argument("disable-blink-features=AutomationControlled")  # Evita detección
+options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36")
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_experimental_option("useAutomationExtension", False)
+options.add_argument("--disable-extensions")  # Sin extensiones
+options.add_argument("--disable-popup-blocking")  # Bloquea pop-ups
+options.add_argument("--disable-gpu")  # Mejora rendimiento en Windows
+options.add_argument("--disable-dev-shm-usage")  # Previene problemas de memoria
 
 
 # Configuración de Selenium con ChromeDriver
 service =  Service(executable_path= 'chromedriver.exe')
-driver = webdriver.Chrome(service=service)
+driver = webdriver.Chrome(service=service, options=options)
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Real Madrid"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Villareal"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "FC Union Berlin"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Mönchengladbach"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
 
 # Ingreso de URLs
 #num_urls = int(input("¿Cuántas URLs deseas ingresar? "))
-urls_equipo_1 = ['https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w8l5yqmr;2;/m/0c1q0;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
-'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w3rxw5kw;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
-'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w3rxnbjt;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
-'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11y5mkfnwd;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
-'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11wbz936w3;2;/m/0c1q0;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D',
-'https://www.google.com/search?q=Real+Madrid+Club+de+F%C3%BAtbol&rlz=1C1ALOY_esCO1035CO1035&oq=Real+ma&gs_lcrp=EgZjaHJvbWUqEAgAEEUYJxg4GDsYgAQYigUyEAgAEEUYJxg4GDsYgAQYigUyBggBEEUYOzIOCAIQRRgnGDsYgAQYigUyBggDEEUYOTIKCAQQABixAxiABDIGCAUQABgDMgYIBhBFGDwyBggHEEUYPNIBCDIxNjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sie=m;/g/11w1j0_cxv;2;/m/09gqx;dt;fp;1;;;&wptab=si:ACC90nzGOv0hOuVipoI1QtmCZV-chuqv391GCsKasZDU0KidW4lj7Tf6R_yBkXdJOw36Ekfq3ajaAiW9ybSeCd_pFvY6XeQBLX5jITNkAxM_sNo-gXd8jc8gc9frd98nYzp35r8hnmmXZnfuEuDdvOi90_B1E8-sNQRYtdAU0L8mnvSU7qj2ldn9e8difjiUJudpPoAgzDdTzKOFTnJZGJM4qXy-HcwCArAzQBKkKMzmUpD8J5PlYi4%3D'
-]
+urls_equipo_1 = ['https://www.google.com/search?rlz=1C1ALOY_esCO1035CO1035&sca_esv=0c814c2424608e41&cs=0&sxsrf=AHTn8zprpX-rvaHnVQLJF3gStDOVgZDvNA:1739593414541&q=1.+Fu%C3%9Fballclub+Union+Berlin&stick=H4sIAAAAAAAAAONgVuLSz9U3MDIzKbMoesRoyi3w8sc9YSmdSWtOXmNU4-IKzsgvd80rySypFJLgYoOy-KR4uJC08SxilTHUU3ArPTw_KTEnJzmnNEkhNC8zP0_BKbUoJzMPAHwARgJlAAAA&ved=2ahUKEwiD-oW86sSLAxUeQzABHRBYBKYQukt6BAgBEAo#sie=m;/g/11w4bx42ys;2;/m/037169;dt;fp;1;;;&wptab=si:APYL9buA3KKcsw3wGt-6FjQ-zfm_3HpmSoBelfkO9MczsxsNbSvfXD13dQHjEy9zxNMNCOtEtfLETNyn-36sazRfBea35jMUr18heGeCzeWGIgYpe1IIdZmsCkHPYvcNz4H7hlLYbRK3Uk4-73EHUDZvODASG8jR1bYNAan57cZv_7LReXR80XfGYqR6TfWLBSLhW5POJzwZbyy-_AJ5gtZ01D9ll9gYsrlFVaAFgcQqwZOe4D8lLpU%3D',
+'https://www.google.com/search?rlz=1C1ALOY_esCO1035CO1035&sca_esv=0c814c2424608e41&cs=0&sxsrf=AHTn8zprpX-rvaHnVQLJF3gStDOVgZDvNA:1739593414541&q=1.+Fu%C3%9Fballclub+Union+Berlin&stick=H4sIAAAAAAAAAONgVuLSz9U3MDIzKbMoesRoyi3w8sc9YSmdSWtOXmNU4-IKzsgvd80rySypFJLgYoOy-KR4uJC08SxilTHUU3ArPTw_KTEnJzmnNEkhNC8zP0_BKbUoJzMPAHwARgJlAAAA&ved=2ahUKEwiD-oW86sSLAxUeQzABHRBYBKYQukt6BAgBEAo#sie=m;/g/11w4bwlm53;2;/m/037169;dt;fp;1;;;&wptab=si:APYL9buA3KKcsw3wGt-6FjQ-zfm_3HpmSoBelfkO9MczsxsNbSvfXD13dQHjEy9zxNMNCOtEtfLETNyn-36sazRfBea35jMUr18heGeCzeWGIgYpe1IIdZmsCkHPYvcNz4H7hlLYbRK3Uk4-73EHUDZvODASG8jR1bYNAan57cZv_7LReXR80XfGYqR6TfWLBSLhW5POJzwZbyy-_AJ5gtZ01D9ll9gYsrlFVaAFgcQqwZOe4D8lLpU%3D',
+'https://www.google.com/search?rlz=1C1ALOY_esCO1035CO1035&sca_esv=0c814c2424608e41&cs=0&sxsrf=AHTn8zprpX-rvaHnVQLJF3gStDOVgZDvNA:1739593414541&q=1.+Fu%C3%9Fballclub+Union+Berlin&stick=H4sIAAAAAAAAAONgVuLSz9U3MDIzKbMoesRoyi3w8sc9YSmdSWtOXmNU4-IKzsgvd80rySypFJLgYoOy-KR4uJC08SxilTHUU3ArPTw_KTEnJzmnNEkhNC8zP0_BKbUoJzMPAHwARgJlAAAA&ved=2ahUKEwiD-oW86sSLAxUeQzABHRBYBKYQukt6BAgBEAo#sie=m;/g/11w4bxd1hd;2;/m/037169;dt;fp;1;;;&wptab=si:APYL9buA3KKcsw3wGt-6FjQ-zfm_3HpmSoBelfkO9MczsxsNbSvfXD13dQHjEy9zxNMNCOtEtfLETNyn-36sazRfBea35jMUr18heGeCzeWGIgYpe1IIdZmsCkHPYvcNz4H7hlLYbRK3Uk4-73EHUDZvODASG8jR1bYNAan57cZv_7LReXR80XfGYqR6TfWLBSLhW5POJzwZbyy-_AJ5gtZ01D9ll9gYsrlFVaAFgcQqwZOe4D8lLpU%3D',
+'https://www.google.com/search?rlz=1C1ALOY_esCO1035CO1035&sca_esv=0c814c2424608e41&cs=0&sxsrf=AHTn8zprpX-rvaHnVQLJF3gStDOVgZDvNA:1739593414541&q=1.+Fu%C3%9Fballclub+Union+Berlin&stick=H4sIAAAAAAAAAONgVuLSz9U3MDIzKbMoesRoyi3w8sc9YSmdSWtOXmNU4-IKzsgvd80rySypFJLgYoOy-KR4uJC08SxilTHUU3ArPTw_KTEnJzmnNEkhNC8zP0_BKbUoJzMPAHwARgJlAAAA&ved=2ahUKEwiD-oW86sSLAxUeQzABHRBYBKYQukt6BAgBEAo#sie=m;/g/11w4bx4lqt;2;/m/037169;dt;fp;1;;;&wptab=si:APYL9buA3KKcsw3wGt-6FjQ-zfm_3HpmSoBelfkO9MczsxsNbSvfXD13dQHjEy9zxNMNCOtEtfLETNyn-36sazRfBea35jMUr18heGeCzeWGIgYpe1IIdZmsCkHPYvcNz4H7hlLYbRK3Uk4-73EHUDZvODASG8jR1bYNAan57cZv_7LReXR80XfGYqR6TfWLBSLhW5POJzwZbyy-_AJ5gtZ01D9ll9gYsrlFVaAFgcQqwZOe4D8lLpU%3D',
+'https://www.google.com/search?rlz=1C1ALOY_esCO1035CO1035&sca_esv=0c814c2424608e41&cs=0&sxsrf=AHTn8zprpX-rvaHnVQLJF3gStDOVgZDvNA:1739593414541&q=1.+Fu%C3%9Fballclub+Union+Berlin&stick=H4sIAAAAAAAAAONgVuLSz9U3MDIzKbMoesRoyi3w8sc9YSmdSWtOXmNU4-IKzsgvd80rySypFJLgYoOy-KR4uJC08SxilTHUU3ArPTw_KTEnJzmnNEkhNC8zP0_BKbUoJzMPAHwARgJlAAAA&ved=2ahUKEwiD-oW86sSLAxUeQzABHRBYBKYQukt6BAgBEAo#sie=m;/g/11y668pk5r;2;/m/037169;dt;fp;1;;;&wptab=si:APYL9buA3KKcsw3wGt-6FjQ-zfm_3HpmSoBelfkO9MczsxsNbSvfXD13dQHjEy9zxNMNCOtEtfLETNyn-36sazRfBea35jMUr18heGeCzeWGIgYpe1IIdZmsCkHPYvcNz4H7hlLYbRK3Uk4-73EHUDZvODASG8jR1bYNAan57cZv_7LReXR80XfGYqR6TfWLBSLhW5POJzwZbyy-_AJ5gtZ01D9ll9gYsrlFVaAFgcQqwZOe4D8lLpU%3D',
+'https://www.google.com/search?rlz=1C1ALOY_esCO1035CO1035&sca_esv=0c814c2424608e41&cs=0&sxsrf=AHTn8zprpX-rvaHnVQLJF3gStDOVgZDvNA:1739593414541&q=1.+Fu%C3%9Fballclub+Union+Berlin&stick=H4sIAAAAAAAAAONgVuLSz9U3MDIzKbMoesRoyi3w8sc9YSmdSWtOXmNU4-IKzsgvd80rySypFJLgYoOy-KR4uJC08SxilTHUU3ArPTw_KTEnJzmnNEkhNC8zP0_BKbUoJzMPAHwARgJlAAAA&ved=2ahUKEwiD-oW86sSLAxUeQzABHRBYBKYQukt6BAgBEAo#sie=m;/g/11w4bx676q;2;/m/037169;dt;fp;1;;;&wptab=si:APYL9buA3KKcsw3wGt-6FjQ-zfm_3HpmSoBelfkO9MczsxsNbSvfXD13dQHjEy9zxNMNCOtEtfLETNyn-36sazRfBea35jMUr18heGeCzeWGIgYpe1IIdZmsCkHPYvcNz4H7hlLYbRK3Uk4-73EHUDZvODASG8jR1bYNAan57cZv_7LReXR80XfGYqR6TfWLBSLhW5POJzwZbyy-_AJ5gtZ01D9ll9gYsrlFVaAFgcQqwZOe4D8lLpU%3D']
 
-urls_equipo_2 = ['https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11w3rxnztq;2;/m/09gqx;dt;fp;1;;;',
-'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11w3rxmmgf;2;/m/09gqx;dt;fp;1;;;',
-'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11w3ry1x7c;2;/m/09gqx;dt;fp;1;;;',
-'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11w3rxmt0b;2;/m/09gqx;dt;fp;1;;;',
-'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11y5mkk286;2;/m/09gqx;dt;fp;1;;;',
-'https://www.google.com/search?q=partidos+de+villarreal+club+de+f%C3%BAtbol&sca_esv=7c704608065062ea&rlz=1C1ALOY_esCO1035CO1035&sxsrf=ADLYWIKzJG6YZgjpUnG4WZIHRxhHJo_Svw%3A1728091672283&ei=GJYAZ-CGEZeFwbkPn63P-QU&oq=partidos+de+villare&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3BhcnRpZG9zIGRlIHZpbGxhcmUqAggAMgwQIxixAhgnGEYY_QEyDRAAGIAEGLEDGIMBGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyBxAAGIAEGAoyFhAAGLECGEYY_QEYlwUYjAUY3QTYAQFIsy9QzhFYjCNwA3gBkAEBmAHIAaABqxWqAQYwLjE0LjG4AQPIAQD4AQGYAg2gAvMOwgIIEAAYgAQYsQPCAgsQABiABBixAxiDAcICBRAAGIAEwgIPECMYgAQYJxiKBRhGGP0BwgIKECMYgAQYJxiKBcICDhAAGIAEGLEDGIMBGIoFwgIZEAAYgAQYigUYRhj9ARiXBRiMBRjdBNgBAcICDRAAGIAEGLEDGBQYhwLCAgQQIxgnwgIEEAAYA8ICChAAGIAEGBQYhwKYAwC6BgYIARABGBOSBwUzLjguMqAHmqYB&sclient=gws-wiz-serp#sie=m;/g/11y5mk9xmf;2;/m/09gqx;dt;fp;1;;;'
-]
+urls_equipo_2 = ['https://www.google.com/search?q=monchengladbach&cs=1&rlz=1C1ALOY_esCO1035CO1035&sca_esv=88e79802ecab127d&sxsrf=AHTn8zosk8lCmcK5SXs1pIPwbUkMdfnidQ%3A1739595201447&ei=wR2wZ8btGsKIwbkP0KTR2AY&oq=Mo&gs_lp=Egxnd3Mtd2l6LXNlcnAiAk1vKgIIADIKECMYgAQYJxiKBTIKECMYgAQYJxiKBTIKECMYgAQYJxiKBTINEC4YgAQYQxjUAhiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEAAYgAQYQxiKBUiVIVCyB1jnF3AGeAGQAQCYAfIBoAGbB6oBBTAuNC4xuAEDyAEA-AEBmAILoALhB6gCEsICChAAGLADGNYEGEfCAg0QABiABBiwAxhDGIoFwgIOEAAYsAMY5AIY1gTYAQHCAhYQLhiABBiwAxhDGNQCGMgDGIoF2AEBwgITEC4YgAQYsAMYQxjIAxiKBdgBAcICDRAuGIAEGLEDGEMYigXCAgcQLhgnGOoCwgIHECMYJxjqAsICGRAuGIAEGEMY1AIYtAIYyAMYigUY6gLYAQHCAhYQLhiABBhDGLQCGMgDGIoFGOoC2AEBmAMJ8QXdlz7gHDvraogGAZAGE7oGBggBEAEYCZIHBTYuMy4yoAecbA&sclient=gws-wiz-serp#sie=m;/g/11w22l2lkb;2;/m/037169;dt;fp;1;;;&wptab=si:APYL9bsdvePlUvFpoma5fMvhOQ6bvXM76DvGLQOhfQo6Zp3kxNoH6BKiFU3NUK-DDCMYUl50O50je6Y_pgRm3IpRsSlYbsKls-YEcu9yYUL2YnmVQ4YudYQ4Y_xxEGvPHR77C-QcPNH5WvlitVIR5ZYdbAZVytPSnz-zltRW9tz2gzo1dV3wzw3zrTvBW3PCyF40Z-2aj2C6u7-PTss4EjohhfnInLg-Dm2l2W2hSWID6ZiDxhAGV9apNGY8KGAkwvTS1SabARta',
+'https://www.google.com/search?q=monchengladbach&cs=1&rlz=1C1ALOY_esCO1035CO1035&sca_esv=88e79802ecab127d&sxsrf=AHTn8zosk8lCmcK5SXs1pIPwbUkMdfnidQ%3A1739595201447&ei=wR2wZ8btGsKIwbkP0KTR2AY&oq=Mo&gs_lp=Egxnd3Mtd2l6LXNlcnAiAk1vKgIIADIKECMYgAQYJxiKBTIKECMYgAQYJxiKBTIKECMYgAQYJxiKBTINEC4YgAQYQxjUAhiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEAAYgAQYQxiKBUiVIVCyB1jnF3AGeAGQAQCYAfIBoAGbB6oBBTAuNC4xuAEDyAEA-AEBmAILoALhB6gCEsICChAAGLADGNYEGEfCAg0QABiABBiwAxhDGIoFwgIOEAAYsAMY5AIY1gTYAQHCAhYQLhiABBiwAxhDGNQCGMgDGIoF2AEBwgITEC4YgAQYsAMYQxjIAxiKBdgBAcICDRAuGIAEGLEDGEMYigXCAgcQLhgnGOoCwgIHECMYJxjqAsICGRAuGIAEGEMY1AIYtAIYyAMYigUY6gLYAQHCAhYQLhiABBhDGLQCGMgDGIoFGOoC2AEBmAMJ8QXdlz7gHDvraogGAZAGE7oGBggBEAEYCZIHBTYuMy4yoAecbA&sclient=gws-wiz-serp#sie=m;/g/11y668vlr4;2;/m/037169;dt;fp;1;;;&wptab=si:APYL9bsdvePlUvFpoma5fMvhOQ6bvXM76DvGLQOhfQo6Zp3kxNoH6BKiFU3NUK-DDCMYUl50O50je6Y_pgRm3IpRsSlYbsKls-YEcu9yYUL2YnmVQ4YudYQ4Y_xxEGvPHR77C-QcPNH5WvlitVIR5ZYdbAZVytPSnz-zltRW9tz2gzo1dV3wzw3zrTvBW3PCyF40Z-2aj2C6u7-PTss4EjohhfnInLg-Dm2l2W2hSWID6ZiDxhAGV9apNGY8KGAkwvTS1SabARta',
+'https://www.google.com/search?q=monchengladbach&cs=1&rlz=1C1ALOY_esCO1035CO1035&sca_esv=88e79802ecab127d&sxsrf=AHTn8zosk8lCmcK5SXs1pIPwbUkMdfnidQ%3A1739595201447&ei=wR2wZ8btGsKIwbkP0KTR2AY&oq=Mo&gs_lp=Egxnd3Mtd2l6LXNlcnAiAk1vKgIIADIKECMYgAQYJxiKBTIKECMYgAQYJxiKBTIKECMYgAQYJxiKBTINEC4YgAQYQxjUAhiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEAAYgAQYQxiKBUiVIVCyB1jnF3AGeAGQAQCYAfIBoAGbB6oBBTAuNC4xuAEDyAEA-AEBmAILoALhB6gCEsICChAAGLADGNYEGEfCAg0QABiABBiwAxhDGIoFwgIOEAAYsAMY5AIY1gTYAQHCAhYQLhiABBiwAxhDGNQCGMgDGIoF2AEBwgITEC4YgAQYsAMYQxjIAxiKBdgBAcICDRAuGIAEGLEDGEMYigXCAgcQLhgnGOoCwgIHECMYJxjqAsICGRAuGIAEGEMY1AIYtAIYyAMYigUY6gLYAQHCAhYQLhiABBhDGLQCGMgDGIoFGOoC2AEBmAMJ8QXdlz7gHDvraogGAZAGE7oGBggBEAEYCZIHBTYuMy4yoAecbA&sclient=gws-wiz-serp#sie=m;/g/11w22kc793;2;/m/037169;dt;fp;1;;;&wptab=si:APYL9bsdvePlUvFpoma5fMvhOQ6bvXM76DvGLQOhfQo6Zp3kxNoH6BKiFU3NUK-DDCMYUl50O50je6Y_pgRm3IpRsSlYbsKls-YEcu9yYUL2YnmVQ4YudYQ4Y_xxEGvPHR77C-QcPNH5WvlitVIR5ZYdbAZVytPSnz-zltRW9tz2gzo1dV3wzw3zrTvBW3PCyF40Z-2aj2C6u7-PTss4EjohhfnInLg-Dm2l2W2hSWID6ZiDxhAGV9apNGY8KGAkwvTS1SabARta',
+'https://www.google.com/search?q=monchengladbach&cs=1&rlz=1C1ALOY_esCO1035CO1035&sca_esv=88e79802ecab127d&sxsrf=AHTn8zosk8lCmcK5SXs1pIPwbUkMdfnidQ%3A1739595201447&ei=wR2wZ8btGsKIwbkP0KTR2AY&oq=Mo&gs_lp=Egxnd3Mtd2l6LXNlcnAiAk1vKgIIADIKECMYgAQYJxiKBTIKECMYgAQYJxiKBTIKECMYgAQYJxiKBTINEC4YgAQYQxjUAhiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEAAYgAQYQxiKBUiVIVCyB1jnF3AGeAGQAQCYAfIBoAGbB6oBBTAuNC4xuAEDyAEA-AEBmAILoALhB6gCEsICChAAGLADGNYEGEfCAg0QABiABBiwAxhDGIoFwgIOEAAYsAMY5AIY1gTYAQHCAhYQLhiABBiwAxhDGNQCGMgDGIoF2AEBwgITEC4YgAQYsAMYQxjIAxiKBdgBAcICDRAuGIAEGLEDGEMYigXCAgcQLhgnGOoCwgIHECMYJxjqAsICGRAuGIAEGEMY1AIYtAIYyAMYigUY6gLYAQHCAhYQLhiABBhDGLQCGMgDGIoFGOoC2AEBmAMJ8QXdlz7gHDvraogGAZAGE7oGBggBEAEYCZIHBTYuMy4yoAecbA&sclient=gws-wiz-serp#sie=m;/g/11w4bw_wmv;2;/m/037169;dt;fp;1;;;&wptab=si:APYL9bsdvePlUvFpoma5fMvhOQ6bvXM76DvGLQOhfQo6Zp3kxNoH6BKiFU3NUK-DDCMYUl50O50je6Y_pgRm3IpRsSlYbsKls-YEcu9yYUL2YnmVQ4YudYQ4Y_xxEGvPHR77C-QcPNH5WvlitVIR5ZYdbAZVytPSnz-zltRW9tz2gzo1dV3wzw3zrTvBW3PCyF40Z-2aj2C6u7-PTss4EjohhfnInLg-Dm2l2W2hSWID6ZiDxhAGV9apNGY8KGAkwvTS1SabARta',
+'https://www.google.com/search?q=monchengladbach&cs=1&rlz=1C1ALOY_esCO1035CO1035&sca_esv=88e79802ecab127d&sxsrf=AHTn8zosk8lCmcK5SXs1pIPwbUkMdfnidQ%3A1739595201447&ei=wR2wZ8btGsKIwbkP0KTR2AY&oq=Mo&gs_lp=Egxnd3Mtd2l6LXNlcnAiAk1vKgIIADIKECMYgAQYJxiKBTIKECMYgAQYJxiKBTIKECMYgAQYJxiKBTINEC4YgAQYQxjUAhiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEAAYgAQYQxiKBUiVIVCyB1jnF3AGeAGQAQCYAfIBoAGbB6oBBTAuNC4xuAEDyAEA-AEBmAILoALhB6gCEsICChAAGLADGNYEGEfCAg0QABiABBiwAxhDGIoFwgIOEAAYsAMY5AIY1gTYAQHCAhYQLhiABBiwAxhDGNQCGMgDGIoF2AEBwgITEC4YgAQYsAMYQxjIAxiKBdgBAcICDRAuGIAEGLEDGEMYigXCAgcQLhgnGOoCwgIHECMYJxjqAsICGRAuGIAEGEMY1AIYtAIYyAMYigUY6gLYAQHCAhYQLhiABBhDGLQCGMgDGIoFGOoC2AEBmAMJ8QXdlz7gHDvraogGAZAGE7oGBggBEAEYCZIHBTYuMy4yoAecbA&sclient=gws-wiz-serp#sie=m;/g/11w22kdhyd;2;/m/037169;dt;fp;1;;;&wptab=si:APYL9bsdvePlUvFpoma5fMvhOQ6bvXM76DvGLQOhfQo6Zp3kxNoH6BKiFU3NUK-DDCMYUl50O50je6Y_pgRm3IpRsSlYbsKls-YEcu9yYUL2YnmVQ4YudYQ4Y_xxEGvPHR77C-QcPNH5WvlitVIR5ZYdbAZVytPSnz-zltRW9tz2gzo1dV3wzw3zrTvBW3PCyF40Z-2aj2C6u7-PTss4EjohhfnInLg-Dm2l2W2hSWID6ZiDxhAGV9apNGY8KGAkwvTS1SabARta',
+'https://www.google.com/search?q=monchengladbach&cs=1&rlz=1C1ALOY_esCO1035CO1035&sca_esv=88e79802ecab127d&sxsrf=AHTn8zosk8lCmcK5SXs1pIPwbUkMdfnidQ%3A1739595201447&ei=wR2wZ8btGsKIwbkP0KTR2AY&oq=Mo&gs_lp=Egxnd3Mtd2l6LXNlcnAiAk1vKgIIADIKECMYgAQYJxiKBTIKECMYgAQYJxiKBTIKECMYgAQYJxiKBTINEC4YgAQYQxjUAhiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEC4YgAQYQxiKBTIKEAAYgAQYQxiKBUiVIVCyB1jnF3AGeAGQAQCYAfIBoAGbB6oBBTAuNC4xuAEDyAEA-AEBmAILoALhB6gCEsICChAAGLADGNYEGEfCAg0QABiABBiwAxhDGIoFwgIOEAAYsAMY5AIY1gTYAQHCAhYQLhiABBiwAxhDGNQCGMgDGIoF2AEBwgITEC4YgAQYsAMYQxjIAxiKBdgBAcICDRAuGIAEGLEDGEMYigXCAgcQLhgnGOoCwgIHECMYJxjqAsICGRAuGIAEGEMY1AIYtAIYyAMYigUY6gLYAQHCAhYQLhiABBhDGLQCGMgDGIoFGOoC2AEBmAMJ8QXdlz7gHDvraogGAZAGE7oGBggBEAEYCZIHBTYuMy4yoAecbA&sclient=gws-wiz-serp#sie=m;/g/11w4bw_wm8;2;/m/037169;dt;fp;1;;;&wptab=si:APYL9bsdvePlUvFpoma5fMvhOQ6bvXM76DvGLQOhfQo6Zp3kxNoH6BKiFU3NUK-DDCMYUl50O50je6Y_pgRm3IpRsSlYbsKls-YEcu9yYUL2YnmVQ4YudYQ4Y_xxEGvPHR77C-QcPNH5WvlitVIR5ZYdbAZVytPSnz-zltRW9tz2gzo1dV3wzw3zrTvBW3PCyF40Z-2aj2C6u7-PTss4EjohhfnInLg-Dm2l2W2hSWID6ZiDxhAGV9apNGY8KGAkwvTS1SabARta']
 
-Torneo = 1 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+equipos_dict = EquipmentCollection().get_dict_of_csv()
+if len(equipos_dict) == 1:
+    raise Exception("No se ha agregado equipos, por favor agregarlos")
 
+Torneo = 9 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+
+if equipos_dict.get(equipo_objetivo_1, -1) == -1:
+    raise Exception(f"El equipo {equipo_objetivo_1} no existe en la base de datos, por favor agregarlo")
+if equipos_dict.get(equipo_objetivo_2, -1) == -1:
+    raise Exception(f"El equipo {equipo_objetivo_2} no existe  en la base de datos, por favor agregarlo")
+
+equipo_objetivo_1_ID = equipos_dict.get(equipo_objetivo_1, -1)
+equipo_objetivo_2_ID = equipos_dict.get(equipo_objetivo_2, -1)
 # Diccionario de torneos
 torneos_dict = {
     "Champions League": 0,
@@ -74,13 +96,40 @@ torneos_dict = {
     "DFB Pokal": 23,
     "2. Bundesliga": 24,
     "Copa Emirates": 25,
+    "Copa Sudamericana": 26,
+    "Campeonato Paulista": 27,
+    "Copa Paulista": 28,
+    "Brasileirão Série B": 29,
+    "Copa do Nordeste": 30,
+    "Campeonato Cearense": 31,
+    "Campeonato Mineiro": 32,
+    "Supercopa de Brasil": 33,
+    "Carioca Serie A": 34,
+    "Copa Italia": 35,
+    "Ligue Professionnelle 3": 36,
+    "Championnat National": 37,
+    "Championnat National 2": 38,
+    "Ligue 2": 39,
+    "Football League One": 40,
+    "National League N / S": 41,
+    "Football League Trophy": 42,
+    "Non League Premier": 43,
+    "Tercera División de España": 44,
+    "3. Liga": 45,
+    "Serie C": 46,
+    "Supercopa de Alemania": 47,
+    "Campeonato Gaúcho": 48,
+    "SuperLiga Serbia": 49,
+    "Prva Liga": 50,
+    "Primera Liga de Croacia": 51,
+    "Supercopa de Croacia": 52,
     "Torneo desconocido": -1
     # Agrega otros torneos según necesites
 }
 
 #Alineacion de partido a predecir, para saber que numero poner, vaya al metodo obtener estadisticas en el diccionario Alineaciones
-Alineacion_local = 1
-Alineacion_visitante = 0
+Alineacion_local = 3
+Alineacion_visitante = 3
 # Alineaciones
 alineaciones_dict = {
     "4-3-3": 0,
@@ -113,6 +162,8 @@ alineaciones_dict = {
     "3-2-2-3": 27,
     "4-3-1-2": 28,
     "3-4-1-2": 29,
+    "3-1-4-2": 30,
+    "3-2-4-1": 31,
     "No encontrado":-1
 }
 
@@ -134,9 +185,11 @@ def obtener_estadisticas(soup, equipo_objetivo):
         else:
             fecha = fecha[0]
         partido_stats["Fecha"] = fecha
-        partido_stats["Equipo"] = equipo_objetivo
+        partido_stats["Equipo_name"] = equipo_objetivo
 
         alineacion = ""
+        alineacionContrincante = ""
+        local = 0
         # Obtener el nombre del torneo
         torneo_div = soup.find('div', class_='imso-hide-overflow')
         torneo_span = torneo_div.find('span', class_='imso-loa imso-ln')
@@ -150,8 +203,11 @@ def obtener_estadisticas(soup, equipo_objetivo):
 
         if(local_all_span[0].text.strip() == equipo_objetivo):
             alineacion = local_all_span[1].text.strip()
+            alineacionContrincante = visitante_all_span[1].text.strip()
         else:
             alineacion = visitante_all_span[1].text.strip()
+            alineacionContrincante = local_all_span[1].text.strip()
+            local = 1
 
         # Buscar el torneo en el diccionario y agregar el valor numérico
         torneo_valor = torneos_dict.get(torneo_nombre, -1)  # Si no lo encuentra, asigna -1
@@ -161,16 +217,43 @@ def obtener_estadisticas(soup, equipo_objetivo):
 
         # Buscar la alineacion en el diccionario y agregar el valor numérico
         alineacion_valor = alineaciones_dict.get(alineacion, -1)
+        alineacion_contrincante_valor = alineaciones_dict.get(alineacionContrincante, -1)
         partido_stats["Alineacion"] = alineacion_valor
-
+        partido_stats["Alineacion_contrincante"] = alineacion_contrincante_valor
         headers = stats_table.find_all('th', class_='jqZdce')
-        equipo_columna = 0 if headers[0].find('img')['alt'] == equipo_objetivo else 1
+        
+        if local == 0:
+            equipo_objetivo_columna = 0
+            equipo_contrincante = headers[1].find('img')['alt']
+        else:
+            equipo_objetivo_columna = 1
+            equipo_contrincante = headers[0].find('img')['alt']
+
+        partido_stats["equipo"] = equipos_dict.get(equipo_objetivo, -1)
+        partido_stats["equipo_contrincante"] = equipos_dict.get(equipo_contrincante, -1)
+        partido_stats["equipo_contrincante_name"] = equipo_contrincante
         rows = stats_table.select('tr.MzWkAb')
         for row in rows:
             stat_name = row.find('th').text
             if stat_name not in estadisticas_excluidas:
-                stat_value = int(row.find_all('td')[equipo_columna].text.strip().replace('%', ''))
+                stat_value = int(row.find_all('td')[equipo_objetivo_columna].text.strip().replace('%', ''))
                 partido_stats[stat_name] = stat_value        
+
+        formacion_local_div = soup.find('div', class_= 'lrvl-tlt lrvl-tl lrvl-btrc')
+        formacion_visitante_div = soup.find('div', class_= 'lrvl-tlt lrvl-tl lrvl-bbrc')
+        jugadores_formacion_local_div = formacion_local_div.find_all('div', class_= 'A9ad7e imso-loa')
+        jugadores_formacion_visitante_div = formacion_visitante_div.find_all('div', class_= 'A9ad7e imso-loa')
+        
+        if local == 0:
+            for i, jugador_span in enumerate(jugadores_formacion_local_div, start= 1):
+                jugador = jugador_span.find_all('span')
+                partido_stats[f"jugador {i}"] = jugador[1].get('aria-label')
+                partido_stats[f"posicion jugador {i}"] = jugador[2].get('aria-label')
+        else:
+            for i, jugador_span in enumerate(jugadores_formacion_visitante_div[::-1], start=1):
+                jugador = jugador_span.find_all('span')
+                partido_stats[f"jugador {i}"] = jugador[1].get('aria-label')
+                partido_stats[f"posicion jugador {i}"] = jugador[2].get('aria-label')
 
         return partido_stats
     except Exception as e:
@@ -272,9 +355,9 @@ def procesar_urls(urls, equipo_objetivo):
     partido_stats = {}
     for idx, url in enumerate(urls, start=1):
         try:
-            driver.delete_all_cookies()
+            
             driver.get(url)
-            time.sleep(2.5)
+            time.sleep(5)
             soup = BeautifulSoup(driver.page_source, 'html.parser')
 
             stats = obtener_estadisticas(soup, equipo_objetivo)
@@ -461,39 +544,72 @@ def calcular_desviacion_estandar_y_datos(stats):
     PgolesST2 = (TgolesST2 / p) - 1
     print(f"{equipo2}: Goles esperados en la segunda mitad >> {PgolesST2:.2f}")
 
+    return Mean, Mean2
+
 # 1. Convertir el diccionario de stats a DataFrame
-def convertir_a_dataframe(stats):
-    datos = []
+def convertir_a_dataframes_por_equipo(stats):
+    equipos_dataframes = {}
     for equipo, partidos in stats.items():
+        datos = []
         for partido, estadisticas in partidos.items():
             fila = estadisticas
             datos.append(fila)
-    df = pd.DataFrame(datos)
-    return df
+        equipos_dataframes[equipo] = pd.DataFrame(datos)  # Crear un DataFrame por equipo
+    return equipos_dataframes
 
     #Manejo de csv
-# Verificar si el archivo existe
-if os.path.isfile('datos.csv'):
-    # Leer el CSV existente
-    df_existente = pd.read_csv('datos.csv', sep=';', quotechar='"')
-    # Crear un nuevo DataFrame con los nuevos datos
-    df_nuevo = convertir_a_dataframe(stats)
-    # Concatenar los DataFrames
-    df_stats = pd.concat([df_existente, df_nuevo], ignore_index=True)
-    df_stats = df_stats.drop_duplicates()
-    df_stats.to_csv('datos.csv', sep=';', index=False)
-else:
-    df_stats = convertir_a_dataframe(stats)
-    df_stats.to_csv('datos.csv', sep=';', index=False)
-    # Si no existe, se crea desde 0
+# Crear un DataFrame por equipo y devolver los DataFrames al final
+def crear_y_retornar_dataframes(stats):
+    equipos_dataframes = {}
+    for equipo, partidos in stats.items():
+        # Generar el nombre del archivo con el nombre del equipo
+        nombre_archivo = f"{equipo}.csv"
 
-# 2. Preparar los datos para el modelo
+        # Verificar si el archivo ya existe
+        if os.path.isfile(nombre_archivo):
+            # Leer el archivo existente
+            df_existente = pd.read_csv(nombre_archivo, sep=';', quotechar='"')
+
+            # Crear un nuevo DataFrame con los nuevos datos
+            datos = [estadisticas for estadisticas in partidos.values()]
+            df_nuevo = pd.DataFrame(datos)
+
+            # Concatenar los DataFrames
+            df_stats = pd.concat([df_existente, df_nuevo], ignore_index=True)
+            df_stats = df_stats.drop_duplicates()
+
+            # Guardar el DataFrame actualizado en el archivo CSV
+            df_stats.to_csv(nombre_archivo, sep=';', index=False)
+        else:
+            # Si no existe, crear el archivo con los datos nuevos
+            datos = [estadisticas for estadisticas in partidos.values()]
+            df_stats = pd.DataFrame(datos)
+            df_stats.to_csv(nombre_archivo, sep=';', index=False)
+
+        # Guardar el DataFrame en el diccionario
+        equipos_dataframes[equipo] = df_stats
+
+    return equipos_dataframes
+
+equipos_dataframes = crear_y_retornar_dataframes(stats)
+
+# Acceder al DataFrame de un equipo
+df_equipo1 = equipos_dataframes[equipo_objetivo_1]
+df_equipo2 = equipos_dataframes[equipo_objetivo_2]
+
+valores_x = ['Remates', 'Remates al arco', 'Pases', 'Faltas', 'Tarjetas amarillas', 'Tarjetas rojas', 'goles_primera_mitad', 'goles_segunda_mitad', 'Posesión', 'Precisión de los pases', 'visitante', 'local', 'Torneo', 'Alineacion', 'equipo', 'equipo_contrincante', 'goles_totales', 'Alineacion_contrincante']
+valores_y = ['gano', 'Tiros de esquina', 'perdio', 'empato']
+valores_y_categoricas = ['gano', 'perdio', 'empato']
+valores_y_continuas = ['Tiros de esquina']
+#--------------------------------------------------------------------------------Equipo local modelo predictivo
+# 2. Preparar los datos para el modelo del equipo local
 # Seleccionamos las columnas con estadísticas y el objetivo
-x = df_stats[['Remates', 'Remates al arco', 'Pases', 'Faltas', 'Tarjetas amarillas', 'Tarjetas rojas', 'goles_primera_mitad', 'goles_segunda_mitad', 'Posesión', 'Precisión de los pases', 'visitante', 'local', 'Torneo', 'Alineacion']]
-y = df_stats[['gano', 'Tiros de esquina', 'perdio', 'empato', 'goles_totales']]
+x = df_equipo1[valores_x]
+y = df_equipo1[valores_y]
+
 # Dividir las variables de salida (Y)
-y_categoricas = y[['gano', 'perdio', 'empato']]
-y_continuas = y[['Tiros de esquina', 'goles_totales']]
+y_categoricas = y[valores_y_categoricas]
+y_continuas = y[valores_y_continuas]
 
 # Dividir los datos en conjunto de entrenamiento y prueba
 x_train, x_test, y_train_categoricas, y_test_categoricas = train_test_split(x, y_categoricas, test_size=0.2, random_state=42)
@@ -513,12 +629,41 @@ etc.fit(x_train, y_train_categoricas)
 
 model_clasificacion = GridSearchCV(etc, param_grid, cv=3, n_jobs=-1)
 model_clasificacion.fit(x_train, y_train_categoricas)
-print("the best ", model_clasificacion.best_estimator_, " the best scors ", model_clasificacion.best_score_)
+print("\nthe best ", model_clasificacion.best_estimator_, " the best scors ", model_clasificacion.best_score_)
 
 # 2. Entrenar el modelo de regresión para las variables continuas
 regresor = ExtraTreesRegressor(n_estimators=150, random_state=42)
 model_regresion = MultiOutputRegressor(regresor)
 model_regresion.fit(x_train, y_train_continuas)
+
+#--------------------------------------------------------------------------------Equipo visitante modelo predictivo
+# 2. Preparar los datos para el modelo del equipo local
+# Seleccionamos las columnas con estadísticas y el objetivo
+x2 = df_equipo2[valores_x]
+y2 = df_equipo2[valores_y]
+
+# Dividir las variables de salida (Y)
+y_categoricas2 = y2[valores_y_categoricas]
+y_continuas2 = y2[valores_y_continuas]
+
+# Dividir los datos en conjunto de entrenamiento y prueba
+x_train2, x_test2, y_train_categoricas2, y_test_categoricas2 = train_test_split(x2, y_categoricas2, test_size=0.2, random_state=42)
+_, _, y_train_continuas2, y_test_continuas2 = train_test_split(x2, y_continuas2, test_size=0.2, random_state=42)
+
+# 1. Entrenar el modelo de clasificación para las variables categóricas
+
+etc2 = ExtraTreesClassifier(random_state=21)
+etc2.fit(x_train2, y_train_categoricas2)
+
+model_clasificacion2 = GridSearchCV(etc2, param_grid, cv=3, n_jobs=-1)
+model_clasificacion2.fit(x_train2, y_train_categoricas2)
+print("\nthe best ", model_clasificacion2.best_estimator_, " the best scors ", model_clasificacion2.best_score_)
+
+# 2. Entrenar el modelo de regresión para las variables continuas
+regresor2 = ExtraTreesRegressor(n_estimators=150, random_state=42)
+model_regresion2 = MultiOutputRegressor(regresor2)
+model_regresion2.fit(x_train2, y_train_continuas2)
+
 
 
 #--------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
@@ -538,7 +683,11 @@ estadisticas_equipo1 = {
     'visitante': 0, 
     'local': 1, #Se inicializa en 1 porque el equipo 1 siempre va ser el local y el equipo 2 el visitante
     'Torneo': Torneo,
-    'Alineacion': Alineacion_local
+    'Alineacion': Alineacion_local,
+    'equipo': equipo_objetivo_1_ID,
+    'equipo_contrincante': equipo_objetivo_2_ID,
+    'goles_totales': 0,
+    'Alineacion_contrincante': Alineacion_visitante
 }
 
 estadisticas_equipo2 = {
@@ -555,7 +704,11 @@ estadisticas_equipo2 = {
     'visitante': 1, #Se inicializa en 1 porque el equipo 2 siempre va ser el visitante y el equipo 1 el local
     'local': 0, #Se inicializa en 1 porque el equipo 1 siempre va ser el local y el equipo 2 el visitante
     'Torneo': Torneo,
-    'Alineacion': Alineacion_visitante
+    'Alineacion': Alineacion_visitante,
+    'equipo': equipo_objetivo_2_ID,
+    'equipo_contrincante': equipo_objetivo_1_ID,
+    'goles_totales': 0,
+    'Alineacion_contrincante': Alineacion_local
 }
 
 equipo1, equipo2 = list(stats.keys())
@@ -571,6 +724,7 @@ for partido, stats_partido in stats[equipo1].items():
     estadisticas_equipo1['goles_segunda_mitad'] += stats_partido['goles_segunda_mitad']
     estadisticas_equipo1['Posesión'] += stats_partido['Posesión']
     estadisticas_equipo1['Precisión de los pases'] += stats_partido['Precisión de los pases']
+    estadisticas_equipo1['goles_totales'] += stats_partido['goles_totales']
 
 # Calcular estadísticas para el equipo 2
 for partido, stats_partido in stats[equipo2].items():
@@ -584,7 +738,7 @@ for partido, stats_partido in stats[equipo2].items():
     estadisticas_equipo2['goles_segunda_mitad'] += stats_partido['goles_segunda_mitad']
     estadisticas_equipo2['Posesión'] += stats_partido['Posesión']
     estadisticas_equipo2['Precisión de los pases'] += stats_partido['Precisión de los pases']
-
+    estadisticas_equipo2['goles_totales'] += stats_partido['goles_totales']
 #Imprime probabilidad estadisticas de solo los primeros 6 partidos
 calcular_desviacion_estandar_y_datos(stats)
 
@@ -664,19 +818,19 @@ estadisticas_equipo2['Tarjetas rojas'] = weighted_average(
     pesos
 )
 estadisticas_equipo2['goles_primera_mitad'] = weighted_average(
-    [stats_partido['goles_primera_mitad'] for stats_partido in stats[equipo1].values()],
+    [stats_partido['goles_primera_mitad'] for stats_partido in stats[equipo2].values()],
     pesos
 )
 estadisticas_equipo2['goles_segunda_mitad'] = weighted_average(
-    [stats_partido['goles_segunda_mitad'] for stats_partido in stats[equipo1].values()],
+    [stats_partido['goles_segunda_mitad'] for stats_partido in stats[equipo2].values()],
     pesos
 )
-estadisticas_equipo1['Posesión'] = weighted_average(
-    [stats_partido['Posesión'] for stats_partido in stats[equipo1].values()],
+estadisticas_equipo2['Posesión'] = weighted_average(
+    [stats_partido['Posesión'] for stats_partido in stats[equipo2].values()],
     pesos
 )
-estadisticas_equipo1['Precisión de los pases'] = weighted_average(
-    [stats_partido['Precisión de los pases'] for stats_partido in stats[equipo1].values()],
+estadisticas_equipo2['Precisión de los pases'] = weighted_average(
+    [stats_partido['Precisión de los pases'] for stats_partido in stats[equipo2].values()],
     pesos
 )
 
@@ -688,34 +842,54 @@ estadisticas_equipo2_df = pd.DataFrame([estadisticas_equipo2])
 predicciones_categoricas_equipo1 = model_clasificacion.predict(estadisticas_equipo1_df)
 predicciones_probabilidades_equipo1 = model_clasificacion.predict_proba(estadisticas_equipo1_df)
 
-predicciones_categoricas_equipo2 = model_clasificacion.predict(estadisticas_equipo2_df)
-predicciones_probabilidades_equipo2 = model_clasificacion.predict_proba(estadisticas_equipo2_df)
+predicciones_categoricas_equipo2 = model_clasificacion2.predict(estadisticas_equipo2_df)
+predicciones_probabilidades_equipo2 = model_clasificacion2.predict_proba(estadisticas_equipo2_df)
 
 # Predicciones continuas (Tiros de esquina, goles_totales)
 predicciones_continuas_equipo1 = model_regresion.predict(estadisticas_equipo1_df)
-predicciones_continuas_equipo2 = model_regresion.predict(estadisticas_equipo2_df)
+predicciones_continuas_equipo2 = model_regresion2.predict(estadisticas_equipo2_df)
 
-#Predicción
+#Predicción local
 y_pred_categoricas = model_clasificacion.predict(x_test)
 y_pred_continuas = model_regresion.predict(x_test)
 
-# Evaluación de las variables continuas (regresión)
+#Predicción visitante
+y_pred_categoricas2 = model_clasificacion2.predict(x_test2)
+y_pred_continuas2 = model_regresion2.predict(x_test2)
+
+# Evaluación de las variables continuas (regresión) local 
 mse_continuas = root_mean_squared_error(y_test_continuas, y_pred_continuas)
-mse_continuas = math.pow(mse_continuas,2)
 mae_continuas = mean_absolute_error(y_test_continuas, y_pred_continuas)
 r2_continuas = r2_score(y_test_continuas, y_pred_continuas)
+
+# Evaluación de las variables continuas (regresión) visitante 
+mse_continuas2 = root_mean_squared_error(y_test_continuas2, y_pred_continuas2)
+mae_continuas2 = mean_absolute_error(y_test_continuas2, y_pred_continuas2)
+r2_continuas2 = r2_score(y_test_continuas2, y_pred_continuas2)
 
 print("\n\nEvaluacion del modelo y probabilidad de aciertos en datos de prueba\n")
 #Evaluación del modelo
 #categoricas
+#local
 accuracy_clasificacion = accuracy_score(y_test_categoricas, y_pred_categoricas)
-print(f'Precisión categoricas: {accuracy_clasificacion:.3f}')
+print(f'\nPrecisión categoricas del local: {accuracy_clasificacion:.3f}')
+#visitante
+accuracy_clasificacion2 = accuracy_score(y_test_categoricas2, y_pred_categoricas2)
+print(f'\nPrecisión categoricas del visitante: {accuracy_clasificacion2:.3f}')
 
-#continuas
-print(f'Error cuadrático medio (RMSE) continuas: {math.sqrt(mse_continuas):.3f}')
-print(f'Error cuadrático medio (MSE) continuas al cuadrado: {mse_continuas:.3f}')
-print(f'Error absoluto medio (MAE) continuas: {mae_continuas:.3f}')
-print(f'Coeficiente de determinación (R2) continuas: {r2_continuas:.3f}')
+
+#continuas local
+print(f'\nError cuadrático medio (RMSE) continuas del local: {mse_continuas:.3f}')
+print(f'Error cuadrático medio (MSE) continuas al cuadrado del local: {math.pow(mse_continuas,2):.3f}')
+print(f'Error absoluto medio (MAE) continuas del local: {mae_continuas:.3f}')
+print(f'Coeficiente de determinación (R2) continuas del local: {r2_continuas:.3f}')
+
+#continuas visitante
+print(f'\nError cuadrático medio (RMSE) continuas del visitante: {mse_continuas2:.3f}')
+print(f'Error cuadrático medio (MSE) continuas al cuadrado del visitante: {math.pow(mse_continuas2,2):.3f}')
+print(f'Error absoluto medio (MAE) continuas del visitante: {mae_continuas2:.3f}')
+print(f'Coeficiente de determinación (R2) continuas del visitante: {r2_continuas2:.3f}')
+
 
 # Mostrar las predicciones de manera organizada
 print("\n-----------------PREDICCIONES DEL", equipo_objetivo_1,"-----------------")
@@ -735,7 +909,7 @@ for idx, variable in enumerate(y_categoricas.columns):
         print(f"{variable}: Predicción: {predicciones_categoricas_equipo1[0][idx]} "
               f"(Probabilidad de clase 0: {prob_0:.2f}, Probabilidad de clase 1: {prob_1:.2f})")
 
-# Predicciones continuas (Tiros de esquina, goles_totales)
+# Predicciones continuas sin tener en encuenta los jugadores (Tiros de esquina, goles_totales)
 for idx, variable in enumerate(y_continuas.columns):
     prediccion = predicciones_continuas_equipo1[0][idx]
     prediccion_menos_mse = prediccion - mse_continuas
@@ -756,13 +930,235 @@ for idx, variable in enumerate(y_categoricas.columns):
         # Acceder a ambas probabilidades
         prob_0 = probabilidad[0][0]  # Probabilidad de la clase
         prob_1 = probabilidad[0][1]  # Probabilidad de la clase complementaria
+        print(f"{variable}: Predicción: {predicciones_categoricas_equipo2[0][idx]} "
+              f"(Probabilidad de clase 0: {prob_0:.2f}, Probabilidad de clase 1: {prob_1:.2f})")
+
+# Predicciones continuas sin tener en encuenta los jugadores (Tiros de esquina, goles_totales)
+for idx, variable in enumerate(y_continuas.columns):
+    prediccion = predicciones_continuas_equipo2[0][idx]
+    prediccion_menos_mse = prediccion - mse_continuas2
+    prediccion_mas_mse = prediccion + mse_continuas2
+    print(f"{variable}: Predicción: {prediccion_menos_mse:.2f} ---- {prediccion:.2f} ---- {prediccion_mas_mse:.2f}")
+#-------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
+
+"""
+#--------------------------------------------------------------------------------Equipo local modelo predictivo teniendo en cuenta jugadores
+# 2. Preparar los datos para el modelo del equipo local 
+columnas_alineacion = ['jugador 1', 'posicion jugador 1','jugador 2', 'posicion jugador 2' ,'jugador 3', 'posicion jugador 3' ,'jugador 4', 'posicion jugador 4' ,'jugador 5', 'posicion jugador 5' ,'jugador 6', 'posicion jugador 6' ,'jugador 7', 'posicion jugador 7' ,'jugador 8', 'posicion jugador 8' ,'jugador 9', 'posicion jugador 9' ,'jugador 10', 'posicion jugador 10' ,'jugador 11', 'posicion jugador 11']
+
+# Inicializar el LabelEncoder
+label_encoder = LabelEncoder()
+label_encoder2 = LabelEncoder()
+# Aplicar el LabelEncoder a las columnas seleccionadas
+for columna in columnas_alineacion:
+    df_equipo1[columna] = label_encoder.fit_transform(df_equipo1[columna])
+    df_equipo2[columna] = label_encoder2.fit_transform(df_equipo2[columna])
+
+# Seleccionamos las columnas con estadísticas y el objetivo
+x_categorica = df_equipo1[valores_x + ['Tiros de esquina']]
+x_continuas = df_equipo1[valores_x + columnas_alineacion]
+y_categorica = df_equipo1[columnas_alineacion]
+
+# Dividir las variables de salida (Y)
+y_continuas = y[valores_y_continuas]
+
+# Dividir los datos en conjunto de entrenamiento y prueba
+x_train_categorica, x_test_categorica, y_train_categoricas, y_test_categoricas = train_test_split(x_categorica, y_categorica, test_size=0.2, random_state=42)
+x_train_continuas, x_test_continuas, y_train_continuas, y_test_continuas = train_test_split(x_continuas, y_continuas, test_size=0.2, random_state=42)
+
+param_grid = {
+    'estimator__criterion': ['gini', 'entropy'],  # Prefijo 'estimator__' para apuntar al modelo subyacente
+    'estimator__n_estimators': [100, 250, 500],
+    'estimator__min_samples_leaf': [5, 15, 25],
+    'estimator__max_features': [3, 5, 7, 9],
+}
+
+# 1. Entrenar el modelo de clasificación para las variables categóricas
+etc_classifier = ExtraTreesClassifier(random_state=21)
+etc = MultiOutputClassifier(etc_classifier)
+
+model_clasificacion = GridSearchCV(etc, param_grid, cv=3, n_jobs=-1)
+model_clasificacion.fit(x_train_categorica, y_train_categoricas)
+print("\nthe best scors teniendo en cuenta jugadores ", model_clasificacion.best_estimator_, " the best scors teniendo en cuenta jugadores ", model_clasificacion.best_score_)
+
+# 2. Entrenar el modelo de regresión para las variables continuas
+regresor = ExtraTreesRegressor(n_estimators=150, random_state=42)
+model_regresion = MultiOutputRegressor(regresor)
+model_regresion.fit(x_train_continuas, y_train_continuas)
+
+#--------------------------------------------------------------------------------Equipo visitante modelo predictivo teniendo en cuenta jugadores
+# 2. Preparar los datos para el modelo del equipo local
+# Seleccionamos las columnas con estadísticas y el objetivo 
+
+x_categorica2 = df_equipo2[valores_x + ['Tiros de esquina']]
+x_continuas2 = df_equipo2[valores_x + ['jugador 1', 'posicion jugador 1','jugador 2', 'posicion jugador 2' ,'jugador 3', 'posicion jugador 3' ,'jugador 4', 'posicion jugador 4' ,'jugador 5', 'posicion jugador 5' ,'jugador 6', 'posicion jugador 6' ,'jugador 7', 'posicion jugador 7' ,'jugador 8', 'posicion jugador 8' ,'jugador 9', 'posicion jugador 9' ,'jugador 10', 'posicion jugador 10' ,'jugador 11', 'posicion jugador 11']]
+y_categorica2 = df_equipo2[['jugador 1', 'posicion jugador 1','jugador 2', 'posicion jugador 2' ,'jugador 3', 'posicion jugador 3' ,'jugador 4', 'posicion jugador 4' ,'jugador 5', 'posicion jugador 5' ,'jugador 6', 'posicion jugador 6' ,'jugador 7', 'posicion jugador 7' ,'jugador 8', 'posicion jugador 8' ,'jugador 9', 'posicion jugador 9' ,'jugador 10', 'posicion jugador 10' ,'jugador 11', 'posicion jugador 11']]
+
+# Dividir las variables de salida (Y)
+y_continuas2 = y[valores_y_continuas]
+
+# Dividir los datos en conjunto de entrenamiento y prueba
+x_train_categorica, x_test_categorica2, y_train_categoricas, y_test_categoricas2 = train_test_split(x_categorica2, y_categorica2, test_size=0.2, random_state=42)
+x_train_continuas, x_test_continuas2, y_train_continuas, y_test_continuas2 = train_test_split(x_continuas2, y_continuas2, test_size=0.2, random_state=42)
+
+# 1. Entrenar el modelo de clasificación para las variables categóricas
+
+etc2_classifier = ExtraTreesClassifier(random_state=21)
+etc2 = MultiOutputClassifier(etc2_classifier)
+
+model_clasificacion2 = GridSearchCV(etc2, param_grid, cv=3, n_jobs=-1)
+model_clasificacion2.fit(x_train_categorica, y_train_categoricas)
+print("\nthe best teniendo en cuenta jugadores ", model_clasificacion2.best_estimator_, " the best scors teniendo en cuenta jugadores ", model_clasificacion2.best_score_)
+
+# 2. Entrenar el modelo de regresión para las variables continuas
+regresor2 = ExtraTreesRegressor(n_estimators=150, random_state=42)
+model_regresion2 = MultiOutputRegressor(regresor2)
+model_regresion2.fit(x_train_continuas, y_train_continuas)
+
+
+estadisticas_equipo1_df_categorica =  estadisticas_equipo1_df
+estadisticas_equipo1_df_categorica['Tiros de esquina'] = predicciones_continuas_equipo1[0][idx]
+
+estadisticas_equipo2_df_categorica =  estadisticas_equipo2_df
+estadisticas_equipo2_df_categorica['Tiros de esquina'] = predicciones_continuas_equipo2[0][idx]
+
+estadisticas_equipo1_df_continua =  estadisticas_equipo1_df
+estadisticas_equipo2_df_continua =  estadisticas_equipo2_df
+
+#----------------------------------------------Prediccion teniendo en cuenta jugadores 
+# Predicciones categóricas jugadores
+
+predicciones_categoricas_equipo1 = model_clasificacion.predict(estadisticas_equipo1_df_categorica)
+predicciones_probabilidades_equipo1 = model_clasificacion.predict_proba(estadisticas_equipo1_df_categorica)
+
+predicciones_categoricas_equipo2 = model_clasificacion2.predict(estadisticas_equipo2_df_categorica)
+predicciones_probabilidades_equipo2 = model_clasificacion2.predict_proba(estadisticas_equipo2_df_categorica)
+
+#Se elimina la columna tiros de esquina, ya que sera nuestra variable y en el siguiente modelo
+estadisticas_equipo1_df_categorica.pop('Tiros de esquina')
+estadisticas_equipo2_df_categorica.pop('Tiros de esquina')
+
+# Decodificar las predicciones si el label_encoder es aplicable
+predicciones_categoricas_equipo1_decodificada = []
+for idx, variable in enumerate(columnas_alineacion):
+    prediccion = predicciones_categoricas_equipo1[:, idx]
+    pred_decodificada = label_encoder.inverse_transform(prediccion)
+    predicciones_categoricas_equipo1_decodificada.append(pred_decodificada)
+
+print("\nPredicciones Decodificadas Equipo 1:", predicciones_categoricas_equipo1_decodificada)
+
+#Se añade la predicciones de jugadores
+
+
+# Mostrar las predicciones de manera organizada
+print("\n-----------------PREDICCIONES DEL", equipo_objetivo_1, "-----------------")
+
+# Recorrer cada variable objetivo y sus probabilidades
+for idx, variable in enumerate(columnas_alineacion):
+    probabilidad = predicciones_probabilidades_equipo1[idx]  # Probabilidades para la salida `idx`
+    prediccion = predicciones_categoricas_equipo1[:, idx]  # Predicción para la salida `idx`
+
+    # Acceder a las probabilidades de todas las clases
+    print(f"\nVariable: {variable}")
+    for clase_idx, prob in enumerate(probabilidad[0]):
+        print(f"Clase {clase_idx}: Probabilidad {prob:.2f}")
+    print(f"Predicción final: {prediccion[0]}")  # Primera predicción para esta salida
+
+"""    
+"""
+# Predicciones continuas (Tiros de esquina, goles_totales)
+predicciones_continuas_equipo1 = model_regresion.predict(estadisticas_equipo1_df_categorica)
+predicciones_continuas_equipo2 = model_regresion2.predict(estadisticas_equipo2_df_categorica)
+
+#Predicción local
+y_pred_categoricas = model_clasificacion.predict(x_test)
+y_pred_continuas = model_regresion.predict(x_test)
+
+#Predicción visitante
+y_pred_categoricas2 = model_clasificacion2.predict(x_test2)
+y_pred_continuas2 = model_regresion2.predict(x_test2)
+
+# Evaluación de las variables continuas (regresión) local 
+mse_continuas = root_mean_squared_error(y_test_continuas, y_pred_continuas)
+mae_continuas = mean_absolute_error(y_test_continuas, y_pred_continuas)
+r2_continuas = r2_score(y_test_continuas, y_pred_continuas)
+
+# Evaluación de las variables continuas (regresión) visitante 
+mse_continuas2 = root_mean_squared_error(y_test_continuas2, y_pred_continuas2)
+mae_continuas2 = mean_absolute_error(y_test_continuas2, y_pred_continuas2)
+r2_continuas2 = r2_score(y_test_continuas2, y_pred_continuas2)
+
+print("\n\nEvaluacion del modelo y probabilidad de aciertos en datos de prueba\n")
+#Evaluación del modelo
+#categoricas
+#local
+accuracy_clasificacion = accuracy_score(y_test_categoricas, y_pred_categoricas)
+print(f'\nPrecisión categoricas del local: {accuracy_clasificacion:.3f}')
+#visitante
+accuracy_clasificacion2 = accuracy_score(y_test_categoricas2, y_pred_categoricas2)
+print(f'\nPrecisión categoricas del visitante: {accuracy_clasificacion2:.3f}')
+
+
+#continuas local
+print(f'\nError cuadrático medio (RMSE) continuas del local: {mse_continuas:.3f}')
+print(f'Error cuadrático medio (MSE) continuas al cuadrado del local: {math.pow(mse_continuas,2):.3f}')
+print(f'Error absoluto medio (MAE) continuas del local: {mae_continuas:.3f}')
+print(f'Coeficiente de determinación (R2) continuas del local: {r2_continuas:.3f}')
+
+#continuas visitante
+print(f'\nError cuadrático medio (RMSE) continuas del visitante: {mse_continuas2:.3f}')
+print(f'Error cuadrático medio (MSE) continuas al cuadrado del visitante: {math.pow(mse_continuas2,2):.3f}')
+print(f'Error absoluto medio (MAE) continuas del visitante: {mae_continuas2:.3f}')
+print(f'Coeficiente de determinación (R2) continuas del visitante: {r2_continuas2:.3f}')
+
+
+# Mostrar las predicciones de manera organizada
+print("\n-----------------PREDICCIONES DEL", equipo_objetivo_1,"-----------------")
+# Predicciones categóricas (gano, perdio, empato)
+for idx, variable in enumerate(y_categoricas.columns):
+    probabilidad = predicciones_probabilidades_equipo1[idx]
+
+    # Comprobar cuántos elementos hay en la probabilidad
+    if len(probabilidad[0]) == 1:
+        # Solo hay una probabilidad (el modelo está seguro)
+        prob = probabilidad[0][0]
+        print(f"{variable}: Predicción segura, Probabilidad: {prob:.2f}")
+    else:
+        # Acceder a ambas probabilidades
+        prob_0 = probabilidad[0][0]  # Probabilidad de la clase
+        prob_1 = probabilidad[0][1]  # Probabilidad de la clase complementaria
         print(f"{variable}: Predicción: {predicciones_categoricas_equipo1[0][idx]} "
               f"(Probabilidad de clase 0: {prob_0:.2f}, Probabilidad de clase 1: {prob_1:.2f})")
 
-# Predicciones continuas (Tiros de esquina, goles_totales)
+# Predicciones continuas sin tener en encuenta los jugadores (Tiros de esquina, goles_totales)
 for idx, variable in enumerate(y_continuas.columns):
-    prediccion = predicciones_continuas_equipo2[0][idx]
+    prediccion = predicciones_continuas_equipo1[0][idx]
     prediccion_menos_mse = prediccion - mse_continuas
     prediccion_mas_mse = prediccion + mse_continuas
     print(f"{variable}: Predicción: {prediccion_menos_mse:.2f} ---- {prediccion:.2f} ---- {prediccion_mas_mse:.2f}")
+
+print("\n-----------------PREDICCIONES DEL", equipo_objetivo_2,"-----------------")
+# Predicciones categóricas (gano, perdio, empato)
+for idx, variable in enumerate(y_categoricas.columns):
+    probabilidad = predicciones_probabilidades_equipo2[idx]
+
+    # Comprobar cuántos elementos hay en la probabilidad
+    if len(probabilidad[0]) == 1:
+        # Solo hay una probabilidad (el modelo está seguro)
+        prob = probabilidad[0][0]
+        print(f"{variable}: Predicción segura, Probabilidad: {prob:.2f}")
+    else:
+        # Acceder a ambas probabilidades
+        prob_0 = probabilidad[0][0]  # Probabilidad de la clase
+        prob_1 = probabilidad[0][1]  # Probabilidad de la clase complementaria
+        print(f"{variable}: Predicción: {predicciones_categoricas_equipo2[0][idx]} "
+              f"(Probabilidad de clase 0: {prob_0:.2f}, Probabilidad de clase 1: {prob_1:.2f})")
+
+# Predicciones continuas sin tener en encuenta los jugadores (Tiros de esquina, goles_totales)
+for idx, variable in enumerate(y_continuas.columns):
+    prediccion = predicciones_continuas_equipo2[0][idx]
+    prediccion_menos_mse = prediccion - mse_continuas2
+    prediccion_mas_mse = prediccion + mse_continuas2
+    print(f"{variable}: Predicción: {prediccion_menos_mse:.2f} ---- {prediccion:.2f} ---- {prediccion_mas_mse:.2f}")
 #-------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
+"""
