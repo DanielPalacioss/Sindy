@@ -1,4 +1,5 @@
 #Como la regresion logistica necesita mas de 1 variable para predecir el futuro, necesitamos que ya sea en los partidos del local o el visitante alla al un partido donde gane y otro donde pierda. si no da error
+#Si no hay ningun gol de parte de un equipo en ninguno de los partidos a analizar dara error
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from bs4 import BeautifulSoup
@@ -40,9 +41,9 @@ estadisticas_excluidas = ["Posición adelantada"]
 
 # Ingreso de URLs
 #num_urls = int(input("¿Cuántas URLs deseas ingresar? "))
-urls_equipo_1 = []
+urls_equipo_1 = [...]
 
-urls_equipo_2 = []
+urls_equipo_2 = [...]
 
 equipos_dict = EquipmentCollection().get_dict_of_csv()
 if len(equipos_dict) == 1:
@@ -337,6 +338,7 @@ def obtener_goles_por_tiempo(soup, equipo_objetivo):
     except Exception as e:
         print(f"Error al obtener goles para {equipo_objetivo}: {e}")
         return None
+    
 
 # Función para procesar las URLs
 def procesar_urls(urls, equipo_objetivo):
@@ -370,7 +372,7 @@ stats[equipo_objetivo_2] = procesar_urls(urls_equipo_2, equipo_objetivo_2)
 driver.quit()
 
 
-
+" ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -----"
 
 def calcular_desviacion_estandar_y_datos(stats):
     # Obtener los nombres de los equipos (las claves del diccionario)
@@ -534,6 +536,9 @@ def calcular_desviacion_estandar_y_datos(stats):
 
     return Mean, Mean2
 
+" ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -----"
+
+
 # 1. Convertir el diccionario de stats a DataFrame
 def convertir_a_dataframes_por_equipo(stats):
     equipos_dataframes = {}
@@ -589,6 +594,9 @@ valores_x = ['Remates', 'Remates al arco', 'Pases', 'Faltas', 'Tarjetas amarilla
 valores_y = ['gano', 'Tiros de esquina', 'perdio', 'empato']
 valores_y_categoricas = ['gano', 'perdio', 'empato']
 valores_y_continuas = ['Tiros de esquina']
+
+" ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -----"
+
 #--------------------------------------------------------------------------------Equipo local modelo predictivo
 # 2. Preparar los datos para el modelo del equipo local
 # Seleccionamos las columnas con estadísticas y el objetivo
