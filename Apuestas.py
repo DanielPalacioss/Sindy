@@ -14,6 +14,7 @@ import pandas as pd
 import os
 from RecoleccionEquipos import EquipmentCollection
 from selenium.webdriver.chrome.options import Options
+from getMatch import getMatch
 
 options = Options()
 options.add_argument("start-maximized")
@@ -27,26 +28,33 @@ options.add_argument("--disable-gpu")  # Mejora rendimiento en Windows
 options.add_argument("--disable-dev-shm-usage")  # Previene problemas de memoria
 
 
-# Configuración de Selenium con ChromeDriver
-service =  Service(executable_path= 'chromedriver.exe')
-driver = webdriver.Chrome(service=service, options=options)
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "FC Union Berlin"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Mönchengladbach"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Racing de Estrasburgo"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Lyon"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
 
 # Ingreso de URLs
 #num_urls = int(input("¿Cuántas URLs deseas ingresar? "))
-urls_equipo_1 = []
+matchsNumber = 100
+url = 'https://www.google.com/search?sca_esv=4ad496d1768baf99&rlz=1C1ALOY_esCO1035CO1035&cs=1&sxsrf=AHTn8zolV7G8aX6c1SUQSHNUlE4RUGOXXQ:1742790043735&q=Racing+Club+de+Estrasburgo&stick=H4sIAAAAAAAAAONgVuLUz9U3MMktsKh4xGjCLfDyxz1hKe1Ja05eY1Tl4grOyC93zSvJLKkUEudig7J4pbi5ELp4FrFKBSUmZ-alKzjnlCYppKQquBaXFCUWJ5UWpecDAA7-TgdhAAAA&ved=2ahUKEwiL-srr7qGMAxXnSTABHVR3B24Qukt6BAgCEBU#sie=t;/m/04mp8x;2;/m/044hxl;bbbs;hd;;;;2025-05-18T12:00:00Z&wptab=si:APYL9bsdvePlUvFpoma5fMvhOQ6bvXM76DvGLQOhfQo6Zp3kxNoH6BKiFU3NUK-DDCMYUl50O50je6Y_pgRm3IpRsSlYbsKls-YEcu9yYUL2YnmVQ4YudYQ4Y_xxEGvPHR77C-QcPNH5WvlitVIR5ZYdbAZV9xP_zzdIbZpUuqdXX0L0MjyeLBSxTVRMXo1hQYBq8VA0LGOtL2d-BSB5BD3HHsGWRyMSC-5ZHoDOn0FAaFKYI36KwaY%3D'
+defaultLink = 'https://www.google.com/search?sca_esv=4ad496d1768baf99&rlz=1C1ALOY_esCO1035CO1035&cs=1&sxsrf=AHTn8zolV7G8aX6c1SUQSHNUlE4RUGOXXQ:1742790043735&q=Racing+Club+de+Estrasburgo&stick=H4sIAAAAAAAAAONgVuLUz9U3MMktsKh4xGjCLfDyxz1hKe1Ja05eY1Tl4grOyC93zSvJLKkUEudig7J4pbi5ELp4FrFKBSUmZ-alKzjnlCYppKQquBaXFCUWJ5UWpecDAA7-TgdhAAAA&ved=2ahUKEwiL-srr7qGMAxXnSTABHVR3B24Qukt6BAgCEBU#sie=m;/g/11y6hmcdl6;2;/m/044hxl;dt;fp;1;;;&wptab=si:APYL9bsdvePlUvFpoma5fMvhOQ6bvXM76DvGLQOhfQo6Zp3kxNoH6BKiFU3NUK-DDCMYUl50O50je6Y_pgRm3IpRsSlYbsKls-YEcu9yYUL2YnmVQ4YudYQ4Y_xxEGvPHR77C-QcPNH5WvlitVIR5ZYdbAZV9xP_zzdIbZpUuqdXX0L0MjyeLBSxTVRMXo1hQYBq8VA0LGOtL2d-BSB5BD3HHsGWRyMSC-5ZHoDOn0FAaFKYI36KwaY%3D'
+urls_equipo_1 = getMatch().getMatchs(matchsNumber, url, defaultLink)
 
-urls_equipo_2 = []
+matchsNumber2 = 100
+url2 = 'https://www.google.com/search?cs=1&rlz=1C1ALOY_esCO1035CO1035&sca_esv=4ad496d1768baf99&sxsrf=AHTn8zra-g3LAPaLyjO_WqFLexIz1V5fSQ:1742790158233&q=Olympique+de+Lyon&stick=H4sIAAAAAAAAAONgVuLUz9U3MC43z654xGjCLfDyxz1hKe1Ja05eY1Tl4grOyC93zSvJLKkUEudig7J4pbi5ELp4FrEK-udU5hZkFpamKqSkKvhU5ucBAPQWM0lYAAAA&ved=2ahUKEwiV85-i76GMAxUMfDABHbmDLSkQukt6BAgCEBY#sie=t;/m/03w7kx;2;/m/044hxl;bbbs;hd;;;;2025-05-18T12:00:00Z&wptab=si:APYL9bsdvePlUvFpoma5fMvhOQ6bvXM76DvGLQOhfQo6Zp3kxNoH6BKiFU3NUK-DDCMYUl50O50je6Y_pgRm3IpRsSlYbsKls-YEcu9yYUL2YnmVQ4YudYQ4Y_xxEGvPHR77C-QcPNH5WvlitVIR5ZYdbAZVJmiZsK1To13Q_0mdZYXGr5SfsDO1NtOp88kgYf6twcoGZ2cUUrjh3b8oWBpjVa5abS0BbJyBwZ0KXSvtfjiijwZGLSY%3D'
+defaultLink2 = 'https://www.google.com/search?cs=1&rlz=1C1ALOY_esCO1035CO1035&sca_esv=4ad496d1768baf99&sxsrf=AHTn8zra-g3LAPaLyjO_WqFLexIz1V5fSQ:1742790158233&q=Olympique+de+Lyon&stick=H4sIAAAAAAAAAONgVuLUz9U3MC43z654xGjCLfDyxz1hKe1Ja05eY1Tl4grOyC93zSvJLKkUEudig7J4pbi5ELp4FrEK-udU5hZkFpamKqSkKvhU5ucBAPQWM0lYAAAA&ved=2ahUKEwiV85-i76GMAxUMfDABHbmDLSkQukt6BAgCEBY#sie=m;/g/11w3vp_4dh;2;/m/044hxl;dt;fp;1;;;&wptab=si:APYL9bsdvePlUvFpoma5fMvhOQ6bvXM76DvGLQOhfQo6Zp3kxNoH6BKiFU3NUK-DDCMYUl50O50je6Y_pgRm3IpRsSlYbsKls-YEcu9yYUL2YnmVQ4YudYQ4Y_xxEGvPHR77C-QcPNH5WvlitVIR5ZYdbAZVJmiZsK1To13Q_0mdZYXGr5SfsDO1NtOp88kgYf6twcoGZ2cUUrjh3b8oWBpjVa5abS0BbJyBwZ0KXSvtfjiijwZGLSY%3D'
+urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
 
 equipos_dict = EquipmentCollection().get_dict_of_csv()
 if len(equipos_dict) == 1:
     raise Exception("No se ha agregado equipos, por favor agregarlos")
+
+# Configuración de Selenium con ChromeDriver
+service =  Service('chromedriver.exe')
+driver = webdriver.Chrome(service=service, options=options)
 
 Torneo = 9 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
 
@@ -341,11 +349,13 @@ def obtener_goles_por_tiempo(soup, equipo_objetivo):
 # Función para procesar las URLs
 def procesar_urls(urls, equipo_objetivo):
     partido_stats = {}
+    driver.get(urls[0])
+    time.sleep(2.5)
     for idx, url in enumerate(urls, start=1):
         try:
             
             driver.get(url)
-            time.sleep(5)
+            time.sleep(2.5)
             soup = BeautifulSoup(driver.page_source, 'html.parser')
 
             stats = obtener_estadisticas(soup, equipo_objetivo)
@@ -645,7 +655,7 @@ etc2.fit(x_train2, y_train_categoricas2)
 
 model_clasificacion2 = GridSearchCV(etc2, param_grid, cv=3, n_jobs=-1)
 model_clasificacion2.fit(x_train2, y_train_categoricas2)
-print("\nthe best ", model_clasificacion2.best_estimator_, " the best scors ", model_clasificacion2.best_score_)
+print("\nthe best2 ", model_clasificacion2.best_estimator_, " the best scors2 ", model_clasificacion2.best_score_)
 
 # 2. Entrenar el modelo de regresión para las variables continuas
 regresor2 = ExtraTreesRegressor(n_estimators=150, random_state=42)
