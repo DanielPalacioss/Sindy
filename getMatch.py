@@ -33,13 +33,19 @@ class getMatch:
         driver = webdriver.Chrome(service=service, options=options)
         try:
             driver.get(url)
+            time.sleep(1)
+            driver.get(url)
             # Esperar a que el modal se cargue
             wait = WebDriverWait(driver, 6)  # Aumenta el tiempo de espera
             modal = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="sZmt3b"]/div[2]/div[2]/div/div[2]/div')))
             cont = 0
-            tableNumber = math.ceil(matchsNumber/40)+1
+            if(matchsNumber < 20):
+                tableNumber = math.ceil(matchsNumber/40)
+            else:
+                tableNumber = math.ceil(matchsNumber/40)+1
+                matchsNumber += 25
             while(cont < tableNumber):
-                time.sleep(4)
+                time.sleep(2.5)
                 # Hacer scroll dentro del div con scroll
                 driver.execute_script("arguments[0].scrollTop = 0;", modal)
                 cont +=1 
@@ -47,7 +53,7 @@ class getMatch:
             # Obtener la fecha y hora actual en UTC
             now = datetime.now(timezone.utc)
             
-            time.sleep(5)
+            time.sleep(1)
 
             # Buscar todos los divs con las clases 'imso-loa' o 'imso-ani' y filtrar por fecha
             filtered_matchesLink = []
@@ -65,6 +71,7 @@ class getMatch:
                     if start_time < now:
                         modifiedLink = self.reemplazar_texto(defaultLink, div.get_attribute("data-df-match-mid"))
                         filtered_matchesLink.append(modifiedLink)
-            return filtered_matchesLink[:(matchsNumber+15)] # Se agregan 15 porque a veces hay link sin estadisticas
+            driver.quit()
+            return filtered_matchesLink[:matchsNumber] # Se agregan 15 porque a veces hay link sin estadisticas
         except Exception as e:
             print(f"Error obteniendo Ids de la URL {e}")
