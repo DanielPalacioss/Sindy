@@ -6,6 +6,8 @@ import time
 import pandas as pd
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import ExtraTreesClassifier, ExtraTreesRegressor
+from xgboost import XGBRegressor, plot_importance
+import matplotlib.pyplot as plt
 from sklearn.multioutput import MultiOutputRegressor
 from sklearn.metrics import root_mean_squared_error, mean_absolute_error, r2_score, accuracy_score
 import math
@@ -31,8 +33,8 @@ options.add_argument("--disable-dev-shm-usage")  # Previene problemas de memoria
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Juventus"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Genoa"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Juventude"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Vitória"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
@@ -296,7 +298,7 @@ if len(equipos_dict) == 1:
 service =  Service('chromedriver.exe')
 driver = webdriver.Chrome(service=service, options=options)
 
-Torneo = 4 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+Torneo = 1 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
 
 if equipos_dict.get(equipo_objetivo_1, -1) == -1:
     raise Exception(f"El equipo {equipo_objetivo_1} no existe en la base de datos, por favor agregarlo")
@@ -837,6 +839,8 @@ def crear_y_retornar_dataframes(stats):
             # Leer el archivo existente
             df_existente = pd.read_csv(nombre_archivo, parse_dates=['Fecha'], sep=';', quotechar='"')
             df_existente["Fecha"] = pd.to_datetime(df_existente["Fecha"])
+            df_all = pd.read_csv("historial.csv", parse_dates=['Fecha'], sep=';', quotechar='"')
+            df_all["Fecha"] = pd.to_datetime(df_all["Fecha"])
 
             # Crear un nuevo DataFrame con los nuevos datos
             datos = [estadisticas for estadisticas in partidos.values()]
@@ -850,6 +854,11 @@ def crear_y_retornar_dataframes(stats):
             # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
             df_stats = df_stats.sort_values(by="Fecha", ascending=False)
 
+            df_all = pd.concat([df_all, df_stats], ignore_index=True)
+            df_all = df_all.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
+            # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
+            df_all = df_all.sort_values(by="Fecha", ascending=False)
+            df_all.to_csv("historial.csv", sep=';', index=False)
             # Guardar el DataFrame actualizado en el archivo CSV
             df_stats.to_csv(nombre_archivo, sep=';', index=False)
         else:
@@ -857,10 +866,20 @@ def crear_y_retornar_dataframes(stats):
             datos = [estadisticas for estadisticas in partidos.values()]
             df_stats = pd.DataFrame(datos)
 
+            df_all = pd.read_csv("historial.csv", parse_dates=['Fecha'], sep=';', quotechar='"')
+            df_all["Fecha"] = pd.to_datetime(df_all["Fecha"])
+
             df_stats["Fecha"] = pd.to_datetime(df_stats["Fecha"])
             # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
             df_stats = df_stats.sort_values(by="Fecha", ascending=False)
             df_stats = df_stats.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
+            
+            df_all = pd.concat([df_all, df_stats], ignore_index=True)
+            df_all = df_all.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
+            # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
+            df_all = df_all.sort_values(by="Fecha", ascending=False)
+
+            df_all.to_csv("historial.csv", sep=';', index=False)
             df_stats.to_csv(nombre_archivo, sep=';', index=False)
 
         # Guardar el DataFrame en el diccionario
@@ -868,13 +887,31 @@ def crear_y_retornar_dataframes(stats):
 
     return equipos_dataframes
 
-equipos_dataframes = crear_y_retornar_dataframes(stats)
+# Crear un DataFrame por equipo y devolver los DataFrames al final
+def crear_y_retornar_dataframes_all():
+    # Generar el nombre del archivo con el nombre del equipo
+    nombre_archivo = "historial.csv"
 
-# Acceder al DataFrame de un equipo
-df_equipo1 = equipos_dataframes[equipo_objetivo_1]
-df_equipo2 = equipos_dataframes[equipo_objetivo_2]
-Alineacion_local = df_equipo1.iloc[0]["Alineacion"] #se asignan alineacion mas reciente
-Alineacion_visitante = df_equipo2.iloc[0]["Alineacion"] #se asignan alineacion mas reciente
+    # Verificar si el archivo ya existe
+    if os.path.isfile(nombre_archivo):
+        # Leer el archivo existente
+        df_stats = pd.read_csv(nombre_archivo, parse_dates=['Fecha'], sep=';', quotechar='"')
+        df_stats["Fecha"] = pd.to_datetime(df_stats["Fecha"])
+
+        df_stats = df_stats.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
+        # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
+        df_stats = df_stats.sort_values(by="Fecha", ascending=False)
+
+        # Guardar el DataFrame actualizado en el archivo CSV
+        df_stats.to_csv(nombre_archivo, sep=';', index=False)
+
+    # Guardar el DataFrame en el diccionario
+    return df_stats
+
+equipos_dataframes = crear_y_retornar_dataframes(stats)
+equipos_dataframes_all = crear_y_retornar_dataframes_all()
+Alineacion_local = equipos_dataframes[equipo_objetivo_1].iloc[0]["Alineacion"] #se asignan alineacion mas reciente
+Alineacion_visitante = equipos_dataframes[equipo_objetivo_2].iloc[0]["Alineacion"] #se asignan alineacion mas reciente
 
 valores_x = ['Remates', 'Remates al arco', 'Pases', 'Faltas', 'Tarjetas amarillas', 'Tarjetas rojas', 'goles_primera_mitad', 'goles_segunda_mitad', 'Posesión', 'Precisión de los pases', 'visitante', 'local', 'Torneo', 'Alineacion', 'equipo', 'equipo_contrincante', 'goles_totales', 'Alineacion_contrincante']
 valores_y = ['gano', 'Tiros de esquina', 'perdio', 'empato']
@@ -883,8 +920,8 @@ valores_y_continuas = ['Tiros de esquina']
 #--------------------------------------------------------------------------------Equipo local modelo predictivo
 # 2. Preparar los datos para el modelo del equipo local
 # Seleccionamos las columnas con estadísticas y el objetivo
-x = df_equipo1[valores_x]
-y = df_equipo1[valores_y]
+x = equipos_dataframes_all[valores_x]
+y = equipos_dataframes_all[valores_y]
 
 # Dividir las variables de salida (Y)
 y_categoricas = y[valores_y_categoricas]
@@ -910,40 +947,27 @@ model_clasificacion = GridSearchCV(etc, param_grid, cv=3, n_jobs=-1)
 model_clasificacion.fit(x_train, y_train_categoricas)
 print("\nthe best ", model_clasificacion.best_estimator_, " the best scors ", model_clasificacion.best_score_)
 
-# 2. Entrenar el modelo de regresión para las variables continuas
-regresor = ExtraTreesRegressor(n_estimators=150, random_state=42)
-model_regresion = MultiOutputRegressor(regresor)
-model_regresion.fit(x_train, y_train_continuas)
+param_grid_regressor = {
+    'n_estimators': [100, 300],  # Menos valores
+    'learning_rate': [0.01, 0.05, 0.1],  # Menos valores
+    'max_depth': [3, 5, 7],  # Menos valores
+    'subsample': [0.7, 1.0],  # Menos valores
+    'colsample_bytree': [0.7, 1.0],  # Menos valores
+    'reg_alpha': [0, 0.1],  # Menos valores
+    'reg_lambda': [0, 0.1]  # Menos valores
+}
 
-#--------------------------------------------------------------------------------Equipo visitante modelo predictivo
-# 2. Preparar los datos para el modelo del equipo local
-# Seleccionamos las columnas con estadísticas y el objetivo
-x2 = df_equipo2[valores_x]
-y2 = df_equipo2[valores_y]
+xgb = XGBRegressor(random_state=42)
+grid_search = GridSearchCV(xgb, param_grid_regressor, cv=5, scoring='neg_mean_squared_error', verbose=1, n_jobs=-1)
+grid_search.fit(x_train, y_train_continuas)
 
-# Dividir las variables de salida (Y)
-y_categoricas2 = y2[valores_y_categoricas]
-y_continuas2 = y2[valores_y_continuas]
+# Mejor combinación de hiperparámetros
+print("Mejores parámetros:", grid_search.best_params_)
 
-# Dividir los datos en conjunto de entrenamiento y prueba
-x_train2, x_test2, y_train_categoricas2, y_test_categoricas2 = train_test_split(x2, y_categoricas2, test_size=0.2, random_state=42)
-_, _, y_train_continuas2, y_test_continuas2 = train_test_split(x2, y_continuas2, test_size=0.2, random_state=42)
-
-# 1. Entrenar el modelo de clasificación para las variables categóricas
-
-etc2 = ExtraTreesClassifier(random_state=21)
-etc2.fit(x_train2, y_train_categoricas2)
-
-model_clasificacion2 = GridSearchCV(etc2, param_grid, cv=3, n_jobs=-1)
-model_clasificacion2.fit(x_train2, y_train_categoricas2)
-print("\nthe best2 ", model_clasificacion2.best_estimator_, " the best scors2 ", model_clasificacion2.best_score_)
-
-# 2. Entrenar el modelo de regresión para las variables continuas
-regresor2 = ExtraTreesRegressor(n_estimators=150, random_state=42)
-model_regresion2 = MultiOutputRegressor(regresor2)
-model_regresion2.fit(x_train2, y_train_continuas2)
-
-
+# Modelo final con los mejores hiperparámetros
+model_regresion = grid_search.best_estimator_
+#plot_importance(model_regresion)
+#plt.show()
 
 #--------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
 # Predecir si ganará el próximo partido (usando nuevas estadísticas)
@@ -1121,30 +1145,21 @@ estadisticas_equipo2_df = pd.DataFrame([estadisticas_equipo2])
 predicciones_categoricas_equipo1 = model_clasificacion.predict(estadisticas_equipo1_df)
 predicciones_probabilidades_equipo1 = model_clasificacion.predict_proba(estadisticas_equipo1_df)
 
-predicciones_categoricas_equipo2 = model_clasificacion2.predict(estadisticas_equipo2_df)
-predicciones_probabilidades_equipo2 = model_clasificacion2.predict_proba(estadisticas_equipo2_df)
+predicciones_categoricas_equipo2 = model_clasificacion.predict(estadisticas_equipo2_df)
+predicciones_probabilidades_equipo2 = model_clasificacion.predict_proba(estadisticas_equipo2_df)
 
 # Predicciones continuas (Tiros de esquina, goles_totales)
 predicciones_continuas_equipo1 = model_regresion.predict(estadisticas_equipo1_df)
-predicciones_continuas_equipo2 = model_regresion2.predict(estadisticas_equipo2_df)
+predicciones_continuas_equipo2 = model_regresion.predict(estadisticas_equipo2_df)
 
 #Predicción local
 y_pred_categoricas = model_clasificacion.predict(x_test)
 y_pred_continuas = model_regresion.predict(x_test)
 
-#Predicción visitante
-y_pred_categoricas2 = model_clasificacion2.predict(x_test2)
-y_pred_continuas2 = model_regresion2.predict(x_test2)
-
 # Evaluación de las variables continuas (regresión) local 
 mse_continuas = root_mean_squared_error(y_test_continuas, y_pred_continuas)
 mae_continuas = mean_absolute_error(y_test_continuas, y_pred_continuas)
 r2_continuas = r2_score(y_test_continuas, y_pred_continuas)
-
-# Evaluación de las variables continuas (regresión) visitante 
-mse_continuas2 = root_mean_squared_error(y_test_continuas2, y_pred_continuas2)
-mae_continuas2 = mean_absolute_error(y_test_continuas2, y_pred_continuas2)
-r2_continuas2 = r2_score(y_test_continuas2, y_pred_continuas2)
 
 print("\n\nEvaluacion del modelo y probabilidad de aciertos en datos de prueba\n")
 #Evaluación del modelo
@@ -1152,9 +1167,6 @@ print("\n\nEvaluacion del modelo y probabilidad de aciertos en datos de prueba\n
 #local
 accuracy_clasificacion = accuracy_score(y_test_categoricas, y_pred_categoricas)
 print(f'\nPrecisión categoricas del local: {accuracy_clasificacion:.3f}')
-#visitante
-accuracy_clasificacion2 = accuracy_score(y_test_categoricas2, y_pred_categoricas2)
-print(f'\nPrecisión categoricas del visitante: {accuracy_clasificacion2:.3f}')
 
 
 #continuas local
@@ -1162,12 +1174,6 @@ print(f'\nError cuadrático medio (RMSE) continuas del local: {mse_continuas:.3f
 print(f'Error cuadrático medio (MSE) continuas al cuadrado del local: {math.pow(mse_continuas,2):.3f}')
 print(f'Error absoluto medio (MAE) continuas del local: {mae_continuas:.3f}')
 print(f'Coeficiente de determinación (R2) continuas del local: {r2_continuas:.3f}')
-
-#continuas visitante
-print(f'\nError cuadrático medio (RMSE) continuas del visitante: {mse_continuas2:.3f}')
-print(f'Error cuadrático medio (MSE) continuas al cuadrado del visitante: {math.pow(mse_continuas2,2):.3f}')
-print(f'Error absoluto medio (MAE) continuas del visitante: {mae_continuas2:.3f}')
-print(f'Coeficiente de determinación (R2) continuas del visitante: {r2_continuas2:.3f}')
 
 
 # Mostrar las predicciones de manera organizada
@@ -1190,7 +1196,7 @@ for idx, variable in enumerate(y_categoricas.columns):
 
 # Predicciones continuas sin tener en encuenta los jugadores (Tiros de esquina, goles_totales)
 for idx, variable in enumerate(y_continuas.columns):
-    prediccion = predicciones_continuas_equipo1[0][idx]
+    prediccion = predicciones_continuas_equipo1[idx]
     prediccion_menos_mse = prediccion - mse_continuas
     prediccion_mas_mse = prediccion + mse_continuas
     print(f"{variable}: Predicción: {prediccion_menos_mse:.2f} ---- {prediccion:.2f} ---- {prediccion_mas_mse:.2f}")
@@ -1214,9 +1220,9 @@ for idx, variable in enumerate(y_categoricas.columns):
 
 # Predicciones continuas sin tener en encuenta los jugadores (Tiros de esquina, goles_totales)
 for idx, variable in enumerate(y_continuas.columns):
-    prediccion = predicciones_continuas_equipo2[0][idx]
-    prediccion_menos_mse = prediccion - mse_continuas2
-    prediccion_mas_mse = prediccion + mse_continuas2
+    prediccion = predicciones_continuas_equipo2[idx]
+    prediccion_menos_mse = prediccion - mse_continuas
+    prediccion_mas_mse = prediccion + mse_continuas
     print(f"{variable}: Predicción: {prediccion_menos_mse:.2f} ---- {prediccion:.2f} ---- {prediccion_mas_mse:.2f}")
 #-------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
 
