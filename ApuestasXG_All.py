@@ -1130,6 +1130,13 @@ estadisticas_equipo2_df = pd.concat([estadisticas_equipo2_df, df_nuevas_columnas
 
 #codigo que buscara los jugadores y le pondra 1 pensando en la alineacion: estadisticas_equipo1_df.loc[:,estadisticas_equipo1_df.filter(regex=f"(?=.*{equipo})(?=.*{Jugador})").columns] = 1
 
+#if estadisticas_equipo1_df['equipo'].str.lower().eq(equipo.lower()).any():
+#    # Regex sin \b para permitir nombres pegados
+#    regex_busqueda = f"(?i)^.*{re.escape(jugador)}.*{re.escape(equipo)}.*$"
+#    columnas_coincidentes = estadisticas_equipo1_df.filter(regex=regex_busqueda).columns
+#    if not columnas_coincidentes.empty:
+#        estadisticas_equipo1_df.loc[0, columnas_coincidentes] = 1
+
 # Predicciones categóricas (gano, perdio, empato)
 predicciones_categoricas_equipo1 = model_clasificacion.predict(estadisticas_equipo1_df)
 predicciones_probabilidades_equipo1 = model_clasificacion.predict_proba(estadisticas_equipo1_df)
