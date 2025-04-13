@@ -33,8 +33,8 @@ options.add_argument("--disable-dev-shm-usage")  # Previene problemas de memoria
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Juventude"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Vitória"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Bahía"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Corinthians"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
@@ -298,7 +298,7 @@ if len(equipos_dict) == 1:
 service =  Service('chromedriver.exe')
 driver = webdriver.Chrome(service=service, options=options)
 
-Torneo = 1 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+Torneo = 10 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
 
 if equipos_dict.get(equipo_objetivo_1, -1) == -1:
     raise Exception(f"El equipo {equipo_objetivo_1} no existe en la base de datos, por favor agregarlo")
@@ -492,13 +492,11 @@ def obtener_estadisticas(soup, equipo_objetivo):
         if local == 0:
             for i, jugador_span in enumerate(jugadores_formacion_local_div, start= 1):
                 jugador = jugador_span.find_all('span')
-                partido_stats[f"jugador {i}"] = jugador[1].get('aria-label')
-                partido_stats[f"posicion jugador {i}"] = jugador[2].get('aria-label')
+                partido_stats[f"{jugador[1].get('aria-label')} {equipo_objetivo}"] = 1
         else:
             for i, jugador_span in enumerate(jugadores_formacion_visitante_div[::-1], start=1):
                 jugador = jugador_span.find_all('span')
-                partido_stats[f"jugador {i}"] = jugador[1].get('aria-label')
-                partido_stats[f"posicion jugador {i}"] = jugador[2].get('aria-label')
+                partido_stats[f"{jugador[1].get('aria-label')} {equipo_objetivo}"] = 1
 
         return partido_stats
     except Exception as e:
@@ -859,6 +857,8 @@ def crear_y_retornar_dataframes(stats):
             # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
             df_all = df_all.sort_values(by="Fecha", ascending=False)
             df_all.to_csv("historial.csv", sep=';', index=False)
+            
+            df_stats.fillna(0, inplace=True)
             # Guardar el DataFrame actualizado en el archivo CSV
             df_stats.to_csv(nombre_archivo, sep=';', index=False)
         else:
@@ -878,7 +878,7 @@ def crear_y_retornar_dataframes(stats):
             df_all = df_all.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
             # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
             df_all = df_all.sort_values(by="Fecha", ascending=False)
-
+            df_stats.fillna(0, inplace=True)
             df_all.to_csv("historial.csv", sep=';', index=False)
             df_stats.to_csv(nombre_archivo, sep=';', index=False)
 
@@ -901,7 +901,7 @@ def crear_y_retornar_dataframes_all():
         df_stats = df_stats.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
         # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
         df_stats = df_stats.sort_values(by="Fecha", ascending=False)
-
+        df_stats.fillna(0, inplace=True)
         # Guardar el DataFrame actualizado en el archivo CSV
         df_stats.to_csv(nombre_archivo, sep=';', index=False)
 
@@ -913,14 +913,14 @@ equipos_dataframes_all = crear_y_retornar_dataframes_all()
 Alineacion_local = equipos_dataframes[equipo_objetivo_1].iloc[0]["Alineacion"] #se asignan alineacion mas reciente
 Alineacion_visitante = equipos_dataframes[equipo_objetivo_2].iloc[0]["Alineacion"] #se asignan alineacion mas reciente
 
-valores_x = ['Remates', 'Remates al arco', 'Pases', 'Faltas', 'Tarjetas amarillas', 'Tarjetas rojas', 'goles_primera_mitad', 'goles_segunda_mitad', 'Posesión', 'Precisión de los pases', 'visitante', 'local', 'Torneo', 'Alineacion', 'equipo', 'equipo_contrincante', 'goles_totales', 'Alineacion_contrincante']
+columnas_a_excluir = ['gano', 'Tiros de esquina', 'perdio', 'empato', 'Fecha', 'Equipo_name', 'equipo_contrincante_name']
 valores_y = ['gano', 'Tiros de esquina', 'perdio', 'empato']
 valores_y_categoricas = ['gano', 'perdio', 'empato']
 valores_y_continuas = ['Tiros de esquina']
 #--------------------------------------------------------------------------------Equipo local modelo predictivo
 # 2. Preparar los datos para el modelo del equipo local
 # Seleccionamos las columnas con estadísticas y el objetivo
-x = equipos_dataframes_all[valores_x]
+x = equipos_dataframes_all.drop(columns=columnas_a_excluir)
 y = equipos_dataframes_all[valores_y]
 
 # Dividir las variables de salida (Y)
@@ -1015,33 +1015,6 @@ estadisticas_equipo2 = {
 }
 
 equipo1, equipo2 = list(stats.keys())
-# Calcular estadísticas para el equipo 1
-for partido, stats_partido in stats[equipo1].items():
-    estadisticas_equipo1['Remates'] += stats_partido['Remates']
-    estadisticas_equipo1['Remates al arco'] += stats_partido['Remates al arco']
-    estadisticas_equipo1['Pases'] += stats_partido['Pases']
-    estadisticas_equipo1['Faltas'] += stats_partido['Faltas']
-    estadisticas_equipo1['Tarjetas amarillas'] += stats_partido['Tarjetas amarillas']
-    estadisticas_equipo1['Tarjetas rojas'] += stats_partido['Tarjetas rojas']
-    estadisticas_equipo1['goles_primera_mitad'] += stats_partido['goles_primera_mitad']
-    estadisticas_equipo1['goles_segunda_mitad'] += stats_partido['goles_segunda_mitad']
-    estadisticas_equipo1['Posesión'] += stats_partido['Posesión']
-    estadisticas_equipo1['Precisión de los pases'] += stats_partido['Precisión de los pases']
-    estadisticas_equipo1['goles_totales'] += stats_partido['goles_totales']
-
-# Calcular estadísticas para el equipo 2
-for partido, stats_partido in stats[equipo2].items():
-    estadisticas_equipo2['Remates'] += stats_partido['Remates']
-    estadisticas_equipo2['Remates al arco'] += stats_partido['Remates al arco']
-    estadisticas_equipo2['Pases'] += stats_partido['Pases']
-    estadisticas_equipo2['Faltas'] += stats_partido['Faltas']
-    estadisticas_equipo2['Tarjetas amarillas'] += stats_partido['Tarjetas amarillas']
-    estadisticas_equipo2['Tarjetas rojas'] += stats_partido['Tarjetas rojas']
-    estadisticas_equipo2['goles_primera_mitad'] += stats_partido['goles_primera_mitad']
-    estadisticas_equipo2['goles_segunda_mitad'] += stats_partido['goles_segunda_mitad']
-    estadisticas_equipo2['Posesión'] += stats_partido['Posesión']
-    estadisticas_equipo2['Precisión de los pases'] += stats_partido['Precisión de los pases']
-    estadisticas_equipo2['goles_totales'] += stats_partido['goles_totales']
 #Imprime probabilidad estadisticas de solo los primeros 6 partidos
 calcular_desviacion_estandar_y_datos(stats)
 
@@ -1140,6 +1113,22 @@ estadisticas_equipo2['Precisión de los pases'] = weighted_average(
 #COMIENZO DEL DATAFRAME
 estadisticas_equipo1_df = pd.DataFrame([estadisticas_equipo1])
 estadisticas_equipo2_df = pd.DataFrame([estadisticas_equipo2])
+
+# Columnas a excluir
+columnas_a_excluir = ['Fecha', 'Equipo_name', 'Torneo', 'Alineacion', 'Alineacion_contrincante', 'equipo', 'equipo_contrincante', 'equipo_contrincante_name', 'Remates', 'Remates al arco', 'Posesión', 'Pases', 'Precisión de los pases', 'Faltas', 'Tarjetas amarillas', 'Tarjetas rojas', 'Tiros de esquina', 'goles_primera_mitad', 'goles_segunda_mitad', 'goles_totales', 'gano', 'empato', 'perdio', 'visitante', 'local']
+
+# Obtener solo los nombres de las columnas que queremos (excluyendo algunas)
+columnas_filtradas = [col for col in equipos_dataframes_all.columns if col not in columnas_a_excluir]
+
+# Crear un DataFrame con una fila llena de ceros y las columnas filtradas
+df_nuevas_columnas = pd.DataFrame([[0] * len(columnas_filtradas)], columns=columnas_filtradas)
+
+# Unir los DataFrames
+estadisticas_equipo1_df = pd.concat([estadisticas_equipo1_df, df_nuevas_columnas], axis=1)
+# Unir los DataFrames
+estadisticas_equipo2_df = pd.concat([estadisticas_equipo2_df, df_nuevas_columnas], axis=1)
+
+#codigo que buscara los jugadores y le pondra 1 pensando en la alineacion: estadisticas_equipo1_df.loc[:,estadisticas_equipo1_df.filter(regex=f"(?=.*{equipo})(?=.*{Jugador})").columns] = 1
 
 # Predicciones categóricas (gano, perdio, empato)
 predicciones_categoricas_equipo1 = model_clasificacion.predict(estadisticas_equipo1_df)

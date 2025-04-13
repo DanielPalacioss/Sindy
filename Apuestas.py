@@ -31,8 +31,8 @@ options.add_argument("--disable-dev-shm-usage")  # Previene problemas de memoria
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Juventus"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Genoa"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Friburgo"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "FC Union Berlin"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
@@ -991,33 +991,6 @@ estadisticas_equipo2 = {
 }
 
 equipo1, equipo2 = list(stats.keys())
-# Calcular estadísticas para el equipo 1
-for partido, stats_partido in stats[equipo1].items():
-    estadisticas_equipo1['Remates'] += stats_partido['Remates']
-    estadisticas_equipo1['Remates al arco'] += stats_partido['Remates al arco']
-    estadisticas_equipo1['Pases'] += stats_partido['Pases']
-    estadisticas_equipo1['Faltas'] += stats_partido['Faltas']
-    estadisticas_equipo1['Tarjetas amarillas'] += stats_partido['Tarjetas amarillas']
-    estadisticas_equipo1['Tarjetas rojas'] += stats_partido['Tarjetas rojas']
-    estadisticas_equipo1['goles_primera_mitad'] += stats_partido['goles_primera_mitad']
-    estadisticas_equipo1['goles_segunda_mitad'] += stats_partido['goles_segunda_mitad']
-    estadisticas_equipo1['Posesión'] += stats_partido['Posesión']
-    estadisticas_equipo1['Precisión de los pases'] += stats_partido['Precisión de los pases']
-    estadisticas_equipo1['goles_totales'] += stats_partido['goles_totales']
-
-# Calcular estadísticas para el equipo 2
-for partido, stats_partido in stats[equipo2].items():
-    estadisticas_equipo2['Remates'] += stats_partido['Remates']
-    estadisticas_equipo2['Remates al arco'] += stats_partido['Remates al arco']
-    estadisticas_equipo2['Pases'] += stats_partido['Pases']
-    estadisticas_equipo2['Faltas'] += stats_partido['Faltas']
-    estadisticas_equipo2['Tarjetas amarillas'] += stats_partido['Tarjetas amarillas']
-    estadisticas_equipo2['Tarjetas rojas'] += stats_partido['Tarjetas rojas']
-    estadisticas_equipo2['goles_primera_mitad'] += stats_partido['goles_primera_mitad']
-    estadisticas_equipo2['goles_segunda_mitad'] += stats_partido['goles_segunda_mitad']
-    estadisticas_equipo2['Posesión'] += stats_partido['Posesión']
-    estadisticas_equipo2['Precisión de los pases'] += stats_partido['Precisión de los pases']
-    estadisticas_equipo2['goles_totales'] += stats_partido['goles_totales']
 #Imprime probabilidad estadisticas de solo los primeros 6 partidos
 calcular_desviacion_estandar_y_datos(stats)
 
