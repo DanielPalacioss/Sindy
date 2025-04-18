@@ -96,8 +96,8 @@ class getAlineacion:
     def getAlineaciones(self, parametros):
         options = Options()
         # Ruta al perfil de usuario (ajustá según tu usuario)
-        options.add_argument(r"--user-data-dir=C:\Users\shari\AppData\Local\Google\Chrome\User Data")
-        options.add_argument(r'--profile-directory=Profile 3')  # O 'Profile 1', etc.
+        #options.add_argument(r"--user-data-dir=C:\Users\shari\AppData\Local\Google\Chrome\User Data")
+        #options.add_argument(r'--profile-directory=Profile 3')
         options.add_argument("start-maximized")
         options.add_argument("disable-blink-features=AutomationControlled")  # Evita detección
         options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36")
