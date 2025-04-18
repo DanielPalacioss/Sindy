@@ -17,6 +17,7 @@ from RecoleccionEquipos import EquipmentCollection
 from selenium.webdriver.chrome.options import Options
 from getMatch import getMatch
 import sys
+import numpy as np
 from datetime import datetime, timedelta
 
 options = Options()
@@ -477,12 +478,24 @@ def obtener_estadisticas(soup, equipo_objetivo):
         partido_stats["equipo"] = equipos_dict.get(equipo_objetivo, -1)
         partido_stats["equipo_contrincante"] = equipos_dict.get(equipo_contrincante, -1)
         partido_stats["equipo_contrincante_name"] = equipo_contrincante
+        partido_stats["tarjetas"] = 0
+        partido_stats["tarjetas_contrincante"] = 0
         rows = stats_table.select('tr.MzWkAb')
+        columna_contrincante = 1 - equipo_objetivo_columna
+        
         for row in rows:
             stat_name = row.find('th').text
             if stat_name not in estadisticas_excluidas:
                 stat_value = int(row.find_all('td')[equipo_objetivo_columna].text.strip().replace('%', ''))
-                partido_stats[stat_name] = stat_value        
+                partido_stats[stat_name] = stat_value
+                if stat_name in ["Tarjetas amarillas", "Tarjetas rojas"]:
+                    partido_stats["tarjetas"] += stat_value
+                    
+            if stat_name in ["Remates","Remates al arco","Posesión", "Faltas","Tarjetas amarillas","Tarjetas rojas","Tiros de esquina"]:
+                stat_value = int(row.find_all('td')[columna_contrincante].text.strip().replace('%', ''))
+                partido_stats[f"{stat_name}_contrincante"] = stat_value
+                if stat_name in ["Tarjetas amarillas", "Tarjetas rojas"]:
+                    partido_stats["tarjetas_contrincante"] += stat_value
 
         formacion_local_div = soup.find('div', class_= 'lrvl-tlt lrvl-tl lrvl-btrc')
         formacion_visitante_div = soup.find('div', class_= 'lrvl-tlt lrvl-tl lrvl-bbrc')
@@ -492,12 +505,29 @@ def obtener_estadisticas(soup, equipo_objetivo):
         if local == 0:
             for i, jugador_span in enumerate(jugadores_formacion_local_div, start= 1):
                 jugador = jugador_span.find_all('span')
-                partido_stats[f"{jugador[1].get('aria-label')} {equipo_objetivo}"] = 1
+                partido_stats[f"{jugador[1].get('aria-label')}-{equipo_objetivo}"] = 1
+            
         else:
             for i, jugador_span in enumerate(jugadores_formacion_visitante_div[::-1], start=1):
                 jugador = jugador_span.find_all('span')
-                partido_stats[f"{jugador[1].get('aria-label')} {equipo_objetivo}"] = 1
-
+                partido_stats[f"{jugador[1].get('aria-label')}-{equipo_objetivo}"] = 1
+                
+        partido_stats["Posesión"] = partido_stats["Posesión"]/100
+        partido_stats["Posesión_contrincante"] = partido_stats["Posesión_contrincante"]/100
+        partido_stats["Precisión de los pases"] = partido_stats["Precisión de los pases"]/100
+        partido_stats["Posesión_contra_por_remate"] = partido_stats["Posesión_contrincante"]/partido_stats["Remates_contrincante"].replace(0, np.nan)
+        partido_stats["tarjetas_por_falta"] = partido_stats["tarjetas"]/partido_stats["Faltas"].replace(0, np.nan)
+        partido_stats["pases_completados"] = round((partido_stats["Pases"] * partido_stats["Precisión de los pases"]))
+        partido_stats["faltas_por_pases"] = partido_stats["Faltas"]/partido_stats["pases_completados"].replace(0, np.nan)
+        partido_stats["pases_por_posesion"] = partido_stats["pases_completados"]/partido_stats["Posesión"]
+        partido_stats["tirosEsquina_por_remate"] = partido_stats["Tiros de esquina"]/partido_stats["Remates"].replace(0, np.nan)
+        partido_stats["tirosEsquina_por_posesion"] = partido_stats["Tiros de esquina"]/partido_stats["Posesión"].replace(0, np.nan)
+        partido_stats["diff_remates"] = partido_stats["Remates"] - partido_stats["Remates_contrincante"].replace(0, np.nan)
+        partido_stats["diff_posesion"] = partido_stats["Posesión"] - partido_stats["Posesión_contrincante"]
+        partido_stats["diff_Tiros de esquina"] = partido_stats["Tiros de esquina"] - partido_stats["Tiros de esquina_contrincante"].replace(0, np.nan)
+        partido_stats["diff_tarjetas"] = partido_stats["tarjetas"] - partido_stats["tarjetas_contrincante"].replace(0, np.nan)
+        partido_stats["diff_faltas"] = partido_stats["Faltas"] - partido_stats["Faltas_contrincante"]
+        partido_stats["remates_por_pase"] = partido_stats["Remates"]/partido_stats["Pases"]
         return partido_stats
     except Exception as e:
         print(f"Error al obtener estadísticas para {equipo_objetivo}: {e}")
@@ -606,7 +636,13 @@ def procesar_urls(urls, equipo_objetivo):
 
             stats = obtener_estadisticas(soup, equipo_objetivo)
             goles_por_tiempo = obtener_goles_por_tiempo(soup, equipo_objetivo)
-
+            goles_por_tiempo["conversion_goles"] = goles_por_tiempo["goles_totales"]/stats["Remates"].replace(0, np.nan)
+            goles_por_tiempo["conversion_arco"] = goles_por_tiempo["goles_totales"]/stats["Remates al arco"].replace(0, np.nan)
+            stats["posesion_por_remate"] = goles_por_tiempo["goles_totales"]/stats["Remates"].replace(0, np.nan)
+            stats["posesion_por_gol"] = stats["Posesión"]/goles_por_tiempo["goles_totales"].replace(0, np.nan)
+            stats["tirosEsquina_por_gol"] = stats["Tiros de esquina"]/goles_por_tiempo["goles_totales"].replace(0, np.nan)
+            goles_por_tiempo["goles_por_pase"] = goles_por_tiempo["goles_totales"] /stats["Pases"].replace(0, np.nan)
+            goles_por_tiempo["remates_al_arco_por_gol"] = stats["Remates"] / goles_por_tiempo["goles_totales"].replace(0, np.nan)
             if stats and goles_por_tiempo:
                 partido_key = f"Partido #{idx}"
                 partido_stats[partido_key] = {**stats, **goles_por_tiempo}
