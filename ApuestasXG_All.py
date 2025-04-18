@@ -19,6 +19,8 @@ from getMatch import getMatch
 import sys
 import numpy as np
 from datetime import datetime, timedelta
+from getAlineacion import getAlineacion
+import re
 
 options = Options()
 options.add_argument("start-maximized")
@@ -34,8 +36,8 @@ options.add_argument("--disable-dev-shm-usage")  # Previene problemas de memoria
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Bahía"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Corinthians"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Real Madrid"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Athletic"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
@@ -299,7 +301,7 @@ if len(equipos_dict) == 1:
 service =  Service('chromedriver.exe')
 driver = webdriver.Chrome(service=service, options=options)
 
-Torneo = 10 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+Torneo = 1 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
 
 if equipos_dict.get(equipo_objetivo_1, -1) == -1:
     raise Exception(f"El equipo {equipo_objetivo_1} no existe en la base de datos, por favor agregarlo")
@@ -515,17 +517,26 @@ def obtener_estadisticas(soup, equipo_objetivo):
         partido_stats["Posesión"] = partido_stats["Posesión"]/100
         partido_stats["Posesión_contrincante"] = partido_stats["Posesión_contrincante"]/100
         partido_stats["Precisión de los pases"] = partido_stats["Precisión de los pases"]/100
-        partido_stats["Posesión_contra_por_remate"] = partido_stats["Posesión_contrincante"]/partido_stats["Remates_contrincante"].replace(0, np.nan)
-        partido_stats["tarjetas_por_falta"] = partido_stats["tarjetas"]/partido_stats["Faltas"].replace(0, np.nan)
+        partido_stats["Posesión_contra_por_remate"] = np.nan if partido_stats["Remates_contrincante"] == 0 else partido_stats["Posesión_contrincante"] / partido_stats["Remates_contrincante"]
+        #partido_stats["Posesión_contra_por_remate"] = partido_stats["Posesión_contrincante"]/partido_stats["Remates_contrincante"].replace(0, np.nan)
+        #partido_stats["tarjetas_por_falta"] = partido_stats["tarjetas"]/partido_stats["Faltas"].replace(0, np.nan)
+        partido_stats["tarjetas_por_falta"] = np.nan if partido_stats["Faltas"] == 0 else partido_stats["tarjetas"] / partido_stats["Faltas"]
         partido_stats["pases_completados"] = round((partido_stats["Pases"] * partido_stats["Precisión de los pases"]))
-        partido_stats["faltas_por_pases"] = partido_stats["Faltas"]/partido_stats["pases_completados"].replace(0, np.nan)
+        partido_stats["faltas_por_pases"] = np.nan if partido_stats["pases_completados"] == 0 else partido_stats["Faltas"] / partido_stats["pases_completados"]
+        #partido_stats["faltas_por_pases"] = partido_stats["Faltas"]/partido_stats["pases_completados"].replace(0, np.nan)
         partido_stats["pases_por_posesion"] = partido_stats["pases_completados"]/partido_stats["Posesión"]
-        partido_stats["tirosEsquina_por_remate"] = partido_stats["Tiros de esquina"]/partido_stats["Remates"].replace(0, np.nan)
-        partido_stats["tirosEsquina_por_posesion"] = partido_stats["Tiros de esquina"]/partido_stats["Posesión"].replace(0, np.nan)
-        partido_stats["diff_remates"] = partido_stats["Remates"] - partido_stats["Remates_contrincante"].replace(0, np.nan)
+        partido_stats["tirosEsquina_por_remate"] = np.nan if partido_stats["Remates"] == 0 else partido_stats["Tiros de esquina"] / partido_stats["Remates"]
+        partido_stats["tirosEsquina_por_posesion"] = np.nan if partido_stats["Posesión"] == 0 else partido_stats["Tiros de esquina"] / partido_stats["Posesión"]
+        partido_stats["diff_remates"] = partido_stats["Remates"] - partido_stats["Remates_contrincante"]
+
+        #partido_stats["tirosEsquina_por_remate"] = partido_stats["Tiros de esquina"]/partido_stats["Remates"].replace(0, np.nan)
+        #partido_stats["tirosEsquina_por_posesion"] = partido_stats["Tiros de esquina"]/partido_stats["Posesión"].replace(0, np.nan)
+        #partido_stats["diff_remates"] = partido_stats["Remates"] - partido_stats["Remates_contrincante"].replace(0, np.nan)
         partido_stats["diff_posesion"] = partido_stats["Posesión"] - partido_stats["Posesión_contrincante"]
-        partido_stats["diff_Tiros de esquina"] = partido_stats["Tiros de esquina"] - partido_stats["Tiros de esquina_contrincante"].replace(0, np.nan)
-        partido_stats["diff_tarjetas"] = partido_stats["tarjetas"] - partido_stats["tarjetas_contrincante"].replace(0, np.nan)
+        partido_stats["diff_Tiros de esquina"] = partido_stats["Tiros de esquina"] - partido_stats["Tiros de esquina_contrincante"]
+        partido_stats["diff_tarjetas"] = partido_stats["tarjetas"] - partido_stats["tarjetas_contrincante"]
+        #partido_stats["diff_Tiros de esquina"] = partido_stats["Tiros de esquina"] - partido_stats["Tiros de esquina_contrincante"].replace(0, np.nan)
+        #partido_stats["diff_tarjetas"] = partido_stats["tarjetas"] - partido_stats["tarjetas_contrincante"].replace(0, np.nan)
         partido_stats["diff_faltas"] = partido_stats["Faltas"] - partido_stats["Faltas_contrincante"]
         partido_stats["remates_por_pase"] = partido_stats["Remates"]/partido_stats["Pases"]
         return partido_stats
@@ -616,6 +627,7 @@ def obtener_goles_por_tiempo(soup, equipo_objetivo):
 
         # Calcular la cantidad total de goles
         goles_por_tiempo['goles_totales'] = goles_por_tiempo['goles_primera_mitad'] + goles_por_tiempo['goles_segunda_mitad']
+        #goles_por_tiempo['goles_totales'] = goles_por_tiempo['goles_primera_mitad'] + goles_por_tiempo['goles_segunda_mitad']
         return goles_por_tiempo
 
     except Exception as e:
@@ -636,13 +648,20 @@ def procesar_urls(urls, equipo_objetivo):
 
             stats = obtener_estadisticas(soup, equipo_objetivo)
             goles_por_tiempo = obtener_goles_por_tiempo(soup, equipo_objetivo)
-            goles_por_tiempo["conversion_goles"] = goles_por_tiempo["goles_totales"]/stats["Remates"].replace(0, np.nan)
-            goles_por_tiempo["conversion_arco"] = goles_por_tiempo["goles_totales"]/stats["Remates al arco"].replace(0, np.nan)
-            stats["posesion_por_remate"] = goles_por_tiempo["goles_totales"]/stats["Remates"].replace(0, np.nan)
-            stats["posesion_por_gol"] = stats["Posesión"]/goles_por_tiempo["goles_totales"].replace(0, np.nan)
-            stats["tirosEsquina_por_gol"] = stats["Tiros de esquina"]/goles_por_tiempo["goles_totales"].replace(0, np.nan)
-            goles_por_tiempo["goles_por_pase"] = goles_por_tiempo["goles_totales"] /stats["Pases"].replace(0, np.nan)
-            goles_por_tiempo["remates_al_arco_por_gol"] = stats["Remates"] / goles_por_tiempo["goles_totales"].replace(0, np.nan)
+            goles_totales = goles_por_tiempo['goles_totales']
+            remates = stats['Remates']
+            remates_arco = stats['Remates al arco']
+            posesion = stats['Posesión']
+            tiros_esquina = stats['Tiros de esquina']
+            pases = stats['Pases']
+
+            goles_por_tiempo["conversion_goles"] = np.nan if remates == 0 else goles_totales / remates
+            goles_por_tiempo["conversion_arco"] = np.nan if remates_arco == 0 else goles_totales / remates_arco
+            stats["posesion_por_remate"] = np.nan if remates == 0 else goles_totales / remates
+            stats["posesion_por_gol"] = np.nan if goles_totales == 0 else posesion / goles_totales
+            stats["tirosEsquina_por_gol"] = np.nan if goles_totales == 0 else tiros_esquina / goles_totales
+            goles_por_tiempo["goles_por_pase"] = np.nan if pases == 0 else goles_totales / pases
+            goles_por_tiempo["remates_al_arco_por_gol"] = np.nan if goles_totales == 0 else remates / goles_totales
             if stats and goles_por_tiempo:
                 partido_key = f"Partido #{idx}"
                 partido_stats[partido_key] = {**stats, **goles_por_tiempo}
@@ -969,9 +988,9 @@ _, _, y_train_continuas, y_test_continuas = train_test_split(x, y_continuas, tes
 
 param_grid = {
     'criterion':['gini', 'entropy'],
-    'n_estimators': [100, 250, 500],
-    'min_samples_leaf':[5, 15, 25],
-    'max_features': [3,5, 7,9]
+    'n_estimators': [500],
+    'min_samples_leaf':[15],
+    'max_features': [3]
 }
 
 # 1. Entrenar el modelo de clasificación para las variables categóricas
@@ -984,13 +1003,13 @@ model_clasificacion.fit(x_train, y_train_categoricas)
 print("\nthe best ", model_clasificacion.best_estimator_, " the best scors ", model_clasificacion.best_score_)
 
 param_grid_regressor = {
-    'n_estimators': [100, 300],  # Menos valores
-    'learning_rate': [0.01, 0.05, 0.1],  # Menos valores
-    'max_depth': [3, 5, 7],  # Menos valores
-    'subsample': [0.7, 1.0],  # Menos valores
-    'colsample_bytree': [0.7, 1.0],  # Menos valores
-    'reg_alpha': [0, 0.1],  # Menos valores
-    'reg_lambda': [0, 0.1]  # Menos valores
+    'n_estimators': [300],  # Menos valores
+    'learning_rate': [0.05],  # Menos valores
+    'max_depth': [3],  # Menos valores
+    'subsample': [1.0],  # Menos valores
+    'colsample_bytree': [1.0],  # Menos valores
+    'reg_alpha': [0],  # Menos valores
+    'reg_lambda': [0]  # Menos valores
 }
 
 xgb = XGBRegressor(random_state=42)
@@ -1026,7 +1045,8 @@ estadisticas_equipo1 = {
     'equipo': equipo_objetivo_1_ID,
     'equipo_contrincante': equipo_objetivo_2_ID,
     'goles_totales': 0,
-    'Alineacion_contrincante': Alineacion_visitante
+    'Alineacion_contrincante': Alineacion_visitante,
+    'Tiros de esquina': 0
 }
 
 estadisticas_equipo2 = {
@@ -1047,7 +1067,8 @@ estadisticas_equipo2 = {
     'equipo': equipo_objetivo_2_ID,
     'equipo_contrincante': equipo_objetivo_1_ID,
     'goles_totales': 0,
-    'Alineacion_contrincante': Alineacion_local
+    'Alineacion_contrincante': Alineacion_local,
+    'Tiros de esquina': 0
 }
 
 equipo1, equipo2 = list(stats.keys())
@@ -1102,6 +1123,10 @@ estadisticas_equipo1['Precisión de los pases'] = weighted_average(
     [stats_partido['Precisión de los pases'] for stats_partido in stats[equipo1].values()],
     pesos
 )
+estadisticas_equipo1['Tiros de esquina'] = weighted_average(
+    [stats_partido['Tiros de esquina'] for stats_partido in stats[equipo1].values()],
+    pesos
+)
 
 
 # Repetir para el equipo 2
@@ -1145,7 +1170,72 @@ estadisticas_equipo2['Precisión de los pases'] = weighted_average(
     [stats_partido['Precisión de los pases'] for stats_partido in stats[equipo2].values()],
     pesos
 )
+estadisticas_equipo2['Tiros de esquina'] = weighted_average(
+    [stats_partido['Tiros de esquina'] for stats_partido in stats[equipo2].values()],
+    pesos
+)
 
+
+estadisticas_equipo1['Posesión_contrincante'] = estadisticas_equipo2["Posesión"]
+estadisticas_equipo2['Posesión_contrincante'] = estadisticas_equipo1["Posesión"]
+estadisticas_equipo1["Remates_contrincante"] = estadisticas_equipo2["Remates"]
+estadisticas_equipo2["Remates_contrincante"] = estadisticas_equipo1["Remates"]
+estadisticas_equipo1["Tiros de esquina_contrincante"] = estadisticas_equipo2["Tiros de esquina"]
+estadisticas_equipo2["Tiros de esquina_contrincante"] = estadisticas_equipo1["Tiros de esquina"]
+estadisticas_equipo1["tarjetas"] = estadisticas_equipo1["Tarjetas amarillas"] + estadisticas_equipo1["Tarjetas rojas"]
+estadisticas_equipo2["tarjetas"] = estadisticas_equipo2["Tarjetas amarillas"] + estadisticas_equipo2["Tarjetas rojas"]
+estadisticas_equipo1["tarjetas_contrincante"] = estadisticas_equipo2["tarjetas"]
+estadisticas_equipo2["tarjetas_contrincante"] = estadisticas_equipo1["tarjetas"]
+estadisticas_equipo1["Faltas_contrincante"] = estadisticas_equipo2["Faltas"]
+estadisticas_equipo2["Faltas_contrincante"] = estadisticas_equipo1["Faltas"]
+
+estadisticas_equipo1['Posesión_contra_por_remate'] = estadisticas_equipo1["Posesión_contrincante"] / estadisticas_equipo1["Remates_contrincante"]
+estadisticas_equipo1["tarjetas_por_falta"] = estadisticas_equipo1["tarjetas"] / estadisticas_equipo1["Faltas"]
+estadisticas_equipo1["pases_completados"] = round((estadisticas_equipo1["Pases"] * estadisticas_equipo1["Precisión de los pases"]))
+estadisticas_equipo1["faltas_por_pases"] = estadisticas_equipo1["Faltas"]/estadisticas_equipo1["pases_completados"]
+estadisticas_equipo1["pases_por_posesion"] = estadisticas_equipo1["pases_completados"]/estadisticas_equipo1["Posesión"]
+estadisticas_equipo1["tirosEsquina_por_remate"] = estadisticas_equipo1["Tiros de esquina"]/estadisticas_equipo1["Remates"]
+estadisticas_equipo1["tirosEsquina_por_posesion"] = estadisticas_equipo1["Tiros de esquina"]/estadisticas_equipo1["Posesión"]
+estadisticas_equipo1["diff_remates"] = estadisticas_equipo1["Remates"] - estadisticas_equipo1["Remates_contrincante"]
+estadisticas_equipo1["diff_posesion"] = estadisticas_equipo1["Posesión"] - estadisticas_equipo1["Posesión_contrincante"]
+estadisticas_equipo1["diff_Tiros de esquina"] = estadisticas_equipo1["Tiros de esquina"] - estadisticas_equipo1["Tiros de esquina_contrincante"]
+estadisticas_equipo1["diff_tarjetas"] = estadisticas_equipo1["tarjetas"] - estadisticas_equipo1["tarjetas_contrincante"]
+estadisticas_equipo1["diff_faltas"] = estadisticas_equipo1["Faltas"] - estadisticas_equipo1["Faltas_contrincante"]
+estadisticas_equipo1["remates_por_pase"] = estadisticas_equipo1["Remates"]/estadisticas_equipo1["Pases"]
+estadisticas_equipo1['goles_totales'] = estadisticas_equipo1['goles_primera_mitad'] + estadisticas_equipo1['goles_segunda_mitad']
+estadisticas_equipo1['remates_al_arco_por_gol'] = estadisticas_equipo1["Remates"] / estadisticas_equipo1["goles_totales"]   
+estadisticas_equipo1['goles_por_pase'] = estadisticas_equipo1["goles_totales"] /estadisticas_equipo1["Pases"]
+estadisticas_equipo1['tirosEsquina_por_gol'] = estadisticas_equipo1["Tiros de esquina"]/estadisticas_equipo1["goles_totales"]
+estadisticas_equipo1['posesion_por_gol'] = estadisticas_equipo1["Posesión"]/estadisticas_equipo1["goles_totales"]
+estadisticas_equipo1['posesion_por_remate'] = estadisticas_equipo1["goles_totales"]/estadisticas_equipo1["Remates"]
+estadisticas_equipo1['conversion_arco'] = estadisticas_equipo1["goles_totales"]/estadisticas_equipo1["Remates al arco"]
+estadisticas_equipo1['conversion_goles'] = estadisticas_equipo1["goles_totales"]/estadisticas_equipo1["Remates"]
+
+
+estadisticas_equipo2['Posesión_contra_por_remate'] = estadisticas_equipo2["Posesión_contrincante"] / estadisticas_equipo2["Remates_contrincante"]
+estadisticas_equipo2["tarjetas_por_falta"] = estadisticas_equipo2["tarjetas"] / estadisticas_equipo2["Faltas"]
+estadisticas_equipo2["pases_completados"] = round((estadisticas_equipo2["Pases"] * estadisticas_equipo2["Precisión de los pases"]))
+estadisticas_equipo2["faltas_por_pases"] = estadisticas_equipo2["Faltas"]/estadisticas_equipo2["pases_completados"]
+estadisticas_equipo2["pases_por_posesion"] = estadisticas_equipo2["pases_completados"]/estadisticas_equipo2["Posesión"]
+estadisticas_equipo2["tirosEsquina_por_remate"] = estadisticas_equipo2["Tiros de esquina"]/estadisticas_equipo2["Remates"]
+estadisticas_equipo2["tirosEsquina_por_posesion"] = estadisticas_equipo2["Tiros de esquina"]/estadisticas_equipo2["Posesión"]
+estadisticas_equipo2["diff_remates"] = estadisticas_equipo2["Remates"] - estadisticas_equipo2["Remates_contrincante"]
+estadisticas_equipo2["diff_posesion"] = estadisticas_equipo2["Posesión"] - estadisticas_equipo2["Posesión_contrincante"]
+estadisticas_equipo2["diff_Tiros de esquina"] = estadisticas_equipo2["Tiros de esquina"] - estadisticas_equipo2["Tiros de esquina_contrincante"]
+estadisticas_equipo2["diff_tarjetas"] = estadisticas_equipo2["tarjetas"] - estadisticas_equipo2["tarjetas_contrincante"]
+estadisticas_equipo2["diff_faltas"] = estadisticas_equipo2["Faltas"] - estadisticas_equipo2["Faltas_contrincante"]
+estadisticas_equipo2["remates_por_pase"] = estadisticas_equipo2["Remates"]/estadisticas_equipo2["Pases"]          
+estadisticas_equipo2['goles_totales'] = estadisticas_equipo2['goles_primera_mitad'] + estadisticas_equipo2['goles_segunda_mitad']
+estadisticas_equipo2['remates_al_arco_por_gol'] = estadisticas_equipo2["Remates"] / estadisticas_equipo2["goles_totales"]
+estadisticas_equipo2['goles_por_pase'] = estadisticas_equipo2["goles_totales"] /estadisticas_equipo2["Pases"]
+estadisticas_equipo2['tirosEsquina_por_gol'] = estadisticas_equipo2["Tiros de esquina"]/estadisticas_equipo2["goles_totales"]
+estadisticas_equipo2['posesion_por_gol'] = estadisticas_equipo2["Posesión"]/estadisticas_equipo2["goles_totales"]
+estadisticas_equipo2['posesion_por_remate'] = estadisticas_equipo2["goles_totales"]/estadisticas_equipo2["Remates"]
+estadisticas_equipo2['conversion_arco'] = estadisticas_equipo2["goles_totales"]/estadisticas_equipo2["Remates al arco"]
+estadisticas_equipo2['conversion_goles'] = estadisticas_equipo2["goles_totales"]/estadisticas_equipo2["Remates"]
+
+del estadisticas_equipo1['Tiros de esquina']
+del estadisticas_equipo2['Tiros de esquina']
 #COMIENZO DEL DATAFRAME
 estadisticas_equipo1_df = pd.DataFrame([estadisticas_equipo1])
 estadisticas_equipo2_df = pd.DataFrame([estadisticas_equipo2])
@@ -1164,14 +1254,35 @@ estadisticas_equipo1_df = pd.concat([estadisticas_equipo1_df, df_nuevas_columnas
 # Unir los DataFrames
 estadisticas_equipo2_df = pd.concat([estadisticas_equipo2_df, df_nuevas_columnas], axis=1)
 
-#codigo que buscara los jugadores y le pondra 1 pensando en la alineacion: estadisticas_equipo1_df.loc[:,estadisticas_equipo1_df.filter(regex=f"(?=.*{equipo})(?=.*{Jugador})").columns] = 1
+torneo_name = next((k for k, v in torneos_dict.items() if v == Torneo), None)
+alineaciones = getAlineacion().getAlineaciones({"name_equipo":equipo1,"name_visitante_equipo":equipo2,"torneo":torneo_name})
 
-#if estadisticas_equipo1_df['equipo'].str.lower().eq(equipo.lower()).any():
-#    # Regex sin \b para permitir nombres pegados
-#    regex_busqueda = f"(?i)^.*{re.escape(jugador)}.*{re.escape(equipo)}.*$"
-#    columnas_coincidentes = estadisticas_equipo1_df.filter(regex=regex_busqueda).columns
-#    if not columnas_coincidentes.empty:
-#        estadisticas_equipo1_df.loc[0, columnas_coincidentes] = 1
+# Obtener jugadores del equipo local
+jugadores_locales = alineaciones["local"]
+jugadores_visitantes = alineaciones["visitante"]
+#codigo que buscara los jugadores y le pondra 1 pensando en la alineacion: 
+# Asignar 1 a los jugadores en la alineación
+for jugador in jugadores_locales:
+    if (estadisticas_equipo1_df['equipo'] == estadisticas_equipo1["equipo"]).any():
+        # Regex sin \b para permitir nombres pegados
+        regex_busqueda = f"(?i)^.*{re.escape(jugador)}.*{re.escape(equipo1)}.*$"
+        columnas_coincidentes = estadisticas_equipo1_df.filter(regex=regex_busqueda).columns
+        if not columnas_coincidentes.empty:
+            estadisticas_equipo1_df.loc[0, columnas_coincidentes] = 1
+
+for jugador in jugadores_visitantes:
+    if (estadisticas_equipo2_df['equipo'] == estadisticas_equipo2["equipo"]).any():
+        # Regex sin \b para permitir nombres pegados
+        regex_busqueda = f"(?i)^.*{re.escape(jugador)}.*{re.escape(equipo2)}.*$"
+        columnas_coincidentes = estadisticas_equipo2_df.filter(regex=regex_busqueda).columns
+        if not columnas_coincidentes.empty:
+            estadisticas_equipo2_df.loc[0, columnas_coincidentes] = 1
+
+estadisticas_equipo1_df = estadisticas_equipo1_df[x_train.columns]
+estadisticas_equipo2_df = estadisticas_equipo2_df[x_train.columns]
+# Verificar duplicados
+duplicados = estadisticas_equipo1_df.columns[estadisticas_equipo1_df.columns.duplicated()]
+print("Columnas duplicadas en estadisticas_equipo1_df:", duplicados.tolist())
 
 # Predicciones categóricas (gano, perdio, empato)
 predicciones_categoricas_equipo1 = model_clasificacion.predict(estadisticas_equipo1_df)
