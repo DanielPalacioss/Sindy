@@ -874,17 +874,6 @@ def calcular_desviacion_estandar_y_datos(stats):
 
     return Mean, Mean2
 
-# 1. Convertir el diccionario de stats a DataFrame
-def convertir_a_dataframes_por_equipo(stats):
-    equipos_dataframes = {}
-    for equipo, partidos in stats.items():
-        datos = []
-        for partido, estadisticas in partidos.items():
-            fila = estadisticas
-            datos.append(fila)
-        equipos_dataframes[equipo] = pd.DataFrame(datos)  # Crear un DataFrame por equipo
-    return equipos_dataframes
-
     #Manejo de csv
 # Crear un DataFrame por equipo y devolver los DataFrames al final
 def crear_y_retornar_dataframes(stats):
@@ -948,31 +937,24 @@ def crear_y_retornar_dataframes(stats):
 
     return equipos_dataframes
 
-# Crear un DataFrame por equipo y devolver los DataFrames al final
-def crear_y_retornar_dataframes_all():
-    # Generar el nombre del archivo con el nombre del equipo
-    nombre_archivo = "historial.csv"
-
-    # Verificar si el archivo ya existe
-    if os.path.isfile(nombre_archivo):
-        # Leer el archivo existente
-        df_stats = pd.read_csv(nombre_archivo, parse_dates=['Fecha'], sep=';', quotechar='"')
-        df_stats["Fecha"] = pd.to_datetime(df_stats["Fecha"])
-
-        df_stats = df_stats.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
-        # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
-        df_stats = df_stats.sort_values(by="Fecha", ascending=False)
-        df_stats.fillna(0, inplace=True)
-        # Guardar el DataFrame actualizado en el archivo CSV
-        df_stats.to_csv(nombre_archivo, sep=';', index=False)
-
-    # Guardar el DataFrame en el diccionario
-    return df_stats
-
 equipos_dataframes = crear_y_retornar_dataframes(stats)
-equipos_dataframes_all = crear_y_retornar_dataframes_all()
-Alineacion_local = equipos_dataframes[equipo_objetivo_1].iloc[0]["Alineacion"] #se asignan alineacion mas reciente
-Alineacion_visitante = equipos_dataframes[equipo_objetivo_2].iloc[0]["Alineacion"] #se asignan alineacion mas reciente
+local_df = equipos_dataframes[equipo_objetivo_1]
+visitante_df = equipos_dataframes[equipo_objetivo_2]
+
+local_df['Torneo'] = local_df['Torneo'].astype('category')
+local_df['Alineacion'] = local_df['Alineacion'].astype('category')
+local_df['Alineacion_contrincante'] = local_df['Alineacion_contrincante'].astype('category')
+local_df['equipo'] = local_df['equipo'].astype('category')
+local_df['equipo_contrincante'] = local_df['equipo_contrincante'].astype('category')
+
+visitante_df['Torneo'] = visitante_df['Torneo'].astype('category')
+visitante_df['Alineacion'] = visitante_df['Alineacion'].astype('category')
+visitante_df['Alineacion_contrincante'] = visitante_df['Alineacion_contrincante'].astype('category')
+visitante_df['equipo'] = visitante_df['equipo'].astype('category')
+visitante_df['equipo_contrincante'] = visitante_df['equipo_contrincante'].astype('category')
+
+Alineacion_local = local_df.iloc[0]["Alineacion"] #se asignan alineacion mas reciente
+Alineacion_visitante = visitante_df.iloc[0]["Alineacion"] #se asignan alineacion mas reciente
 
 columnas_a_excluir = ['gano', 'Tiros de esquina', 'perdio', 'empato', 'Fecha', 'Equipo_name', 'equipo_contrincante_name']
 valores_y = ['gano', 'Tiros de esquina', 'perdio', 'empato']
@@ -981,8 +963,17 @@ valores_y_continuas = ['Tiros de esquina']
 #--------------------------------------------------------------------------------Equipo local modelo predictivo
 # 2. Preparar los datos para el modelo del equipo local
 # Seleccionamos las columnas con estadísticas y el objetivo
-x = equipos_dataframes_all.drop(columns=columnas_a_excluir)
-y = equipos_dataframes_all[valores_y]
+# Convertir columnas categóricas a códigos
+cat_columns = ['Torneo', 'Alineacion', 'Alineacion_contrincante', 'equipo', 'equipo_contrincante']
+categorias = {}
+
+for col in cat_columns:
+    local_df[col] = local_df[col].astype('category')
+    categorias[col] = local_df[col].cat.categories
+    local_df[col] = local_df[col].cat.codes
+    
+x = local_df.drop(columns=columnas_a_excluir)
+y = local_df[valores_y]
 
 # Dividir las variables de salida (Y)
 y_categoricas = y[valores_y_categoricas]
@@ -1001,7 +992,7 @@ param_grid_xgb = {
 }
 
 # Modelo base
-xgb_base = XGBClassifier(random_state=21, eval_metric='logloss')
+xgb_base = XGBClassifier(random_state=21, eval_metric='logloss',enable_categorical=True)
 # MultiOutputClassifier para manejar múltiples salidas categóricas
 multi_output_xgb = MultiOutputClassifier(xgb_base, n_jobs=-1)
 
@@ -1009,9 +1000,10 @@ multi_output_xgb = MultiOutputClassifier(xgb_base, n_jobs=-1)
 model_clasificacion = GridSearchCV(multi_output_xgb, param_grid_xgb, cv=3, n_jobs=-1)
 model_clasificacion.fit(x_train, y_train_categoricas)
 
-print("\nMejor estimador:", model_clasificacion.best_estimator_)
-print("Mejor score:", model_clasificacion.best_score_)
+print("\nMejor estimador del local:", model_clasificacion.best_estimator_)
+print("Mejor score del local:", model_clasificacion.best_score_)
 
+#Regressor
 param_grid_regressor = {
     'n_estimators': [300],  # Menos valores
     'learning_rate': [0.05],  # Menos valores
@@ -1027,12 +1019,59 @@ grid_search = GridSearchCV(xgb, param_grid_regressor, cv=5, scoring='neg_mean_sq
 grid_search.fit(x_train, y_train_continuas)
 
 # Mejor combinación de hiperparámetros
-print("Mejores parámetros:", grid_search.best_params_)
+print("Mejores parámetros del local:", grid_search.best_params_)
 
 # Modelo final con los mejores hiperparámetros
 model_regresion = grid_search.best_estimator_
 #plot_importance(model_regresion)
 #plt.show()
+
+#--------------------------------------------------------------------------------Equipo visitante modelo predictivo
+# 2. Preparar los datos para el modelo del equipo local
+# Seleccionamos las columnas con estadísticas y el objetivo
+cat_columns = ['Torneo', 'Alineacion', 'Alineacion_contrincante', 'equipo', 'equipo_contrincante']
+categorias2 = {}
+
+for col in cat_columns:
+    visitante_df[col] = visitante_df[col].astype('category')
+    categorias2[col] = visitante_df[col].cat.categories
+    visitante_df[col] = visitante_df[col].cat.codes
+    
+x2 = visitante_df.drop(columns=columnas_a_excluir)
+y2 = visitante_df[valores_y]
+
+# Dividir las variables de salida (Y)
+y_categoricas2 = y2[valores_y_categoricas]
+y_continuas2 = y2[valores_y_continuas]
+
+# Dividir los datos en conjunto de entrenamiento y prueba
+x_train2, x_test2, y_train_categoricas2, y_test_categoricas2 = train_test_split(x2, y_categoricas2, test_size=0.2, random_state=42)
+_, _, y_train_continuas2, y_test_continuas2 = train_test_split(x2, y_continuas2, test_size=0.2, random_state=42)
+
+# Modelo base
+xgb_base2 = XGBClassifier(random_state=21, eval_metric='logloss',enable_categorical=True)
+# MultiOutputClassifier para manejar múltiples salidas categóricas
+multi_output_xgb2 = MultiOutputClassifier(xgb_base2, n_jobs=-1)
+
+# GridSearchCV con MultiOutputClassifier
+model_clasificacion2 = GridSearchCV(multi_output_xgb2, param_grid_xgb, cv=3, n_jobs=-1)
+model_clasificacion2.fit(x_train2, y_train_categoricas2)
+
+print("\nMejor estimador del visitante:", model_clasificacion2.best_estimator_)
+print("Mejor score del visitante:", model_clasificacion2.best_score_)
+
+xgb2 = XGBRegressor(random_state=42)
+grid_search2 = GridSearchCV(xgb2, param_grid_regressor, cv=5, scoring='neg_mean_squared_error', verbose=1, n_jobs=-1)
+grid_search2.fit(x_train2, y_train_continuas2)
+
+# Mejor combinación de hiperparámetros
+print("Mejores parámetros:", grid_search2.best_params_)
+
+# Modelo final con los mejores hiperparámetros
+model_regresion2 = grid_search2.best_estimator_
+#plot_importance(model_regresion2)
+#plt.show()
+
 
 #--------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
 # Predecir si ganará el próximo partido (usando nuevas estadísticas)
@@ -1268,15 +1307,17 @@ columnas_a_excluir = ['Fecha', 'Equipo_name', 'Torneo', 'Alineacion', 'Alineacio
 'goles_totales','remates_al_arco_por_gol','goles_por_pase','tirosEsquina_por_gol','posesion_por_gol','posesion_por_remate','conversion_arco','conversion_goles']
 
 # Obtener solo los nombres de las columnas que queremos (excluyendo algunas)
-columnas_filtradas = [col for col in equipos_dataframes_all.columns if col not in columnas_a_excluir]
+columnas_filtradas = [col for col in local_df.columns if col not in columnas_a_excluir]
+columnas_filtradas_visitante = [col for col in visitante_df.columns if col not in columnas_a_excluir]
 
 # Crear un DataFrame con una fila llena de ceros y las columnas filtradas
 df_nuevas_columnas = pd.DataFrame([[0] * len(columnas_filtradas)], columns=columnas_filtradas)
+df_nuevas_columnas_visitante = pd.DataFrame([[0] * len(columnas_filtradas_visitante)], columns=columnas_filtradas_visitante)
 
 # Unir los DataFrames
 estadisticas_equipo1_df = pd.concat([estadisticas_equipo1_df, df_nuevas_columnas], axis=1)
 # Unir los DataFrames
-estadisticas_equipo2_df = pd.concat([estadisticas_equipo2_df, df_nuevas_columnas], axis=1)
+estadisticas_equipo2_df = pd.concat([estadisticas_equipo2_df, df_nuevas_columnas_visitante], axis=1)
 
 torneo_name = next((k for k, v in torneos_dict.items() if v == Torneo), None)
 alineaciones = getAlineacion().getAlineaciones({"name_equipo":equipo1,"name_visitante_equipo":equipo2,"torneo":torneo_name})
@@ -1327,40 +1368,46 @@ for jugador in jugadores_visitantes:
             estadisticas_equipo2_df.loc[0, columnas_coincidentes] = 1
 
 estadisticas_equipo1_df = estadisticas_equipo1_df[x_train.columns]
-estadisticas_equipo2_df = estadisticas_equipo2_df[x_train.columns]
+estadisticas_equipo2_df = estadisticas_equipo2_df[x_train2.columns]
 
+for col in cat_columns:
+    estadisticas_equipo1_df[col] = estadisticas_equipo1_df[col].astype('category')
+    estadisticas_equipo1_df[col] = estadisticas_equipo1_df[col].cat.set_categories(categorias[col])
+    estadisticas_equipo1_df[col] = estadisticas_equipo1_df[col].cat.codes
 
-estadisticas_equipo1_df['Torneo'] = df['Torneo'].astype('category')
-estadisticas_equipo1_df['Alineacion'] = df['Alineacion'].astype('category')
-estadisticas_equipo1_df['Alineacion_contrincante'] = df['Alineacion_contrincante'].astype('category')
-estadisticas_equipo1_df['equipo'] = df['equipo'].astype('category')
-estadisticas_equipo1_df['equipo_contrincante'] = df['equipo_contrincante'].astype('category')
-
-estadisticas_equipo2_df['Torneo'] = df['Torneo'].astype('category')
-estadisticas_equipo2_df['Alineacion'] = df['Alineacion'].astype('category')
-estadisticas_equipo2_df['Alineacion_contrincante'] = df['Alineacion_contrincante'].astype('category')
-estadisticas_equipo2_df['equipo'] = df['equipo'].astype('category')
-estadisticas_equipo2_df['equipo_contrincante'] = df['equipo_contrincante'].astype('category')
-
+for col in cat_columns:
+    estadisticas_equipo2_df[col] = estadisticas_equipo2_df[col].astype('category')
+    estadisticas_equipo2_df[col] = estadisticas_equipo2_df[col].cat.set_categories(categorias2[col])
+    estadisticas_equipo2_df[col] = estadisticas_equipo2_df[col].cat.codes
+    
 # Predicciones categóricas
 predicciones_categoricas_equipo1 = model_clasificacion.predict(estadisticas_equipo1_df)
 predicciones_probabilidades_equipo1 = model_clasificacion.predict_proba(estadisticas_equipo1_df)
 
-predicciones_categoricas_equipo2 = model_clasificacion.predict(estadisticas_equipo2_df)
-predicciones_probabilidades_equipo2 = model_clasificacion.predict_proba(estadisticas_equipo2_df)
+predicciones_categoricas_equipo2 = model_clasificacion2.predict(estadisticas_equipo2_df)
+predicciones_probabilidades_equipo2 = model_clasificacion2.predict_proba(estadisticas_equipo2_df)
 
 # Predicciones continuas (Tiros de esquina, goles_totales)
 predicciones_continuas_equipo1 = model_regresion.predict(estadisticas_equipo1_df)
-predicciones_continuas_equipo2 = model_regresion.predict(estadisticas_equipo2_df)
+predicciones_continuas_equipo2 = model_regresion2.predict(estadisticas_equipo2_df)
 
 # Precisión del modelo
 y_pred_categoricas = model_clasificacion.predict(x_test)
 y_pred_continuas = model_regresion.predict(x_test)
 
+# Precisión del modelo visitante
+y_pred_categoricas2 = model_clasificacion2.predict(x_test2)
+y_pred_continuas2 = model_regresion2.predict(x_test2)
+
 # Evaluación de las variables continuas (regresión) local 
 mse_continuas = root_mean_squared_error(y_test_continuas, y_pred_continuas)
 mae_continuas = mean_absolute_error(y_test_continuas, y_pred_continuas)
 r2_continuas = r2_score(y_test_continuas, y_pred_continuas)
+
+# Evaluación de las variables continuas (regresión) visitante
+mse_continuas2= root_mean_squared_error(y_test_continuas2, y_pred_continuas2)
+mae_continuas2 = mean_absolute_error(y_test_continuas2, y_pred_continuas2)
+r2_continuas2 = r2_score(y_test_continuas2, y_pred_continuas2)
 
 print("\n\nEvaluacion del modelo y probabilidad de aciertos en datos de prueba\n")
 #Evaluación del modelo
@@ -1369,12 +1416,22 @@ print("\n\nEvaluacion del modelo y probabilidad de aciertos en datos de prueba\n
 accuracy_clasificacion = accuracy_score(y_test_categoricas, y_pred_categoricas)
 print(f'\nPrecisión categoricas del local: {accuracy_clasificacion:.3f}')
 
+#visitante
+accuracy_clasificacion2 = accuracy_score(y_test_categoricas2, y_pred_categoricas2)
+print(f'\nPrecisión categoricas del visitante: {accuracy_clasificacion2:.3f}')
+
 
 #continuas local
 print(f'\nError cuadrático medio (RMSE) continuas del local: {mse_continuas:.3f}')
 print(f'Error cuadrático medio (MSE) continuas al cuadrado del local: {math.pow(mse_continuas,2):.3f}')
 print(f'Error absoluto medio (MAE) continuas del local: {mae_continuas:.3f}')
 print(f'Coeficiente de determinación (R2) continuas del local: {r2_continuas:.3f}')
+
+#continuas visitante
+print(f'\nError cuadrático medio (RMSE) continuas del visitante: {mse_continuas2:.3f}')
+print(f'Error cuadrático medio (MSE) continuas al cuadrado del visitante: {math.pow(mse_continuas2,2):.3f}')
+print(f'Error absoluto medio (MAE) continuas del visitante: {mae_continuas2:.3f}')
+print(f'Coeficiente de determinación (R2) continuas del visitante: {r2_continuas2:.3f}')
 
 
 print("\n-----------------PREDICCIONES DEL", equipo_objetivo_1, "-----------------")
@@ -1399,7 +1456,7 @@ for idx, variable in enumerate(y_continuas.columns):
 
 
 print("\n-----------------PREDICCIONES DEL", equipo_objetivo_2, "-----------------")
-for idx, variable in enumerate(y_categoricas.columns):
+for idx, variable in enumerate(y_categoricas2.columns):
     probabilidad = predicciones_probabilidades_equipo2[idx]
 
     if len(probabilidad[0]) == 1:
@@ -1412,12 +1469,13 @@ for idx, variable in enumerate(y_categoricas.columns):
               f"(Prob. clase 0: {prob_0:.2f}, Prob. clase 1: {prob_1:.2f})")
 
 # Predicciones continuas sin tener en encuenta los jugadores (Tiros de esquina, goles_totales)
-for idx, variable in enumerate(y_continuas.columns):
-    prediccion = predicciones_continuas_equipo2[idx]
-    prediccion_menos_mse = prediccion - mse_continuas
-    prediccion_mas_mse = prediccion + mse_continuas
-    print(f"{variable}: Predicción: {prediccion_menos_mse:.2f} ---- {prediccion:.2f} ---- {prediccion_mas_mse:.2f}")
+for idx, variable in enumerate(y_continuas2.columns):
+    prediccion2 = predicciones_continuas_equipo2[idx]
+    prediccion_menos_mse2 = prediccion2 - mse_continuas2
+    prediccion_mas_mse2 = prediccion2 + mse_continuas2
+    print(f"{variable}: Predicción: {prediccion_menos_mse2:.2f} ---- {prediccion2:.2f} ---- {prediccion_mas_mse2:.2f}")
 #-------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
+#local porcentajes
 y_test_continuas = y_test_continuas.iloc[:, 0]
 # Errores reales
 errores = y_pred_continuas - y_test_continuas
@@ -1432,7 +1490,7 @@ porc_encima = np.mean(errores > mse_continuas) * 100
 porc_debajo = np.mean(errores < -mse_continuas) * 100
 
 # Mostrar resultados
-print(f"Predicciones dentro del rango ±{mse_continuas:.2f}: {porc_en_rango:.2f}%")
+print(f"\n\nPredicciones dentro del rango ±{mse_continuas:.2f}: {porc_en_rango:.2f}%")
 print(f"Predicciones que sobreestimaron el valor real en más de {mse_continuas:.2f}: {porc_encima:.2f}%")
 print(f"Predicciones que subestimaron el valor real en más de {mse_continuas:.2f}: {porc_debajo:.2f}%")
 
@@ -1452,3 +1510,40 @@ print("\n--- Mayor subestimación ---")
 print(f"Valor real      : {y_test_continuas.iloc[idx_max_sub]:.2f}")
 print(f"Predicción      : {y_pred_continuas[idx_max_sub]:.2f}")
 print(f"Error (↓)       : {errores.iloc[idx_max_sub]:.2f}")
+
+
+#visitantes porcentajes
+y_test_continuas2 = y_test_continuas2.iloc[:, 0]
+# Errores reales
+errores2 = y_pred_continuas2 - y_test_continuas2
+
+# Porcentaje dentro del rango ±RMSE
+porc_en_rango2 = np.mean(np.abs(errores2) <= mse_continuas2) * 100
+
+# Porcentaje que se pasó por más de RMSE
+porc_encima2 = np.mean(errores2 > mse_continuas2) * 100
+
+# Porcentaje que se quedó corto por más de RMSE
+porc_debajo2 = np.mean(errores2 < -mse_continuas2) * 100
+
+# Mostrar resultados
+print(f"\n\nPredicciones dentro del rango visitante ±{mse_continuas2:.2f}: {porc_en_rango2:.2f}%")
+print(f"Predicciones que sobreestimaron el valor real en más de visitante {mse_continuas2:.2f}: {porc_encima2:.2f}%")
+print(f"Predicciones que subestimaron el valor real en más de visitante {mse_continuas2:.2f}: {porc_debajo2:.2f}%")
+
+#Impresion de errores mas alto bajo y alto
+# Índice de mayor sobreestimación
+idx_max_sobre2 = np.argmax(errores2)
+# Índice de mayor subestimación
+idx_max_sub2 = np.argmin(errores2)
+
+# Mostrar detalles
+print("\n--- Mayor sobreestimación visitante ---")
+print(f"Valor real      : {y_test_continuas2.iloc[idx_max_sobre2]:.2f}")
+print(f"Predicción      : {y_pred_continuas2[idx_max_sobre2]:.2f}")
+print(f"Error (↑)       : {errores2.iloc[idx_max_sobre2]:.2f}")
+
+print("\n--- Mayor subestimación visitante ---")
+print(f"Valor real      : {y_test_continuas2.iloc[idx_max_sub2]:.2f}")
+print(f"Predicción      : {y_pred_continuas2[idx_max_sub2]:.2f}")
+print(f"Error (↓)       : {errores2.iloc[idx_max_sub2]:.2f}")
