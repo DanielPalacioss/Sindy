@@ -8,7 +8,7 @@ import os
 class EquipmentCollection:
     if __name__ == "__main__":
         # Configuración de Selenium con ChromeDriver
-        service =  Service(executable_path= 'chromedriver.exe')
+        service =  Service('chromedriver.exe')
         driver = webdriver.Chrome(service=service)
 
         urls_torneos = []
