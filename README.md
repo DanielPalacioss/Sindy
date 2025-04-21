@@ -7,7 +7,7 @@ Ejecutar al clonar repositorio
 
 python -m venv venv  # Crear un nuevo entorno virtual
 source venv/bin/activate  # En Linux/macOS
-.venv\Scripts\activate  # En Windows
+venv\Scripts\activate  # En Windows
 pip install -r requirements.txt  # Instalar dependencias
 
 despues de instalar alguna aplicacion ejecutar:
