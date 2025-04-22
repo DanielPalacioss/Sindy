@@ -18,7 +18,7 @@ LOSC;15;;
 Feyenoord;16;;
 Atalanta;17;;
 Stuttgart;18;;
-PSG;19;;
+PSG;19;480;psg
 Celtic F. C.;20;;
 Sparta Praha;21;;
 Dinamo Zagreb;22;;
@@ -768,7 +768,7 @@ Lens;765;;
 Reims;766;;
 Racing de Estrasburgo;767;;
 Rennes;768;;
-Nantes;769;;
+Nantes;769;486;nantes
 Auxerre;770;;
 Angers;771;;
 Toulouse;772;;
