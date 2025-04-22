@@ -39,8 +39,8 @@ options.add_argument("--disable-dev-shm-usage")  # Previene problemas de memoria
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "RCD Espanyol"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Getafe"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Tottenham"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Nottingham Forest"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
@@ -304,7 +304,7 @@ if len(equipos_dict) == 1:
 service =  Service('chromedriver.exe')
 driver = webdriver.Chrome(service=service, options=options)
 
-Torneo = 1 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+Torneo = 3 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
 
 if equipos_dict.get(equipo_objetivo_1, -1) == -1:
     raise Exception(f"El equipo {equipo_objetivo_1} no existe en la base de datos, por favor agregarlo")
@@ -518,7 +518,7 @@ def obtener_estadisticas(soup, equipo_objetivo):
                 partido_stats[f"{jugador[1].get('aria-label')}-{equipo_objetivo}"] = 1
         
         partido_stats['Tiros de esquina_concedidos'] = partido_stats['Tiros de esquina_contrincante']
-        print(partido_stats['Tiros de esquina_concedidos'])
+
         del partido_stats['Tiros de esquina_contrincante']
         partido_stats["Posesión"] = partido_stats["Posesión"]/100
         partido_stats["Posesión_contrincante"] = partido_stats["Posesión_contrincante"]/100
@@ -1329,7 +1329,7 @@ jugadores_visitantes = alineaciones["visitante"]
 # Asignar 1 a los jugadores en la alineación
 for jugador in jugadores_locales:
     if (estadisticas_equipo1_df['equipo'] == estadisticas_equipo1["equipo"]).any():
-        if len(jugador.split()[0]) > 3:
+        if len(jugador.split()[0]) >= 3:
             # Convertimos el nombre del jugador a ASCII (sin tildes) para la búsqueda
             nombre_jugador = unidecode(jugador.split()[0])
         else:

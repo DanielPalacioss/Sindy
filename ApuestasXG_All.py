@@ -518,7 +518,6 @@ def obtener_estadisticas(soup, equipo_objetivo):
                 partido_stats[f"{jugador[1].get('aria-label')}-{equipo_objetivo}"] = 1
         
         partido_stats['Tiros de esquina_concedidos'] = partido_stats['Tiros de esquina_contrincante']
-        print(partido_stats['Tiros de esquina_concedidos'])
         del partido_stats['Tiros de esquina_contrincante']
         partido_stats["Posesión"] = partido_stats["Posesión"]/100
         partido_stats["Posesión_contrincante"] = partido_stats["Posesión_contrincante"]/100
