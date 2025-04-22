@@ -39,14 +39,16 @@ options.add_argument("--disable-dev-shm-usage")  # Previene problemas de memoria
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Manchester City"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Aston Villa"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Cagliari"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Fiorentina"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
 urls_equipo_1 = []
 urls_equipo_2 = []
 
+ingresadoM=""
+ingresadoM2=""
 if os.path.exists(f"{equipo_objetivo_1}.csv"):
     opcion = input(f"Desea cargar nuevos datos del {equipo_objetivo_1}?  SI/NO ")
     if(opcion.strip().lower() == "si"):
@@ -55,7 +57,7 @@ if os.path.exists(f"{equipo_objetivo_1}.csv"):
             df = pd.read_csv("equipos_links.csv")
             if equipo_objetivo_1 in df["Equipo"].values:
                 matchsNumber = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_1}? "))
-
+                ingresadoM = "NO"
                 #Buscar link de lista de partidos
                 url = df.loc[df["Equipo"] == equipo_objetivo_1, "Link_Lista_Partidos"].values[0]
                 
@@ -101,7 +103,7 @@ else:
         df = pd.read_csv("equipos_links.csv")
         if equipo_objetivo_1 in df["Equipo"].values:
             matchsNumber = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_1}? "))
-
+            ingresadoM = "NO"
             #Buscar link de lista de partidos
             url = df.loc[df["Equipo"] == equipo_objetivo_1, "Link_Lista_Partidos"].values[0]
             
@@ -150,7 +152,7 @@ if os.path.exists(f"{equipo_objetivo_2}.csv"):
             df = pd.read_csv("equipos_links.csv")
             if equipo_objetivo_2 in df["Equipo"].values:
                 matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
-
+                ingresadoM2 = "NO"
                 #Buscar link de lista de partidos
                 url2 = df.loc[df["Equipo"] == equipo_objetivo_2, "Link_Lista_Partidos"].values[0]
                 
@@ -197,7 +199,7 @@ else:
         df = pd.read_csv("equipos_links.csv")
         if equipo_objetivo_2 in df["Equipo"].values:
             matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
-
+            ingresadoM2 ="NO"
             #Buscar link de lista de partidos
             url2 = df.loc[df["Equipo"] == equipo_objetivo_2, "Link_Lista_Partidos"].values[0]
             
@@ -239,7 +241,8 @@ else:
         urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
 
 #Validacion de link en equipo local
-opcion = input(f"El link del {equipo_objetivo_1} quedo mal ingresado?  SI/NO ")
+if ingresadoM != "NO":
+    opcion = input(f"El link del {equipo_objetivo_1} quedo mal ingresado?  SI/NO ")
 if(opcion.strip().lower() == "si"):
     # Cargar el CSV en un DataFrame
     df = pd.read_csv("equipos_links.csv")
@@ -263,6 +266,8 @@ if(opcion.strip().lower() == "si"):
     # Guardar el DataFrame actualizado
     df.to_csv("equipos_links.csv", index=False)
 
+if ingresadoM2 != "NO":
+    opcion = input(f"El link del {equipo_objetivo_1} quedo mal ingresado?  SI/NO ")
 #Validacion de link en equipo visitante
 opcion2 = input(f"El link del {equipo_objetivo_2} quedo mal ingresado?  SI/NO ")
 if(opcion2.strip().lower() == "si"):
@@ -304,7 +309,7 @@ if len(equipos_dict) == 1:
 service =  Service('chromedriver.exe')
 driver = webdriver.Chrome(service=service, options=options)
 
-Torneo = 3 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+Torneo = 4 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
 
 if equipos_dict.get(equipo_objetivo_1, -1) == -1:
     raise Exception(f"El equipo {equipo_objetivo_1} no existe en la base de datos, por favor agregarlo")

@@ -8,12 +8,12 @@ Stade Brestois;5;;
 Leverkusen;6;;
 Inter;7;;
 Sporting Lisboa;8;;
-Arsenal;9;;
+Arsenal;9;104;arsenal
 Barcelona;10;132;fc-barcelona
 Dortmund;11;;
 Real Madrid;12;131;real-madrid
 Benfica;13;;
-Juventus;14;;
+Juventus;14;226;juventus
 LOSC;15;;
 Feyenoord;16;;
 Atalanta;17;;
@@ -64,21 +64,21 @@ West Ham;61;;
 Manchester United;62;;
 Leicester City;63;;
 Everton;64;;
-Crystal Palace;65;;
+Crystal Palace;65;10;crystal-palace
 Ipswich;66;;
 Wolves;67;;
 Southampton;68;;
 Napoli;69;;
-Fiorentina;70;;
+Fiorentina;70;228;fiorentina
 Lazio;71;;
 Udinese;72;;
 Torino;73;;
 Roma;74;;
 Empoli;75;;
-Parma;76;;
+Parma;76;241;parma
 Hellas Verona;77;;
 Como;78;;
-Cagliari;79;;
+Cagliari;79;243;cagliari
 Monza;80;;
 Venezia;81;;
 Lecce;82;;
