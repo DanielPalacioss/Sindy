@@ -39,8 +39,8 @@ options.add_argument("--disable-dev-shm-usage")  # Previene problemas de memoria
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Nantes"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "PSG"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Manchester City"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Aston Villa"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
@@ -887,6 +887,13 @@ def crear_y_retornar_dataframes(stats):
             # Leer el archivo existente
             df_existente = pd.read_csv(nombre_archivo, parse_dates=['Fecha'], sep=';', quotechar='"')
             df_existente["Fecha"] = pd.to_datetime(df_existente["Fecha"])
+
+            # Si historial.csv no existe, lo creamos con los datos del df_existente
+            if not os.path.isfile("historial.csv"):
+                df_existente.to_csv("historial.csv", sep=';', index=False)
+                print("Se creó historial.csv con los datos existentes.")
+
+            # Cargar historial.csv
             df_all = pd.read_csv("historial.csv", parse_dates=['Fecha'], sep=';', quotechar='"')
             df_all["Fecha"] = pd.to_datetime(df_all["Fecha"])
 
@@ -897,19 +904,15 @@ def crear_y_retornar_dataframes(stats):
 
             # Concatenar los DataFrames
             df_stats = pd.concat([df_existente, df_nuevo], ignore_index=True)
-
             df_stats = df_stats.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
-            # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
             df_stats = df_stats.sort_values(by="Fecha", ascending=False)
 
             df_all = pd.concat([df_all, df_stats], ignore_index=True)
             df_all = df_all.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
-            # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
             df_all = df_all.sort_values(by="Fecha", ascending=False)
             df_all.to_csv("historial.csv", sep=';', index=False)
-            
+
             df_stats.fillna(0, inplace=True)
-            # Guardar el DataFrame actualizado en el archivo CSV
             df_stats.to_csv(nombre_archivo, sep=';', index=False)
         else:
             # Si no existe, crear el archivo con los datos nuevos
