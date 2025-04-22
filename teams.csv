@@ -9,7 +9,7 @@ Leverkusen;6;;
 Inter;7;;
 Sporting Lisboa;8;;
 Arsenal;9;;
-Barcelona;10;;
+Barcelona;10;132;fc-barcelona
 Dortmund;11;;
 Real Madrid;12;131;real-madrid
 Benfica;13;;
@@ -39,7 +39,7 @@ Slovan Bratislava;36;;
 Villarreal;37;;
 Athletic;38;144;athletic-bilbao
 Betis;39;;
-R.C.D. Mallorca;40;;
+R.C.D. Mallorca;40;142;mallorca
 Osasuna;41;;
 Rayo Vallecano;42;;
 Sevilla;43;;
@@ -51,7 +51,7 @@ Getafe;48;140;getafe
 RCD Espanyol;49;136;espanyol
 U. D. Las Palmas;50;;
 Valladolid;51;;
-Valencia C. F.;52;;
+Valencia C. F.;52;139;valencia
 Chelsea;53;;
 Brighton;54;;
 Nottingham Forest;55;;
@@ -89,7 +89,7 @@ Galatasaray;86;;
 Frankfurt;87;;
 Midtjylland;88;;
 Bodø/Glimt;89;;
-Lyon;90;;
+Lyon;90;465;lyon
 Rangers;91;;
 Olympiacos;92;;
 FCSB;93;;
@@ -772,7 +772,7 @@ Nantes;769;;
 Auxerre;770;;
 Angers;771;;
 Toulouse;772;;
-Saint-Étienne;773;;
+Saint-Étienne;773;474;saint-etienne
 Le Havre;774;;
 Montpellier;775;;
 Atlético Goianiense;776;;
