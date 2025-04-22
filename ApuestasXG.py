@@ -39,8 +39,8 @@ options.add_argument("--disable-dev-shm-usage")  # Previene problemas de memoria
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Tottenham"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Nottingham Forest"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Nantes"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "PSG"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
