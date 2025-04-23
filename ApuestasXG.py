@@ -39,8 +39,8 @@ options.add_argument("--disable-dev-shm-usage")  # Previene problemas de memoria
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Manchester City"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Aston Villa"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Cagliari"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Fiorentina"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
@@ -241,6 +241,7 @@ else:
         urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
 
 #Validacion de link en equipo local
+opcion = ""
 if ingresadoM != "NO":
     opcion = input(f"El link del {equipo_objetivo_1} quedo mal ingresado?  SI/NO ")
 if(opcion.strip().lower() == "si"):
@@ -266,10 +267,10 @@ if(opcion.strip().lower() == "si"):
     # Guardar el DataFrame actualizado
     df.to_csv("equipos_links.csv", index=False)
 
+opcion2 = ""
 if ingresadoM2 != "NO":
-    opcion = input(f"El link del {equipo_objetivo_1} quedo mal ingresado?  SI/NO ")
+    opcion2 = input(f"El link del {equipo_objetivo_2} quedo mal ingresado?  SI/NO ")
 #Validacion de link en equipo visitante
-opcion2 = input(f"El link del {equipo_objetivo_2} quedo mal ingresado?  SI/NO ")
 if(opcion2.strip().lower() == "si"):
     # Cargar el CSV en un DataFrame
     df = pd.read_csv("equipos_links.csv")
@@ -309,7 +310,7 @@ if len(equipos_dict) == 1:
 service =  Service('chromedriver.exe')
 driver = webdriver.Chrome(service=service, options=options)
 
-Torneo = 3 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+Torneo = 4 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
 
 if equipos_dict.get(equipo_objetivo_1, -1) == -1:
     raise Exception(f"El equipo {equipo_objetivo_1} no existe en la base de datos, por favor agregarlo")
@@ -1357,7 +1358,7 @@ for jugador in jugadores_locales:
 
 for jugador in jugadores_visitantes:
     if (estadisticas_equipo2_df['equipo'] == estadisticas_equipo2["equipo"]).any():
-        if len(jugador.split()[0]) > 3:
+        if len(jugador.split()[0]) >= 3:
             # Convertimos el nombre del jugador a ASCII (sin tildes) para la búsqueda
             nombre_jugador = unidecode(jugador.split()[0])
         else:
