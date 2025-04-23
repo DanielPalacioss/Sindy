@@ -117,22 +117,21 @@ class getAlineacion:
         # ahora navegamos sin esperar eternamente
         try:
             driver.get(url)
-            time.sleep(25)
+            time.sleep(3)
             driver.execute_script("window.scrollTo(0, 500);")
             boton_alineaciones = driver.find_element(By.CSS_SELECTOR, "#navigation-tabs_game-center_lineups")
             driver.execute_script("arguments[0].click();", boton_alineaciones)
-            time.sleep(5)
+            time.sleep(1)
             div = driver.find_element(By.CSS_SELECTOR, "div.website_main_content__U1P3B.website_sticky_main_content__GHju6.ps--active-y")
             driver.execute_script("arguments[0].scrollTop = 230;", div)
-            time.sleep(5)
             alineacion_local = driver.find_element(By.CSS_SELECTOR, "div.field-formation_canvas_relative_container__izlE4")          
             jugadores_local = alineacion_local.find_elements(By.CSS_SELECTOR, "div.field-formation_player_name__6Ra-B")
             alineaciones["local"] = [j.text for j in jugadores_local]
             # Para seleccionar el que NO tiene la clase 'secondary-tabs_active__ubUlv'
             boton_visitante = driver.find_element(By.CSS_SELECTOR, "div.secondary-tabs_tab_button_container__NOfV7.secondary-tabs_tab_container__Rdwyg:not(.secondary-tabs_active__ubUlv)")
-            time.sleep(3)
+            time.sleep(1)
             driver.execute_script("arguments[0].click();", boton_visitante)
-            time.sleep(3)
+            time.sleep(1)
             alineacion_visitante = driver.find_element(By.CSS_SELECTOR, "div.field-formation_canvas_relative_container__izlE4")
             jugadores_visitante = alineacion_visitante.find_elements(By.CSS_SELECTOR, "div.field-formation_player_name__6Ra-B")
             alineaciones["visitante"] = [j.text for j in jugadores_visitante]
