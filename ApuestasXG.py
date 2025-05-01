@@ -26,21 +26,26 @@ from xgboost import XGBClassifier
 from sklearn.multioutput import MultiOutputClassifier
 
 options = Options()
-options.add_argument("start-maximized")
-options.add_argument("disable-blink-features=AutomationControlled")  # Evita detección
-options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36")
+# Modo sin interfaz gráfica
+options.add_argument('--headless')  
+options.add_argument('--disable-gpu')  # Recomendado en modo headless (especialmente en Windows)
+options.add_argument('--disable-dev-shm-usage')  # Previene errores en contenedores
+options.add_argument('--no-sandbox')  # Evita errores en algunos entornos Linux
+
+# Opciones útiles
+options.add_argument('--disable-extensions')
+options.add_argument('--disable-popup-blocking')
+options.add_argument('disable-blink-features=AutomationControlled')  # Evita detección
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option("useAutomationExtension", False)
-options.add_argument("--disable-extensions")  # Sin extensiones
-options.add_argument("--disable-popup-blocking")  # Bloquea pop-ups
-options.add_argument("--disable-gpu")  # Mejora rendimiento en Windows
-options.add_argument("--disable-dev-shm-usage")  # Previene problemas de memoria
+options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36")
 
+#options.add_argument("--window-size=1920,1080")
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Newcastle"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Ipswich"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Rayo Vallecano"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Getafe"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
@@ -310,7 +315,7 @@ if len(equipos_dict) == 1:
 service =  Service('chromedriver.exe')
 driver = webdriver.Chrome(service=service, options=options)
 
-Torneo = 3 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+Torneo = 1 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
 
 if equipos_dict.get(equipo_objetivo_1, -1) == -1:
     raise Exception(f"El equipo {equipo_objetivo_1} no existe en la base de datos, por favor agregarlo")
@@ -481,10 +486,10 @@ def obtener_estadisticas(soup, equipo_objetivo):
         
         if local == 0:
             equipo_objetivo_columna = 0
-            equipo_contrincante = headers[1].find('img')['alt']
+            equipo_contrincante = headers[1].get('aria-label')
         else:
             equipo_objetivo_columna = 1
-            equipo_contrincante = headers[0].find('img')['alt']
+            equipo_contrincante = headers[0].get('aria-label')
 
         partido_stats["equipo"] = equipos_dict.get(equipo_objetivo, -1)
         partido_stats["equipo_contrincante"] = equipos_dict.get(equipo_contrincante, -1)
