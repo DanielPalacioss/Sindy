@@ -26,15 +26,21 @@ from xgboost import XGBClassifier
 from sklearn.multioutput import MultiOutputClassifier
 
 options = Options()
-options.add_argument("start-maximized")
-options.add_argument("disable-blink-features=AutomationControlled")  # Evita detección
-options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36")
+# Modo sin interfaz gráfica
+options.add_argument('--headless')  
+options.add_argument('--disable-gpu')  # Recomendado en modo headless (especialmente en Windows)
+options.add_argument('--disable-dev-shm-usage')  # Previene errores en contenedores
+options.add_argument('--no-sandbox')  # Evita errores en algunos entornos Linux
+
+# Opciones útiles
+options.add_argument('--disable-extensions')
+options.add_argument('--disable-popup-blocking')
+options.add_argument('disable-blink-features=AutomationControlled')  # Evita detección
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option("useAutomationExtension", False)
-options.add_argument("--disable-extensions")  # Sin extensiones
-options.add_argument("--disable-popup-blocking")  # Bloquea pop-ups
-options.add_argument("--disable-gpu")  # Mejora rendimiento en Windows
-options.add_argument("--disable-dev-shm-usage")  # Previene problemas de memoria
+options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36")
+
+#options.add_argument("--window-size=1920,1080")
 
 
 

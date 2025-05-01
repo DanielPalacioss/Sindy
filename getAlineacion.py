@@ -98,16 +98,24 @@ class getAlineacion:
         # Ruta al perfil de usuario (ajustá según tu usuario)
         #options.add_argument(r"--user-data-dir=C:\Users\shari\AppData\Local\Google\Chrome\User Data")
         #options.add_argument(r'--profile-directory=Profile 3')
-        options.add_argument("start-maximized")
-        options.add_argument("disable-blink-features=AutomationControlled")  # Evita detección
-        options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36")
+
+
+        # Modo sin interfaz gráfica
+        options.add_argument('--headless')  
+        options.add_argument('--disable-gpu')  # Recomendado en modo headless (especialmente en Windows)
+        options.add_argument('--disable-dev-shm-usage')  # Previene errores en contenedores
+        options.add_argument('--no-sandbox')  # Evita errores en algunos entornos Linux
+        options.page_load_strategy = 'eager'
+        
+        # Opciones útiles
+        options.add_argument('--disable-extensions')
+        options.add_argument('--disable-popup-blocking')
+        options.add_argument('disable-blink-features=AutomationControlled')  # Evita detección
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option("useAutomationExtension", False)
-        options.page_load_strategy = 'eager'
-        options.add_argument("--disable-extensions")  # Sin extensiones
-        options.add_argument("--disable-popup-blocking")  # Bloquea pop-ups
-        options.add_argument("--disable-gpu")  # Mejora rendimiento en Windows
-        options.add_argument("--disable-dev-shm-usage")  # Previene problemas de memoria
+        options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36")
+        options.add_argument("--window-size=1280,720")
+
         url = self.reemplazar_texto(parametros)
         alineaciones = {"local":[],
                         "visitante":[]}
@@ -142,6 +150,6 @@ class getAlineacion:
 
 if __name__ == "__main__":
     getAlineacion = getAlineacion()
-    parametros = {"name_equipo":"Real Madrid","name_visitante_equipo":"Athletic","torneo":"LaLiga"}
+    parametros = {"name_equipo":"Rayo Vallecano","name_visitante_equipo":"Getafe","torneo":"LaLiga"}
     alineaciones = getAlineacion.getAlineaciones(parametros)
     print(alineaciones)
