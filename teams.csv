@@ -52,7 +52,7 @@ RCD Espanyol;49;136;espanyol
 U. D. Las Palmas;50;167;las-palmas
 Valladolid;51;141;real-valladolid
 Valencia C. F.;52;139;valencia
-Chelsea;53;;
+Chelsea;53;106;chelsea
 Brighton;54;;
 Nottingham Forest;55;29;nottingham-forest
 Tottenham;56;114;tottenham
@@ -62,11 +62,11 @@ Bournemouth;59;;
 Newcastle;60;;
 West Ham;61;;
 Manchester United;62;;
-Leicester City;63;;
-Everton;64;;
+Leicester City;63;22;leicester-city
+Everton;64;107;everton
 Crystal Palace;65;10;crystal-palace
 Ipswich;66;;
-Wolves;67;;
+Wolves;67;15;wolves
 Southampton;68;;
 Napoli;69;;
 Fiorentina;70;228;fiorentina
