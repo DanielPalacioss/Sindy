@@ -108,7 +108,7 @@ Twente;105;;
 Union Saint-Gilloise;106;;
 PAOK;107;;
 Rigas FS;108;;
-Niza;109;;
+Niza;109;470;ogc-nice
 Ludogorets;110;;
 M. Tel-Aviv;111;;
 Dinamo;112;;
@@ -141,7 +141,7 @@ Guimarães;138;;
 Hearts;139;;
 Jagiellonia Białystok;140;;
 Rapid Viena;141;;
-Heidenheim;142;;
+Heidenheim;142;434;fc-heidenheim
 Shamrock Rovers;143;;
 Borac;144;;
 Cercle Brugge;145;;
@@ -177,7 +177,7 @@ Mainz 05;174;;
 Wolfsburg;175;;
 St. Pauli;176;;
 KSV Holstein;177;;
-Bochum;178;;
+Bochum;178;343;vfl-bochum
 Düsseldorf;179;;
 Hannover 96;180;;
 Paderborn;181;;
@@ -200,7 +200,7 @@ Fluminense;197;;
 Colo-Colo;198;;
 Cerro;199;;
 Alianza Lima;200;;
-São Paulo;201;;
+São Paulo;201;1225;sao-paulo
 Talleres;202;;
 Barcelona SC;203;;
 Cobresal;204;;
@@ -643,7 +643,7 @@ Belgrano;640;;
 Internacional;641;;
 Delfín;642;;
 Real Tomayapo;643;;
-Fortaleza;644;;
+Fortaleza;644;1778;fortaleza
 Boca Juniors;645;;
 Nacional Potosí;646;;
 Sportivo Trinidense;647;;
@@ -765,7 +765,7 @@ Taranto Football Club 1927;762;;
 Juventus Sub'23;763;;
 Marsella;764;;
 Lens;765;;
-Reims;766;;
+Reims;766;499;reims
 Racing de Estrasburgo;767;;
 Rennes;768;;
 Nantes;769;486;nantes

@@ -1293,11 +1293,16 @@ jugadores_visitantes = alineaciones["visitante"]
 # Asignar 1 a los jugadores en la alineación
 for jugador in jugadores_locales:
     if (estadisticas_equipo1_df['equipo'] == estadisticas_equipo1["equipo"]).any():
-        if len(jugador.split()[0]) > 3:
+        if len(jugador.split()[0]) >= 3:
             # Convertimos el nombre del jugador a ASCII (sin tildes) para la búsqueda
             nombre_jugador = unidecode(jugador.split()[0])
         else:
-            nombre_jugador = unidecode(jugador.split()[1])
+            partes = jugador.split()
+            if len(partes) > 1:
+                nombre_jugador = unidecode(partes[1])
+            else:
+                nombre_jugador = unidecode(partes[0])
+
         
         # Regex modificada para buscar coincidencias sin importar tildes
         regex_busqueda = f"(?i)^.*{re.escape(nombre_jugador)}.*{re.escape(equipo1)}.*$"
@@ -1313,11 +1318,16 @@ for jugador in jugadores_locales:
 
 for jugador in jugadores_visitantes:
     if (estadisticas_equipo2_df['equipo'] == estadisticas_equipo2["equipo"]).any():
-        if len(jugador.split()[0]) > 3:
+        if len(jugador.split()[0]) >= 3:
             # Convertimos el nombre del jugador a ASCII (sin tildes) para la búsqueda
             nombre_jugador = unidecode(jugador.split()[0])
         else:
-            nombre_jugador = unidecode(jugador.split()[1])
+            partes = jugador.split()
+            if len(partes) > 1:
+                nombre_jugador = unidecode(partes[1])
+            else:
+                nombre_jugador = unidecode(partes[0])
+
         
         # Regex modificada para buscar coincidencias sin importar tildes
         regex_busqueda = f"(?i)^.*{re.escape(nombre_jugador)}.*{re.escape(equipo2)}.*$"

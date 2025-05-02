@@ -44,8 +44,8 @@ options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Rayo Vallecano"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Getafe"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "São Paulo"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Fortaleza"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
@@ -315,7 +315,7 @@ if len(equipos_dict) == 1:
 service =  Service('chromedriver.exe')
 driver = webdriver.Chrome(service=service, options=options)
 
-Torneo = 1 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+Torneo = 10 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
 
 if equipos_dict.get(equipo_objetivo_1, -1) == -1:
     raise Exception(f"El equipo {equipo_objetivo_1} no existe en la base de datos, por favor agregarlo")
@@ -1343,11 +1343,16 @@ jugadores_visitantes = alineaciones["visitante"]
 # Asignar 1 a los jugadores en la alineación
 for jugador in jugadores_locales:
     if (estadisticas_equipo1_df['equipo'] == estadisticas_equipo1["equipo"]).any():
-        if len(jugador.split()[0]) >= 3:
+        if len(jugador.split()[0]) >= 3: #Se coloca tres por el tamaño del nombre tanto en Google como en 365 también porque hay nombres "E. Anderson" donde E es un nombre completo
             # Convertimos el nombre del jugador a ASCII (sin tildes) para la búsqueda
             nombre_jugador = unidecode(jugador.split()[0])
         else:
-            nombre_jugador = unidecode(jugador.split()[1])
+            partes = jugador.split()
+            if len(partes) > 1:
+                nombre_jugador = unidecode(partes[1])
+            else:
+                nombre_jugador = unidecode(partes[0])
+
         
         # Regex modificada para buscar coincidencias sin importar tildes
         regex_busqueda = f"(?i)^.*{re.escape(nombre_jugador)}.*{re.escape(equipo1)}.*$"
@@ -1367,7 +1372,12 @@ for jugador in jugadores_visitantes:
             # Convertimos el nombre del jugador a ASCII (sin tildes) para la búsqueda
             nombre_jugador = unidecode(jugador.split()[0])
         else:
-            nombre_jugador = unidecode(jugador.split()[1])
+            partes = jugador.split()
+            if len(partes) > 1:
+                nombre_jugador = unidecode(partes[1])
+            else:
+                nombre_jugador = unidecode(partes[0])
+
         
         # Regex modificada para buscar coincidencias sin importar tildes
         regex_busqueda = f"(?i)^.*{re.escape(nombre_jugador)}.*{re.escape(equipo2)}.*$"
