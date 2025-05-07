@@ -56,8 +56,8 @@ Chelsea;53;106;chelsea
 Brighton;54;;
 Nottingham Forest;55;29;nottingham-forest
 Tottenham;56;114;tottenham
-Brentford;57;;
-Fulham;58;;
+Brentford;57;63;brentford
+Fulham;58;120;fulham
 Bournemouth;59;;
 Newcastle;60;;
 West Ham;61;;
@@ -65,9 +65,9 @@ Manchester United;62;;
 Leicester City;63;22;leicester-city
 Everton;64;107;everton
 Crystal Palace;65;10;crystal-palace
-Ipswich;66;;
+Ipswich;66;9;ipswich
 Wolves;67;15;wolves
-Southampton;68;;
+Southampton;68;21;southampton
 Napoli;69;;
 Fiorentina;70;228;fiorentina
 Lazio;71;236;lazio
