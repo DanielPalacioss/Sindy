@@ -5,24 +5,24 @@ Liverpool;2;;
 Manchester City;3;110;manchester-city
 Mónaco;4;;
 Stade Brestois;5;;
-Leverkusen;6;;
+Leverkusen;6;333;bayer-leverkusen
 Inter;7;;
 Sporting Lisboa;8;;
 Arsenal;9;104;arsenal
 Barcelona;10;132;fc-barcelona
-Dortmund;11;;
+Dortmund;11;341;borussia-dortmund
 Real Madrid;12;131;real-madrid
 Benfica;13;;
 Juventus;14;226;juventus
 LOSC;15;;
 Feyenoord;16;;
 Atalanta;17;;
-Stuttgart;18;;
+Stuttgart;18;338;stuttgart
 PSG;19;480;psg
 Celtic F. C.;20;;
 Sparta Praha;21;;
 Dinamo Zagreb;22;;
-Bayern;23;;
+Bayern;23;331;bayern-munich
 Girona;24;175;girona
 Milan;25;;
 Club Brujas;26;;
@@ -30,7 +30,7 @@ Atlético Madrid;27;134;atletico-madrid
 PSV;28;;
 Bolonia;29;;
 Shakhtar;30;;
-RB Leipzig;31;;
+RB Leipzig;31;7171;rb-leipzig
 Sturm;32;;
 Estrella Roja;33;;
 RB Salzburg;34;;
@@ -86,7 +86,7 @@ Genoa;83;231;genoa
 Anderlecht;84;;
 Ajax;85;;
 Galatasaray;86;;
-Frankfurt;87;;
+Frankfurt;87;337;eintracht-frankfurt
 Midtjylland;88;;
 Bodø/Glimt;89;;
 Lyon;90;465;lyon
@@ -96,7 +96,7 @@ FCSB;93;;
 Fenerbahçe;94;;
 Porto;95;;
 Slavia Praga;96;;
-Hoffenheim;97;;
+Hoffenheim;97;351;hoffenheim
 Viktoria Plzeň;98;;
 Elfsborg;99;;
 Ferencváros;100;;
@@ -168,15 +168,15 @@ Istanbul BB;165;;
 Petrocub;166;;
 St Gallen;167;;
 Larne;168;;
-FC Union Berlin;169;;
-Friburgo;170;;
-Werder Bremen;171;;
-Mönchengladbach;172;;
-Augsburgo;173;;
-Mainz 05;174;;
-Wolfsburg;175;;
-St. Pauli;176;;
-KSV Holstein;177;;
+FC Union Berlin;169;392;union-berlin
+Friburgo;170;354;freiburg
+Werder Bremen;171;332;werder-bremen
+Mönchengladbach;172;349;borussia-monchengladbach
+Augsburgo;173;358;fc-augsburg
+Mainz 05;174;352;mainz-05
+Wolfsburg;175;339;wolfsburg
+St. Pauli;176;359;st.-pauli
+KSV Holstein;177;430;holstein-kiel
 Bochum;178;343;vfl-bochum
 Düsseldorf;179;;
 Hannover 96;180;;
