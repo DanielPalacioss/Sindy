@@ -101,7 +101,7 @@ class getAlineacion:
 
 
         # Modo sin interfaz gráfica
-        options.add_argument('--headless')  
+        options.add_argument('--headless')
         options.add_argument('--disable-gpu')  # Recomendado en modo headless (especialmente en Windows)
         options.add_argument('--disable-dev-shm-usage')  # Previene errores en contenedores
         options.add_argument('--no-sandbox')  # Evita errores en algunos entornos Linux
@@ -131,7 +131,7 @@ class getAlineacion:
             driver.execute_script("arguments[0].click();", boton_alineaciones)
             time.sleep(1)
             div = driver.find_element(By.CSS_SELECTOR, "div.website_main_content__U1P3B.website_sticky_main_content__GHju6.ps--active-y")
-            driver.execute_script("arguments[0].scrollTop = 230;", div)
+            driver.execute_script("arguments[0].scrollTop = 280;", div)
             alineacion_local = driver.find_element(By.CSS_SELECTOR, "div.field-formation_canvas_relative_container__izlE4")          
             jugadores_local = alineacion_local.find_elements(By.CSS_SELECTOR, "div.field-formation_player_name__6Ra-B")
             alineaciones["local"] = [j.text for j in jugadores_local]
@@ -150,6 +150,6 @@ class getAlineacion:
 
 if __name__ == "__main__":
     getAlineacion = getAlineacion()
-    parametros = {"name_equipo":"Rayo Vallecano","name_visitante_equipo":"Getafe","torneo":"LaLiga"}
+    parametros = {"name_equipo":"Barcelona","name_visitante_equipo":"Real Madrid","torneo":"LaLiga"}
     alineaciones = getAlineacion.getAlineaciones(parametros)
     print(alineaciones)
