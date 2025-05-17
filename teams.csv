@@ -1,7 +1,7 @@
 Equipo;ID;ID_365;Name365
 Desconocido;-1;;
 Aston Villa;1;109;aston-villa
-Liverpool;2;;
+Liverpool;2;108;liverpool
 Manchester City;3;110;manchester-city
 Mónaco;4;;
 Stade Brestois;5;;
@@ -53,13 +53,13 @@ U. D. Las Palmas;50;167;las-palmas
 Valladolid;51;141;real-valladolid
 Valencia C. F.;52;139;valencia
 Chelsea;53;106;chelsea
-Brighton;54;;
+Brighton;54;38;brighton
 Nottingham Forest;55;29;nottingham-forest
 Tottenham;56;114;tottenham
 Brentford;57;63;brentford
 Fulham;58;120;fulham
 Bournemouth;59;50;bournemouth
-Newcastle;60;;
+Newcastle;60;116;newcastle-united
 West Ham;61;;
 Manchester United;62;;
 Leicester City;63;22;leicester-city
@@ -196,7 +196,7 @@ SSV Ulm Fußball;193;;
 Schalke 04;194;;
 Eintracht Braunschweig;195;;
 Jahn Regensburg;196;;
-Fluminense;197;;
+Fluminense;197;1216;fluminense
 Colo-Colo;198;;
 Cerro;199;;
 Alianza Lima;200;;
@@ -205,7 +205,7 @@ Talleres;202;;
 Barcelona SC;203;;
 Cobresal;204;;
 The Strongest;205;;
-Grêmio;206;;
+Grêmio;206;1218;gremio
 Huachipato;207;;
 Estudiantes;208;;
 Junior;209;;
@@ -213,13 +213,13 @@ Botafogo;210;;
 LDU Quito;211;;
 Universitario;212;;
 Bolívar;213;;
-Flamengo;214;;
+Flamengo;214;1215;flamengo
 Palestino;215;;
 Millonarios;216;;
-Palmeiras;217;;
+Palmeiras;217;1222;palmeiras
 San Lorenzo;218;;
 Independiente del Valle;219;;
-Atlético Mineiro;220;;
+Atlético Mineiro;220;1209;atletico-mineiro
 Peñarol;221;;
 Rosario Central;222;;
 Caracas;223;;
@@ -651,14 +651,14 @@ Sportivo Ameliano;648;;
 Paranaense;649;;
 Danubio;650;;
 Rayo Zuliano;651;;
-Corinthians;652;;
+Corinthians;652;1267;corinthians
 Racing;653;;
 Argentinos Jrs.;654;;
 Lanús;655;;
 Cuiabá;656;;
 Deportivo Garcilaso;657;;
 Metropolitanos FC;658;;
-Bragantino;659;;
+Bragantino;659;1273;rb-bragantino
 Coquimbo Unido;660;;
 Sportivo Luqueño;661;;
 Santos;662;;
@@ -669,7 +669,7 @@ Ponte Preta;666;;
 Água Santa;667;;
 Guarani;668;;
 Associação Atlética Internacional;669;;
-Mirassol;670;;
+Mirassol;670;1269;mirassol
 Novorizontino;671;;
 São Bernardo;672;;
 Botafogo RP;673;;
@@ -692,11 +692,11 @@ Paysandu;689;;
 CRB;690;;
 Brusque;691;;
 Botafogo PB;692;;
-Vitória;693;;
+Vitória;693;1228;vitoria
 Maranhão Atlético Clube;694;;
 América RN;695;;
 Ríver AC;696;;
-Bahía;697;;
+Bahía;697;1767;bahia
 Altos;698;;
 Náutico;699;;
 ABC;700;;
@@ -776,9 +776,9 @@ Saint-Étienne;773;474;saint-etienne
 Le Havre;774;;
 Montpellier;775;;
 Atlético Goianiense;776;;
-Vasco da Gama;777;;
+Vasco da Gama;777;1227;vasco-da-gama
 Criciúma;778;;
-Juventude;779;;
+Juventude;779;1775;juventude
 Newell;800;;
 Tombense;801;;
 CSA;802;;

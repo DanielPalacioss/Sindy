@@ -150,6 +150,6 @@ class getAlineacion:
 
 if __name__ == "__main__":
     getAlineacion = getAlineacion()
-    parametros = {"name_equipo":"Barcelona","name_visitante_equipo":"Real Madrid","torneo":"LaLiga"}
+    parametros = {"name_equipo":"Mirassol","name_visitante_equipo":"Corinthians","torneo":"Brasileirão Serie A"}
     alineaciones = getAlineacion.getAlineaciones(parametros)
     print(alineaciones)
