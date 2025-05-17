@@ -44,8 +44,8 @@ options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Getafe" #input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Athletic" #input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Tottenham"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Crystal Palace"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]

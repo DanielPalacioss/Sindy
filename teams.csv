@@ -60,8 +60,8 @@ Brentford;57;63;brentford
 Fulham;58;120;fulham
 Bournemouth;59;50;bournemouth
 Newcastle;60;116;newcastle-united
-West Ham;61;;
-Manchester United;62;;
+West Ham;61;113;west-ham
+Manchester United;62;105;manchester-united
 Leicester City;63;22;leicester-city
 Everton;64;107;everton
 Crystal Palace;65;10;crystal-palace
@@ -209,7 +209,7 @@ Grêmio;206;1218;gremio
 Huachipato;207;;
 Estudiantes;208;;
 Junior;209;;
-Botafogo;210;;
+Botafogo;210;1211;botafogo
 LDU Quito;211;;
 Universitario;212;;
 Bolívar;213;;
@@ -635,12 +635,12 @@ Medellín;632;;
 Always Ready;633;;
 Defensa y Justicia;634;;
 César Vallejo;635;;
-Cruzeiro;636;;
+Cruzeiro;636;1213;cruzeiro
 U. Católica;637;;
 Alianza;638;;
 U. La Calera;639;;
 Belgrano;640;;
-Internacional;641;;
+Internacional;641;1219;internacional
 Delfín;642;;
 Real Tomayapo;643;;
 Fortaleza;644;1778;fortaleza
@@ -678,7 +678,7 @@ Clube Atlético Votuporanguense;675;;
 Vila Operária Clube Esporte Mariano;676;;
 Mirassol B;677;;
 Grêmio Desportivo Prudente;678;;
-Sport Recife;679;;
+Sport Recife;679;1226;sport-recife
 Ceará;680;;
 Vila Nova;681;;
 América-MG;682;;
