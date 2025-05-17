@@ -27,7 +27,7 @@ from sklearn.multioutput import MultiOutputClassifier
 
 options = Options()
 # Modo sin interfaz gráfica
-options.add_argument('--headless')  
+options.add_argument('--headless')
 options.add_argument('--disable-gpu')  # Recomendado en modo headless (especialmente en Windows)
 options.add_argument('--disable-dev-shm-usage')  # Previene errores en contenedores
 options.add_argument('--no-sandbox')  # Evita errores en algunos entornos Linux
@@ -44,8 +44,8 @@ options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Atlético Madrid" #input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Real Sociedad" #input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Getafe" #input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Athletic" #input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
