@@ -45,14 +45,16 @@ options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Valencia C. F."#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "RCD Espanyol"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Leicester City"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Ipswich"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
 urls_equipo_1 = []
 urls_equipo_2 = []
 
+ingresadoM=""
+ingresadoM2=""
 if os.path.exists(f"{equipo_objetivo_1}.csv"):
     opcion = input(f"Desea cargar nuevos datos del {equipo_objetivo_1}?  SI/NO ")
     if(opcion.strip().lower() == "si"):
@@ -61,7 +63,7 @@ if os.path.exists(f"{equipo_objetivo_1}.csv"):
             df = pd.read_csv("equipos_links.csv")
             if equipo_objetivo_1 in df["Equipo"].values:
                 matchsNumber = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_1}? "))
-
+                ingresadoM = "NO"
                 #Buscar link de lista de partidos
                 url = df.loc[df["Equipo"] == equipo_objetivo_1, "Link_Lista_Partidos"].values[0]
                 
@@ -107,7 +109,7 @@ else:
         df = pd.read_csv("equipos_links.csv")
         if equipo_objetivo_1 in df["Equipo"].values:
             matchsNumber = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_1}? "))
-
+            ingresadoM = "NO"
             #Buscar link de lista de partidos
             url = df.loc[df["Equipo"] == equipo_objetivo_1, "Link_Lista_Partidos"].values[0]
             
@@ -156,7 +158,7 @@ if os.path.exists(f"{equipo_objetivo_2}.csv"):
             df = pd.read_csv("equipos_links.csv")
             if equipo_objetivo_2 in df["Equipo"].values:
                 matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
-
+                ingresadoM2 = "NO"
                 #Buscar link de lista de partidos
                 url2 = df.loc[df["Equipo"] == equipo_objetivo_2, "Link_Lista_Partidos"].values[0]
                 
@@ -203,7 +205,7 @@ else:
         df = pd.read_csv("equipos_links.csv")
         if equipo_objetivo_2 in df["Equipo"].values:
             matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
-
+            ingresadoM2 ="NO"
             #Buscar link de lista de partidos
             url2 = df.loc[df["Equipo"] == equipo_objetivo_2, "Link_Lista_Partidos"].values[0]
             
@@ -245,7 +247,9 @@ else:
         urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
 
 #Validacion de link en equipo local
-opcion = input(f"El link del {equipo_objetivo_1} quedo mal ingresado?  SI/NO ")
+opcion = ""
+if ingresadoM != "NO":
+    opcion = input(f"El link del {equipo_objetivo_1} quedo mal ingresado?  SI/NO ")
 if(opcion.strip().lower() == "si"):
     # Cargar el CSV en un DataFrame
     df = pd.read_csv("equipos_links.csv")
@@ -269,8 +273,10 @@ if(opcion.strip().lower() == "si"):
     # Guardar el DataFrame actualizado
     df.to_csv("equipos_links.csv", index=False)
 
+opcion2 = ""
+if ingresadoM2 != "NO":
+    opcion2 = input(f"El link del {equipo_objetivo_2} quedo mal ingresado?  SI/NO ")
 #Validacion de link en equipo visitante
-opcion2 = input(f"El link del {equipo_objetivo_2} quedo mal ingresado?  SI/NO ")
 if(opcion2.strip().lower() == "si"):
     # Cargar el CSV en un DataFrame
     df = pd.read_csv("equipos_links.csv")
@@ -301,7 +307,6 @@ else:
         print("♻️ Reiniciando el script...")
         os.execv(sys.executable, ["python"] + sys.argv)  # Reinicia el script
 
-
 equipos_dict = EquipmentCollection().get_dict_of_csv()
 if len(equipos_dict) == 1:
     raise Exception("No se ha agregado equipos, por favor agregarlos")
@@ -310,7 +315,7 @@ if len(equipos_dict) == 1:
 service =  Service('chromedriver.exe')
 driver = webdriver.Chrome(service=service, options=options)
 
-Torneo = 1 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+Torneo = 3 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
 
 if equipos_dict.get(equipo_objetivo_1, -1) == -1:
     raise Exception(f"El equipo {equipo_objetivo_1} no existe en la base de datos, por favor agregarlo")
@@ -891,7 +896,7 @@ def convertir_a_dataframes_por_equipo(stats):
     return equipos_dataframes
 
     #Manejo de csv
-# Crear un DataFrame por equipo y devolver los DataFrames al final
+
 def crear_y_retornar_dataframes(stats):
     equipos_dataframes = {}
     for equipo, partidos in stats.items():
@@ -955,23 +960,87 @@ def crear_y_retornar_dataframes(stats):
 
 # Crear un DataFrame por equipo y devolver los DataFrames al final
 def crear_y_retornar_dataframes_all():
-    # Generar el nombre del archivo con el nombre del equipo
     nombre_archivo = "historial.csv"
+    df_stats = pd.DataFrame()
 
-    # Verificar si el archivo ya existe
-    if os.path.isfile(nombre_archivo):
-        # Leer el archivo existente
-        df_stats = pd.read_csv(nombre_archivo, parse_dates=['Fecha'], sep=';', quotechar='"')
-        df_stats["Fecha"] = pd.to_datetime(df_stats["Fecha"])
+    # Parte 1: Procesar el historial.csv (funcionalidad original)
+    try:
+        if os.path.isfile(nombre_archivo) and os.path.getsize(nombre_archivo) > 0:
+            # Leer el archivo existente solo si tiene contenido
+            df_stats = pd.read_csv(nombre_archivo, parse_dates=['Fecha'], sep=';', quotechar='"')
+            
+            if not df_stats.empty:
+                df_stats["Fecha"] = pd.to_datetime(df_stats["Fecha"])
+                df_stats = df_stats.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
+                df_stats = df_stats.sort_values(by="Fecha", ascending=False)
+                df_stats.fillna(0, inplace=True)
+    except Exception as e:
+        print(f"Error procesando historial.csv: {e}")
+        df_stats = pd.DataFrame()
 
-        df_stats = df_stats.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
-        # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
-        df_stats = df_stats.sort_values(by="Fecha", ascending=False)
-        df_stats.fillna(0, inplace=True)
-        # Guardar el DataFrame actualizado en el archivo CSV
-        df_stats.to_csv(nombre_archivo, sep=';', index=False)
+    # Parte 2: Nueva funcionalidad - Concatenar CSVs de todos los equipos
+    try:
+        if os.path.isfile("teams.csv") and os.path.getsize("teams.csv") > 0:
+            # Leer el archivo de equipos
+            df_teams = pd.read_csv("teams.csv", sep=';', quotechar='"')
+            
+            # Lista para almacenar todos los DataFrames de equipos
+            team_dfs = []
+            
+            # Recorrer cada equipo en la columna "Equipo"
+            for equipo in df_teams["Equipo"].unique():
+                if pd.notna(equipo):  # Ignorar valores NaN si los hubiera
+                    team_csv = f"{equipo}.csv"
+                    
+                    if os.path.isfile(team_csv) and os.path.getsize(team_csv) > 0:
+                        try:
+                            # Leer el CSV del equipo y agregarlo a la lista
+                            df_team = pd.read_csv(team_csv, sep=';', quotechar='"', parse_dates=['Fecha'])
+                            if not df_team.empty:
+                                team_dfs.append(df_team)
+                        except Exception as e:
+                            print(f"Error leyendo archivo {team_csv}: {e}")
+            
+            # Procesar los DataFrames de equipos si se encontraron algunos
+            if team_dfs:
+                df_all_teams = pd.concat(team_dfs, ignore_index=True)
+                
+                # Procesar el DataFrame combinado de equipos
+                if not df_all_teams.empty:
+                    if 'Fecha' in df_all_teams.columns:
+                        df_all_teams["Fecha"] = pd.to_datetime(df_all_teams["Fecha"])
+                    if 'Equipo_name' in df_all_teams.columns:
+                        df_all_teams = df_all_teams.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
+                        df_all_teams = df_all_teams.sort_values(by="Fecha", ascending=False)
+                    df_all_teams.fillna(0, inplace=True)
+                    
+                    # Combinar con el df_stats original si existía
+                    if not df_stats.empty:
+                        df_stats = pd.concat([df_stats, df_all_teams], ignore_index=True)
+                        df_stats = df_stats.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
+                        df_stats = df_stats.sort_values(by="Fecha", ascending=False)
+                    else:
+                        df_stats = df_all_teams
+    except Exception as e:
+        print(f"Error procesando archivos de equipos: {e}")
 
-    # Guardar el DataFrame en el diccionario
+    # Guardar el resultado final solo si tenemos datos
+    if not df_stats.empty:
+        try:
+            # Solo crear directorios si el path contiene subdirectorios
+            dirname = os.path.dirname(nombre_archivo)
+            if dirname:  # Solo si hay un path de directorio
+                os.makedirs(dirname, exist_ok=True)
+            df_stats.to_csv(nombre_archivo, sep=';', index=False)
+        except Exception as e:
+            print(f"Error guardando historial.csv: {e}")
+    elif os.path.isfile(nombre_archivo):
+        # Si no hay datos pero el archivo existe, dejarlo vacío
+        try:
+            open(nombre_archivo, 'w').close()
+        except Exception as e:
+            print(f"Error limpiando historial.csv: {e}")
+
     return df_stats
 
 equipos_dataframes = crear_y_retornar_dataframes(stats)
@@ -999,14 +1068,14 @@ _, _, y_train_continuas, y_test_continuas = train_test_split(x, y_continuas, tes
 
 # Parámetros para XGBoost
 param_grid_xgb = {
-    'estimator__n_estimators': [150, 200, 300],
-    'estimator__max_depth': [3, 5, 7],
-    'estimator__learning_rate': [0.01, 0.1, 0.2],
-    'estimator__subsample': [0.8, 1]
+    'estimator__n_estimators': [150],
+    'estimator__max_depth': [3],
+    'estimator__learning_rate': [0.1],
+    'estimator__subsample': [1]
 }
 
 # Modelo base
-xgb_base = XGBClassifier(random_state=21, eval_metric='logloss')
+xgb_base = XGBClassifier(random_state=42, eval_metric='logloss')
 # MultiOutputClassifier para manejar múltiples salidas categóricas
 multi_output_xgb = MultiOutputClassifier(xgb_base, n_jobs=-1)
 
@@ -1361,30 +1430,22 @@ estadisticas_equipo2_df['equipo_contrincante'] = df['equipo_contrincante'].astyp
 predicciones_categoricas_equipo1 = model_clasificacion.predict(estadisticas_equipo1_df)
 predicciones_probabilidades_equipo1 = model_clasificacion.predict_proba(estadisticas_equipo1_df)
 
-predicciones_categoricas_equipo2 = model_clasificacion2.predict(estadisticas_equipo2_df)
-predicciones_probabilidades_equipo2 = model_clasificacion2.predict_proba(estadisticas_equipo2_df)
+predicciones_categoricas_equipo2 = model_clasificacion.predict(estadisticas_equipo2_df)
+predicciones_probabilidades_equipo2 = model_clasificacion.predict_proba(estadisticas_equipo2_df)
 
 # Predicciones continuas (Tiros de esquina, goles_totales)
 predicciones_continuas_equipo1 = model_regresion.predict(estadisticas_equipo1_df)
-predicciones_continuas_equipo2 = model_regresion2.predict(estadisticas_equipo2_df)
+predicciones_continuas_equipo2 = model_regresion.predict(estadisticas_equipo2_df)
 
 # Precisión del modelo
 y_pred_categoricas = model_clasificacion.predict(x_test)
 y_pred_continuas = model_regresion.predict(x_test)
 
-# Precisión del modelo visitante
-y_pred_categoricas2 = model_clasificacion2.predict(x_test2)
-y_pred_continuas2 = model_regresion2.predict(x_test2)
 
 # Evaluación de las variables continuas (regresión) local 
 mse_continuas = root_mean_squared_error(y_test_continuas, y_pred_continuas)
 mae_continuas = mean_absolute_error(y_test_continuas, y_pred_continuas)
 r2_continuas = r2_score(y_test_continuas, y_pred_continuas)
-
-# Evaluación de las variables continuas (regresión) visitante
-mse_continuas2= root_mean_squared_error(y_test_continuas2, y_pred_continuas2)
-mae_continuas2 = mean_absolute_error(y_test_continuas2, y_pred_continuas2)
-r2_continuas2 = r2_score(y_test_continuas2, y_pred_continuas2)
 
 print("\n\nEvaluacion del modelo y probabilidad de aciertos en datos de prueba\n")
 #Evaluación del modelo
@@ -1393,22 +1454,13 @@ print("\n\nEvaluacion del modelo y probabilidad de aciertos en datos de prueba\n
 accuracy_clasificacion = accuracy_score(y_test_categoricas, y_pred_categoricas)
 print(f'\nPrecisión categoricas del local: {accuracy_clasificacion:.3f}')
 
-#visitante
-accuracy_clasificacion2 = accuracy_score(y_test_categoricas2, y_pred_categoricas2)
-print(f'\nPrecisión categoricas del visitante: {accuracy_clasificacion2:.3f}')
-
 
 #continuas local
-print(f'\nError cuadrático medio (RMSE) continuas del local: {mse_continuas:.3f}')
-print(f'Error cuadrático medio (MSE) continuas al cuadrado del local: {math.pow(mse_continuas,2):.3f}')
-print(f'Error absoluto medio (MAE) continuas del local: {mae_continuas:.3f}')
-print(f'Coeficiente de determinación (R2) continuas del local: {r2_continuas:.3f}')
+print(f'\nError cuadrático medio (RMSE) continuas: {mse_continuas:.3f}')
+print(f'Error cuadrático medio (MSE) continuas al cuadrado : {math.pow(mse_continuas,2):.3f}')
+print(f'Error absoluto medio (MAE) continuas: {mae_continuas:.3f}')
+print(f'Coeficiente de determinación (R2) continuas: {r2_continuas:.3f}')
 
-#continuas visitante
-print(f'\nError cuadrático medio (RMSE) continuas del visitante: {mse_continuas2:.3f}')
-print(f'Error cuadrático medio (MSE) continuas al cuadrado del visitante: {math.pow(mse_continuas2,2):.3f}')
-print(f'Error absoluto medio (MAE) continuas del visitante: {mae_continuas2:.3f}')
-print(f'Coeficiente de determinación (R2) continuas del visitante: {r2_continuas2:.3f}')
 
 
 print("\n-----------------PREDICCIONES DEL", equipo_objetivo_1, "-----------------")
@@ -1433,7 +1485,7 @@ for idx, variable in enumerate(y_continuas.columns):
 
 
 print("\n-----------------PREDICCIONES DEL", equipo_objetivo_2, "-----------------")
-for idx, variable in enumerate(y_categoricas2.columns):
+for idx, variable in enumerate(y_categoricas.columns):
     probabilidad = predicciones_probabilidades_equipo2[idx]
 
     if len(probabilidad[0]) == 1:
@@ -1446,10 +1498,10 @@ for idx, variable in enumerate(y_categoricas2.columns):
               f"(Prob. clase 0: {prob_0:.2f}, Prob. clase 1: {prob_1:.2f})")
 
 # Predicciones continuas sin tener en encuenta los jugadores (Tiros de esquina, goles_totales)
-for idx, variable in enumerate(y_continuas2.columns):
+for idx, variable in enumerate(y_continuas.columns):
     prediccion2 = predicciones_continuas_equipo2[idx]
-    prediccion_menos_mse2 = prediccion2 - mse_continuas2
-    prediccion_mas_mse2 = prediccion2 + mse_continuas2
+    prediccion_menos_mse2 = prediccion2 - mse_continuas
+    prediccion_mas_mse2 = prediccion2 + mse_continuas
     print(f"{variable}: Predicción: {prediccion_menos_mse2:.2f} ---- {prediccion2:.2f} ---- {prediccion_mas_mse2:.2f}")
 #-------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
 #local porcentajes
@@ -1487,40 +1539,3 @@ print("\n--- Mayor subestimación ---")
 print(f"Valor real      : {y_test_continuas.iloc[idx_max_sub]:.2f}")
 print(f"Predicción      : {y_pred_continuas[idx_max_sub]:.2f}")
 print(f"Error (↓)       : {errores.iloc[idx_max_sub]:.2f}")
-
-
-#visitantes porcentajes
-y_test_continuas2 = y_test_continuas2.iloc[:, 0]
-# Errores reales
-errores2 = y_pred_continuas2 - y_test_continuas2
-
-# Porcentaje dentro del rango ±RMSE
-porc_en_rango2 = np.mean(np.abs(errores2) <= mse_continuas2) * 100
-
-# Porcentaje que se pasó por más de RMSE
-porc_encima2 = np.mean(errores2 > mse_continuas2) * 100
-
-# Porcentaje que se quedó corto por más de RMSE
-porc_debajo2 = np.mean(errores2 < -mse_continuas2) * 100
-
-# Mostrar resultados
-print(f"\n\nPredicciones dentro del rango visitante ±{mse_continuas2:.2f}: {porc_en_rango2:.2f}%")
-print(f"Predicciones que sobreestimaron el valor real en más de visitante {mse_continuas2:.2f}: {porc_encima2:.2f}%")
-print(f"Predicciones que subestimaron el valor real en más de visitante {mse_continuas2:.2f}: {porc_debajo2:.2f}%")
-
-#Impresion de errores mas alto bajo y alto
-# Índice de mayor sobreestimación
-idx_max_sobre2 = np.argmax(errores2)
-# Índice de mayor subestimación
-idx_max_sub2 = np.argmin(errores2)
-
-# Mostrar detalles
-print("\n--- Mayor sobreestimación visitante ---")
-print(f"Valor real      : {y_test_continuas2.iloc[idx_max_sobre2]:.2f}")
-print(f"Predicción      : {y_pred_continuas2[idx_max_sobre2]:.2f}")
-print(f"Error (↑)       : {errores2.iloc[idx_max_sobre2]:.2f}")
-
-print("\n--- Mayor subestimación visitante ---")
-print(f"Valor real      : {y_test_continuas2.iloc[idx_max_sub2]:.2f}")
-print(f"Predicción      : {y_pred_continuas2[idx_max_sub2]:.2f}")
-print(f"Error (↓)       : {errores2.iloc[idx_max_sub2]:.2f}")
