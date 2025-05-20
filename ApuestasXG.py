@@ -899,15 +899,6 @@ def crear_y_retornar_dataframes(stats):
             df_existente = pd.read_csv(nombre_archivo, parse_dates=['Fecha'], sep=';', quotechar='"')
             df_existente["Fecha"] = pd.to_datetime(df_existente["Fecha"])
 
-            # Si historial.csv no existe, lo creamos con los datos del df_existente
-            if not os.path.isfile("historial.csv"):
-                df_existente.to_csv("historial.csv", sep=';', index=False)
-                print("Se creó historial.csv con los datos existentes.")
-
-            # Cargar historial.csv
-            df_all = pd.read_csv("historial.csv", parse_dates=['Fecha'], sep=';', quotechar='"')
-            df_all["Fecha"] = pd.to_datetime(df_all["Fecha"])
-
             # Crear un nuevo DataFrame con los nuevos datos
             datos = [estadisticas for estadisticas in partidos.values()]
             df_nuevo = pd.DataFrame(datos)
@@ -918,11 +909,6 @@ def crear_y_retornar_dataframes(stats):
             df_stats = df_stats.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
             df_stats = df_stats.sort_values(by="Fecha", ascending=False)
 
-            df_all = pd.concat([df_all, df_stats], ignore_index=True)
-            df_all = df_all.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
-            df_all = df_all.sort_values(by="Fecha", ascending=False)
-            df_all.to_csv("historial.csv", sep=';', index=False)
-
             df_stats.fillna(0, inplace=True)
             df_stats.to_csv(nombre_archivo, sep=';', index=False)
         else:
@@ -930,20 +916,13 @@ def crear_y_retornar_dataframes(stats):
             datos = [estadisticas for estadisticas in partidos.values()]
             df_stats = pd.DataFrame(datos)
 
-            df_all = pd.read_csv("historial.csv", parse_dates=['Fecha'], sep=';', quotechar='"')
-            df_all["Fecha"] = pd.to_datetime(df_all["Fecha"])
-
             df_stats["Fecha"] = pd.to_datetime(df_stats["Fecha"])
             # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
             df_stats = df_stats.sort_values(by="Fecha", ascending=False)
             df_stats = df_stats.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
             
-            df_all = pd.concat([df_all, df_stats], ignore_index=True)
-            df_all = df_all.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
             # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
-            df_all = df_all.sort_values(by="Fecha", ascending=False)
             df_stats.fillna(0, inplace=True)
-            df_all.to_csv("historial.csv", sep=';', index=False)
             df_stats.to_csv(nombre_archivo, sep=';', index=False)
 
         # Guardar el DataFrame en el diccionario
@@ -1006,7 +985,7 @@ param_grid_xgb = {
 }
 
 # Modelo base
-xgb_base = XGBClassifier(random_state=21, eval_metric='logloss',enable_categorical=True)
+xgb_base = XGBClassifier(random_state=42, eval_metric='logloss',enable_categorical=True)
 # MultiOutputClassifier para manejar múltiples salidas categóricas
 multi_output_xgb = MultiOutputClassifier(xgb_base, n_jobs=-1)
 
@@ -1063,7 +1042,7 @@ x_train2, x_test2, y_train_categoricas2, y_test_categoricas2 = train_test_split(
 _, _, y_train_continuas2, y_test_continuas2 = train_test_split(x2, y_continuas2, test_size=0.2, random_state=42)
 
 # Modelo base
-xgb_base2 = XGBClassifier(random_state=21, eval_metric='logloss',enable_categorical=True)
+xgb_base2 = XGBClassifier(random_state=42, eval_metric='logloss',enable_categorical=True)
 # MultiOutputClassifier para manejar múltiples salidas categóricas
 multi_output_xgb2 = MultiOutputClassifier(xgb_base2, n_jobs=-1)
 
