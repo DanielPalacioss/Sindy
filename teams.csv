@@ -4,7 +4,7 @@ Aston Villa;1;109;aston-villa
 Liverpool;2;108;liverpool
 Manchester City;3;110;manchester-city
 Mónaco;4;;
-Stade Brestois;5;;
+Stade Brestois;5;534;brest
 Leverkusen;6;333;bayer-leverkusen
 Inter;7;;
 Sporting Lisboa;8;;
@@ -16,7 +16,7 @@ Benfica;13;;
 Juventus;14;226;juventus
 LOSC;15;;
 Feyenoord;16;;
-Atalanta;17;;
+Atalanta;17;232;atalanta
 Stuttgart;18;338;stuttgart
 PSG;19;480;psg
 Celtic F. C.;20;;
@@ -661,7 +661,7 @@ Metropolitanos FC;658;;
 Bragantino;659;1273;rb-bragantino
 Coquimbo Unido;660;;
 Sportivo Luqueño;661;;
-Santos;662;;
+Santos;662;1224;santos
 Portuguesa;663;;
 Santo André;664;;
 Ituano;665;;
@@ -679,7 +679,7 @@ Vila Operária Clube Esporte Mariano;676;;
 Mirassol B;677;;
 Grêmio Desportivo Prudente;678;;
 Sport Recife;679;1226;sport-recife
-Ceará;680;;
+Ceará;680;1781;ceara
 Vila Nova;681;;
 América-MG;682;;
 Goiás;683;;
@@ -766,14 +766,14 @@ Juventus Sub'23;763;;
 Marsella;764;;
 Lens;765;;
 Reims;766;499;reims
-Racing de Estrasburgo;767;;
+Racing de Estrasburgo;767;479;strasbourg
 Rennes;768;;
 Nantes;769;486;nantes
 Auxerre;770;;
 Angers;771;;
 Toulouse;772;;
 Saint-Étienne;773;474;saint-etienne
-Le Havre;774;;
+Le Havre;774;485;le-havre
 Montpellier;775;;
 Atlético Goianiense;776;;
 Vasco da Gama;777;1227;vasco-da-gama

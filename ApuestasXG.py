@@ -44,8 +44,8 @@ options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Tottenham"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Crystal Palace"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Cruzeiro"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Atlético Mineiro"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
@@ -315,7 +315,7 @@ if len(equipos_dict) == 1:
 service =  Service('chromedriver.exe')
 driver = webdriver.Chrome(service=service, options=options)
 
-Torneo = 1 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+Torneo = 10 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
 
 if equipos_dict.get(equipo_objetivo_1, -1) == -1:
     raise Exception(f"El equipo {equipo_objetivo_1} no existe en la base de datos, por favor agregarlo")
@@ -655,7 +655,7 @@ def obtener_goles_por_tiempo(soup, equipo_objetivo):
 def procesar_urls(urls, equipo_objetivo):
     partido_stats = {}
     driver.get(urls[0])
-    time.sleep(2.5)
+    time.sleep(2)
     for idx, url in enumerate(urls, start=1):
         try:
             
