@@ -1,0 +1,1770 @@
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.409
+
+Precisión categoricas del visitante: 0.680
+
+Error cuadrático medio (RMSE) continuas del local: 0.489
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.239
+Error absoluto medio (MAE) continuas del local: 0.335
+Coeficiente de determinación (R2) continuas del local: 0.975
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.396
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.157
+Error absoluto medio (MAE) continuas del visitante: 0.337
+Coeficiente de determinación (R2) continuas del visitante: 0.986
+
+-----------------PREDICCIONES DEL Hoffenheim -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.53, Prob. clase 1: 0.47)
+perdio: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+empato: Predicción: 0 (Prob. clase 0: 0.67, Prob. clase 1: 0.33)
+Tiros de esquina: Predicción: 3.77 ---- 4.26 ---- 4.75
+
+-----------------PREDICCIONES DEL Bayern -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.01, Prob. clase 1: 0.99)
+perdio: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+empato: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+Tiros de esquina: Predicción: 4.89 ---- 5.29 ---- 5.68
+
+
+Predicciones dentro del rango ±0.49: 77.27%
+Predicciones que sobreestimaron el valor real en más de 0.49: 13.64%
+Predicciones que subestimaron el valor real en más de 0.49: 9.09%
+
+--- Mayor sobreestimación ---
+Valor real      : 0.00
+Predicción      : 0.91
+Error (↑)       : 0.91
+
+--- Mayor subestimación ---
+Valor real      : 11.00
+Predicción      : 9.53
+Error (↓)       : -1.47
+
+
+Predicciones dentro del rango visitante ±0.40: 48.00%
+Predicciones que sobreestimaron el valor real en más de visitante 0.40: 16.00%
+Predicciones que subestimaron el valor real en más de visitante 0.40: 36.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 12.00
+Predicción      : 12.65
+Error (↑)       : 0.65
+
+--- Mayor subestimación visitante ---
+Valor real      : 10.00
+Predicción      : 9.29
+Error (↓)       : -0.71
+
+-------------------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.500
+
+Precisión categoricas del visitante: 0.429
+
+Error cuadrático medio (RMSE) continuas del local: 0.840
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.705
+Error absoluto medio (MAE) continuas del local: 0.599
+Coeficiente de determinación (R2) continuas del local: 0.908
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.286
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.082
+Error absoluto medio (MAE) continuas del visitante: 0.222
+Coeficiente de determinación (R2) continuas del visitante: 0.988
+
+-----------------PREDICCIONES DEL Heidenheim -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.98, Prob. clase 1: 0.02)
+perdio: Predicción: 0 (Prob. clase 0: 0.66, Prob. clase 1: 0.34)
+empato: Predicción: 0 (Prob. clase 0: 0.51, Prob. clase 1: 0.49)
+Tiros de esquina: Predicción: 2.97 ---- 3.81 ---- 4.65
+
+-----------------PREDICCIONES DEL Werder Bremen -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.96, Prob. clase 1: 0.04)
+perdio: Predicción: 1 (Prob. clase 0: 0.01, Prob. clase 1: 0.99)
+empato: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+Tiros de esquina: Predicción: 5.14 ---- 5.42 ---- 5.71
+
+
+Predicciones dentro del rango ±0.84: 72.73%
+Predicciones que sobreestimaron el valor real en más de 0.84: 9.09%
+Predicciones que subestimaron el valor real en más de 0.84: 18.18%
+
+--- Mayor sobreestimación ---
+Valor real      : 4.00
+Predicción      : 6.02
+Error (↑)       : 2.02
+
+--- Mayor subestimación ---
+Valor real      : 13.00
+Predicción      : 11.12
+Error (↓)       : -1.88
+
+
+Predicciones dentro del rango visitante ±0.29: 66.67%
+Predicciones que sobreestimaron el valor real en más de visitante 0.29: 0.00%
+Predicciones que subestimaron el valor real en más de visitante 0.29: 33.33%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 2.00
+Predicción      : 2.25
+Error (↑)       : 0.25
+
+--- Mayor subestimación visitante ---
+Valor real      : 1.00
+Predicción      : 0.42
+Error (↓)       : -0.58
+------------------------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.381
+
+Precisión categoricas del visitante: 0.409
+
+Error cuadrático medio (RMSE) continuas del local: 1.641
+Error cuadrático medio (MSE) continuas al cuadrado del local: 2.693
+Error absoluto medio (MAE) continuas del local: 0.888
+Coeficiente de determinación (R2) continuas del local: 0.751
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.742
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.551
+Error absoluto medio (MAE) continuas del visitante: 0.485
+Coeficiente de determinación (R2) continuas del visitante: 0.922
+
+-----------------PREDICCIONES DEL Mönchengladbach -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.02, Prob. clase 1: 0.98)
+perdio: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+empato: Predicción: 0 (Prob. clase 0: 0.56, Prob. clase 1: 0.44)
+Tiros de esquina: Predicción: 4.19 ---- 5.84 ---- 7.48
+
+-----------------PREDICCIONES DEL Wolfsburg -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.96, Prob. clase 1: 0.04)
+perdio: Predicción: 0 (Prob. clase 0: 0.67, Prob. clase 1: 0.33)
+empato: Predicción: 1 (Prob. clase 0: 0.23, Prob. clase 1: 0.77)
+Tiros de esquina: Predicción: 3.66 ---- 4.40 ---- 5.15
+
+
+Predicciones dentro del rango ±1.64: 90.48%
+Predicciones que sobreestimaron el valor real en más de 1.64: 0.00%
+Predicciones que subestimaron el valor real en más de 1.64: 9.52%
+
+--- Mayor sobreestimación ---
+Valor real      : 6.00
+Predicción      : 7.51
+Error (↑)       : 1.51
+
+--- Mayor subestimación ---
+Valor real      : 14.00
+Predicción      : 8.03
+Error (↓)       : -5.97
+
+
+Predicciones dentro del rango visitante ±0.74: 72.73%
+Predicciones que sobreestimaron el valor real en más de visitante 0.74: 13.64%
+Predicciones que subestimaron el valor real en más de visitante 0.74: 13.64%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 0.00
+Predicción      : 0.94
+Error (↑)       : 0.94
+
+--- Mayor subestimación visitante ---
+Valor real      : 12.00
+Predicción      : 9.68
+Error (↓)       : -2.32
+--------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.381
+
+Precisión categoricas del visitante: 0.333
+
+Error cuadrático medio (RMSE) continuas del local: 0.519
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.269
+Error absoluto medio (MAE) continuas del local: 0.331
+Coeficiente de determinación (R2) continuas del local: 0.935
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.915
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.837
+Error absoluto medio (MAE) continuas del visitante: 0.578
+Coeficiente de determinación (R2) continuas del visitante: 0.875
+
+-----------------PREDICCIONES DEL Augsburgo -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.89, Prob. clase 1: 0.11)
+perdio: Predicción: 1 (Prob. clase 0: 0.48, Prob. clase 1: 0.52)
+empato: Predicción: 0 (Prob. clase 0: 0.88, Prob. clase 1: 0.12)
+Tiros de esquina: Predicción: 5.12 ---- 5.64 ---- 6.16
+
+-----------------PREDICCIONES DEL FC Union Berlin -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.66, Prob. clase 1: 0.34)
+perdio: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+empato: Predicción: 0 (Prob. clase 0: 0.75, Prob. clase 1: 0.25)
+Tiros de esquina: Predicción: 2.10 ---- 3.02 ---- 3.93
+
+
+Predicciones dentro del rango ±0.52: 85.71%
+Predicciones que sobreestimaron el valor real en más de 0.52: 14.29%
+Predicciones que subestimaron el valor real en más de 0.52: 0.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 6.00
+Predicción      : 7.61
+Error (↑)       : 1.61
+
+--- Mayor subestimación ---
+Valor real      : 9.00
+Predicción      : 8.57
+Error (↓)       : -0.43
+
+
+Predicciones dentro del rango visitante ±0.91: 80.95%
+Predicciones que sobreestimaron el valor real en más de visitante 0.91: 9.52%
+Predicciones que subestimaron el valor real en más de visitante 0.91: 9.52%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 9.00
+Predicción      : 10.68
+Error (↑)       : 1.68
+
+--- Mayor subestimación visitante ---
+Valor real      : 14.00
+Predicción      : 10.93
+Error (↓)       : -3.07
+----------------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.560
+
+Precisión categoricas del visitante: 0.381
+
+Error cuadrático medio (RMSE) continuas del local: 0.687
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.471
+Error absoluto medio (MAE) continuas del local: 0.496
+Coeficiente de determinación (R2) continuas del local: 0.949
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.782
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.611
+Error absoluto medio (MAE) continuas del visitante: 0.498
+Coeficiente de determinación (R2) continuas del visitante: 0.886
+
+-----------------PREDICCIONES DEL Dortmund -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.01, Prob. clase 1: 0.99)
+perdio: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+empato: Predicción: 0 (Prob. clase 0: 0.95, Prob. clase 1: 0.05)
+Tiros de esquina: Predicción: 3.54 ---- 4.23 ---- 4.91
+
+-----------------PREDICCIONES DEL KSV Holstein -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.05, Prob. clase 1: 0.95)
+perdio: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+empato: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+Tiros de esquina: Predicción: 3.23 ---- 4.01 ---- 4.79
+
+
+Predicciones dentro del rango ±0.69: 76.00%
+Predicciones que sobreestimaron el valor real en más de 0.69: 12.00%
+Predicciones que subestimaron el valor real en más de 0.69: 12.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 4.00
+Predicción      : 5.67
+Error (↑)       : 1.67
+
+--- Mayor subestimación ---
+Valor real      : 12.00
+Predicción      : 10.14
+Error (↓)       : -1.86
+
+
+Predicciones dentro del rango visitante ±0.78: 80.95%
+Predicciones que sobreestimaron el valor real en más de visitante 0.78: 14.29%
+Predicciones que subestimaron el valor real en más de visitante 0.78: 4.76%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 3.00
+Predicción      : 5.56
+Error (↑)       : 2.56
+
+--- Mayor subestimación visitante ---
+Valor real      : 10.00
+Predicción      : 8.85
+Error (↓)       : -1.15
+--------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.478
+
+Precisión categoricas del visitante: 0.636
+
+Error cuadrático medio (RMSE) continuas del local: 0.941
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.886
+Error absoluto medio (MAE) continuas del local: 0.484
+Coeficiente de determinación (R2) continuas del local: 0.921
+
+Error cuadrático medio (RMSE) continuas del visitante: 2.229
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 4.969
+Error absoluto medio (MAE) continuas del visitante: 0.864
+Coeficiente de determinación (R2) continuas del visitante: 0.629
+
+-----------------PREDICCIONES DEL RB Leipzig -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.97, Prob. clase 1: 0.03)
+perdio: Predicción: 0 (Prob. clase 0: 0.91, Prob. clase 1: 0.09)
+empato: Predicción: 0 (Prob. clase 0: 0.96, Prob. clase 1: 0.04)
+Tiros de esquina: Predicción: 3.65 ---- 4.59 ---- 5.53
+
+-----------------PREDICCIONES DEL Stuttgart -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.35, Prob. clase 1: 0.65)
+perdio: Predicción: 0 (Prob. clase 0: 0.90, Prob. clase 1: 0.10)
+empato: Predicción: 0 (Prob. clase 0: 0.88, Prob. clase 1: 0.12)
+Tiros de esquina: Predicción: 3.79 ---- 6.02 ---- 8.25
+
+
+Predicciones dentro del rango ±0.94: 82.61%
+Predicciones que sobreestimaron el valor real en más de 0.94: 4.35%
+Predicciones que subestimaron el valor real en más de 0.94: 13.04%
+
+--- Mayor sobreestimación ---
+Valor real      : 7.00
+Predicción      : 8.18
+Error (↑)       : 1.18
+
+--- Mayor subestimación ---
+Valor real      : 15.00
+Predicción      : 11.10
+Error (↓)       : -3.90
+
+
+Predicciones dentro del rango visitante ±2.23: 95.45%
+Predicciones que sobreestimaron el valor real en más de visitante 2.23: 0.00%
+Predicciones que subestimaron el valor real en más de visitante 2.23: 4.55%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 7.00
+Predicción      : 7.66
+Error (↑)       : 0.66
+
+--- Mayor subestimación visitante ---
+Valor real      : 19.00
+Predicción      : 8.90
+Error (↓)       : -10.10
+--------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.650
+
+Precisión categoricas del visitante: 0.455
+
+Error cuadrático medio (RMSE) continuas del local: 0.539
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.291
+Error absoluto medio (MAE) continuas del local: 0.456
+Coeficiente de determinación (R2) continuas del local: 0.945
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.509
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.259
+Error absoluto medio (MAE) continuas del visitante: 0.327
+Coeficiente de determinación (R2) continuas del visitante: 0.964
+
+-----------------PREDICCIONES DEL Friburgo -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.87, Prob. clase 1: 0.13)
+perdio: Predicción: 0 (Prob. clase 0: 0.95, Prob. clase 1: 0.05)
+empato: Predicción: 0 (Prob. clase 0: 0.91, Prob. clase 1: 0.09)
+Tiros de esquina: Predicción: 2.63 ---- 3.17 ---- 3.71
+
+-----------------PREDICCIONES DEL Frankfurt -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.23, Prob. clase 1: 0.77)
+perdio: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+empato: Predicción: 0 (Prob. clase 0: 0.52, Prob. clase 1: 0.48)
+Tiros de esquina: Predicción: 5.19 ---- 5.70 ---- 6.21
+
+
+Predicciones dentro del rango ±0.54: 50.00%
+Predicciones que sobreestimaron el valor real en más de 0.54: 20.00%
+Predicciones que subestimaron el valor real en más de 0.54: 30.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 0.00
+Predicción      : 0.91
+Error (↑)       : 0.91
+
+--- Mayor subestimación ---
+Valor real      : 6.00
+Predicción      : 5.11
+Error (↓)       : -0.89
+
+
+Predicciones dentro del rango visitante ±0.51: 86.36%
+Predicciones que sobreestimaron el valor real en más de visitante 0.51: 0.00%
+Predicciones que subestimaron el valor real en más de visitante 0.51: 13.64%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 1.00
+Predicción      : 1.47
+Error (↑)       : 0.47
+
+--- Mayor subestimación visitante ---
+Valor real      : 9.00
+Predicción      : 7.39
+Error (↓)       : -1.61
+------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.364
+
+Precisión categoricas del visitante: 0.542
+
+Error cuadrático medio (RMSE) continuas del local: 0.596
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.355
+Error absoluto medio (MAE) continuas del local: 0.472
+Coeficiente de determinación (R2) continuas del local: 0.931
+
+Error cuadrático medio (RMSE) continuas del visitante: 1.784
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 3.184
+Error absoluto medio (MAE) continuas del visitante: 0.888
+Coeficiente de determinación (R2) continuas del visitante: 0.837
+
+-----------------PREDICCIONES DEL Mainz 05 -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.72, Prob. clase 1: 0.28)
+perdio: Predicción: 0 (Prob. clase 0: 0.82, Prob. clase 1: 0.18)
+empato: Predicción: 0 (Prob. clase 0: 0.60, Prob. clase 1: 0.40)
+Tiros de esquina: Predicción: 4.72 ---- 5.31 ---- 5.91
+
+-----------------PREDICCIONES DEL Leverkusen -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.17, Prob. clase 1: 0.83)
+perdio: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+empato: Predicción: 0 (Prob. clase 0: 0.93, Prob. clase 1: 0.07)
+Tiros de esquina: Predicción: 2.78 ---- 4.57 ---- 6.35
+
+
+Predicciones dentro del rango ±0.60: 72.73%
+Predicciones que sobreestimaron el valor real en más de 0.60: 18.18%
+Predicciones que subestimaron el valor real en más de 0.60: 9.09%
+
+--- Mayor sobreestimación ---
+Valor real      : 6.00
+Predicción      : 7.22
+Error (↑)       : 1.22
+
+--- Mayor subestimación ---
+Valor real      : 8.00
+Predicción      : 6.80
+Error (↓)       : -1.20
+
+
+Predicciones dentro del rango visitante ±1.78: 91.67%
+Predicciones que sobreestimaron el valor real en más de visitante 1.78: 0.00%
+Predicciones que subestimaron el valor real en más de visitante 1.78: 8.33%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 0.00
+Predicción      : 0.63
+Error (↑)       : 0.63
+
+--- Mayor subestimación visitante ---
+Valor real      : 18.00
+Predicción      : 11.59
+Error (↓)       : -6.41
+--------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.524
+
+Precisión categoricas del visitante: 0.500
+
+Error cuadrático medio (RMSE) continuas del local: 0.730
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.532
+Error absoluto medio (MAE) continuas del local: 0.439
+Coeficiente de determinación (R2) continuas del local: 0.944
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.350
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.123
+Error absoluto medio (MAE) continuas del visitante: 0.233
+Coeficiente de determinación (R2) continuas del visitante: 0.968
+
+-----------------PREDICCIONES DEL St. Pauli -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.91, Prob. clase 1: 0.09)
+perdio: Predicción: 0 (Prob. clase 0: 0.91, Prob. clase 1: 0.09)
+empato: Predicción: 1 (Prob. clase 0: 0.40, Prob. clase 1: 0.60)
+Tiros de esquina: Predicción: 2.45 ---- 3.18 ---- 3.91
+
+-----------------PREDICCIONES DEL Bochum -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+perdio: Predicción: 1 (Prob. clase 0: 0.35, Prob. clase 1: 0.65)
+empato: Predicción: 0 (Prob. clase 0: 0.77, Prob. clase 1: 0.23)
+Tiros de esquina: Predicción: 5.76 ---- 6.11 ---- 6.46
+
+
+Predicciones dentro del rango ±0.73: 80.95%
+Predicciones que sobreestimaron el valor real en más de 0.73: 9.52%
+Predicciones que subestimaron el valor real en más de 0.73: 9.52%
+
+--- Mayor sobreestimación ---
+Valor real      : 4.00
+Predicción      : 5.32
+Error (↑)       : 1.32
+
+--- Mayor subestimación ---
+Valor real      : 10.00
+Predicción      : 7.47
+Error (↓)       : -2.53
+
+
+Predicciones dentro del rango visitante ±0.35: 77.27%
+Predicciones que sobreestimaron el valor real en más de visitante 0.35: 9.09%
+Predicciones que subestimaron el valor real en más de visitante 0.35: 13.64%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 5.00
+Predicción      : 5.53
+Error (↑)       : 0.53
+
+--- Mayor subestimación visitante ---
+Valor real      : 7.00
+Predicción      : 5.78
+Error (↓)       : -1.22
+---------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.524
+
+Precisión categoricas del visitante: 0.333
+
+Error cuadrático medio (RMSE) continuas del local: 1.116
+Error cuadrático medio (MSE) continuas al cuadrado del local: 1.245
+Error absoluto medio (MAE) continuas del local: 0.845
+Coeficiente de determinación (R2) continuas del local: 0.779
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.761
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.579
+Error absoluto medio (MAE) continuas del visitante: 0.559
+Coeficiente de determinación (R2) continuas del visitante: 0.902
+
+-----------------PREDICCIONES DEL Ceará -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.93, Prob. clase 1: 0.07)
+perdio: Predicción: 0 (Prob. clase 0: 0.75, Prob. clase 1: 0.25)
+empato: Predicción: 1 (Prob. clase 0: 0.11, Prob. clase 1: 0.89)
+Tiros de esquina: Predicción: 2.24 ---- 3.35 ---- 4.47
+
+-----------------PREDICCIONES DEL Sport Recife -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.89, Prob. clase 1: 0.11)
+perdio: Predicción: 0 (Prob. clase 0: 0.56, Prob. clase 1: 0.44)
+empato: Predicción: 0 (Prob. clase 0: 0.76, Prob. clase 1: 0.24)
+Tiros de esquina: Predicción: 8.37 ---- 9.13 ---- 9.89
+
+
+Predicciones dentro del rango ±1.12: 76.19%
+Predicciones que sobreestimaron el valor real en más de 1.12: 14.29%
+Predicciones que subestimaron el valor real en más de 1.12: 9.52%
+
+--- Mayor sobreestimación ---
+Valor real      : 8.00
+Predicción      : 10.68
+Error (↑)       : 2.68
+
+--- Mayor subestimación ---
+Valor real      : 10.00
+Predicción      : 8.33
+Error (↓)       : -1.67
+
+
+Predicciones dentro del rango visitante ±0.76: 72.22%
+Predicciones que sobreestimaron el valor real en más de visitante 0.76: 11.11%
+Predicciones que subestimaron el valor real en más de visitante 0.76: 16.67%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 5.00
+Predicción      : 6.51
+Error (↑)       : 1.51
+
+--- Mayor subestimación visitante ---
+Valor real      : 10.00
+Predicción      : 8.07
+Error (↓)       : -1.93
+---------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.500
+
+Precisión categoricas del visitante: 0.565
+
+Error cuadrático medio (RMSE) continuas del local: 1.326
+Error cuadrático medio (MSE) continuas al cuadrado del local: 1.758
+Error absoluto medio (MAE) continuas del local: 0.640
+Coeficiente de determinación (R2) continuas del local: 0.781
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.792
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.627
+Error absoluto medio (MAE) continuas del visitante: 0.533
+Coeficiente de determinación (R2) continuas del visitante: 0.906
+
+-----------------PREDICCIONES DEL Vasco da Gama -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.89, Prob. clase 1: 0.11)
+perdio: Predicción: 1 (Prob. clase 0: 0.40, Prob. clase 1: 0.60)
+empato: Predicción: 0 (Prob. clase 0: 0.54, Prob. clase 1: 0.46)
+Tiros de esquina: Predicción: 3.12 ---- 4.44 ---- 5.77
+
+-----------------PREDICCIONES DEL Fortaleza -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.04, Prob. clase 1: 0.96)
+perdio: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+empato: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+Tiros de esquina: Predicción: 7.20 ---- 7.99 ---- 8.78
+
+
+Predicciones dentro del rango ±1.33: 91.67%
+Predicciones que sobreestimaron el valor real en más de 1.33: 0.00%
+Predicciones que subestimaron el valor real en más de 1.33: 8.33%
+
+--- Mayor sobreestimación ---
+Valor real      : 1.00
+Predicción      : 1.70
+Error (↑)       : 0.70
+
+--- Mayor subestimación ---
+Valor real      : 14.00
+Predicción      : 8.19
+Error (↓)       : -5.81
+
+
+Predicciones dentro del rango visitante ±0.79: 78.26%
+Predicciones que sobreestimaron el valor real en más de visitante 0.79: 17.39%
+Predicciones que subestimaron el valor real en más de visitante 0.79: 4.35%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 4.00
+Predicción      : 6.12
+Error (↑)       : 2.12
+
+--- Mayor subestimación visitante ---
+Valor real      : 8.00
+Predicción      : 6.70
+Error (↓)       : -1.30
+---------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.480
+
+Precisión categoricas del visitante: 0.731
+
+Error cuadrático medio (RMSE) continuas del local: 0.453
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.205
+Error absoluto medio (MAE) continuas del local: 0.283
+Coeficiente de determinación (R2) continuas del local: 0.972
+
+Error cuadrático medio (RMSE) continuas del visitante: 1.226
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 1.503
+Error absoluto medio (MAE) continuas del visitante: 0.655
+Coeficiente de determinación (R2) continuas del visitante: 0.851
+
+-----------------PREDICCIONES DEL São Paulo -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.66, Prob. clase 1: 0.34)
+perdio: Predicción: 0 (Prob. clase 0: 0.98, Prob. clase 1: 0.02)
+empato: Predicción: 0 (Prob. clase 0: 0.71, Prob. clase 1: 0.29)
+Tiros de esquina: Predicción: 4.35 ---- 4.80 ---- 5.25
+
+-----------------PREDICCIONES DEL Grêmio -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.48, Prob. clase 1: 0.52)
+perdio: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+empato: Predicción: 0 (Prob. clase 0: 0.80, Prob. clase 1: 0.20)
+Tiros de esquina: Predicción: 2.36 ---- 3.59 ---- 4.81
+
+
+Predicciones dentro del rango ±0.45: 76.00%
+Predicciones que sobreestimaron el valor real en más de 0.45: 12.00%
+Predicciones que subestimaron el valor real en más de 0.45: 12.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 6.00
+Predicción      : 6.95
+Error (↑)       : 0.95
+
+--- Mayor subestimación ---
+Valor real      : 8.00
+Predicción      : 6.62
+Error (↓)       : -1.38
+
+
+Predicciones dentro del rango visitante ±1.23: 88.46%
+Predicciones que sobreestimaron el valor real en más de visitante 1.23: 0.00%
+Predicciones que subestimaron el valor real en más de visitante 1.23: 11.54%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 5.00
+Predicción      : 5.89
+Error (↑)       : 0.89
+
+--- Mayor subestimación visitante ---
+Valor real      : 13.00
+Predicción      : 7.57
+Error (↓)       : -5.43
+--------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.500
+
+Precisión categoricas del visitante: 0.364
+
+Error cuadrático medio (RMSE) continuas del local: 0.553
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.306
+Error absoluto medio (MAE) continuas del local: 0.385
+Coeficiente de determinación (R2) continuas del local: 0.926
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.999
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.997
+Error absoluto medio (MAE) continuas del visitante: 0.546
+Coeficiente de determinación (R2) continuas del visitante: 0.797
+
+-----------------PREDICCIONES DEL Racing de Estrasburgo -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.60, Prob. clase 1: 0.40)
+perdio: Predicción: 0 (Prob. clase 0: 0.75, Prob. clase 1: 0.25)
+empato: Predicción: 0 (Prob. clase 0: 0.94, Prob. clase 1: 0.06)
+Tiros de esquina: Predicción: 3.67 ---- 4.23 ---- 4.78
+
+-----------------PREDICCIONES DEL Le Havre -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.41, Prob. clase 1: 0.59)
+perdio: Predicción: 0 (Prob. clase 0: 0.96, Prob. clase 1: 0.04)
+empato: Predicción: 0 (Prob. clase 0: 0.94, Prob. clase 1: 0.06)
+Tiros de esquina: Predicción: 3.53 ---- 4.53 ---- 5.52
+
+
+Predicciones dentro del rango ±0.55: 72.73%
+Predicciones que sobreestimaron el valor real en más de 0.55: 13.64%
+Predicciones que subestimaron el valor real en más de 0.55: 13.64%
+
+--- Mayor sobreestimación ---
+Valor real      : 4.00
+Predicción      : 5.16
+Error (↑)       : 1.16
+
+--- Mayor subestimación ---
+Valor real      : 6.00
+Predicción      : 4.66
+Error (↓)       : -1.34
+
+
+Predicciones dentro del rango visitante ±1.00: 86.36%
+Predicciones que sobreestimaron el valor real en más de visitante 1.00: 9.09%
+Predicciones que subestimaron el valor real en más de visitante 1.00: 4.55%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 6.00
+Predicción      : 7.66
+Error (↑)       : 1.66
+
+--- Mayor subestimación visitante ---
+Valor real      : 10.00
+Predicción      : 6.14
+Error (↓)       : -3.86
+-------------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.304
+
+Precisión categoricas del visitante: 0.565
+
+Error cuadrático medio (RMSE) continuas del local: 0.786
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.618
+Error absoluto medio (MAE) continuas del local: 0.477
+Coeficiente de determinación (R2) continuas del local: 0.900
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.905
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.819
+Error absoluto medio (MAE) continuas del visitante: 0.593
+Coeficiente de determinación (R2) continuas del visitante: 0.905
+
+-----------------PREDICCIONES DEL Niza -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.44, Prob. clase 1: 0.56)
+perdio: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+empato: Predicción: 0 (Prob. clase 0: 0.65, Prob. clase 1: 0.35)
+Tiros de esquina: Predicción: 3.55 ---- 4.34 ---- 5.13
+
+-----------------PREDICCIONES DEL Stade Brestois -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.13, Prob. clase 1: 0.87)
+perdio: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+empato: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+Tiros de esquina: Predicción: 3.55 ---- 4.46 ---- 5.36
+
+
+Predicciones dentro del rango ±0.79: 78.26%
+Predicciones que sobreestimaron el valor real en más de 0.79: 21.74%
+Predicciones que subestimaron el valor real en más de 0.79: 0.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 8.00
+Predicción      : 10.02
+Error (↑)       : 2.02
+
+--- Mayor subestimación ---
+Valor real      : 8.00
+Predicción      : 7.35
+Error (↓)       : -0.65
+
+
+Predicciones dentro del rango visitante ±0.91: 69.57%
+Predicciones que sobreestimaron el valor real en más de visitante 0.91: 13.04%
+Predicciones que subestimaron el valor real en más de visitante 0.91: 17.39%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 2.00
+Predicción      : 3.61
+Error (↑)       : 1.61
+
+--- Mayor subestimación visitante ---
+Valor real      : 12.00
+Predicción      : 9.11
+Error (↓)       : -2.89
+------------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.458
+
+Precisión categoricas del visitante: 0.542
+
+Error cuadrático medio (RMSE) continuas del local: 0.802
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.642
+Error absoluto medio (MAE) continuas del local: 0.385
+Coeficiente de determinación (R2) continuas del local: 0.930
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.692
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.479
+Error absoluto medio (MAE) continuas del visitante: 0.491
+Coeficiente de determinación (R2) continuas del visitante: 0.953
+
+-----------------PREDICCIONES DEL Genoa -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+perdio: Predicción: 0 (Prob. clase 0: 0.51, Prob. clase 1: 0.49)
+empato: Predicción: 1 (Prob. clase 0: 0.36, Prob. clase 1: 0.64)
+Tiros de esquina: Predicción: 2.94 ---- 3.74 ---- 4.54
+
+-----------------PREDICCIONES DEL Atalanta -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.02, Prob. clase 1: 0.98)
+perdio: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+empato: Predicción: 0 (Prob. clase 0: 0.97, Prob. clase 1: 0.03)
+Tiros de esquina: Predicción: 6.37 ---- 7.06 ---- 7.75
+
+
+Predicciones dentro del rango ±0.80: 91.67%
+Predicciones que sobreestimaron el valor real en más de 0.80: 0.00%
+Predicciones que subestimaron el valor real en más de 0.80: 8.33%
+
+--- Mayor sobreestimación ---
+Valor real      : 0.00
+Predicción      : 0.32
+Error (↑)       : 0.32
+
+--- Mayor subestimación ---
+Valor real      : 12.00
+Predicción      : 8.44
+Error (↓)       : -3.56
+
+
+Predicciones dentro del rango visitante ±0.69: 70.83%
+Predicciones que sobreestimaron el valor real en más de visitante 0.69: 8.33%
+Predicciones que subestimaron el valor real en más de visitante 0.69: 20.83%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 5.00
+Predicción      : 5.77
+Error (↑)       : 0.77
+
+--- Mayor subestimación visitante ---
+Valor real      : 14.00
+Predicción      : 11.73
+Error (↓)       : -2.27
+---------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.292
+
+Precisión categoricas del visitante: 0.500
+
+Error cuadrático medio (RMSE) continuas del local: 0.538
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.289
+Error absoluto medio (MAE) continuas del local: 0.388
+Coeficiente de determinación (R2) continuas del local: 0.956
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.891
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.793
+Error absoluto medio (MAE) continuas del visitante: 0.525
+Coeficiente de determinación (R2) continuas del visitante: 0.952
+
+-----------------PREDICCIONES DEL Everton -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.10, Prob. clase 1: 0.90)
+perdio: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+empato: Predicción: 1 (Prob. clase 0: 0.19, Prob. clase 1: 0.81)
+Tiros de esquina: Predicción: 2.58 ---- 3.12 ---- 3.66
+
+-----------------PREDICCIONES DEL Southampton -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.97, Prob. clase 1: 0.03)
+perdio: Predicción: 1 (Prob. clase 0: 0.07, Prob. clase 1: 0.93)
+empato: Predicción: 0 (Prob. clase 0: 0.78, Prob. clase 1: 0.22)
+Tiros de esquina: Predicción: 2.27 ---- 3.16 ---- 4.05
+
+
+Predicciones dentro del rango ±0.54: 75.00%
+Predicciones que sobreestimaron el valor real en más de 0.54: 12.50%
+Predicciones que subestimaron el valor real en más de 0.54: 12.50%
+
+--- Mayor sobreestimación ---
+Valor real      : 0.00
+Predicción      : 0.93
+Error (↑)       : 0.93
+
+--- Mayor subestimación ---
+Valor real      : 10.00
+Predicción      : 8.52
+Error (↓)       : -1.48
+
+
+Predicciones dentro del rango visitante ±0.89: 80.00%
+Predicciones que sobreestimaron el valor real en más de visitante 0.89: 0.00%
+Predicciones que subestimaron el valor real en más de visitante 0.89: 20.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 8.00
+Predicción      : 8.61
+Error (↑)       : 0.61
+
+--- Mayor subestimación visitante ---
+Valor real      : 16.00
+Predicción      : 12.94
+Error (↓)       : -3.06
+--------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.542
+
+Precisión categoricas del visitante: 0.409
+
+Error cuadrático medio (RMSE) continuas del local: 0.748
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.559
+Error absoluto medio (MAE) continuas del local: 0.487
+Coeficiente de determinación (R2) continuas del local: 0.939
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.765
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.585
+Error absoluto medio (MAE) continuas del visitante: 0.442
+Coeficiente de determinación (R2) continuas del visitante: 0.914
+
+-----------------PREDICCIONES DEL West Ham -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.90, Prob. clase 1: 0.10)
+perdio: Predicción: 0 (Prob. clase 0: 0.95, Prob. clase 1: 0.05)
+empato: Predicción: 0 (Prob. clase 0: 0.96, Prob. clase 1: 0.04)
+Tiros de esquina: Predicción: 2.11 ---- 2.86 ---- 3.60
+
+-----------------PREDICCIONES DEL Nottingham Forest -----------------
+gano: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+perdio: Predicción: 0 (Prob. clase 0: 0.92, Prob. clase 1: 0.08)
+empato: Predicción: 0 (Prob. clase 0: 0.76, Prob. clase 1: 0.24)
+Tiros de esquina: Predicción: 2.09 ---- 2.86 ---- 3.62
+
+
+Predicciones dentro del rango ±0.75: 70.83%
+Predicciones que sobreestimaron el valor real en más de 0.75: 4.17%
+Predicciones que subestimaron el valor real en más de 0.75: 25.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 4.00
+Predicción      : 4.89
+Error (↑)       : 0.89
+
+--- Mayor subestimación ---
+Valor real      : 10.00
+Predicción      : 7.82
+Error (↓)       : -2.18
+
+
+Predicciones dentro del rango visitante ±0.76: 81.82%
+Predicciones que sobreestimaron el valor real en más de visitante 0.76: 4.55%
+Predicciones que subestimaron el valor real en más de visitante 0.76: 13.64%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 4.00
+Predicción      : 4.93
+Error (↑)       : 0.93
+
+--- Mayor subestimación visitante ---
+Valor real      : 9.00
+Predicción      : 6.56
+Error (↓)       : -2.44
+-----------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.450
+
+Precisión categoricas del visitante: 0.625
+
+Error cuadrático medio (RMSE) continuas del local: 0.928
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.860
+Error absoluto medio (MAE) continuas del local: 0.621
+Coeficiente de determinación (R2) continuas del local: 0.850
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.509
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.260
+Error absoluto medio (MAE) continuas del visitante: 0.369
+Coeficiente de determinación (R2) continuas del visitante: 0.942
+
+-----------------PREDICCIONES DEL Brentford -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.10, Prob. clase 1: 0.90)
+perdio: Predicción: 0 (Prob. clase 0: 0.95, Prob. clase 1: 0.05)
+empato: Predicción: 0 (Prob. clase 0: 0.95, Prob. clase 1: 0.05)
+Tiros de esquina: Predicción: 4.04 ---- 4.97 ---- 5.89
+
+-----------------PREDICCIONES DEL Fulham -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.94, Prob. clase 1: 0.06)
+perdio: Predicción: 0 (Prob. clase 0: 0.82, Prob. clase 1: 0.18)
+empato: Predicción: 0 (Prob. clase 0: 0.77, Prob. clase 1: 0.23)
+Tiros de esquina: Predicción: 5.44 ---- 5.95 ---- 6.46
+
+
+Predicciones dentro del rango ±0.93: 80.00%
+Predicciones que sobreestimaron el valor real en más de 0.93: 10.00%
+Predicciones que subestimaron el valor real en más de 0.93: 10.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 3.00
+Predicción      : 5.95
+Error (↑)       : 2.95
+
+--- Mayor subestimación ---
+Valor real      : 9.00
+Predicción      : 7.68
+Error (↓)       : -1.32
+
+
+Predicciones dentro del rango visitante ±0.51: 66.67%
+Predicciones que sobreestimaron el valor real en más de visitante 0.51: 20.83%
+Predicciones que subestimaron el valor real en más de visitante 0.51: 12.50%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 5.00
+Predicción      : 5.93
+Error (↑)       : 0.93
+
+--- Mayor subestimación visitante ---
+Valor real      : 9.00
+Predicción      : 7.66
+Error (↓)       : -1.34
+--------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.750
+
+Precisión categoricas del visitante: 0.727
+
+Error cuadrático medio (RMSE) continuas del local: 0.740
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.548
+Error absoluto medio (MAE) continuas del local: 0.452
+Coeficiente de determinación (R2) continuas del local: 0.941
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.818
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.668
+Error absoluto medio (MAE) continuas del visitante: 0.667
+Coeficiente de determinación (R2) continuas del visitante: 0.911
+
+-----------------PREDICCIONES DEL Leicester City -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.94, Prob. clase 1: 0.06)
+perdio: Predicción: 0 (Prob. clase 0: 0.59, Prob. clase 1: 0.41)
+empato: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+Tiros de esquina: Predicción: 4.42 ---- 5.16 ---- 5.90
+
+-----------------PREDICCIONES DEL Ipswich -----------------
+gano: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+perdio: Predicción: 0 (Prob. clase 0: 0.97, Prob. clase 1: 0.03)
+empato: Predicción: 1 (Prob. clase 0: 0.18, Prob. clase 1: 0.82)
+Tiros de esquina: Predicción: 2.26 ---- 3.08 ---- 3.89
+
+
+Predicciones dentro del rango ±0.74: 87.50%
+Predicciones que sobreestimaron el valor real en más de 0.74: 4.17%
+Predicciones que subestimaron el valor real en más de 0.74: 8.33%
+
+--- Mayor sobreestimación ---
+Valor real      : 8.00
+Predicción      : 8.81
+Error (↑)       : 0.81
+
+--- Mayor subestimación ---
+Valor real      : 13.00
+Predicción      : 9.96
+Error (↓)       : -3.04
+
+
+Predicciones dentro del rango visitante ±0.82: 72.73%
+Predicciones que sobreestimaron el valor real en más de visitante 0.82: 9.09%
+Predicciones que subestimaron el valor real en más de visitante 0.82: 18.18%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 4.00
+Predicción      : 5.51
+Error (↑)       : 1.51
+
+--- Mayor subestimación visitante ---
+Valor real      : 11.00
+Predicción      : 9.31
+Error (↓)       : -1.69
+------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.750
+
+Precisión categoricas del visitante: 0.727
+
+Error cuadrático medio (RMSE) continuas del local: 0.740
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.548
+Error absoluto medio (MAE) continuas del local: 0.452
+Coeficiente de determinación (R2) continuas del local: 0.941
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.818
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.668
+Error absoluto medio (MAE) continuas del visitante: 0.667
+Coeficiente de determinación (R2) continuas del visitante: 0.911
+
+-----------------PREDICCIONES DEL Leicester City -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.94, Prob. clase 1: 0.06)
+perdio: Predicción: 0 (Prob. clase 0: 0.59, Prob. clase 1: 0.41)
+empato: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+Tiros de esquina: Predicción: 4.42 ---- 5.16 ---- 5.90
+
+-----------------PREDICCIONES DEL Ipswich -----------------
+gano: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+perdio: Predicción: 0 (Prob. clase 0: 0.97, Prob. clase 1: 0.03)
+empato: Predicción: 1 (Prob. clase 0: 0.18, Prob. clase 1: 0.82)
+Tiros de esquina: Predicción: 2.26 ---- 3.08 ---- 3.89
+
+
+Predicciones dentro del rango ±0.74: 87.50%
+Predicciones que sobreestimaron el valor real en más de 0.74: 4.17%
+Predicciones que subestimaron el valor real en más de 0.74: 8.33%
+
+--- Mayor sobreestimación ---
+Valor real      : 8.00
+Predicción      : 8.81
+Error (↑)       : 0.81
+
+--- Mayor subestimación ---
+Valor real      : 13.00
+Predicción      : 9.96
+Error (↓)       : -3.04
+
+
+Predicciones dentro del rango visitante ±0.82: 72.73%
+Predicciones que sobreestimaron el valor real en más de visitante 0.82: 9.09%
+Predicciones que subestimaron el valor real en más de visitante 0.82: 18.18%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 4.00
+Predicción      : 5.51
+Error (↑)       : 1.51
+
+--- Mayor subestimación visitante ---
+Valor real      : 11.00
+Predicción      : 9.31
+Error (↓)       : -1.69
+-------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.435
+
+Precisión categoricas del visitante: 0.600
+
+Error cuadrático medio (RMSE) continuas del local: 0.461
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.212
+Error absoluto medio (MAE) continuas del local: 0.388
+Coeficiente de determinación (R2) continuas del local: 0.968
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.622
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.387
+Error absoluto medio (MAE) continuas del visitante: 0.447
+Coeficiente de determinación (R2) continuas del visitante: 0.961
+
+-----------------PREDICCIONES DEL Brighton -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.74, Prob. clase 1: 0.26)
+perdio: Predicción: 0 (Prob. clase 0: 0.96, Prob. clase 1: 0.04)
+empato: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+Tiros de esquina: Predicción: 3.82 ---- 4.28 ---- 4.74
+
+-----------------PREDICCIONES DEL Liverpool -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.21, Prob. clase 1: 0.79)
+perdio: Predicción: 0 (Prob. clase 0: 0.97, Prob. clase 1: 0.03)
+empato: Predicción: 0 (Prob. clase 0: 0.78, Prob. clase 1: 0.22)
+Tiros de esquina: Predicción: 5.88 ---- 6.50 ---- 7.12
+
+
+Predicciones dentro del rango ±0.46: 60.87%
+Predicciones que sobreestimaron el valor real en más de 0.46: 21.74%
+Predicciones que subestimaron el valor real en más de 0.46: 17.39%
+
+--- Mayor sobreestimación ---
+Valor real      : 9.00
+Predicción      : 9.90
+Error (↑)       : 0.90
+
+--- Mayor subestimación ---
+Valor real      : 3.00
+Predicción      : 2.24
+Error (↓)       : -0.76
+
+
+Predicciones dentro del rango visitante ±0.62: 72.00%
+Predicciones que sobreestimaron el valor real en más de visitante 0.62: 20.00%
+Predicciones que subestimaron el valor real en más de visitante 0.62: 8.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 10.00
+Predicción      : 11.55
+Error (↑)       : 1.55
+
+--- Mayor subestimación visitante ---
+Valor real      : 12.00
+Predicción      : 10.83
+Error (↓)       : -1.17
+------------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.391
+
+Precisión categoricas del visitante: 0.478
+
+Error cuadrático medio (RMSE) continuas del local: 0.617
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.381
+Error absoluto medio (MAE) continuas del local: 0.425
+Coeficiente de determinación (R2) continuas del local: 0.955
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.968
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.937
+Error absoluto medio (MAE) continuas del visitante: 0.582
+Coeficiente de determinación (R2) continuas del visitante: 0.891
+
+-----------------PREDICCIONES DEL Crystal Palace -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.21, Prob. clase 1: 0.79)
+perdio: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+empato: Predicción: 0 (Prob. clase 0: 0.59, Prob. clase 1: 0.41)
+Tiros de esquina: Predicción: 3.96 ---- 4.57 ---- 5.19
+
+-----------------PREDICCIONES DEL Wolves -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.79, Prob. clase 1: 0.21)
+perdio: Predicción: 0 (Prob. clase 0: 0.98, Prob. clase 1: 0.02)
+empato: Predicción: 0 (Prob. clase 0: 0.83, Prob. clase 1: 0.17)
+Tiros de esquina: Predicción: 4.40 ---- 5.37 ---- 6.34
+
+
+Predicciones dentro del rango ±0.62: 73.91%
+Predicciones que sobreestimaron el valor real en más de 0.62: 17.39%
+Predicciones que subestimaron el valor real en más de 0.62: 8.70%
+
+--- Mayor sobreestimación ---
+Valor real      : 7.00
+Predicción      : 8.80
+Error (↑)       : 1.80
+
+--- Mayor subestimación ---
+Valor real      : 9.00
+Predicción      : 7.94
+Error (↓)       : -1.06
+
+
+Predicciones dentro del rango visitante ±0.97: 91.30%
+Predicciones que sobreestimaron el valor real en más de visitante 0.97: 0.00%
+Predicciones que subestimaron el valor real en más de visitante 0.97: 8.70%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 4.00
+Predicción      : 4.91
+Error (↑)       : 0.91
+
+--- Mayor subestimación visitante ---
+Valor real      : 11.00
+Predicción      : 7.46
+Error (↓)       : -3.54
+--------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.462
+
+Precisión categoricas del visitante: 0.458
+
+Error cuadrático medio (RMSE) continuas del local: 0.346
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.120
+Error absoluto medio (MAE) continuas del local: 0.287
+Coeficiente de determinación (R2) continuas del local: 0.991
+
+Error cuadrático medio (RMSE) continuas del visitante: 1.449
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 2.099
+Error absoluto medio (MAE) continuas del visitante: 0.846
+Coeficiente de determinación (R2) continuas del visitante: 0.843
+
+-----------------PREDICCIONES DEL Manchester City -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.92, Prob. clase 1: 0.08)
+perdio: Predicción: 1 (Prob. clase 0: 0.47, Prob. clase 1: 0.53)
+empato: Predicción: 0 (Prob. clase 0: 0.65, Prob. clase 1: 0.35)
+Tiros de esquina: Predicción: 7.05 ---- 7.39 ---- 7.74
+
+-----------------PREDICCIONES DEL Bournemouth -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.96, Prob. clase 1: 0.04)
+perdio: Predicción: 1 (Prob. clase 0: 0.07, Prob. clase 1: 0.93)
+empato: Predicción: 0 (Prob. clase 0: 0.96, Prob. clase 1: 0.04)
+Tiros de esquina: Predicción: 3.77 ---- 5.22 ---- 6.67
+
+
+Predicciones dentro del rango ±0.35: 65.38%
+Predicciones que sobreestimaron el valor real en más de 0.35: 15.38%
+Predicciones que subestimaron el valor real en más de 0.35: 19.23%
+
+--- Mayor sobreestimación ---
+Valor real      : 12.00
+Predicción      : 12.66
+Error (↑)       : 0.66
+
+--- Mayor subestimación ---
+Valor real      : 15.00
+Predicción      : 14.39
+Error (↓)       : -0.61
+
+
+Predicciones dentro del rango visitante ±1.45: 79.17%
+Predicciones que sobreestimaron el valor real en más de visitante 1.45: 8.33%
+Predicciones que subestimaron el valor real en más de visitante 1.45: 12.50%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 8.00
+Predicción      : 10.90
+Error (↑)       : 2.90
+
+--- Mayor subestimación visitante ---
+Valor real      : 18.00
+Predicción      : 12.56
+Error (↓)       : -5.44
+-------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.619
+
+Precisión categoricas del visitante: 0.474
+
+Error cuadrático medio (RMSE) continuas del local: 0.513
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.263
+Error absoluto medio (MAE) continuas del local: 0.390
+Coeficiente de determinación (R2) continuas del local: 0.940
+
+Error cuadrático medio (RMSE) continuas del visitante: 1.565
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 2.448
+Error absoluto medio (MAE) continuas del visitante: 0.857
+Coeficiente de determinación (R2) continuas del visitante: 0.731
+
+-----------------PREDICCIONES DEL Bahía -----------------
+gano: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+perdio: Predicción: 1 (Prob. clase 0: 0.03, Prob. clase 1: 0.97)
+empato: Predicción: 0 (Prob. clase 0: 0.96, Prob. clase 1: 0.04)
+Tiros de esquina: Predicción: 3.12 ---- 3.64 ---- 4.15
+
+-----------------PREDICCIONES DEL Vitória -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.42, Prob. clase 1: 0.58)
+perdio: Predicción: 0 (Prob. clase 0: 0.92, Prob. clase 1: 0.08)
+empato: Predicción: 0 (Prob. clase 0: 0.83, Prob. clase 1: 0.17)
+Tiros de esquina: Predicción: 3.84 ---- 5.40 ---- 6.97
+
+
+Predicciones dentro del rango ±0.51: 66.67%
+Predicciones que sobreestimaron el valor real en más de 0.51: 23.81%
+Predicciones que subestimaron el valor real en más de 0.51: 9.52%
+
+--- Mayor sobreestimación ---
+Valor real      : 4.00
+Predicción      : 5.08
+Error (↑)       : 1.08
+
+--- Mayor subestimación ---
+Valor real      : 10.00
+Predicción      : 8.83
+Error (↓)       : -1.17
+
+
+Predicciones dentro del rango visitante ±1.56: 89.47%
+Predicciones que sobreestimaron el valor real en más de visitante 1.56: 0.00%
+Predicciones que subestimaron el valor real en más de visitante 1.56: 10.53%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 7.00
+Predicción      : 8.40
+Error (↑)       : 1.40
+
+--- Mayor subestimación visitante ---
+Valor real      : 14.00
+Predicción      : 8.23
+Error (↓)       : -5.77
+-------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.625
+
+Precisión categoricas del visitante: 0.467
+
+Error cuadrático medio (RMSE) continuas del local: 0.625
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.390
+Error absoluto medio (MAE) continuas del local: 0.397
+Coeficiente de determinación (R2) continuas del local: 0.927
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.721
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.519
+Error absoluto medio (MAE) continuas del visitante: 0.423
+Coeficiente de determinación (R2) continuas del visitante: 0.945
+
+-----------------PREDICCIONES DEL Corinthians -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.37, Prob. clase 1: 0.63)
+perdio: Predicción: 0 (Prob. clase 0: 0.85, Prob. clase 1: 0.15)
+empato: Predicción: 0 (Prob. clase 0: 0.93, Prob. clase 1: 0.07)
+Tiros de esquina: Predicción: 3.65 ---- 4.28 ---- 4.90
+
+-----------------PREDICCIONES DEL Santos -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.95, Prob. clase 1: 0.05)
+perdio: Predicción: 1 (Prob. clase 0: 0.46, Prob. clase 1: 0.54)
+empato: Predicción: 0 (Prob. clase 0: 0.88, Prob. clase 1: 0.12)
+Tiros de esquina: Predicción: 7.63 ---- 8.35 ---- 9.07
+
+
+Predicciones dentro del rango ±0.62: 81.25%
+Predicciones que sobreestimaron el valor real en más de 0.62: 3.12%
+Predicciones que subestimaron el valor real en más de 0.62: 15.62%
+
+--- Mayor sobreestimación ---
+Valor real      : 9.00
+Predicción      : 9.97
+Error (↑)       : 0.97
+
+--- Mayor subestimación ---
+Valor real      : 9.00
+Predicción      : 7.04
+Error (↓)       : -1.96
+
+
+Predicciones dentro del rango visitante ±0.72: 83.33%
+Predicciones que sobreestimaron el valor real en más de visitante 0.72: 6.67%
+Predicciones que subestimaron el valor real en más de visitante 0.72: 10.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 6.00
+Predicción      : 7.29
+Error (↑)       : 1.29
+
+--- Mayor subestimación visitante ---
+Valor real      : 15.00
+Predicción      : 12.02
+Error (↓)       : -2.98
+---------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.375
+
+Precisión categoricas del visitante: 0.704
+
+Error cuadrático medio (RMSE) continuas del local: 0.589
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.347
+Error absoluto medio (MAE) continuas del local: 0.451
+Coeficiente de determinación (R2) continuas del local: 0.944
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.547
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.299
+Error absoluto medio (MAE) continuas del visitante: 0.388
+Coeficiente de determinación (R2) continuas del visitante: 0.968
+
+-----------------PREDICCIONES DEL Juventude -----------------
+gano: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+perdio: Predicción: 0 (Prob. clase 0: 0.62, Prob. clase 1: 0.38)
+empato: Predicción: 0 (Prob. clase 0: 0.66, Prob. clase 1: 0.34)
+Tiros de esquina: Predicción: 2.38 ---- 2.97 ---- 3.56
+
+-----------------PREDICCIONES DEL Fluminense -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.16, Prob. clase 1: 0.84)
+perdio: Predicción: 0 (Prob. clase 0: 0.90, Prob. clase 1: 0.10)
+empato: Predicción: 0 (Prob. clase 0: 0.97, Prob. clase 1: 0.03)
+Tiros de esquina: Predicción: 6.69 ---- 7.23 ---- 7.78
+
+
+Predicciones dentro del rango ±0.59: 75.00%
+Predicciones que sobreestimaron el valor real en más de 0.59: 20.83%
+Predicciones que subestimaron el valor real en más de 0.59: 4.17%
+
+--- Mayor sobreestimación ---
+Valor real      : 5.00
+Predicción      : 6.32
+Error (↑)       : 1.32
+
+--- Mayor subestimación ---
+Valor real      : 10.00
+Predicción      : 9.05
+Error (↓)       : -0.95
+
+
+Predicciones dentro del rango visitante ±0.55: 70.37%
+Predicciones que sobreestimaron el valor real en más de visitante 0.55: 7.41%
+Predicciones que subestimaron el valor real en más de visitante 0.55: 22.22%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 10.00
+Predicción      : 10.80
+Error (↑)       : 0.80
+
+--- Mayor subestimación visitante ---
+Valor real      : 5.00
+Predicción      : 3.39
+Error (↓)       : -1.61
+----------------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.548
+
+Precisión categoricas del visitante: 0.680
+
+Error cuadrático medio (RMSE) continuas del local: 0.609
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.371
+Error absoluto medio (MAE) continuas del local: 0.415
+Coeficiente de determinación (R2) continuas del local: 0.952
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.725
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.526
+Error absoluto medio (MAE) continuas del visitante: 0.513
+Coeficiente de determinación (R2) continuas del visitante: 0.928
+
+-----------------PREDICCIONES DEL Bragantino -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.88, Prob. clase 1: 0.12)
+perdio: Predicción: 0 (Prob. clase 0: 0.57, Prob. clase 1: 0.43)
+empato: Predicción: 0 (Prob. clase 0: 0.83, Prob. clase 1: 0.17)
+Tiros de esquina: Predicción: 4.96 ---- 5.57 ---- 6.18
+
+-----------------PREDICCIONES DEL Palmeiras -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.19, Prob. clase 1: 0.81)
+perdio: Predicción: 0 (Prob. clase 0: 0.94, Prob. clase 1: 0.06)
+empato: Predicción: 0 (Prob. clase 0: 0.84, Prob. clase 1: 0.16)
+Tiros de esquina: Predicción: 6.95 ---- 7.67 ---- 8.40
+
+
+Predicciones dentro del rango ±0.61: 80.65%
+Predicciones que sobreestimaron el valor real en más de 0.61: 9.68%
+Predicciones que subestimaron el valor real en más de 0.61: 9.68%
+
+--- Mayor sobreestimación ---
+Valor real      : 6.00
+Predicción      : 7.50
+Error (↑)       : 1.50
+
+--- Mayor subestimación ---
+Valor real      : 12.00
+Predicción      : 9.90
+Error (↓)       : -2.10
+
+
+Predicciones dentro del rango visitante ±0.73: 72.00%
+Predicciones que sobreestimaron el valor real en más de visitante 0.73: 12.00%
+Predicciones que subestimaron el valor real en más de visitante 0.73: 16.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 8.00
+Predicción      : 9.18
+Error (↑)       : 1.18
+
+--- Mayor subestimación visitante ---
+Valor real      : 9.00
+Predicción      : 7.10
+Error (↓)       : -1.90
+---------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.556
+
+Precisión categoricas del visitante: 0.462
+
+Error cuadrático medio (RMSE) continuas del local: 0.762
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.581
+Error absoluto medio (MAE) continuas del local: 0.461
+Coeficiente de determinación (R2) continuas del local: 0.951
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.758
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.574
+Error absoluto medio (MAE) continuas del visitante: 0.416
+Coeficiente de determinación (R2) continuas del visitante: 0.948
+
+-----------------PREDICCIONES DEL Flamengo -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.21, Prob. clase 1: 0.79)
+perdio: Predicción: 0 (Prob. clase 0: 0.84, Prob. clase 1: 0.16)
+empato: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+Tiros de esquina: Predicción: 5.87 ---- 6.63 ---- 7.39
+
+-----------------PREDICCIONES DEL Botafogo -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.00, Prob. clase 1: 1.00)
+perdio: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+empato: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+Tiros de esquina: Predicción: 4.18 ---- 4.93 ---- 5.69
+
+
+Predicciones dentro del rango ±0.76: 85.19%
+Predicciones que sobreestimaron el valor real en más de 0.76: 0.00%
+Predicciones que subestimaron el valor real en más de 0.76: 14.81%
+
+--- Mayor sobreestimación ---
+Valor real      : 5.00
+Predicción      : 5.45
+Error (↑)       : 0.45
+
+--- Mayor subestimación ---
+Valor real      : 13.00
+Predicción      : 10.24
+Error (↓)       : -2.76
+
+
+Predicciones dentro del rango visitante ±0.76: 84.62%
+Predicciones que sobreestimaron el valor real en más de visitante 0.76: 0.00%
+Predicciones que subestimaron el valor real en más de visitante 0.76: 15.38%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 1.00
+Predicción      : 1.62
+Error (↑)       : 0.62
+
+--- Mayor subestimación visitante ---
+Valor real      : 14.00
+Predicción      : 11.05
+Error (↓)       : -2.95
+--------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.480
+
+Precisión categoricas del visitante: 0.400
+
+Error cuadrático medio (RMSE) continuas del local: 0.619
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.384
+Error absoluto medio (MAE) continuas del local: 0.411
+Coeficiente de determinación (R2) continuas del local: 0.973
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.831
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.691
+Error absoluto medio (MAE) continuas del visitante: 0.595
+Coeficiente de determinación (R2) continuas del visitante: 0.923
+
+-----------------PREDICCIONES DEL Internacional -----------------
+gano: Predicción: 0 (Prob. clase 0: 0.59, Prob. clase 1: 0.41)
+perdio: Predicción: 0 (Prob. clase 0: 0.74, Prob. clase 1: 0.26)
+empato: Predicción: 1 (Prob. clase 0: 0.44, Prob. clase 1: 0.56)
+Tiros de esquina: Predicción: 7.58 ---- 8.20 ---- 8.82
+
+-----------------PREDICCIONES DEL Mirassol -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.28, Prob. clase 1: 0.72)
+perdio: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+empato: Predicción: 0 (Prob. clase 0: 0.91, Prob. clase 1: 0.09)
+Tiros de esquina: Predicción: 3.23 ---- 4.07 ---- 4.90
+
+
+Predicciones dentro del rango ±0.62: 68.00%
+Predicciones que sobreestimaron el valor real en más de 0.62: 12.00%
+Predicciones que subestimaron el valor real en más de 0.62: 20.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 8.00
+Predicción      : 8.79
+Error (↑)       : 0.79
+
+--- Mayor subestimación ---
+Valor real      : 7.00
+Predicción      : 5.51
+Error (↓)       : -1.49
+
+
+Predicciones dentro del rango visitante ±0.83: 64.00%
+Predicciones que sobreestimaron el valor real en más de visitante 0.83: 20.00%
+Predicciones que subestimaron el valor real en más de visitante 0.83: 16.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 5.00
+Predicción      : 6.30
+Error (↑)       : 1.30
+
+--- Mayor subestimación visitante ---
+Valor real      : 10.00
+Predicción      : 8.05
+Error (↓)       : -1.95
+-----------------------------------------------------------------------------------
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Precisión categoricas del local: 0.370
+
+Precisión categoricas del visitante: 0.433
+
+Error cuadrático medio (RMSE) continuas del local: 0.578
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.334
+Error absoluto medio (MAE) continuas del local: 0.398
+Coeficiente de determinación (R2) continuas del local: 0.961
+
+Error cuadrático medio (RMSE) continuas del visitante: 1.280
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 1.637
+Error absoluto medio (MAE) continuas del visitante: 0.672
+Coeficiente de determinación (R2) continuas del visitante: 0.892
+
+-----------------PREDICCIONES DEL Cruzeiro -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.00, Prob. clase 1: 1.00)
+perdio: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+empato: Predicción: 0 (Prob. clase 0: 0.99, Prob. clase 1: 0.01)
+Tiros de esquina: Predicción: 7.77 ---- 8.34 ---- 8.92
+
+-----------------PREDICCIONES DEL Atlético Mineiro -----------------
+gano: Predicción: 1 (Prob. clase 0: 0.26, Prob. clase 1: 0.74)
+perdio: Predicción: 0 (Prob. clase 0: 1.00, Prob. clase 1: 0.00)
+empato: Predicción: 0 (Prob. clase 0: 0.74, Prob. clase 1: 0.26)
+Tiros de esquina: Predicción: 5.04 ---- 6.32 ---- 7.60
+
+
+Predicciones dentro del rango ±0.58: 66.67%
+Predicciones que sobreestimaron el valor real en más de 0.58: 14.81%
+Predicciones que subestimaron el valor real en más de 0.58: 18.52%
+
+--- Mayor sobreestimación ---
+Valor real      : 7.00
+Predicción      : 7.89
+Error (↑)       : 0.89
+
+--- Mayor subestimación ---
+Valor real      : 9.00
+Predicción      : 7.17
+Error (↓)       : -1.83
+
+
+Predicciones dentro del rango visitante ±1.28: 80.00%
+Predicciones que sobreestimaron el valor real en más de visitante 1.28: 6.67%
+Predicciones que subestimaron el valor real en más de visitante 1.28: 13.33%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 7.00
+Predicción      : 8.39
+Error (↑)       : 1.39
+
+--- Mayor subestimación visitante ---
+Valor real      : 16.00
+Predicción      : 10.68
+Error (↓)       : -5.32
