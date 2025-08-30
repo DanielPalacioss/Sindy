@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 import time
 import pandas as pd
 
-class getAlineacion:
+class GetAlineacion:
     
     def saveIdName365(self, parametros):
         name_equipo = parametros["name_equipo"]
@@ -17,7 +17,10 @@ class getAlineacion:
         name_visitante_365 = ""
         id_visitante_365 = ""
         
-        df = pd.read_csv("league365.csv")
+        leagues_data_path = "./leagues_data/league365.csv"
+        team_list_path = "./team_list/teams.csv"
+        df = pd.read_csv(leagues_data_path)
+
 
         if torneo not in df["name_google"].values:
             # Pedir al usuario el nombre real como aparece en 365
@@ -30,7 +33,7 @@ class getAlineacion:
             }])
 
             df = pd.concat([df, nueva_fila], ignore_index=True)
-            df.to_csv("league365.csv", index=False)
+            df.to_csv(leagues_data_path, index=False)
             print(f"✅ Torneo añadido: {torneo} -> {torneo_365}")
 
         else:
@@ -38,7 +41,7 @@ class getAlineacion:
             torneo_365 = df.loc[df["name_google"] == torneo, "league"].values[0]
             print(f"✅ Torneo encontrado: {torneo} -> {torneo_365}")
 
-        df_teams = pd.read_csv("teams.csv", sep=";", dtype={"ID_365": str, "Name365": str})
+        df_teams = pd.read_csv(team_list_path, sep=";", dtype={"ID_365": str, "Name365": str})
         
         # Verificamos si el equipo existe
         if name_equipo in df_teams["Equipo"].values:
@@ -57,7 +60,7 @@ class getAlineacion:
                 df_teams.loc[df_teams["Equipo"] == name_equipo, "Name365"] = name_365
 
             # Guardamos los cambios
-            df_teams.to_csv("teams.csv", sep=";", index=False)
+            df_teams.to_csv(team_list_path, sep=";", index=False)
 
         else:
             print(f"❌ El equipo '{name_equipo}' no se encontró en teams.csv")
@@ -80,7 +83,7 @@ class getAlineacion:
                 df_teams.loc[df_teams["Equipo"] == name_visitante_equipo, "Name365"] = name_visitante_365
 
             # Guardamos los cambios
-            df_teams.to_csv("teams.csv", sep=";", index=False)
+            df_teams.to_csv(team_list_path, sep=";", index=False)
 
         else:
             print(f"❌ El equipo '{name_visitante_equipo}' no se encontró en teams.csv")
@@ -149,7 +152,7 @@ class getAlineacion:
             
 
 if __name__ == "__main__":
-    getAlineacion = getAlineacion()
+    getAlineacion = GetAlineacion()
     parametros = {"name_equipo":"Mirassol","name_visitante_equipo":"Corinthians","torneo":"Brasileirão Serie A"}
     alineaciones = getAlineacion.getAlineaciones(parametros)
     print(alineaciones)

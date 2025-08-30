@@ -1,0 +1,919 @@
+---------------------------------------- DATOS DEL Ceará ----------------------------------------
+Ceará: Cantidad de tiros de esquina esperados >> 3.50
+Desviación estándar de corners >> 4.31
+Rango de la desviación estándar de corners: 0.19 ---- 4.50 ---- 8.81
+Ceará: Cantidad de goles esperados >> -0.17
+Rango de la desviación estándar de goles: 0.15 ---- 0.83 ---- 1.52
+Ceará: Probabilidad de aciertos en remates >> 18.52%
+Probabilidad de fallar >> 81.48%
+Ceará: Porcentaje de balones al arco >> 37.50%
+Porcentaje de balones fuera del arco >> 62.50%
+Ceará: Cantidad de tarjetas amarillas esperadas >> 1.67
+Rango de la desviación estándar de tarjetas amarillas: 2.20 ---- 2.67 ---- 3.14
+Ceará: Cantidad de tarjetas rojas esperadas >> -1.00
+Rango de la desviación estándar de tarjetas rojas: 0.00 ---- 0.00 ---- 0.00
+Ceará: Promedio de posesión del balón >> 48.40%
+Ceará: Goles esperados en la primera mitad >> -0.67
+Ceará: Goles esperados en la segunda mitad >> -0.50
+---------------------------------------- DATOS DEL Juventude ----------------------------------------
+Juventude: Cantidad de tiros de esquina esperados >> 3.00
+Desviación estándar de corners >> 2.58
+Rango de la desviación estándar de corners: 1.42 ---- 4.00 ---- 6.58
+Juventude: Cantidad de goles esperados >> 0.33
+Rango de la desviación estándar de goles: 0.59 ---- 1.33 ---- 2.08
+Juventude: Probabilidad de aciertos en remates >> 27.59%
+Probabilidad de fallar >> 72.41%
+Juventude: Porcentaje de balones al arco >> 39.19%
+Porcentaje de balones fuera del arco >> 60.81%
+Juventude: Cantidad de tarjetas amarillas esperadas >> 1.50
+Rango de la desviación estándar de tarjetas amarillas: 1.00 ---- 2.50 ---- 4.00
+Juventude: Cantidad de tarjetas rojas esperadas >> -0.67
+Rango de la desviación estándar de tarjetas rojas: -0.14 ---- 0.33 ---- 0.80
+Juventude: Promedio de posesión del balón >> 51.60%
+Juventude: Goles esperados en la primera mitad >> -0.17
+Juventude: Goles esperados en la segunda mitad >> -0.50
+✅ Torneo encontrado: Brasileirão Serie A -> brasileirao-serie-a-113
+
+
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Error cuadrático medio (RMSE) continuas del local: 1.530
+Error cuadrático medio (MSE) continuas al cuadrado del local: 2.340
+Error absoluto medio (MAE) continuas del local: 0.984
+Coeficiente de determinación (R2) continuas del local: 0.849
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.627
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.394
+Error absoluto medio (MAE) continuas del visitante: 0.434
+Coeficiente de determinación (R2) continuas del visitante: 0.928
+
+-----------------PREDICCIONES DEL Ceará -----------------
+Tiros de esquina: Predicción: 2.41 ---- 3.94 ---- 5.47
+
+-----------------PREDICCIONES DEL Juventude -----------------
+Tiros de esquina: Predicción: 3.29 ---- 3.92 ---- 4.54
+
+
+Predicciones dentro del rango ±1.53: 85.00%
+Predicciones que sobreestimaron el valor real en más de 1.53: 5.00%
+Predicciones que subestimaron el valor real en más de 1.53: 10.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 0.00
+Predicción      : 1.64
+Error (↑)       : 1.64
+
+--- Mayor subestimación ---
+Valor real      : 19.00
+Predicción      : 13.30
+Error (↓)       : -5.70
+
+
+Predicciones dentro del rango visitante ±0.63: 75.00%
+Predicciones que sobreestimaron el valor real en más de visitante 0.63: 10.00%
+Predicciones que subestimaron el valor real en más de visitante 0.63: 15.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 2.00
+Predicción      : 3.56
+Error (↑)       : 1.56
+
+--- Mayor subestimación visitante ---
+Valor real      : 6.00
+Predicción      : 4.91
+Error (↓)       : -1.09
+
+
+
+--- Metodo Markov ---
+
+--- Resultados de Equipo Ceará---
+--- corner actual del local: 1
+Probabilidades con modelo de 1er orden: {'mayor': 1.0, 'igual': 0.0, 'menor': 0.0}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.5217391304347826, '-1-3': 0.4782608695652174, 'fuera_de_rango': 0.0}
+
+--- Resultados de Equipo Juventude---
+--- corner actual del visitante: 5
+Probabilidades con modelo de 1er orden: {'mayor': 0.3125, 'igual': 0.0625, 'menor': 0.625}
+Probabilidades con modelo de 1er orden con bins: {'7-15': 0.1111111111111111, '4-6': 0.4444444444444444, '-1-3': 0.4444444444444444}
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Botafogo ----------------------------------------
+Botafogo: Cantidad de tiros de esquina esperados >> 2.83
+Desviación estándar de corners >> 2.11
+Rango de la desviación estándar de corners: 1.72 ---- 3.83 ---- 5.95
+Botafogo: Cantidad de goles esperados >> 0.67
+Rango de la desviación estándar de goles: -0.13 ---- 1.67 ---- 3.46
+Botafogo: Probabilidad de aciertos en remates >> 32.26%
+Probabilidad de fallar >> 67.74%
+Botafogo: Porcentaje de balones al arco >> 43.66%
+Porcentaje de balones fuera del arco >> 56.34%
+Botafogo: Cantidad de tarjetas amarillas esperadas >> 0.83
+Rango de la desviación estándar de tarjetas amarillas: 0.49 ---- 1.83 ---- 3.18
+Botafogo: Cantidad de tarjetas rojas esperadas >> -1.00
+Rango de la desviación estándar de tarjetas rojas: 0.00 ---- 0.00 ---- 0.00
+Botafogo: Promedio de posesión del balón >> 52.98%
+Botafogo: Goles esperados en la primera mitad >> -0.17
+Botafogo: Goles esperados en la segunda mitad >> -0.17
+---------------------------------------- DATOS DEL Bragantino ----------------------------------------
+Bragantino: Cantidad de tiros de esquina esperados >> 2.17
+Desviación estándar de corners >> 2.48
+Rango de la desviación estándar de corners: 0.69 ---- 3.17 ---- 5.64
+Bragantino: Cantidad de goles esperados >> 0.00
+Rango de la desviación estándar de goles: -0.41 ---- 1.00 ---- 2.41
+Bragantino: Probabilidad de aciertos en remates >> 26.09%
+Probabilidad de fallar >> 73.91%
+Bragantino: Porcentaje de balones al arco >> 39.66%
+Porcentaje de balones fuera del arco >> 60.34%
+Bragantino: Cantidad de tarjetas amarillas esperadas >> 1.83
+Rango de la desviación estándar de tarjetas amarillas: 1.77 ---- 2.83 ---- 3.90
+Bragantino: Cantidad de tarjetas rojas esperadas >> -0.50
+Rango de la desviación estándar de tarjetas rojas: -0.26 ---- 0.50 ---- 1.26
+Bragantino: Promedio de posesión del balón >> 47.02%
+Bragantino: Goles esperados en la primera mitad >> -0.67
+Bragantino: Goles esperados en la segunda mitad >> -0.33
+✅ Torneo encontrado: Brasileirão Serie A -> brasileirao-serie-a-113
+
+
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Error cuadrático medio (RMSE) continuas del local: 0.877
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.768
+Error absoluto medio (MAE) continuas del local: 0.610
+Coeficiente de determinación (R2) continuas del local: 0.874
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.851
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.724
+Error absoluto medio (MAE) continuas del visitante: 0.707
+Coeficiente de determinación (R2) continuas del visitante: 0.905
+
+-----------------PREDICCIONES DEL Botafogo -----------------
+Tiros de esquina: Predicción: 2.30 ---- 3.18 ---- 4.05
+
+-----------------PREDICCIONES DEL Bragantino -----------------
+Tiros de esquina: Predicción: 2.27 ---- 3.12 ---- 3.97
+
+
+Predicciones dentro del rango ±0.88: 65.00%
+Predicciones que sobreestimaron el valor real en más de 0.88: 15.00%
+Predicciones que subestimaron el valor real en más de 0.88: 20.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 3.00
+Predicción      : 4.26
+Error (↑)       : 1.26
+
+--- Mayor subestimación ---
+Valor real      : 11.00
+Predicción      : 8.26
+Error (↓)       : -2.74
+
+
+Predicciones dentro del rango visitante ±0.85: 75.00%
+Predicciones que sobreestimaron el valor real en más de visitante 0.85: 5.00%
+Predicciones que subestimaron el valor real en más de visitante 0.85: 20.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 3.00
+Predicción      : 3.90
+Error (↑)       : 0.90
+
+--- Mayor subestimación visitante ---
+Valor real      : 8.00
+Predicción      : 6.03
+Error (↓)       : -1.97
+
+
+
+--- Metodo Markov ---
+
+--- Resultados de Equipo Botafogo---
+--- corner actual del local: 4
+Probabilidades con modelo de 1er orden: {'mayor': 0.6153846153846154, 'igual': 0.15384615384615385, 'menor': 0.23076923076923078}
+Probabilidades con modelo de 1er orden con bins: {'7-15': 0.2857142857142857, '4-6': 0.42857142857142855, '-1-3': 0.2857142857142857}
+
+--- Resultados de Equipo Bragantino---
+--- corner actual del visitante: 2
+Probabilidades con modelo de 1er orden: {'mayor': 0.7142857142857143, 'igual': 0.0, 'menor': 0.2857142857142857}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.6, '-1-3': 0.4, 'fuera_de_rango': 0.0}
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------- DATOS DEL Santos ----------------------------------------
+Santos: Cantidad de tiros de esquina esperados >> 2.33
+Desviación estándar de corners >> 2.36
+Rango de la desviación estándar de corners: 0.98 ---- 3.33 ---- 5.69
+Santos: Cantidad de goles esperados >> 0.33
+Rango de la desviación estándar de goles: 0.23 ---- 1.33 ---- 2.44
+Santos: Probabilidad de aciertos en remates >> 29.63%
+Probabilidad de fallar >> 70.37%
+Santos: Porcentaje de balones al arco >> 36.99%
+Porcentaje de balones fuera del arco >> 63.01%
+Santos: Cantidad de tarjetas amarillas esperadas >> 1.33
+Rango de la desviación estándar de tarjetas amarillas: 1.23 ---- 2.33 ---- 3.44
+Santos: Cantidad de tarjetas rojas esperadas >> -0.83
+Rango de la desviación estándar de tarjetas rojas: -0.21 ---- 0.17 ---- 0.54
+Santos: Promedio de posesión del balón >> 51.25%
+Santos: Goles esperados en la primera mitad >> -0.67
+Santos: Goles esperados en la segunda mitad >> 0.00
+---------------------------------------- DATOS DEL Fluminense ----------------------------------------
+Fluminense: Cantidad de tiros de esquina esperados >> 3.50
+Desviación estándar de corners >> 3.69
+Rango de la desviación estándar de corners: 0.81 ---- 4.50 ---- 8.19
+Fluminense: Cantidad de goles esperados >> 0.83
+Rango de la desviación estándar de goles: 0.94 ---- 1.83 ---- 2.73
+Fluminense: Probabilidad de aciertos en remates >> 42.31%
+Probabilidad de fallar >> 57.69%
+Fluminense: Porcentaje de balones al arco >> 32.10%
+Porcentaje de balones fuera del arco >> 67.90%
+Fluminense: Cantidad de tarjetas amarillas esperadas >> 0.67
+Rango de la desviación estándar de tarjetas amarillas: 0.42 ---- 1.67 ---- 2.91
+Fluminense: Cantidad de tarjetas rojas esperadas >> -0.83
+Rango de la desviación estándar de tarjetas rojas: -0.21 ---- 0.17 ---- 0.54
+Fluminense: Promedio de posesión del balón >> 48.75%
+Fluminense: Goles esperados en la primera mitad >> 0.00
+Fluminense: Goles esperados en la segunda mitad >> -0.17
+✅ Torneo encontrado: Brasileirão Serie A -> brasileirao-serie-a-113
+
+
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Error cuadrático medio (RMSE) continuas del local: 0.855
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.730
+Error absoluto medio (MAE) continuas del local: 0.685
+Coeficiente de determinación (R2) continuas del local: 0.906
+
+Error cuadrático medio (RMSE) continuas del visitante: 1.054
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 1.111
+Error absoluto medio (MAE) continuas del visitante: 0.827
+Coeficiente de determinación (R2) continuas del visitante: 0.880
+
+-----------------PREDICCIONES DEL Santos -----------------
+Tiros de esquina: Predicción: 2.02 ---- 2.87 ---- 3.72
+
+-----------------PREDICCIONES DEL Fluminense -----------------
+Tiros de esquina: Predicción: 4.89 ---- 5.94 ---- 6.99
+
+
+Predicciones dentro del rango ±0.85: 65.00%
+Predicciones que sobreestimaron el valor real en más de 0.85: 25.00%
+Predicciones que subestimaron el valor real en más de 0.85: 10.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 3.00
+Predicción      : 4.67
+Error (↑)       : 1.67
+
+--- Mayor subestimación ---
+Valor real      : 7.00
+Predicción      : 5.33
+Error (↓)       : -1.67
+
+
+Predicciones dentro del rango visitante ±1.05: 80.00%
+Predicciones que sobreestimaron el valor real en más de visitante 1.05: 5.00%
+Predicciones que subestimaron el valor real en más de visitante 1.05: 15.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 5.00
+Predicción      : 6.13
+Error (↑)       : 1.13
+
+--- Mayor subestimación visitante ---
+Valor real      : 8.00
+Predicción      : 5.49
+Error (↓)       : -2.51
+
+
+
+--- Metodo Markov ---
+
+--- Resultados de Equipo Santos---
+--- corner actual del local: 0
+Probabilidades con modelo de 1er orden: {'mayor': 1.0, 'igual': 0.0, 'menor': 0.0}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.6774193548387096, '-1-3': 0.3225806451612903, 'fuera_de_rango': 0.0}
+
+--- Resultados de Equipo Fluminense---
+--- corner actual del visitante: 8
+Probabilidades con modelo de 1er orden: {'mayor': 0.16666666666666666, 'igual': 0.0, 'menor': 0.8333333333333334}
+Probabilidades con modelo de 1er orden con bins: {'fuera_de_rango': 0.0, '7-15': 0.2727272727272727, '4-6': 0.7272727272727273}
+----------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------- DATOS DEL Flamengo ----------------------------------------
+Flamengo: Cantidad de tiros de esquina esperados >> 5.00
+Desviación estándar de corners >> 2.71
+Rango de la desviación estándar de corners: 3.29 ---- 6.00 ---- 8.71
+Flamengo: Cantidad de goles esperados >> 1.83
+Rango de la desviación estándar de goles: 0.42 ---- 2.83 ---- 5.24
+Flamengo: Probabilidad de aciertos en remates >> 48.57%
+Probabilidad de fallar >> 51.43%
+Flamengo: Porcentaje de balones al arco >> 34.65%
+Porcentaje de balones fuera del arco >> 65.35%
+Flamengo: Cantidad de tarjetas amarillas esperadas >> -0.33
+Rango de la desviación estándar de tarjetas amarillas: 0.20 ---- 0.67 ---- 1.14
+Flamengo: Cantidad de tarjetas rojas esperadas >> -1.00
+Rango de la desviación estándar de tarjetas rojas: 0.00 ---- 0.00 ---- 0.00
+Flamengo: Promedio de posesión del balón >> 58.77%
+Flamengo: Goles esperados en la primera mitad >> 0.50
+Flamengo: Goles esperados en la segunda mitad >> 0.33
+---------------------------------------- DATOS DEL Grêmio ----------------------------------------
+Grêmio: Cantidad de tiros de esquina esperados >> 2.33
+Desviación estándar de corners >> 0.75
+Rango de la desviación estándar de corners: 2.59 ---- 3.33 ---- 4.08
+Grêmio: Cantidad de goles esperados >> -0.17
+Rango de la desviación estándar de goles: -0.38 ---- 0.83 ---- 2.05
+Grêmio: Probabilidad de aciertos en remates >> 22.73%
+Probabilidad de fallar >> 77.27%
+Grêmio: Porcentaje de balones al arco >> 37.29%
+Porcentaje de balones fuera del arco >> 62.71%
+Grêmio: Cantidad de tarjetas amarillas esperadas >> 1.33
+Rango de la desviación estándar de tarjetas amarillas: 1.86 ---- 2.33 ---- 2.80
+Grêmio: Cantidad de tarjetas rojas esperadas >> -0.67
+Rango de la desviación estándar de tarjetas rojas: -0.41 ---- 0.33 ---- 1.08
+Grêmio: Promedio de posesión del balón >> 41.23%
+Grêmio: Goles esperados en la primera mitad >> -0.50
+Grêmio: Goles esperados en la segunda mitad >> -0.67
+✅ Torneo encontrado: Brasileirão Serie A -> brasileirao-serie-a-113
+
+
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Error cuadrático medio (RMSE) continuas del local: 0.877
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.769
+Error absoluto medio (MAE) continuas del local: 0.633
+Coeficiente de determinación (R2) continuas del local: 0.849
+
+Error cuadrático medio (RMSE) continuas del visitante: 1.196
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 1.430
+Error absoluto medio (MAE) continuas del visitante: 0.777
+Coeficiente de determinación (R2) continuas del visitante: 0.820
+
+-----------------PREDICCIONES DEL Flamengo -----------------
+Tiros de esquina: Predicción: 4.44 ---- 5.31 ---- 6.19
+
+-----------------PREDICCIONES DEL Grêmio -----------------
+Tiros de esquina: Predicción: 2.27 ---- 3.47 ---- 4.66
+
+
+Predicciones dentro del rango ±0.88: 75.00%
+Predicciones que sobreestimaron el valor real en más de 0.88: 15.00%
+Predicciones que subestimaron el valor real en más de 0.88: 10.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 5.00
+Predicción      : 6.28
+Error (↑)       : 1.28
+
+--- Mayor subestimación ---
+Valor real      : 11.00
+Predicción      : 8.45
+Error (↓)       : -2.55
+
+
+Predicciones dentro del rango visitante ±1.20: 80.00%
+Predicciones que sobreestimaron el valor real en más de visitante 1.20: 0.00%
+Predicciones que subestimaron el valor real en más de visitante 1.20: 20.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 2.00
+Predicción      : 2.55
+Error (↑)       : 0.55
+
+--- Mayor subestimación visitante ---
+Valor real      : 10.00
+Predicción      : 5.82
+Error (↓)       : -4.18
+
+
+
+--- Metodo Markov ---
+
+--- Resultados de Equipo Flamengo---
+--- corner actual del local: 8
+Probabilidades con modelo de 1er orden: {'mayor': 0.0, 'igual': 0.1111111111111111, 'menor': 0.8888888888888888}
+Probabilidades con modelo de 1er orden con bins: {'fuera_de_rango': 0.0, '7-15': 0.3611111111111111, '4-6': 0.6388888888888888}
+
+--- Resultados de Equipo Grêmio---
+--- corner actual del visitante: 4
+Probabilidades con modelo de 1er orden: {'mayor': 0.4444444444444444, 'igual': 0.16666666666666666, 'menor': 0.3888888888888889}
+Probabilidades con modelo de 1er orden con bins: {'7-15': 0.32558139534883723, '4-6': 0.3953488372093023, '-1-3': 0.27906976744186046}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------- DATOS DEL Cruzeiro ----------------------------------------
+Cruzeiro: Cantidad de tiros de esquina esperados >> 5.83
+Desviación estándar de corners >> 4.18
+Rango de la desviación estándar de corners: 2.65 ---- 6.83 ---- 11.01
+Cruzeiro: Cantidad de goles esperados >> 0.67
+Rango de la desviación estándar de goles: 1.20 ---- 1.67 ---- 2.14
+Cruzeiro: Probabilidad de aciertos en remates >> 35.71%
+Probabilidad de fallar >> 64.29%
+Cruzeiro: Porcentaje de balones al arco >> 36.84%
+Porcentaje de balones fuera del arco >> 63.16%
+Cruzeiro: Cantidad de tarjetas amarillas esperadas >> 2.17
+Rango de la desviación estándar de tarjetas amarillas: 1.82 ---- 3.17 ---- 4.51
+Cruzeiro: Cantidad de tarjetas rojas esperadas >> -1.00
+Rango de la desviación estándar de tarjetas rojas: 0.00 ---- 0.00 ---- 0.00
+Cruzeiro: Promedio de posesión del balón >> 47.38%
+Cruzeiro: Goles esperados en la primera mitad >> 0.00
+Cruzeiro: Goles esperados en la segunda mitad >> -0.33
+---------------------------------------- DATOS DEL São Paulo ----------------------------------------
+São Paulo: Cantidad de tiros de esquina esperados >> 3.67
+Desviación estándar de corners >> 2.56
+Rango de la desviación estándar de corners: 2.11 ---- 4.67 ---- 7.23
+São Paulo: Cantidad de goles esperados >> 0.17
+Rango de la desviación estándar de goles: 0.27 ---- 1.17 ---- 2.06
+São Paulo: Probabilidad de aciertos en remates >> 28.00%
+Probabilidad de fallar >> 72.00%
+São Paulo: Porcentaje de balones al arco >> 31.65%
+Porcentaje de balones fuera del arco >> 68.35%
+São Paulo: Cantidad de tarjetas amarillas esperadas >> 1.17
+Rango de la desviación estándar de tarjetas amarillas: 1.27 ---- 2.17 ---- 3.06
+São Paulo: Cantidad de tarjetas rojas esperadas >> -0.83
+Rango de la desviación estándar de tarjetas rojas: -0.21 ---- 0.17 ---- 0.54
+São Paulo: Promedio de posesión del balón >> 52.62%
+São Paulo: Goles esperados en la primera mitad >> -0.50
+São Paulo: Goles esperados en la segunda mitad >> -0.33
+✅ Torneo encontrado: Brasileirão Serie A -> brasileirao-serie-a-113
+
+
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Error cuadrático medio (RMSE) continuas del local: 0.865
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.749
+Error absoluto medio (MAE) continuas del local: 0.614
+Coeficiente de determinación (R2) continuas del local: 0.934
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.607
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.369
+Error absoluto medio (MAE) continuas del visitante: 0.419
+Coeficiente de determinación (R2) continuas del visitante: 0.930
+
+-----------------PREDICCIONES DEL Cruzeiro -----------------
+Tiros de esquina: Predicción: 5.63 ---- 6.49 ---- 7.36
+
+-----------------PREDICCIONES DEL São Paulo -----------------
+Tiros de esquina: Predicción: 5.77 ---- 6.38 ---- 6.98
+
+
+Predicciones dentro del rango ±0.87: 85.00%
+Predicciones que sobreestimaron el valor real en más de 0.87: 10.00%
+Predicciones que subestimaron el valor real en más de 0.87: 5.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 6.00
+Predicción      : 7.51
+Error (↑)       : 1.51
+
+--- Mayor subestimación ---
+Valor real      : 16.00
+Predicción      : 13.43
+Error (↓)       : -2.57
+
+
+Predicciones dentro del rango visitante ±0.61: 75.00%
+Predicciones que sobreestimaron el valor real en más de visitante 0.61: 15.00%
+Predicciones que subestimaron el valor real en más de visitante 0.61: 10.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 4.00
+Predicción      : 5.07
+Error (↑)       : 1.07
+
+--- Mayor subestimación visitante ---
+Valor real      : 8.00
+Predicción      : 6.40
+Error (↓)       : -1.60
+
+
+
+--- Metodo Markov ---
+
+--- Resultados de Equipo Cruzeiro---
+--- corner actual del local: 5
+Probabilidades con modelo de 1er orden: {'mayor': 0.5, 'igual': 0.05, 'menor': 0.45}
+Probabilidades con modelo de 1er orden con bins: {'7-15': 0.3023255813953488, '4-6': 0.4418604651162791, '-1-3': 0.2558139534883721}
+
+--- Resultados de Equipo São Paulo---
+--- corner actual del visitante: 5
+Probabilidades con modelo de 1er orden: {'mayor': 0.3333333333333333, 'igual': 0.0, 'menor': 0.6666666666666666}
+Probabilidades con modelo de 1er orden con bins: {'7-15': 0.24324324324324326, '4-6': 0.32432432432432434, '-1-3': 0.43243243243243246}
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Vitória ----------------------------------------
+Vitória: Cantidad de tiros de esquina esperados >> 3.17
+Desviación estándar de corners >> 1.77
+Rango de la desviación estándar de corners: 2.39 ---- 4.17 ---- 5.94
+Vitória: Cantidad de goles esperados >> 0.17
+Rango de la desviación estándar de goles: 0.27 ---- 1.17 ---- 2.06
+Vitória: Probabilidad de aciertos en remates >> 23.33%
+Probabilidad de fallar >> 76.67%
+Vitória: Porcentaje de balones al arco >> 37.04%
+Porcentaje de balones fuera del arco >> 62.96%
+Vitória: Cantidad de tarjetas amarillas esperadas >> 1.33
+Rango de la desviación estándar de tarjetas amarillas: 0.54 ---- 2.33 ---- 4.13
+Vitória: Cantidad de tarjetas rojas esperadas >> -0.83
+Rango de la desviación estándar de tarjetas rojas: -0.21 ---- 0.17 ---- 0.54
+Vitória: Promedio de posesión del balón >> 45.28%
+Vitória: Goles esperados en la primera mitad >> -0.50
+Vitória: Goles esperados en la segunda mitad >> -0.33
+---------------------------------------- DATOS DEL Atlético Mineiro ----------------------------------------
+Atlético Mineiro: Cantidad de tiros de esquina esperados >> 2.67
+Desviación estándar de corners >> 3.04
+Rango de la desviación estándar de corners: 0.63 ---- 3.67 ---- 6.70
+Atlético Mineiro: Cantidad de goles esperados >> -0.17
+Rango de la desviación estándar de goles: 0.15 ---- 0.83 ---- 1.52
+Atlético Mineiro: Probabilidad de aciertos en remates >> 33.33%
+Probabilidad de fallar >> 66.67%
+Atlético Mineiro: Porcentaje de balones al arco >> 25.42%
+Porcentaje de balones fuera del arco >> 74.58%
+Atlético Mineiro: Cantidad de tarjetas amarillas esperadas >> 1.67
+Rango de la desviación estándar de tarjetas amarillas: 1.56 ---- 2.67 ---- 3.77
+Atlético Mineiro: Cantidad de tarjetas rojas esperadas >> -0.67
+Rango de la desviación estándar de tarjetas rojas: -0.41 ---- 0.33 ---- 1.08
+Atlético Mineiro: Promedio de posesión del balón >> 54.72%
+Atlético Mineiro: Goles esperados en la primera mitad >> -0.67
+Atlético Mineiro: Goles esperados en la segunda mitad >> -0.50
+✅ Torneo encontrado: Brasileirão Serie A -> brasileirao-serie-a-113
+
+
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Error cuadrático medio (RMSE) continuas del local: 0.790
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.625
+Error absoluto medio (MAE) continuas del local: 0.651
+Coeficiente de determinación (R2) continuas del local: 0.808
+
+Error cuadrático medio (RMSE) continuas del visitante: 0.835
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 0.698
+Error absoluto medio (MAE) continuas del visitante: 0.540
+Coeficiente de determinación (R2) continuas del visitante: 0.928
+
+-----------------PREDICCIONES DEL Vitória -----------------
+Tiros de esquina: Predicción: 2.97 ---- 3.76 ---- 4.55
+
+-----------------PREDICCIONES DEL Atlético Mineiro -----------------
+Tiros de esquina: Predicción: 2.78 ---- 3.62 ---- 4.45
+
+
+Predicciones dentro del rango ±0.79: 60.00%
+Predicciones que sobreestimaron el valor real en más de 0.79: 25.00%
+Predicciones que subestimaron el valor real en más de 0.79: 15.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 3.00
+Predicción      : 4.63
+Error (↑)       : 1.63
+
+--- Mayor subestimación ---
+Valor real      : 8.00
+Predicción      : 6.54
+Error (↓)       : -1.46
+
+
+Predicciones dentro del rango visitante ±0.84: 80.00%
+Predicciones que sobreestimaron el valor real en más de visitante 0.84: 10.00%
+Predicciones que subestimaron el valor real en más de visitante 0.84: 10.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 6.00
+Predicción      : 7.58
+Error (↑)       : 1.58
+
+--- Mayor subestimación visitante ---
+Valor real      : 9.00
+Predicción      : 6.37
+Error (↓)       : -2.63
+
+
+
+--- Metodo Markov ---
+
+--- Resultados de Equipo Vitória---
+--- corner actual del local: 1
+Probabilidades con modelo de 1er orden: {'mayor': 1.0, 'igual': 0.0, 'menor': 0.0}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.7586206896551724, '-1-3': 0.2413793103448276, 'fuera_de_rango': 0.0}
+
+--- Resultados de Equipo Atlético Mineiro---
+--- corner actual del visitante: 3
+Probabilidades con modelo de 1er orden: {'mayor': 0.9090909090909091, 'igual': 0.0, 'menor': 0.09090909090909091}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.696969696969697, '-1-3': 0.30303030303030304, 'fuera_de_rango': 0.0}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------- DATOS DEL Mirassol ----------------------------------------
+Mirassol: Cantidad de tiros de esquina esperados >> 5.33
+Desviación estándar de corners >> 2.36
+Rango de la desviación estándar de corners: 3.98 ---- 6.33 ---- 8.69
+Mirassol: Cantidad de goles esperados >> 0.50
+Rango de la desviación estándar de goles: 0.74 ---- 1.50 ---- 2.26
+Mirassol: Probabilidad de aciertos en remates >> 34.62%
+Probabilidad de fallar >> 65.38%
+Mirassol: Porcentaje de balones al arco >> 35.62%
+Porcentaje de balones fuera del arco >> 64.38%
+Mirassol: Cantidad de tarjetas amarillas esperadas >> 0.83
+Rango de la desviación estándar de tarjetas amarillas: 0.77 ---- 1.83 ---- 2.90
+Mirassol: Cantidad de tarjetas rojas esperadas >> -1.00
+Rango de la desviación estándar de tarjetas rojas: 0.00 ---- 0.00 ---- 0.00
+Mirassol: Promedio de posesión del balón >> 45.71%
+Mirassol: Goles esperados en la primera mitad >> -0.33
+Mirassol: Goles esperados en la segunda mitad >> -0.17
+---------------------------------------- DATOS DEL Bahía ----------------------------------------
+Bahía: Cantidad de tiros de esquina esperados >> 5.00
+Desviación estándar de corners >> 3.27
+Rango de la desviación estándar de corners: 2.73 ---- 6.00 ---- 9.27
+Bahía: Cantidad de goles esperados >> 0.33
+Rango de la desviación estándar de goles: 0.23 ---- 1.33 ---- 2.44
+Bahía: Probabilidad de aciertos en remates >> 32.00%
+Probabilidad de fallar >> 68.00%
+Bahía: Porcentaje de balones al arco >> 32.89%
+Porcentaje de balones fuera del arco >> 67.11%
+Bahía: Cantidad de tarjetas amarillas esperadas >> 1.00
+Rango de la desviación estándar de tarjetas amarillas: 1.00 ---- 2.00 ---- 3.00
+Bahía: Cantidad de tarjetas rojas esperadas >> -1.00
+Rango de la desviación estándar de tarjetas rojas: 0.00 ---- 0.00 ---- 0.00
+Bahía: Promedio de posesión del balón >> 54.29%
+Bahía: Goles esperados en la primera mitad >> -0.17
+Bahía: Goles esperados en la segunda mitad >> -0.50
+✅ Torneo encontrado: Brasileirão Serie A -> brasileirao-serie-a-113
+
+
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Error cuadrático medio (RMSE) continuas del local: 0.553
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.306
+Error absoluto medio (MAE) continuas del local: 0.405
+Coeficiente de determinación (R2) continuas del local: 0.930
+
+Error cuadrático medio (RMSE) continuas del visitante: 1.429
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 2.042
+Error absoluto medio (MAE) continuas del visitante: 0.855
+Coeficiente de determinación (R2) continuas del visitante: 0.726
+
+-----------------PREDICCIONES DEL Mirassol -----------------
+Tiros de esquina: Predicción: 6.21 ---- 6.76 ---- 7.31
+
+-----------------PREDICCIONES DEL Bahía -----------------
+Tiros de esquina: Predicción: 3.41 ---- 4.84 ---- 6.27
+
+
+Predicciones dentro del rango ±0.55: 60.00%
+Predicciones que sobreestimaron el valor real en más de 0.55: 15.00%
+Predicciones que subestimaron el valor real en más de 0.55: 25.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 8.00
+Predicción      : 9.19
+Error (↑)       : 1.19
+
+--- Mayor subestimación ---
+Valor real      : 7.00
+Predicción      : 5.90
+Error (↓)       : -1.10
+
+
+Predicciones dentro del rango visitante ±1.43: 85.00%
+Predicciones que sobreestimaron el valor real en más de visitante 1.43: 10.00%
+Predicciones que subestimaron el valor real en más de visitante 1.43: 5.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 7.00
+Predicción      : 12.28
+Error (↑)       : 5.28
+
+--- Mayor subestimación visitante ---
+Valor real      : 11.00
+Predicción      : 9.52
+Error (↓)       : -1.48
+
+
+
+--- Metodo Markov ---
+
+--- Resultados de Equipo Mirassol---
+--- corner actual del local: 3
+Probabilidades con modelo de 1er orden: {'mayor': 0.5625, 'igual': 0.1875, 'menor': 0.25}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.6060606060606061, '-1-3': 0.3939393939393939, 'fuera_de_rango': 0.0}
+
+--- Resultados de Equipo Bahía---
+--- corner actual del visitante: 7
+Probabilidades con modelo de 1er orden: {'mayor': 0.0, 'igual': 0.0, 'menor': 1.0}
+Probabilidades con modelo de 1er orden con bins: {'fuera_de_rango': 0.0, '7-15': 0.1, '4-6': 0.9}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------- DATOS DEL Internacional ----------------------------------------
+Internacional: Cantidad de tiros de esquina esperados >> 3.67
+Desviación estándar de corners >> 3.09
+Rango de la desviación estándar de corners: 1.58 ---- 4.67 ---- 7.76
+Internacional: Cantidad de goles esperados >> 0.00
+Rango de la desviación estándar de goles: 0.00 ---- 1.00 ---- 2.00
+Internacional: Probabilidad de aciertos en remates >> 30.00%
+Probabilidad de fallar >> 70.00%
+Internacional: Porcentaje de balones al arco >> 36.36%
+Porcentaje de balones fuera del arco >> 63.64%
+Internacional: Cantidad de tarjetas amarillas esperadas >> 1.83
+Rango de la desviación estándar de tarjetas amarillas: 1.26 ---- 2.83 ---- 4.41
+Internacional: Cantidad de tarjetas rojas esperadas >> -0.83
+Rango de la desviación estándar de tarjetas rojas: -0.21 ---- 0.17 ---- 0.54
+Internacional: Promedio de posesión del balón >> 51.33%
+Internacional: Goles esperados en la primera mitad >> -0.50
+Internacional: Goles esperados en la segunda mitad >> -0.50
+---------------------------------------- DATOS DEL Fortaleza ----------------------------------------
+Fortaleza: Cantidad de tiros de esquina esperados >> 4.17
+Desviación estándar de corners >> 2.91
+Rango de la desviación estándar de corners: 2.26 ---- 5.17 ---- 8.08
+Fortaleza: Cantidad de goles esperados >> -0.67
+Rango de la desviación estándar de goles: -0.14 ---- 0.33 ---- 0.80
+Fortaleza: Probabilidad de aciertos en remates >> 10.53%
+Probabilidad de fallar >> 89.47%
+Fortaleza: Porcentaje de balones al arco >> 29.69%
+Porcentaje de balones fuera del arco >> 70.31%
+Fortaleza: Cantidad de tarjetas amarillas esperadas >> 2.17
+Rango de la desviación estándar de tarjetas amarillas: 2.27 ---- 3.17 ---- 4.06
+Fortaleza: Cantidad de tarjetas rojas esperadas >> -0.67
+Rango de la desviación estándar de tarjetas rojas: -0.14 ---- 0.33 ---- 0.80
+Fortaleza: Promedio de posesión del balón >> 48.67%
+Fortaleza: Goles esperados en la primera mitad >> -0.83
+Fortaleza: Goles esperados en la segunda mitad >> -0.83
+✅ Torneo encontrado: Brasileirão Serie A -> brasileirao-serie-a-113
+
+
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Error cuadrático medio (RMSE) continuas del local: 1.098
+Error cuadrático medio (MSE) continuas al cuadrado del local: 1.205
+Error absoluto medio (MAE) continuas del local: 0.757
+Coeficiente de determinación (R2) continuas del local: 0.922
+
+Error cuadrático medio (RMSE) continuas del visitante: 1.365
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 1.863
+Error absoluto medio (MAE) continuas del visitante: 0.741
+Coeficiente de determinación (R2) continuas del visitante: 0.864
+
+-----------------PREDICCIONES DEL Internacional -----------------
+Tiros de esquina: Predicción: 3.22 ---- 4.32 ---- 5.42
+
+-----------------PREDICCIONES DEL Fortaleza -----------------
+Tiros de esquina: Predicción: 3.47 ---- 4.84 ---- 6.20
+
+
+Predicciones dentro del rango ±1.10: 90.00%
+Predicciones que sobreestimaron el valor real en más de 1.10: 5.00%
+Predicciones que subestimaron el valor real en más de 1.10: 5.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 7.00
+Predicción      : 9.74
+Error (↑)       : 2.74
+
+--- Mayor subestimación ---
+Valor real      : 14.00
+Predicción      : 10.97
+Error (↓)       : -3.03
+
+
+Predicciones dentro del rango visitante ±1.36: 80.00%
+Predicciones que sobreestimaron el valor real en más de visitante 1.36: 0.00%
+Predicciones que subestimaron el valor real en más de visitante 1.36: 20.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 3.00
+Predicción      : 3.70
+Error (↑)       : 0.70
+
+--- Mayor subestimación visitante ---
+Valor real      : 15.00
+Predicción      : 9.76
+Error (↓)       : -5.24
+
+
+
+--- Metodo Markov ---
+
+--- Resultados de Equipo Internacional---
+--- corner actual del local: 1
+Probabilidades con modelo de 1er orden: {'mayor': 1.0, 'igual': 0.0, 'menor': 0.0}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.7419354838709677, '-1-3': 0.25806451612903225, 'fuera_de_rango': 0.0}
+
+--- Resultados de Equipo Fortaleza---
+--- corner actual del visitante: 11
+Probabilidades con modelo de 1er orden: {'mayor': 0.0, 'igual': 0.0, 'menor': 1.0}
+Probabilidades con modelo de 1er orden con bins: {'fuera_de_rango': 0.0, '7-15': 0.28, '4-6': 0.72}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------- DATOS DEL Sport Recife ----------------------------------------
+Sport Recife: Cantidad de tiros de esquina esperados >> 3.33
+Desviación estándar de corners >> 2.62
+Rango de la desviación estándar de corners: 1.71 ---- 4.33 ---- 6.96
+Sport Recife: Cantidad de goles esperados >> 0.17
+Rango de la desviación estándar de goles: 0.27 ---- 1.17 ---- 2.06
+Sport Recife: Probabilidad de aciertos en remates >> 30.43%
+Probabilidad de fallar >> 69.57%
+Sport Recife: Porcentaje de balones al arco >> 32.86%
+Porcentaje de balones fuera del arco >> 67.14%
+Sport Recife: Cantidad de tarjetas amarillas esperadas >> 1.17
+Rango de la desviación estándar de tarjetas amarillas: 0.82 ---- 2.17 ---- 3.51
+Sport Recife: Cantidad de tarjetas rojas esperadas >> -1.00
+Rango de la desviación estándar de tarjetas rojas: 0.00 ---- 0.00 ---- 0.00
+Sport Recife: Promedio de posesión del balón >> 37.26%
+Sport Recife: Goles esperados en la primera mitad >> -0.67
+Sport Recife: Goles esperados en la segunda mitad >> -0.17
+---------------------------------------- DATOS DEL Vasco da Gama ----------------------------------------
+Vasco da Gama: Cantidad de tiros de esquina esperados >> 2.83
+Desviación estándar de corners >> 1.34
+Rango de la desviación estándar de corners: 2.49 ---- 3.83 ---- 5.18
+Vasco da Gama: Cantidad de goles esperados >> 1.17
+Rango de la desviación estándar de goles: 0.22 ---- 2.17 ---- 4.12
+Vasco da Gama: Probabilidad de aciertos en remates >> 40.62%
+Probabilidad de fallar >> 59.38%
+Vasco da Gama: Porcentaje de balones al arco >> 34.41%
+Porcentaje de balones fuera del arco >> 65.59%
+Vasco da Gama: Cantidad de tarjetas amarillas esperadas >> 1.33
+Rango de la desviación estándar de tarjetas amarillas: 1.39 ---- 2.33 ---- 3.28
+Vasco da Gama: Cantidad de tarjetas rojas esperadas >> -1.00
+Rango de la desviación estándar de tarjetas rojas: 0.00 ---- 0.00 ---- 0.00
+Vasco da Gama: Promedio de posesión del balón >> 62.74%
+Vasco da Gama: Goles esperados en la primera mitad >> 0.00
+Vasco da Gama: Goles esperados en la segunda mitad >> 0.17
+✅ Torneo encontrado: Brasileirão Serie A -> brasileirao-serie-a-113
+
+
+Evaluacion del modelo y probabilidad de aciertos en datos de prueba
+
+
+Error cuadrático medio (RMSE) continuas del local: 0.865
+Error cuadrático medio (MSE) continuas al cuadrado del local: 0.748
+Error absoluto medio (MAE) continuas del local: 0.698
+Coeficiente de determinación (R2) continuas del local: 0.916
+
+Error cuadrático medio (RMSE) continuas del visitante: 1.041
+Error cuadrático medio (MSE) continuas al cuadrado del visitante: 1.083
+Error absoluto medio (MAE) continuas del visitante: 0.648
+Coeficiente de determinación (R2) continuas del visitante: 0.846
+
+-----------------PREDICCIONES DEL Sport Recife -----------------
+Tiros de esquina: Predicción: 2.21 ---- 3.08 ---- 3.94
+
+-----------------PREDICCIONES DEL Vasco da Gama -----------------
+Tiros de esquina: Predicción: 2.19 ---- 3.23 ---- 4.27
+
+
+Predicciones dentro del rango ±0.86: 60.00%
+Predicciones que sobreestimaron el valor real en más de 0.86: 25.00%
+Predicciones que subestimaron el valor real en más de 0.86: 15.00%
+
+--- Mayor sobreestimación ---
+Valor real      : 2.00
+Predicción      : 3.76
+Error (↑)       : 1.76
+
+--- Mayor subestimación ---
+Valor real      : 11.00
+Predicción      : 9.43
+Error (↓)       : -1.57
+
+
+Predicciones dentro del rango visitante ±1.04: 80.00%
+Predicciones que sobreestimaron el valor real en más de visitante 1.04: 10.00%
+Predicciones que subestimaron el valor real en más de visitante 1.04: 10.00%
+
+--- Mayor sobreestimación visitante ---
+Valor real      : 3.00
+Predicción      : 4.35
+Error (↑)       : 1.35
+
+--- Mayor subestimación visitante ---
+Valor real      : 12.00
+Predicción      : 8.25
+Error (↓)       : -3.75
+
+
+
+--- Metodo Markov ---
+
+--- Resultados de Equipo Sport Recife---
+--- corner actual del local: 3
+Probabilidades con modelo de 1er orden: {'mayor': 0.8333333333333334, 'igual': 0.16666666666666666, 'menor': 0.0}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.7333333333333333, '-1-3': 0.26666666666666666, 'fuera_de_rango': 0.0}
+
+--- Resultados de Equipo Vasco da Gama---
+--- corner actual del visitante: 2
+Probabilidades con modelo de 1er orden: {'mayor': 0.6363636363636364, 'igual': 0.2727272727272727, 'menor': 0.09090909090909091}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.6052631578947368, '-1-3': 0.39473684210526316, 'fuera_de_rango': 0.0}
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+

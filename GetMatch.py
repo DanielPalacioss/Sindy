@@ -9,7 +9,7 @@ import math
 from datetime import datetime, timezone
 import re
 
-class getMatch:
+class GetMatch:
 
     @staticmethod
     def reemplazar_texto(texto, nuevo_valor):
@@ -18,7 +18,7 @@ class getMatch:
     def getMatchs(self, matchsNumber, url, defaultLink):
         options = Options()
         # Modo sin interfaz gráfica
-        options.add_argument('--headless')  
+        options.add_argument('--headless')
         options.add_argument('--disable-gpu')  # Recomendado en modo headless (especialmente en Windows)
         options.add_argument('--disable-dev-shm-usage')  # Previene errores en contenedores
         options.add_argument('--no-sandbox')  # Evita errores en algunos entornos Linux
@@ -78,6 +78,6 @@ class getMatch:
                         modifiedLink = self.reemplazar_texto(defaultLink, div.get_attribute("data-df-match-mid"))
                         filtered_matchesLink.append(modifiedLink)
             driver.quit()
-            return filtered_matchesLink[:matchsNumber] # Se agregan 15 porque a veces hay link sin estadisticas
+            return filtered_matchesLink[:matchsNumber]
         except Exception as e:
             print(f"Error obteniendo Ids de la URL {e}")

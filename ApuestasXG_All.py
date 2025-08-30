@@ -15,11 +15,11 @@ import pandas as pd
 import os
 from RecoleccionEquipos import EquipmentCollection
 from selenium.webdriver.chrome.options import Options
-from getMatch import getMatch
+from GetMatch import GetMatch
 import sys
 import numpy as np
 from datetime import datetime, timedelta
-from getAlineacion import getAlineacion
+from GetAlineacion import GetAlineacion
 import re
 from unidecode import unidecode
 from xgboost import XGBClassifier
@@ -45,8 +45,8 @@ options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Leicester City"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Ipswich"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Flamengo"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Botafogo"#input("Ingresa el segundo equipo objetivo: ")
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
@@ -58,9 +58,9 @@ ingresadoM2=""
 if os.path.exists(f"{equipo_objetivo_1}.csv"):
     opcion = input(f"Desea cargar nuevos datos del {equipo_objetivo_1}?  SI/NO ")
     if(opcion.strip().lower() == "si"):
-        if os.path.exists("equipos_links.csv"):
+        if os.path.exists("links_de_equipos_para_recoleccion/equipos_links.csv"):
             # Cargar el CSV en un DataFrame
-            df = pd.read_csv("equipos_links.csv")
+            df = pd.read_csv("links_de_equipos_para_recoleccion/equipos_links.csv")
             if equipo_objetivo_1 in df["Equipo"].values:
                 matchsNumber = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_1}? "))
                 ingresadoM = "NO"
@@ -71,13 +71,13 @@ if os.path.exists(f"{equipo_objetivo_1}.csv"):
                 defaultLink = df.loc[df["Equipo"] == equipo_objetivo_1, "Link_Partido_X"].values[0]
                 
                 #Ejecutar para recolectar link
-                urls_equipo_1 = getMatch().getMatchs(matchsNumber, url, defaultLink)
+                urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
             
             else:
                 matchsNumber = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_1}? "))
                 url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} ")
                 defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} ")
-                urls_equipo_1 = getMatch().getMatchs(matchsNumber, url, defaultLink)
+                urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
                 
                 # Crear nueva fila como diccionario
                 nueva_fila = {"Equipo": equipo_objetivo_1, "Link_Lista_Partidos": url, "Link_Partido_X": defaultLink}
@@ -102,11 +102,11 @@ if os.path.exists(f"{equipo_objetivo_1}.csv"):
 
             # Guardar el DataFrame en un nuevo CSV
             df.to_csv("equipos_links.csv", index=False)
-            urls_equipo_1 = getMatch().getMatchs(matchsNumber, url, defaultLink)
+            urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
 else:
-    if os.path.exists("equipos_links.csv"):
+    if os.path.exists("links_de_equipos_para_recoleccion/equipos_links.csv"):
         # Cargar el CSV en un DataFrame
-        df = pd.read_csv("equipos_links.csv")
+        df = pd.read_csv("links_de_equipos_para_recoleccion/equipos_links.csv")
         if equipo_objetivo_1 in df["Equipo"].values:
             matchsNumber = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_1}? "))
             ingresadoM = "NO"
@@ -117,13 +117,13 @@ else:
             defaultLink = df.loc[df["Equipo"] == equipo_objetivo_1, "Link_Partido_X"].values[0]
             
             #Ejecutar para recolectar link
-            urls_equipo_1 = getMatch().getMatchs(matchsNumber, url, defaultLink)
+            urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
         
         else:
             matchsNumber = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_1}? "))
             url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} ")
             defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} ")
-            urls_equipo_1 = getMatch().getMatchs(matchsNumber, url, defaultLink)
+            urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
             
             # Crear nueva fila como diccionario
             nueva_fila = {"Equipo": equipo_objetivo_1, "Link_Lista_Partidos": url, "Link_Partido_X": defaultLink}
@@ -148,14 +148,14 @@ else:
 
         # Guardar el DataFrame en un nuevo CSV
         df.to_csv("equipos_links.csv", index=False)
-        urls_equipo_1 = getMatch().getMatchs(matchsNumber, url, defaultLink)
+        urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
 
 if os.path.exists(f"{equipo_objetivo_2}.csv"):
     opcion = input(f"Desea cargar nuevos datos del {equipo_objetivo_2}?  SI/NO ")
     if(opcion.strip().lower() == "si"):
-        if os.path.exists("equipos_links.csv"):
+        if os.path.exists("links_de_equipos_para_recoleccion/equipos_links.csv"):
             # Cargar el CSV en un DataFrame
-            df = pd.read_csv("equipos_links.csv")
+            df = pd.read_csv("links_de_equipos_para_recoleccion/equipos_links.csv")
             if equipo_objetivo_2 in df["Equipo"].values:
                 matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
                 ingresadoM2 = "NO"
@@ -166,13 +166,13 @@ if os.path.exists(f"{equipo_objetivo_2}.csv"):
                 defaultLink2 = df.loc[df["Equipo"] == equipo_objetivo_2, "Link_Partido_X"].values[0]
                 
                 #Ejecutar para recolectar link
-                urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+                urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
             
             else:
                 matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
                 url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} ")
                 defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} ")
-                urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+                urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
                 
                 # Crear nueva fila como diccionario
                 nueva_fila = {"Equipo": equipo_objetivo_2, "Link_Lista_Partidos": url2, "Link_Partido_X": defaultLink2}
@@ -197,12 +197,12 @@ if os.path.exists(f"{equipo_objetivo_2}.csv"):
 
             # Guardar el DataFrame en un nuevo CSV
             df.to_csv("equipos_links.csv", index=False)
-            urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+            urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
 
 else:
-    if os.path.exists("equipos_links.csv"):
+    if os.path.exists("links_de_equipos_para_recoleccion/equipos_links.csv"):
         # Cargar el CSV en un DataFrame
-        df = pd.read_csv("equipos_links.csv")
+        df = pd.read_csv("links_de_equipos_para_recoleccion/equipos_links.csv")
         if equipo_objetivo_2 in df["Equipo"].values:
             matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
             ingresadoM2 ="NO"
@@ -213,13 +213,13 @@ else:
             defaultLink2 = df.loc[df["Equipo"] == equipo_objetivo_2, "Link_Partido_X"].values[0]
             
             #Ejecutar para recolectar link
-            urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+            urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
         
         else:
             matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
             url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} ")
             defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} ")
-            urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+            urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
             
             # Crear nueva fila como diccionario
             nueva_fila = {"Equipo": equipo_objetivo_2, "Link_Lista_Partidos": url2, "Link_Partido_X": defaultLink2}
@@ -244,7 +244,7 @@ else:
 
         # Guardar el DataFrame en un nuevo CSV
         df.to_csv("equipos_links.csv", index=False)
-        urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+        urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
 
 #Validacion de link en equipo local
 opcion = ""
@@ -252,7 +252,7 @@ if ingresadoM != "NO":
     opcion = input(f"El link del {equipo_objetivo_1} quedo mal ingresado?  SI/NO ")
 if(opcion.strip().lower() == "si"):
     # Cargar el CSV en un DataFrame
-    df = pd.read_csv("equipos_links.csv")
+    df = pd.read_csv("links_de_equipos_para_recoleccion/equipos_links.csv")
 
     # Eliminar la fila del equipo incorrecto
     df = df[df["Equipo"] != equipo_objetivo_1]
@@ -279,7 +279,7 @@ if ingresadoM2 != "NO":
 #Validacion de link en equipo visitante
 if(opcion2.strip().lower() == "si"):
     # Cargar el CSV en un DataFrame
-    df = pd.read_csv("equipos_links.csv")
+    df = pd.read_csv("links_de_equipos_para_recoleccion/equipos_links.csv")
 
     # Eliminar la fila del equipo incorrecto
     df = df[df["Equipo"] != equipo_objetivo_2]
@@ -315,7 +315,7 @@ if len(equipos_dict) == 1:
 service =  Service('chromedriver.exe')
 driver = webdriver.Chrome(service=service, options=options)
 
-Torneo = 3 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+Torneo = 10 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
 
 if equipos_dict.get(equipo_objetivo_1, -1) == -1:
     raise Exception(f"El equipo {equipo_objetivo_1} no existe en la base de datos, por favor agregarlo")
@@ -980,9 +980,9 @@ def crear_y_retornar_dataframes_all():
 
     # Parte 2: Nueva funcionalidad - Concatenar CSVs de todos los equipos
     try:
-        if os.path.isfile("teams.csv") and os.path.getsize("teams.csv") > 0:
+        if os.path.isfile("team_list/teams.csv") and os.path.getsize("team_list/teams.csv") > 0:
             # Leer el archivo de equipos
-            df_teams = pd.read_csv("teams.csv", sep=';', quotechar='"')
+            df_teams = pd.read_csv("team_list/teams.csv", sep=';', quotechar='"')
             
             # Lista para almacenar todos los DataFrames de equipos
             team_dfs = []
@@ -1353,7 +1353,7 @@ estadisticas_equipo1_df = pd.concat([estadisticas_equipo1_df, df_nuevas_columnas
 estadisticas_equipo2_df = pd.concat([estadisticas_equipo2_df, df_nuevas_columnas], axis=1)
 
 torneo_name = next((k for k, v in torneos_dict.items() if v == Torneo), None)
-alineaciones = getAlineacion().getAlineaciones({"name_equipo":equipo1,"name_visitante_equipo":equipo2,"torneo":torneo_name})
+alineaciones = GetAlineacion().getAlineaciones({"name_equipo":equipo1, "name_visitante_equipo":equipo2, "torneo":torneo_name})
 
 # Obtener jugadores del equipo local
 jugadores_locales = alineaciones["local"]

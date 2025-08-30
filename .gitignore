@@ -11,3 +11,7 @@ venv/
 # Configuración de IDEs
 .vscode/
 .idea/
+
+# Data de equipos
+teams_data/*
+!teams_data/.gitkeep

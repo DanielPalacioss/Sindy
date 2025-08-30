@@ -70,8 +70,8 @@ class EquipmentCollection:
         return pd.DataFrame(list(self.equipos_dict.items()), columns=["Equipo", "ID"])
 
     def get_dict_of_csv(self):
-        if os.path.isfile('teams.csv'):
-            df = pd.read_csv('teams.csv', sep=';', quotechar='"')
+        if os.path.isfile('team_list/teams.csv'):
+            df = pd.read_csv('team_list/teams.csv', sep=';', quotechar='"')
             return dict(zip(df["Equipo"], df["ID"]))
         else:
             return self.equipos_dict
@@ -79,7 +79,7 @@ class EquipmentCollection:
     def save_csv(self, df):
 
         # Verificar si el archivo existe
-        if os.path.isfile('teams.csv'):
+        if os.path.isfile('team_list/teams.csv'):
             df.to_csv('teams.csv', sep=';', index=False)
         else:
             df.to_csv('teams.csv', sep=';', index=False)

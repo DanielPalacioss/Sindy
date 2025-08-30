@@ -13,13 +13,15 @@ from sklearn.metrics import root_mean_squared_error, mean_absolute_error, r2_sco
 import math
 import pandas as pd
 import os
+
+from MarkovMethod import MarkovMethod
 from RecoleccionEquipos import EquipmentCollection
 from selenium.webdriver.chrome.options import Options
-from getMatch import getMatch
+from GetMatch import GetMatch
 import sys
 import numpy as np
 from datetime import datetime, timedelta
-from getAlineacion import getAlineacion
+from GetAlineacion import GetAlineacion
 import re
 from unidecode import unidecode
 from xgboost import XGBClassifier
@@ -44,8 +46,15 @@ options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Cruzeiro"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Atlético Mineiro"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Santos"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Fluminense"#input("Ingresa el segundo equipo objetivo: ")
+
+# Ruta de los equipos
+equipo_objetivo_1_path_data = f"./teams_data/{equipo_objetivo_1}.csv"
+equipo_objetivo_2_path_data = f"./teams_data/{equipo_objetivo_2}.csv"
+
+# Ruta de csv con informacion de links
+links_equipos_data = "./links_de_equipos_para_recoleccion/equipos_links.csv"
 
 # Estadísticas a excluir (fijas como en el código original)
 estadisticas_excluidas = ["Posición adelantada"]
@@ -54,30 +63,30 @@ urls_equipo_2 = []
 
 ingresadoM=""
 ingresadoM2=""
-if os.path.exists(f"{equipo_objetivo_1}.csv"):
+if os.path.exists(equipo_objetivo_1_path_data):
     opcion = input(f"Desea cargar nuevos datos del {equipo_objetivo_1}?  SI/NO ")
     if(opcion.strip().lower() == "si"):
-        if os.path.exists("equipos_links.csv"):
+        if os.path.exists(links_equipos_data):
             # Cargar el CSV en un DataFrame
-            df = pd.read_csv("equipos_links.csv")
+            df = pd.read_csv(links_equipos_data)
             if equipo_objetivo_1 in df["Equipo"].values:
                 matchsNumber = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_1}? "))
                 ingresadoM = "NO"
                 #Buscar link de lista de partidos
                 url = df.loc[df["Equipo"] == equipo_objetivo_1, "Link_Lista_Partidos"].values[0]
-                
+
                 #Buscar link de un partido x del equipo
                 defaultLink = df.loc[df["Equipo"] == equipo_objetivo_1, "Link_Partido_X"].values[0]
-                
+
                 #Ejecutar para recolectar link
-                urls_equipo_1 = getMatch().getMatchs(matchsNumber, url, defaultLink)
-            
+                urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
+
             else:
                 matchsNumber = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_1}? "))
                 url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} ")
                 defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} ")
-                urls_equipo_1 = getMatch().getMatchs(matchsNumber, url, defaultLink)
-                
+                urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
+
                 # Crear nueva fila como diccionario
                 nueva_fila = {"Equipo": equipo_objetivo_1, "Link_Lista_Partidos": url, "Link_Partido_X": defaultLink}
 
@@ -85,7 +94,7 @@ if os.path.exists(f"{equipo_objetivo_1}.csv"):
                 df = pd.concat([df, pd.DataFrame([nueva_fila])], ignore_index=True)
 
                 # Guardar el DataFrame actualizado en el CSV
-                df.to_csv("equipos_links.csv", index=False)
+                df.to_csv(links_equipos_data, index=False)
         else:
             # Si el archivo no existe, creamos el DataFrame desde cero
             matchsNumber = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_1}? "))
@@ -94,36 +103,36 @@ if os.path.exists(f"{equipo_objetivo_1}.csv"):
 
             # Crear DataFrame con la nueva fila
             df = pd.DataFrame([{
-                "Equipo": equipo_objetivo_1, 
-                "Link_Lista_Partidos": url, 
+                "Equipo": equipo_objetivo_1,
+                "Link_Lista_Partidos": url,
                 "Link_Partido_X": defaultLink
             }])
 
             # Guardar el DataFrame en un nuevo CSV
-            df.to_csv("equipos_links.csv", index=False)
-            urls_equipo_1 = getMatch().getMatchs(matchsNumber, url, defaultLink)
+            df.to_csv(links_equipos_data, index=False)
+            urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
 else:
-    if os.path.exists("equipos_links.csv"):
+    if os.path.exists(links_equipos_data):
         # Cargar el CSV en un DataFrame
-        df = pd.read_csv("equipos_links.csv")
+        df = pd.read_csv(links_equipos_data)
         if equipo_objetivo_1 in df["Equipo"].values:
             matchsNumber = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_1}? "))
             ingresadoM = "NO"
             #Buscar link de lista de partidos
             url = df.loc[df["Equipo"] == equipo_objetivo_1, "Link_Lista_Partidos"].values[0]
-            
+
             #Buscar link de un partido x del equipo
             defaultLink = df.loc[df["Equipo"] == equipo_objetivo_1, "Link_Partido_X"].values[0]
-            
+
             #Ejecutar para recolectar link
-            urls_equipo_1 = getMatch().getMatchs(matchsNumber, url, defaultLink)
-        
+            urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
+
         else:
             matchsNumber = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_1}? "))
             url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} ")
             defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} ")
-            urls_equipo_1 = getMatch().getMatchs(matchsNumber, url, defaultLink)
-            
+            urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
+
             # Crear nueva fila como diccionario
             nueva_fila = {"Equipo": equipo_objetivo_1, "Link_Lista_Partidos": url, "Link_Partido_X": defaultLink}
 
@@ -131,7 +140,7 @@ else:
             df = pd.concat([df, pd.DataFrame([nueva_fila])], ignore_index=True)
 
             # Guardar el DataFrame actualizado en el CSV
-            df.to_csv("equipos_links.csv", index=False)
+            df.to_csv(links_equipos_data, index=False)
     else:
         # Si el archivo no existe, creamos el DataFrame desde cero
         matchsNumber = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_1}? "))
@@ -140,39 +149,39 @@ else:
 
         # Crear DataFrame con la nueva fila
         df = pd.DataFrame([{
-            "Equipo": equipo_objetivo_1, 
-            "Link_Lista_Partidos": url, 
+            "Equipo": equipo_objetivo_1,
+            "Link_Lista_Partidos": url,
             "Link_Partido_X": defaultLink
         }])
 
         # Guardar el DataFrame en un nuevo CSV
-        df.to_csv("equipos_links.csv", index=False)
-        urls_equipo_1 = getMatch().getMatchs(matchsNumber, url, defaultLink)
+        df.to_csv(links_equipos_data, index=False)
+        urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
 
-if os.path.exists(f"{equipo_objetivo_2}.csv"):
+if os.path.exists(equipo_objetivo_2_path_data):
     opcion = input(f"Desea cargar nuevos datos del {equipo_objetivo_2}?  SI/NO ")
     if(opcion.strip().lower() == "si"):
-        if os.path.exists("equipos_links.csv"):
+        if os.path.exists(links_equipos_data):
             # Cargar el CSV en un DataFrame
-            df = pd.read_csv("equipos_links.csv")
+            df = pd.read_csv(links_equipos_data)
             if equipo_objetivo_2 in df["Equipo"].values:
                 matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
                 ingresadoM2 = "NO"
                 #Buscar link de lista de partidos
                 url2 = df.loc[df["Equipo"] == equipo_objetivo_2, "Link_Lista_Partidos"].values[0]
-                
+
                 #Buscar link de un partido x del equipo
                 defaultLink2 = df.loc[df["Equipo"] == equipo_objetivo_2, "Link_Partido_X"].values[0]
-                
+
                 #Ejecutar para recolectar link
-                urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
-            
+                urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+
             else:
                 matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
                 url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} ")
                 defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} ")
-                urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
-                
+                urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+
                 # Crear nueva fila como diccionario
                 nueva_fila = {"Equipo": equipo_objetivo_2, "Link_Lista_Partidos": url2, "Link_Partido_X": defaultLink2}
 
@@ -180,7 +189,7 @@ if os.path.exists(f"{equipo_objetivo_2}.csv"):
                 df = pd.concat([df, pd.DataFrame([nueva_fila])], ignore_index=True)
 
                 # Guardar el DataFrame actualizado en el CSV
-                df.to_csv("equipos_links.csv", index=False)
+                df.to_csv(links_equipos_data, index=False)
         else:
             # Si el archivo no existe, creamos el DataFrame desde cero
             matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
@@ -189,37 +198,37 @@ if os.path.exists(f"{equipo_objetivo_2}.csv"):
 
             # Crear DataFrame con la nueva fila
             df = pd.DataFrame([{
-                "Equipo": equipo_objetivo_2, 
-                "Link_Lista_Partidos": url2, 
+                "Equipo": equipo_objetivo_2,
+                "Link_Lista_Partidos": url2,
                 "Link_Partido_X": defaultLink2
             }])
 
             # Guardar el DataFrame en un nuevo CSV
-            df.to_csv("equipos_links.csv", index=False)
-            urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+            df.to_csv(links_equipos_data, index=False)
+            urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
 
 else:
-    if os.path.exists("equipos_links.csv"):
+    if os.path.exists(links_equipos_data):
         # Cargar el CSV en un DataFrame
-        df = pd.read_csv("equipos_links.csv")
+        df = pd.read_csv(links_equipos_data)
         if equipo_objetivo_2 in df["Equipo"].values:
             matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
             ingresadoM2 ="NO"
             #Buscar link de lista de partidos
             url2 = df.loc[df["Equipo"] == equipo_objetivo_2, "Link_Lista_Partidos"].values[0]
-            
+
             #Buscar link de un partido x del equipo
             defaultLink2 = df.loc[df["Equipo"] == equipo_objetivo_2, "Link_Partido_X"].values[0]
-            
+
             #Ejecutar para recolectar link
-            urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
-        
+            urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+
         else:
             matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
             url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} ")
             defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} ")
-            urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
-            
+            urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+
             # Crear nueva fila como diccionario
             nueva_fila = {"Equipo": equipo_objetivo_2, "Link_Lista_Partidos": url2, "Link_Partido_X": defaultLink2}
 
@@ -227,7 +236,7 @@ else:
             df = pd.concat([df, pd.DataFrame([nueva_fila])], ignore_index=True)
 
             # Guardar el DataFrame actualizado en el CSV
-            df.to_csv("equipos_links.csv", index=False)
+            df.to_csv(links_equipos_data, index=False)
     else:
         # Si el archivo no existe, creamos el DataFrame desde cero
         matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
@@ -236,14 +245,14 @@ else:
 
         # Crear DataFrame con la nueva fila
         df = pd.DataFrame([{
-            "Equipo": equipo_objetivo_2, 
-            "Link_Lista_Partidos": url2, 
+            "Equipo": equipo_objetivo_2,
+            "Link_Lista_Partidos": url2,
             "Link_Partido_X": defaultLink2
         }])
 
         # Guardar el DataFrame en un nuevo CSV
-        df.to_csv("equipos_links.csv", index=False)
-        urls_equipo_2 = getMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+        df.to_csv(links_equipos_data, index=False)
+        urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
 
 #Validacion de link en equipo local
 opcion = ""
@@ -251,7 +260,7 @@ if ingresadoM != "NO":
     opcion = input(f"El link del {equipo_objetivo_1} quedo mal ingresado?  SI/NO ")
 if(opcion.strip().lower() == "si"):
     # Cargar el CSV en un DataFrame
-    df = pd.read_csv("equipos_links.csv")
+    df = pd.read_csv(links_equipos_data)
 
     # Eliminar la fila del equipo incorrecto
     df = df[df["Equipo"] != equipo_objetivo_1]
@@ -261,8 +270,8 @@ if(opcion.strip().lower() == "si"):
 
     # Crear DataFrame con la nueva fila
     nueva_fila = pd.DataFrame([{
-        "Equipo": equipo_objetivo_1, 
-        "Link_Lista_Partidos": url, 
+        "Equipo": equipo_objetivo_1,
+        "Link_Lista_Partidos": url,
         "Link_Partido_X": defaultLink
     }])
 
@@ -270,7 +279,7 @@ if(opcion.strip().lower() == "si"):
     df = pd.concat([df, nueva_fila], ignore_index=True)
 
     # Guardar el DataFrame actualizado
-    df.to_csv("equipos_links.csv", index=False)
+    df.to_csv(links_equipos_data, index=False)
 
 opcion2 = ""
 if ingresadoM2 != "NO":
@@ -278,7 +287,7 @@ if ingresadoM2 != "NO":
 #Validacion de link en equipo visitante
 if(opcion2.strip().lower() == "si"):
     # Cargar el CSV en un DataFrame
-    df = pd.read_csv("equipos_links.csv")
+    df = pd.read_csv(links_equipos_data)
 
     # Eliminar la fila del equipo incorrecto
     df = df[df["Equipo"] != equipo_objetivo_2]
@@ -288,8 +297,8 @@ if(opcion2.strip().lower() == "si"):
 
     # Crear DataFrame con la nueva fila
     nueva_fila = pd.DataFrame([{
-        "Equipo": equipo_objetivo_2, 
-        "Link_Lista_Partidos": url2, 
+        "Equipo": equipo_objetivo_2,
+        "Link_Lista_Partidos": url2,
         "Link_Partido_X": defaultLink2
     }])
 
@@ -297,14 +306,14 @@ if(opcion2.strip().lower() == "si"):
     df = pd.concat([df, nueva_fila], ignore_index=True)
 
     # Guardar el DataFrame actualizado
-    df.to_csv("equipos_links.csv", index=False)
+    df.to_csv(links_equipos_data, index=False)
 
     print("♻️ Reiniciando el script...")
-    os.execv(sys.executable, ["python"] + sys.argv)  # Reinicia el script
+    os.execv(sys.executable, [sys.executable] + sys.argv)  # Reinicia el script
 else:
     if opcion.strip().lower() == "si":
         print("♻️ Reiniciando el script...")
-        os.execv(sys.executable, ["python"] + sys.argv)  # Reinicia el script
+        os.execv(sys.executable, [sys.executable] + sys.argv)  # Reinicia el script
 
 
 equipos_dict = EquipmentCollection().get_dict_of_csv()
@@ -660,8 +669,14 @@ def procesar_urls(urls, equipo_objetivo):
         try:
             
             driver.get(url)
-            time.sleep(2.5)
+            time.sleep(2)
             soup = BeautifulSoup(driver.page_source, 'html.parser')
+
+            torneo_div = soup.find('div', class_='imso-hide-overflow')
+            torneo_span = torneo_div.find('span', class_='imso-loa imso-ln')
+            torneo_nombre = torneo_span.text.strip() if torneo_span else "Torneo desconocido"
+            if 'Amistosos' in torneo_nombre:
+                continue
 
             stats = obtener_estadisticas(soup, equipo_objetivo)
             goles_por_tiempo = obtener_goles_por_tiempo(soup, equipo_objetivo)
@@ -691,7 +706,7 @@ def procesar_urls(urls, equipo_objetivo):
 
 if not urls_equipo_1:
     # Cargar el CSV en un DataFrame
-    df = pd.read_csv(f"{equipo_objetivo_1}.csv", parse_dates=['Fecha'], sep=";", encoding="utf-8")
+    df = pd.read_csv(equipo_objetivo_1_path_data, parse_dates=['Fecha'], sep=";", encoding="utf-8")
 
     # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
     df = df.sort_values(by="Fecha", ascending=False)
@@ -705,7 +720,7 @@ else:
 
 if not urls_equipo_2:
     # Cargar el CSV en un DataFrame
-    df = pd.read_csv(f"{equipo_objetivo_2}.csv", parse_dates=['Fecha'], sep=";", encoding="utf-8")
+    df = pd.read_csv(equipo_objetivo_2_path_data, parse_dates=['Fecha'], sep=";", encoding="utf-8")
 
     # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
     df = df.sort_values(by="Fecha", ascending=False)
@@ -726,18 +741,22 @@ driver.quit()
 def calcular_desviacion_estandar_y_datos(stats):
     # Obtener los nombres de los equipos (las claves del diccionario)
     equipo1, equipo2 = list(stats.keys())
+    stats[equipo1] = {key: value for key, value in stats[equipo1].items()
+                                if value.get('Torneo') != 6}
+    stats[equipo2] = {key: value for key, value in stats[equipo2].items()
+                      if value.get('Torneo') != 6}
     # Asignar los partidos de cada equipo desde el diccionario
     partidos_equipo1 = dict(list(stats[equipo1].items())[:6])
     partidos_equipo2 = dict(list(stats[equipo2].items())[:6])
     p = len(partidos_equipo1)  # Número de partidos
 
     # Variables acumulativas para el equipo 1
-    Tgoles, Tcorner, TrematesAr, Tremates, TtarjetasA, Tfaltas, Tpases, TgolesPT, TgolesST = 0, 0, 0, 0, 0, 0, 0, 0, 0
-    goles_equipo1, corner_equipo1 = [], []
+    Tgoles, Tcorner, TrematesAr, Tremates, TtarjetasA, TtarjetasR, Tfaltas, Tpases, TgolesPT, TgolesST = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    goles_equipo1, corner_equipo1, tarjetas_amarillas_equipo1, tarjetas_rojas_equipo1 = [], [], [], []
 
     # Variables acumulativas para el equipo 2
-    Tgoles2, Tcorner2, TrematesAr2, Tremates2, TtarjetasA2, Tfaltas2, Tpases2, TgolesPT2, TgolesST2 = 0, 0, 0, 0, 0, 0, 0, 0, 0
-    goles_equipo2, corner_equipo2 = [], []
+    Tgoles2, Tcorner2, TrematesAr2, Tremates2, TtarjetasA2, TtarjetasR2, Tfaltas2, Tpases2, TgolesPT2, TgolesST2 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    goles_equipo2, corner_equipo2, tarjetas_amarillas_equipo2, tarjetas_rojas_equipo2 = [], [], [], []
 
     # Acumular datos del equipo 1 y 2
     for partidosN in partidos_equipo1:
@@ -747,6 +766,7 @@ def calcular_desviacion_estandar_y_datos(stats):
         remates_arco = partido['Remates al arco']
         remates = partido['Remates']
         tarjetas_amarillas = partido['Tarjetas amarillas']
+        tarjetas_rojas = partido['Tarjetas rojas']
         faltas = partido['Faltas']
         pases = partido['Pases']
         goles_primera_mitad = partido['goles_primera_mitad']
@@ -758,6 +778,7 @@ def calcular_desviacion_estandar_y_datos(stats):
         TrematesAr += remates_arco
         Tremates += remates
         TtarjetasA += tarjetas_amarillas
+        TtarjetasR += tarjetas_rojas
         Tfaltas += faltas
         Tpases += pases
         TgolesPT += goles_primera_mitad
@@ -765,6 +786,8 @@ def calcular_desviacion_estandar_y_datos(stats):
 
         goles_equipo1.append(goles)
         corner_equipo1.append(corner)
+        tarjetas_amarillas_equipo1.append(tarjetas_amarillas)
+        tarjetas_rojas_equipo1.append(tarjetas_rojas)
 
     for partidosN in partidos_equipo2:
         partido = partidos_equipo2[partidosN]
@@ -773,6 +796,7 @@ def calcular_desviacion_estandar_y_datos(stats):
         remates_arco = partido['Remates al arco']
         remates = partido['Remates']
         tarjetas_amarillas = partido['Tarjetas amarillas']
+        tarjetas_rojas = partido['Tarjetas rojas']
         faltas = partido['Faltas']
         pases = partido['Pases']
         goles_primera_mitad = partido['goles_primera_mitad']
@@ -784,6 +808,7 @@ def calcular_desviacion_estandar_y_datos(stats):
         TrematesAr2 += remates_arco
         Tremates2 += remates
         TtarjetasA2 += tarjetas_amarillas
+        TtarjetasR2 += tarjetas_rojas
         Tfaltas2 += faltas
         Tpases2 += pases
         TgolesPT2 += goles_primera_mitad
@@ -791,19 +816,25 @@ def calcular_desviacion_estandar_y_datos(stats):
 
         goles_equipo2.append(goles)
         corner_equipo2.append(corner)
+        tarjetas_amarillas_equipo2.append(tarjetas_amarillas)
+        tarjetas_rojas_equipo2.append(tarjetas_rojas)
 
     # Promedios
-    Mean = Tgoles / p if p != 0 else 0
-    Mean2 = Tgoles2 / p if p != 0 else 0
+    MeanG = Tgoles / p if p != 0 else 0
+    MeanG2 = Tgoles2 / p if p != 0 else 0
     MeanC = Tcorner / p if p != 0 else 0
     MeanC2 = Tcorner2 / p if p != 0 else 0
+    MeanTa = TtarjetasA / p if p != 0 else 0
+    MeanTa2 = TtarjetasA2 / p if p != 0 else 0
+    MeanTr = TtarjetasR / p if p != 0 else 0
+    MeanTr2 = TtarjetasR2 / p if p != 0 else 0
 
     # Desviación estándar y rangos
     if p != 0:
-        Ds = math.sqrt(sum([(x - Mean) ** 2 for x in goles_equipo1]) / p)
-        UVs, UVr = Mean + Ds, Mean - Ds
+        Ds = math.sqrt(sum([(x - MeanG) ** 2 for x in goles_equipo1]) / p)
+        UVsG, UVrG = MeanG + Ds, MeanG - Ds
     else:
-        UVs, UVr = Mean + 0, Mean - 0
+        UVsG, UVrG = MeanG + 0, MeanG - 0
 
     if p != 0:
         DsC = math.sqrt(sum([(x - MeanC) ** 2 for x in corner_equipo1]) / p)
@@ -812,26 +843,52 @@ def calcular_desviacion_estandar_y_datos(stats):
         UVsC, UVrC = MeanC + 0, MeanC - 0
 
     if p != 0:
-        Ds2 = math.sqrt(sum([(x - Mean2) ** 2 for x in goles_equipo2]) / p)
-        UVs2, UVr2 = Mean2 + Ds2, Mean2 - Ds2
+        DsTa = math.sqrt(sum([(x - MeanTa) ** 2 for x in tarjetas_amarillas_equipo1]) / p)
+        UVsTa, UVrTa = MeanTa + DsTa, MeanTa - DsTa
     else:
-        UVs2, UVr2 = Mean2 + 0, Mean2 - 0
+        UVsTa, UVrTa = MeanTa + 0, MeanTa - 0
+
+    if p != 0:
+        DsTr = math.sqrt(sum([(x - MeanTr) ** 2 for x in tarjetas_rojas_equipo1]) / p)
+        UVsTr, UVrTr = MeanTr + DsTr, MeanTr - DsTr
+    else:
+        UVsTr, UVrTr = MeanTr + 0, MeanTr - 0
+
+    #Equipo 2 Desviaciones
+
+    if p != 0:
+        Ds2 = math.sqrt(sum([(x - MeanG2) ** 2 for x in goles_equipo2]) / p)
+        UVs2G, UVr2G = MeanG2 + Ds2, MeanG2 - Ds2
+    else:
+        UVs2G, UVr2G = MeanG2 + 0, MeanG2 - 0
 
     if p != 0:
         DsC2 = math.sqrt(sum([(x - MeanC2) ** 2 for x in corner_equipo2]) / p)
         UVsC2, UVrC2 = MeanC2 + DsC2, MeanC2 - DsC2
     else:
         UVsC2, UVrC2 = MeanC2 + 0, MeanC2 - 0
+
+    if p != 0:
+        DsTa2 = math.sqrt(sum([(x - MeanTa2) ** 2 for x in tarjetas_amarillas_equipo2]) / p)
+        UVsTa2, UVrTa2 = MeanTa2 + DsTa2, MeanTa2 - DsTa2
+    else:
+        UVsTa2, UVrTa2 = MeanTa2 + 0, MeanTa2 - 0
+
+    if p != 0:
+        DsTr2 = math.sqrt(sum([(x - MeanTr2) ** 2 for x in tarjetas_rojas_equipo2]) / p)
+        UVsTr2, UVrTr2 = MeanTr2 + DsTr2, MeanTr2 - DsTr2
+    else:
+        UVsTr2, UVrTr2 = MeanTr2 + 0, MeanTr2 - 0
+
     # Imprimir los resultados
     print(f"{'-' * 40} DATOS DEL {equipo1} {'-' * 40}")
-    
-    Pcorner = (Tcorner / p) - 1
-    print(f"{equipo1}: Cantidad de tiros de esquina esperados >> {Pcorner:.2f}")
+
+    print(f"{equipo1}: Cantidad de tiros de esquina esperados >> {(MeanC-1):.2f}")
+    print(f"Desviación estándar de corners >> {DsC:.2f}")
     print(f"Rango de la desviación estándar de corners: {UVrC:.2f} ---- {MeanC:.2f} ---- {UVsC:.2f}")
-    
-    Pgoles = (Tgoles / p) - 1
-    print(f"{equipo1}: Cantidad de goles esperados >> {Pgoles:.2f}")
-    print(f"Rango de la desviación estándar de goles: {UVr:.2f} ---- {Mean:.2f} ---- {UVs:.2f}")
+
+    print(f"{equipo1}: Cantidad de goles esperados >> {(MeanG-1):.2f}")
+    print(f"Rango de la desviación estándar de goles: {UVrG:.2f} ---- {MeanG:.2f} ---- {UVsG:.2f}")
     
     Pgoles_aciertos = (Tgoles * 100) / TrematesAr
     print(f"{equipo1}: Probabilidad de aciertos en remates >> {Pgoles_aciertos:.2f}%")
@@ -840,9 +897,12 @@ def calcular_desviacion_estandar_y_datos(stats):
     Premates = (TrematesAr * 100) / Tremates
     print(f"{equipo1}: Porcentaje de balones al arco >> {Premates:.2f}%")
     print(f"Porcentaje de balones fuera del arco >> {100 - Premates:.2f}%")
-    
-    PtarjetasA = (TtarjetasA * 100) / Tfaltas
-    print(f"{equipo1}: Probabilidad de recibir tarjetas amarillas >> {PtarjetasA:.2f}%")
+
+    print(f"{equipo1}: Cantidad de tarjetas amarillas esperadas >> {(MeanTa - 1):.2f}")
+    print(f"Rango de la desviación estándar de tarjetas amarillas: {UVrTa:.2f} ---- {MeanTa:.2f} ---- {UVsTa:.2f}")
+
+    print(f"{equipo1}: Cantidad de tarjetas rojas esperadas >> {(MeanTr - 1):.2f}")
+    print(f"Rango de la desviación estándar de tarjetas rojas: {UVrTr:.2f} ---- {MeanTr:.2f} ---- {UVsTr:.2f}")
     
     PposesionB = (Tpases * 100) / (Tpases + Tpases2)
     print(f"{equipo1}: Promedio de posesión del balón >> {PposesionB:.2f}%")
@@ -854,14 +914,13 @@ def calcular_desviacion_estandar_y_datos(stats):
     print(f"{equipo1}: Goles esperados en la segunda mitad >> {PgolesST:.2f}")
     
     print(f"{'-' * 40} DATOS DEL {equipo2} {'-' * 40}")
-    
-    Pcorner2 = (Tcorner2 / p) - 1
-    print(f"{equipo2}: Cantidad de tiros de esquina esperados >> {Pcorner2:.2f}")
+
+    print(f"{equipo2}: Cantidad de tiros de esquina esperados >> {(MeanC2-1):.2f}")
+    print(f"Desviación estándar de corners >> {DsC2:.2f}")
     print(f"Rango de la desviación estándar de corners: {UVrC2:.2f} ---- {MeanC2:.2f} ---- {UVsC2:.2f}")
-    
-    Pgoles2 = (Tgoles2 / p) - 1
-    print(f"{equipo2}: Cantidad de goles esperados >> {Pgoles2:.2f}")
-    print(f"Rango de la desviación estándar de goles: {UVr2:.2f} ---- {Mean2:.2f} ---- {UVs2:.2f}")
+
+    print(f"{equipo2}: Cantidad de goles esperados >> {(MeanG2-1):.2f}")
+    print(f"Rango de la desviación estándar de goles: {UVr2G:.2f} ---- {MeanG2:.2f} ---- {UVs2G:.2f}")
     
     Pgoles2_aciertos = (Tgoles2 * 100) / TrematesAr2
     print(f"{equipo2}: Probabilidad de aciertos en remates >> {Pgoles2_aciertos:.2f}%")
@@ -870,9 +929,12 @@ def calcular_desviacion_estandar_y_datos(stats):
     Premates2 = (TrematesAr2 * 100) / Tremates2
     print(f"{equipo2}: Porcentaje de balones al arco >> {Premates2:.2f}%")
     print(f"Porcentaje de balones fuera del arco >> {100 - Premates2:.2f}%")
-    
-    PtarjetasA2 = (TtarjetasA2 * 100) / Tfaltas2
-    print(f"{equipo2}: Probabilidad de recibir tarjetas amarillas >> {PtarjetasA2:.2f}%")
+
+    print(f"{equipo2}: Cantidad de tarjetas amarillas esperadas >> {(MeanTa2 - 1):.2f}")
+    print(f"Rango de la desviación estándar de tarjetas amarillas: {UVrTa2:.2f} ---- {MeanTa2:.2f} ---- {UVsTa2:.2f}")
+
+    print(f"{equipo2}: Cantidad de tarjetas rojas esperadas >> {(MeanTr2 - 1):.2f}")
+    print(f"Rango de la desviación estándar de tarjetas rojas: {UVrTr2:.2f} ---- {MeanTr2:.2f} ---- {UVsTr2:.2f}")
     
     PposesionB2 = (Tpases2 * 100) / (Tpases + Tpases2)
     print(f"{equipo2}: Promedio de posesión del balón >> {PposesionB2:.2f}%")
@@ -883,7 +945,7 @@ def calcular_desviacion_estandar_y_datos(stats):
     PgolesST2 = (TgolesST2 / p) - 1
     print(f"{equipo2}: Goles esperados en la segunda mitad >> {PgolesST2:.2f}")
 
-    return Mean, Mean2
+    return MeanG, MeanG2
 
     #Manejo de csv
 # Crear un DataFrame por equipo y devolver los DataFrames al final
@@ -891,7 +953,7 @@ def crear_y_retornar_dataframes(stats):
     equipos_dataframes = {}
     for equipo, partidos in stats.items():
         # Generar el nombre del archivo con el nombre del equipo
-        nombre_archivo = f"{equipo}.csv"
+        nombre_archivo = f"./teams_data/{equipo}.csv"
 
         # Verificar si el archivo ya existe
         if os.path.isfile(nombre_archivo):
@@ -920,10 +982,14 @@ def crear_y_retornar_dataframes(stats):
             # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
             df_stats = df_stats.sort_values(by="Fecha", ascending=False)
             df_stats = df_stats.drop_duplicates(subset=["Fecha", "Equipo_name"], keep="first")
-            
+
             # Ordenar el DataFrame en orden descendente (fecha más reciente primero)
             df_stats.fillna(0, inplace=True)
             df_stats.to_csv(nombre_archivo, sep=';', index=False)
+
+        # --- Tomar solo las primeras 100 filas ---
+        df_stats = df_stats[df_stats['Torneo'] != 6]
+        df_stats = df_stats.head(100)
 
         # Guardar el DataFrame en el diccionario
         equipos_dataframes[equipo] = df_stats
@@ -933,6 +999,13 @@ def crear_y_retornar_dataframes(stats):
 equipos_dataframes = crear_y_retornar_dataframes(stats)
 local_df = equipos_dataframes[equipo_objetivo_1]
 visitante_df = equipos_dataframes[equipo_objetivo_2]
+
+#Eliminar los amistosos
+stats[equipo_objetivo_1] = {key: value for key, value in stats[equipo_objetivo_1].items()
+                           if value.get('Torneo') != 6}
+
+stats[equipo_objetivo_2] = {key: value for key, value in stats[equipo_objetivo_2].items()
+                           if value.get('Torneo') != 6}
 
 local_df['Torneo'] = local_df['Torneo'].astype('category')
 local_df['Alineacion'] = local_df['Alineacion'].astype('category')
@@ -976,6 +1049,7 @@ y_continuas = y[valores_y_continuas]
 x_train, x_test, y_train_categoricas, y_test_categoricas = train_test_split(x, y_categoricas, test_size=0.2, random_state=42)
 _, _, y_train_continuas, y_test_continuas = train_test_split(x, y_continuas, test_size=0.2, random_state=42)
 
+"""
 # Parámetros para XGBoost
 param_grid_xgb = {
     'estimator__n_estimators': [150, 200, 300],
@@ -985,7 +1059,13 @@ param_grid_xgb = {
 }
 
 # Modelo base
-xgb_base = XGBClassifier(random_state=42, eval_metric='logloss',enable_categorical=True)
+xgb_base = XGBClassifier(
+    random_state=42,
+    eval_metric="logloss",
+    enable_categorical=True,   # Para columnas categóricas (desde XGBoost 1.6+)
+    tree_method="gpu_hist",    # Entrenamiento en GPU
+    predictor="gpu_predictor"  # Predicciones en GPU
+)
 # MultiOutputClassifier para manejar múltiples salidas categóricas
 multi_output_xgb = MultiOutputClassifier(xgb_base, n_jobs=-1)
 
@@ -993,9 +1073,9 @@ multi_output_xgb = MultiOutputClassifier(xgb_base, n_jobs=-1)
 model_clasificacion = GridSearchCV(multi_output_xgb, param_grid_xgb, cv=3, n_jobs=-1)
 model_clasificacion.fit(x_train, y_train_categoricas)
 
-print("\nMejor estimador del local:", model_clasificacion.best_estimator_)
+#print("\nMejor estimador del local:", model_clasificacion.best_estimator_)
 print("Mejor score del local:", model_clasificacion.best_score_)
-
+"""
 #Regressor
 param_grid_regressor = {
     'n_estimators': [300],  # Menos valores
@@ -1041,8 +1121,15 @@ y_continuas2 = y2[valores_y_continuas]
 x_train2, x_test2, y_train_categoricas2, y_test_categoricas2 = train_test_split(x2, y_categoricas2, test_size=0.2, random_state=42)
 _, _, y_train_continuas2, y_test_continuas2 = train_test_split(x2, y_continuas2, test_size=0.2, random_state=42)
 
+"""
 # Modelo base
-xgb_base2 = XGBClassifier(random_state=42, eval_metric='logloss',enable_categorical=True)
+xgb_base2 = XGBClassifier(
+    random_state=42,
+    eval_metric="logloss",
+    enable_categorical=True,   # Para columnas categóricas (desde XGBoost 1.6+)
+    tree_method="gpu_hist",    # Entrenamiento en GPU
+    predictor="gpu_predictor"  # Predicciones en GPU
+)
 # MultiOutputClassifier para manejar múltiples salidas categóricas
 multi_output_xgb2 = MultiOutputClassifier(xgb_base2, n_jobs=-1)
 
@@ -1050,9 +1137,9 @@ multi_output_xgb2 = MultiOutputClassifier(xgb_base2, n_jobs=-1)
 model_clasificacion2 = GridSearchCV(multi_output_xgb2, param_grid_xgb, cv=3, n_jobs=-1)
 model_clasificacion2.fit(x_train2, y_train_categoricas2)
 
-print("\nMejor estimador del visitante:", model_clasificacion2.best_estimator_)
+#print("\nMejor estimador del visitante:", model_clasificacion2.best_estimator_)
 print("Mejor score del visitante:", model_clasificacion2.best_score_)
-
+"""
 xgb2 = XGBRegressor(random_state=42)
 grid_search2 = GridSearchCV(xgb2, param_grid_regressor, cv=5, scoring='neg_mean_squared_error', verbose=1, n_jobs=-1)
 grid_search2.fit(x_train2, y_train_continuas2)
@@ -1313,7 +1400,7 @@ estadisticas_equipo1_df = pd.concat([estadisticas_equipo1_df, df_nuevas_columnas
 estadisticas_equipo2_df = pd.concat([estadisticas_equipo2_df, df_nuevas_columnas_visitante], axis=1)
 
 torneo_name = next((k for k, v in torneos_dict.items() if v == Torneo), None)
-alineaciones = getAlineacion().getAlineaciones({"name_equipo":equipo1,"name_visitante_equipo":equipo2,"torneo":torneo_name})
+alineaciones = GetAlineacion().getAlineaciones({"name_equipo":equipo1, "name_visitante_equipo":equipo2, "torneo":torneo_name})
 
 # Obtener jugadores del equipo local
 jugadores_locales = alineaciones["local"]
@@ -1382,24 +1469,25 @@ for col in cat_columns:
     estadisticas_equipo2_df[col] = estadisticas_equipo2_df[col].astype('category')
     estadisticas_equipo2_df[col] = estadisticas_equipo2_df[col].cat.set_categories(categorias2[col])
     estadisticas_equipo2_df[col] = estadisticas_equipo2_df[col].cat.codes
-    
+
+"""
 # Predicciones categóricas
 predicciones_categoricas_equipo1 = model_clasificacion.predict(estadisticas_equipo1_df)
 predicciones_probabilidades_equipo1 = model_clasificacion.predict_proba(estadisticas_equipo1_df)
 
 predicciones_categoricas_equipo2 = model_clasificacion2.predict(estadisticas_equipo2_df)
 predicciones_probabilidades_equipo2 = model_clasificacion2.predict_proba(estadisticas_equipo2_df)
-
+"""
 # Predicciones continuas (Tiros de esquina, goles_totales)
 predicciones_continuas_equipo1 = model_regresion.predict(estadisticas_equipo1_df)
 predicciones_continuas_equipo2 = model_regresion2.predict(estadisticas_equipo2_df)
 
 # Precisión del modelo
-y_pred_categoricas = model_clasificacion.predict(x_test)
+#y_pred_categoricas = model_clasificacion.predict(x_test)
 y_pred_continuas = model_regresion.predict(x_test)
 
 # Precisión del modelo visitante
-y_pred_categoricas2 = model_clasificacion2.predict(x_test2)
+#y_pred_categoricas2 = model_clasificacion2.predict(x_test2)
 y_pred_continuas2 = model_regresion2.predict(x_test2)
 
 # Evaluación de las variables continuas (regresión) local 
@@ -1416,12 +1504,12 @@ print("\n\nEvaluacion del modelo y probabilidad de aciertos en datos de prueba\n
 #Evaluación del modelo
 #categoricas
 #local
-accuracy_clasificacion = accuracy_score(y_test_categoricas, y_pred_categoricas)
-print(f'\nPrecisión categoricas del local: {accuracy_clasificacion:.3f}')
+#accuracy_clasificacion = accuracy_score(y_test_categoricas, y_pred_categoricas)
+#print(f'\nPrecisión categoricas del local: {accuracy_clasificacion:.3f}')
 
 #visitante
-accuracy_clasificacion2 = accuracy_score(y_test_categoricas2, y_pred_categoricas2)
-print(f'\nPrecisión categoricas del visitante: {accuracy_clasificacion2:.3f}')
+#accuracy_clasificacion2 = accuracy_score(y_test_categoricas2, y_pred_categoricas2)
+#print(f'\nPrecisión categoricas del visitante: {accuracy_clasificacion2:.3f}')
 
 
 #continuas local
@@ -1438,6 +1526,7 @@ print(f'Coeficiente de determinación (R2) continuas del visitante: {r2_continua
 
 
 print("\n-----------------PREDICCIONES DEL", equipo_objetivo_1, "-----------------")
+"""
 for idx, variable in enumerate(y_categoricas.columns):
     probabilidad = predicciones_probabilidades_equipo1[idx]
 
@@ -1449,6 +1538,7 @@ for idx, variable in enumerate(y_categoricas.columns):
         prob_1 = probabilidad[0][1]
         print(f"{variable}: Predicción: {predicciones_categoricas_equipo1[0][idx]} "
               f"(Prob. clase 0: {prob_0:.2f}, Prob. clase 1: {prob_1:.2f})")
+"""
 
 # Predicciones continuas sin tener en encuenta los jugadores (Tiros de esquina, goles_totales)
 for idx, variable in enumerate(y_continuas.columns):
@@ -1459,6 +1549,7 @@ for idx, variable in enumerate(y_continuas.columns):
 
 
 print("\n-----------------PREDICCIONES DEL", equipo_objetivo_2, "-----------------")
+"""
 for idx, variable in enumerate(y_categoricas2.columns):
     probabilidad = predicciones_probabilidades_equipo2[idx]
 
@@ -1470,6 +1561,7 @@ for idx, variable in enumerate(y_categoricas2.columns):
         prob_1 = probabilidad[0][1]
         print(f"{variable}: Predicción: {predicciones_categoricas_equipo2[0][idx]} "
               f"(Prob. clase 0: {prob_0:.2f}, Prob. clase 1: {prob_1:.2f})")
+"""
 
 # Predicciones continuas sin tener en encuenta los jugadores (Tiros de esquina, goles_totales)
 for idx, variable in enumerate(y_continuas2.columns):
@@ -1550,3 +1642,19 @@ print("\n--- Mayor subestimación visitante ---")
 print(f"Valor real      : {y_test_continuas2.iloc[idx_max_sub2]:.2f}")
 print(f"Predicción      : {y_pred_continuas2[idx_max_sub2]:.2f}")
 print(f"Error (↓)       : {errores2.iloc[idx_max_sub2]:.2f}")
+
+print("\n\n")
+print("--- Metodo Markov ---")
+markov_method = MarkovMethod()
+
+print(f"\n--- Resultados de Equipo {equipo_objetivo_1}---")
+values_local = local_df["Tiros de esquina"].values[:100]
+corner_current_local = local_df.iloc[0]["Tiros de esquina"]
+print(f"--- corner actual del local: {corner_current_local}")
+markov_method.exec_model(values_local, corner_current_local)
+
+print(f"\n--- Resultados de Equipo {equipo_objetivo_2}---")
+values_visitante = visitante_df["Tiros de esquina"].values[:100]
+corner_current_visitante = visitante_df.iloc[0]["Tiros de esquina"]
+print(f"--- corner actual del visitante: {corner_current_visitante}")
+markov_method.exec_model(values_visitante, corner_current_visitante)
