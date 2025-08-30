@@ -1,15 +1,48 @@
-# Sindy
+SINDY ⚽📊
+Software predictivo para apuestas de fútbol
 
-Software predictivo para apuestas de futbol.
+Sindy es una herramienta de machine learning diseñada para predecir resultados de partidos de fútbol y ayudar en la toma de decisiones para apuestas deportivas. Utiliza modelos avanzados de aprendizaje automático (XGBClassifier y XGBRegressor) junto con técnicas de web scraping (vía Selenium) para recopilar y analizar datos actualizados de equipos.
 
-1. Recordar que el chrome driver debe estar lo mas actualizado posible y el chrome igual, para que no hayan problemas de incompatibilidad o errores. O usar un chromeDriver compatible con la version que tengais de Chrome.
+🔧 Requisitos y configuración
 
-Ejecutar al clonar repositorio
+Dependencias:
+ChromeDriver (compatible con tu versión de Chrome).
+Python 3.8+.
 
-python -m venv venv # Crear un nuevo entorno virtual
-source venv/bin/activate # En Linux/macOS
-venv\Scripts\activate # En Windows
-pip install -r requirements.txt # Instalar dependencias
+Instalación
 
-despues de instalar alguna aplicacion ejecutar:
+Clona el repositorio:
+git clone [URL_del_repositorio]
+cd Sindy
+
+Crea y activa un entorno virtual:
+python -m venv venv
+# Linux/macOS:
+source venv/bin/activate
+# Windows:
+venv\Scripts\activate
+
+Instala las dependencias:
+pip install -r requirements.txt
+
+🚨 Importante
+Actualiza ChromeDriver:
+Asegúrate de que tu versión de ChromeDriver sea compatible con tu navegador Chrome para evitar errores. Descarga la versión correcta [aquí](https://chromedriver.chromium.org/).
+
+🛠 Funcionalidades clave
+Web scraping automatizado: Extrae datos de rendimiento de equipos (goles, posesión, lesiones, etc.) usando Selenium.
+
+Modelos de ML:
+
+XGBClassifier: Predice resultados (victoria/empate/derrota).
+
+XGBRegressor: Estima métricas continuas (ej. goles esperados).
+
+Entrenamiento flexible: Los datos se actualizan automáticamente antes de cada predicción.
+
+🔄 Mantenimiento
+Si instalas nuevas dependencias, actualiza el archivo requirements.txt:
 pip freeze > requirements.txt
+
+📌 Notas
+Este proyecto es un prototipo predictivo; los resultados no garantizan ganancias en apuestas.
