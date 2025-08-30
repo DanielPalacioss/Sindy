@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import math
 from datetime import datetime, timezone
 import re
+import sys
 
 class GetMatch:
 
@@ -37,47 +38,54 @@ class GetMatch:
         # Configuración de Selenium con ChromeDriver
         service =  Service('chromedriver.exe')
         driver = webdriver.Chrome(service=service, options=options)
-        try:
-            driver.get(url)
-            time.sleep(1)
-            driver.get(url)
-            # Esperar a que el modal se cargue
-            wait = WebDriverWait(driver, 6)  # Aumenta el tiempo de espera
-            modal = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="sZmt3b"]/div[2]/div[2]/div/div[2]/div')))
-            cont = 0
-            if(matchsNumber < 20):
-                tableNumber = math.ceil(matchsNumber/40)
-            else:
-                tableNumber = math.ceil(matchsNumber/40)+1
-                matchsNumber += 25
-            while(cont < tableNumber):
-                time.sleep(2.5)
-                # Hacer scroll dentro del div con scroll
-                driver.execute_script("arguments[0].scrollTop = 0;", modal)
-                cont +=1 
+        cont = 0
+        while(True):
+            if(cont == 3):
+                sys.exit(1)
+            cont +=1
+            try:
+                driver.get(url)
+                time.sleep(1)
+                driver.get(url)
+                # Esperar a que el modal se cargue
+                wait = WebDriverWait(driver, 6)  # Aumenta el tiempo de espera
+                modal = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="sZmt3b"]/div[2]/div[2]/div/div[2]/div')))
+                cont = 0
+                if(matchsNumber < 20):
+                    tableNumber = math.ceil(matchsNumber/40)
+                else:
+                    tableNumber = math.ceil(matchsNumber/40)+1
+                    matchsNumber += 25
+                while(cont < tableNumber):
+                    time.sleep(2.5)
+                    # Hacer scroll dentro del div con scroll
+                    driver.execute_script("arguments[0].scrollTop = 0;", modal)
+                    cont +=1
 
-            # Obtener la fecha y hora actual en UTC
-            now = datetime.now(timezone.utc)
-            
-            time.sleep(1)
+                # Obtener la fecha y hora actual en UTC
+                now = datetime.now(timezone.utc)
 
-            # Buscar todos los divs con las clases 'imso-loa' o 'imso-ani' y filtrar por fecha
-            filtered_matchesLink = []
+                time.sleep(1)
 
-            child_divs = driver.find_elements(By.CSS_SELECTOR, "div.OcbAbf[data-hveid='CAEQAA'] div.imso-loa.imso-ani")
+                # Buscar todos los divs con las clases 'imso-loa' o 'imso-ani' y filtrar por fecha
+                filtered_matchesLink = []
 
-            for div in reversed(child_divs):
-                start_time_attr = div.get_attribute("data-start-time")
+                child_divs = driver.find_elements(By.CSS_SELECTOR, "div.OcbAbf[data-hveid='CAEQAA'] div.imso-loa.imso-ani")
 
-                if start_time_attr:
-                    # Convertir la fecha de string a datetime
-                    start_time = datetime.fromisoformat(start_time_attr.replace("Z", "+00:00"))
+                for div in reversed(child_divs):
+                    start_time_attr = div.get_attribute("data-start-time")
 
-                    # Comparar con la fecha actual
-                    if start_time < now:
-                        modifiedLink = self.reemplazar_texto(defaultLink, div.get_attribute("data-df-match-mid"))
-                        filtered_matchesLink.append(modifiedLink)
-            driver.quit()
-            return filtered_matchesLink[:matchsNumber]
-        except Exception as e:
-            print(f"Error obteniendo Ids de la URL {e}")
+                    if start_time_attr:
+                        # Convertir la fecha de string a datetime
+                        start_time = datetime.fromisoformat(start_time_attr.replace("Z", "+00:00"))
+
+                        # Comparar con la fecha actual
+                        if start_time < now:
+                            modifiedLink = self.reemplazar_texto(defaultLink, div.get_attribute("data-df-match-mid"))
+                            filtered_matchesLink.append(modifiedLink)
+                driver.quit()
+                return filtered_matchesLink[:matchsNumber]
+            except Exception as e:
+                print(f"Error obteniendo Ids de la URL {e}")
+                driver.quit()
+                return []
