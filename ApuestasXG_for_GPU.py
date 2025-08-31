@@ -1816,7 +1816,8 @@ print(f"Valor real      : {y_test_continuas2.iloc[idx_max_sub2]:.2f}")
 print(f"Predicción      : {y_pred_continuas2[idx_max_sub2]:.2f}")
 print(f"Error (↓)       : {errores2.iloc[idx_max_sub2]:.2f}")
 
-print("\n\n")
+print(f"\n\nLa información a continuación se vera reflejada de forma ascendente, \n"
+      f"lo cual permitira ver de los partidos mas reciente a los mas antiguos.")
 print("--- Metodo Markov ---")
 markov_method = MarkovMethod()
 
@@ -1826,8 +1827,32 @@ corner_current_local = local_df.iloc[0]["Tiros de esquina"]
 print(f"--- corner actual del local: {corner_current_local}")
 markov_method.exec_model(values_local, corner_current_local)
 
-print(f"\n--- Resultados de Equipo {equipo_objetivo_2}---")
+localPositions = local_df[local_df['Tiros de esquina'] == corner_current_local].index.tolist()
+localCount = len(localPositions)
+print(f"\nCantidad de veces que se dio el corner [{corner_current_local}] en un partido para el local es {localCount}.\n")
+
+for i, pos in enumerate(localPositions):
+    if pos > 0:
+        next_val = local_df.loc[pos - 1, 'Tiros de esquina']
+        print(f"Partido#{pos+1}              corner actual:->[{corner_current_local}]      next:->[{next_val}]")
+    else:
+        print(f"Ultimo partido jugado, corner actual:->[{corner_current_local}]")
+
+
+print(f"\n\n\n--- Resultados de Equipo {equipo_objetivo_2}---")
 values_visitante = visitante_df["Tiros de esquina"].values[:100]
 corner_current_visitante = visitante_df.iloc[0]["Tiros de esquina"]
 print(f"--- corner actual del visitante: {corner_current_visitante}")
 markov_method.exec_model(values_visitante, corner_current_visitante)
+
+visitantePositions = visitante_df[visitante_df['Tiros de esquina'] == corner_current_visitante].index.tolist()
+visitanteCount = len(visitantePositions)
+
+print(f"\nCantidad de veces que se dio el corner [{corner_current_visitante}] en un partido para el visitante es {visitanteCount}.\n")
+
+for i, pos in enumerate(visitantePositions):
+    if pos > 0:
+        next_val = visitante_df.loc[pos - 1, 'Tiros de esquina']
+        print(f"Partido#{pos+1}              corner actual:->[{corner_current_visitante}]      next:->[{next_val}]")
+    else:
+        print(f"Ultimo partido jugado, corner actual:->[{corner_current_visitante}]")
