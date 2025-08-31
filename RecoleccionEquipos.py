@@ -8,11 +8,11 @@ from selenium.webdriver.chrome.options import Options
 
 
 class EquipmentCollection:
-    if __name__ == "__main__":
-
+    def __init__(self):
         options = Options()
         # Modo sin interfaz gráfica
-        options.add_argument('--headless')  
+        # Modo sin interfaz gráfica
+        options.add_argument('--headless')
         options.add_argument('--disable-gpu')  # Recomendado en modo headless (especialmente en Windows)
         options.add_argument('--disable-dev-shm-usage')  # Previene errores en contenedores
         options.add_argument('--no-sandbox')  # Evita errores en algunos entornos Linux
@@ -25,18 +25,24 @@ class EquipmentCollection:
         options.add_experimental_option("useAutomationExtension", False)
         options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36")
 
-
         # Configuración de Selenium con ChromeDriver
         service =  Service('chromedriver.exe')
-        driver = webdriver.Chrome(service=service, options=options)
+        self.driver = webdriver.Chrome(service=service, options=options)
 
-        urls_torneos = []
+        self.urls_torneos = [] #Links de google donde estan la lista de equipos de un campeonato
+        self.equipos_dict = self.get_dict_of_csv()
 
-        equipos_dict = {"Desconocido": -1}
+    def get_dict_of_csv(self):
+        if os.path.isfile('team_list/teams.csv'):
+            df = pd.read_csv('team_list/teams.csv', sep=';', quotechar='"')
+            return dict(zip(df["Equipo"], df["ID"]))
+        else:
+            return {"Desconocido": -1}
 
+    def save_csv(self, df):
+        df.to_csv('team_list/teams.csv', sep=';', index=False)
 
     def getTeams(self, soup):
-        self.equipos_dict = self.get_dict_of_csv()
         try:
             campeonato = soup.find('div', class_='PZPZlf ssJ7i')
             team_tables = soup.find_all('table', class_='Jzru1c')  # Encuentra todas las tablas
@@ -49,7 +55,7 @@ class EquipmentCollection:
                         self.equipos_dict[team_name] = len(self.equipos_dict)
 
         except Exception as e:
-            print(f"Error al obtener estadísticas para {campeonato}: {e}")
+            print(f"Error al obtener equipos para {campeonato}: {e}")
 
     # Función para procesar las URLs
     def procesar_urls(self, urls):
@@ -57,7 +63,7 @@ class EquipmentCollection:
             try:
                 self.driver.delete_all_cookies()
                 self.driver.get(url)
-                time.sleep(3)
+                time.sleep(2.5)
                 soup = BeautifulSoup(self.driver.page_source, 'html.parser')
                 self.getTeams(soup)
                 
@@ -66,24 +72,8 @@ class EquipmentCollection:
 
         # Cerrar el navegador
         self.driver.quit()
-
-        return pd.DataFrame(list(self.equipos_dict.items()), columns=["Equipo", "ID"])
-
-    def get_dict_of_csv(self):
-        if os.path.isfile('team_list/teams.csv'):
-            df = pd.read_csv('team_list/teams.csv', sep=';', quotechar='"')
-            return dict(zip(df["Equipo"], df["ID"]))
-        else:
-            return self.equipos_dict
-        
-    def save_csv(self, df):
-
-        # Verificar si el archivo existe
-        if os.path.isfile('team_list/teams.csv'):
-            df.to_csv('teams.csv', sep=';', index=False)
-        else:
-            df.to_csv('teams.csv', sep=';', index=False)
-            # Si no existe, se crea desde 0
+        df = pd.DataFrame(list(self.equipos_dict.items()), columns=["Equipo", "ID"])
+        return df
             
 if __name__ == "__main__":
     equipment_collection = EquipmentCollection()

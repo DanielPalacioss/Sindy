@@ -529,6 +529,8 @@ torneos_dict = {
     "Prva Liga": 50,
     "Primera Liga de Croacia": 51,
     "Supercopa de Croacia": 52,
+    "PL2 Division 1": 53,
+    "Primeira Liga": 54,
     "Torneo desconocido": -1
     # Agrega otros torneos según necesites
 }
