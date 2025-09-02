@@ -20,14 +20,14 @@ class MarkovMethod():
             state = tuple(values[i - order:i]) if order > 1 else values[i]
             next_state = values[i + 1]
 
-            relation = "igual"
+            relation = "p_igual"
             if next_state > values[i]:
-                relation = "mayor"
+                relation = "p_mayor"
             elif next_state < values[i]:
-                relation = "menor"
+                relation = "p_menor"
 
             if state not in transitions:
-                transitions[state] = {"mayor": 0, "igual": 0, "menor": 0}
+                transitions[state] = {"p_mayor": 0, "p_igual": 0, "p_menor": 0}
             transitions[state][relation] += 1
 
         # convertir a probabilidades
@@ -37,7 +37,7 @@ class MarkovMethod():
             if total > 0:
                 probs[state] = {k: v / total for k, v in counts.items()}
             else:
-                probs[state] = {"mayor": 0, "igual": 0, "menor": 0}
+                probs[state] = {"p_mayor": 0, "p_igual": 0, "p_menor": 0}
         return probs
 
 
@@ -68,7 +68,7 @@ class MarkovMethod():
         elif order == 2:
             state = tuple(current_state_binned)
 
-        probabilities = model.get(state, {"mayor": 0, "igual": 0, "menor": 0})
+        probabilities = model.get(state, {"p_mayor": 0, "p_igual": 0, "p_menor": 0})
 
         # Si se usan bins, convertir las claves a rangos
         if bins is not None:
@@ -79,12 +79,12 @@ class MarkovMethod():
             # Crear nuevo diccionario con rangos
             ranged_probs = {}
             for relation, prob in probabilities.items():
-                if relation == "mayor":
+                if relation == "p_mayor":
                     if current_range_index < len(range_labels) - 1:
                         ranged_probs[range_labels[current_range_index + 1]] = prob
                     else:
                         ranged_probs["fuera_de_rango"] = prob
-                elif relation == "menor":
+                elif relation == "p_menor":
                     if current_range_index > 0:
                         ranged_probs[range_labels[current_range_index - 1]] = prob
                     else:

@@ -987,64 +987,39 @@ def calcular_desviacion_estandar_y_datos(stats):
 
     # Desviación estándar y rangos
     if p != 0:
-        Ds = math.sqrt(sum([(x - MeanG) ** 2 for x in goles_equipo1]) / p)
-        UVsG, UVrG = MeanG + Ds, MeanG - Ds
-    else:
-        UVsG, UVrG = MeanG + 0, MeanG - 0
+        DsG = math.sqrt(sum([(x - MeanG) ** 2 for x in goles_equipo1]) / p)
 
     if p != 0:
         DsC = math.sqrt(sum([(x - MeanC) ** 2 for x in corner_equipo1]) / p)
-        UVsC, UVrC = MeanC + DsC, MeanC - DsC
-    else:
-        UVsC, UVrC = MeanC + 0, MeanC - 0
 
     if p != 0:
         DsTa = math.sqrt(sum([(x - MeanTa) ** 2 for x in tarjetas_amarillas_equipo1]) / p)
-        UVsTa, UVrTa = MeanTa + DsTa, MeanTa - DsTa
-    else:
-        UVsTa, UVrTa = MeanTa + 0, MeanTa - 0
 
     if p != 0:
         DsTr = math.sqrt(sum([(x - MeanTr) ** 2 for x in tarjetas_rojas_equipo1]) / p)
-        UVsTr, UVrTr = MeanTr + DsTr, MeanTr - DsTr
-    else:
-        UVsTr, UVrTr = MeanTr + 0, MeanTr - 0
 
     #Equipo 2 Desviaciones
 
     if p != 0:
-        Ds2 = math.sqrt(sum([(x - MeanG2) ** 2 for x in goles_equipo2]) / p)
-        UVs2G, UVr2G = MeanG2 + Ds2, MeanG2 - Ds2
-    else:
-        UVs2G, UVr2G = MeanG2 + 0, MeanG2 - 0
+        DsG2 = math.sqrt(sum([(x - MeanG2) ** 2 for x in goles_equipo2]) / p)
 
     if p != 0:
         DsC2 = math.sqrt(sum([(x - MeanC2) ** 2 for x in corner_equipo2]) / p)
-        UVsC2, UVrC2 = MeanC2 + DsC2, MeanC2 - DsC2
-    else:
-        UVsC2, UVrC2 = MeanC2 + 0, MeanC2 - 0
 
     if p != 0:
         DsTa2 = math.sqrt(sum([(x - MeanTa2) ** 2 for x in tarjetas_amarillas_equipo2]) / p)
-        UVsTa2, UVrTa2 = MeanTa2 + DsTa2, MeanTa2 - DsTa2
-    else:
-        UVsTa2, UVrTa2 = MeanTa2 + 0, MeanTa2 - 0
 
     if p != 0:
         DsTr2 = math.sqrt(sum([(x - MeanTr2) ** 2 for x in tarjetas_rojas_equipo2]) / p)
-        UVsTr2, UVrTr2 = MeanTr2 + DsTr2, MeanTr2 - DsTr2
-    else:
-        UVsTr2, UVrTr2 = MeanTr2 + 0, MeanTr2 - 0
 
     # Imprimir los resultados
     print(f"{'-' * 40} DATOS DEL {equipo1} {'-' * 40}")
 
-    print(f"{equipo1}: Cantidad de tiros de esquina esperados >> {(MeanC-1):.2f}")
-    print(f"Desviación estándar de corners >> {DsC:.2f}")
-    print(f"Rango de la desviación estándar de corners: {UVrC:.2f} ---- {MeanC:.2f} ---- {UVsC:.2f}")
+    print(f"{equipo1}: Promedio de tiros de esquina >> {(MeanC):.2f}")
+    print(f"corner std value >> {DsC:.2f}")
 
-    print(f"{equipo1}: Cantidad de goles esperados >> {(MeanG-1):.2f}")
-    print(f"Rango de la desviación estándar de goles: {UVrG:.2f} ---- {MeanG:.2f} ---- {UVsG:.2f}")
+    print(f"{equipo1}: Promedio de goles >> {(MeanG):.2f}")
+    print(f"goles std value >> {DsG:.2f}")
     
     Pgoles_aciertos = (Tgoles * 100) / TrematesAr
     print(f"{equipo1}: Probabilidad de aciertos en remates >> {Pgoles_aciertos:.2f}%")
@@ -1054,11 +1029,11 @@ def calcular_desviacion_estandar_y_datos(stats):
     print(f"{equipo1}: Porcentaje de balones al arco >> {Premates:.2f}%")
     print(f"Porcentaje de balones fuera del arco >> {100 - Premates:.2f}%")
 
-    print(f"{equipo1}: Cantidad de tarjetas amarillas esperadas >> {(MeanTa - 1):.2f}")
-    print(f"Rango de la desviación estándar de tarjetas amarillas: {UVrTa:.2f} ---- {MeanTa:.2f} ---- {UVsTa:.2f}")
+    print(f"{equipo1}: Promedio de tarjetas amarillas >> {(MeanTa):.2f}")
+    print(f"tarjetas amarillas std value >> {DsTa:.2f}")
 
-    print(f"{equipo1}: Cantidad de tarjetas rojas esperadas >> {(MeanTr - 1):.2f}")
-    print(f"Rango de la desviación estándar de tarjetas rojas: {UVrTr:.2f} ---- {MeanTr:.2f} ---- {UVsTr:.2f}")
+    print(f"{equipo1}: Promedio de tarjetas rojas >> {(MeanTr):.2f}")
+    print(f"tarjetas rojas std value >> {DsTr:.2f}")
     
     PposesionB = (Tpases * 100) / (Tpases + Tpases2)
     print(f"{equipo1}: Promedio de posesión del balón >> {PposesionB:.2f}%")
@@ -1071,12 +1046,11 @@ def calcular_desviacion_estandar_y_datos(stats):
     
     print(f"{'-' * 40} DATOS DEL {equipo2} {'-' * 40}")
 
-    print(f"{equipo2}: Cantidad de tiros de esquina esperados >> {(MeanC2-1):.2f}")
-    print(f"Desviación estándar de corners >> {DsC2:.2f}")
-    print(f"Rango de la desviación estándar de corners: {UVrC2:.2f} ---- {MeanC2:.2f} ---- {UVsC2:.2f}")
+    print(f"{equipo2}: Promedio de tiros de esquina >> {(MeanC2):.2f}")
+    print(f"corner std value: >> {DsC2:.2f}")
 
-    print(f"{equipo2}: Cantidad de goles esperados >> {(MeanG2-1):.2f}")
-    print(f"Rango de la desviación estándar de goles: {UVr2G:.2f} ---- {MeanG2:.2f} ---- {UVs2G:.2f}")
+    print(f"{equipo2}: Promedio de goles >> {(MeanG2):.2f}")
+    print(f"goles std value >> {DsG2:.2f}")
     
     Pgoles2_aciertos = (Tgoles2 * 100) / TrematesAr2
     print(f"{equipo2}: Probabilidad de aciertos en remates >> {Pgoles2_aciertos:.2f}%")
@@ -1086,11 +1060,11 @@ def calcular_desviacion_estandar_y_datos(stats):
     print(f"{equipo2}: Porcentaje de balones al arco >> {Premates2:.2f}%")
     print(f"Porcentaje de balones fuera del arco >> {100 - Premates2:.2f}%")
 
-    print(f"{equipo2}: Cantidad de tarjetas amarillas esperadas >> {(MeanTa2 - 1):.2f}")
-    print(f"Rango de la desviación estándar de tarjetas amarillas: {UVrTa2:.2f} ---- {MeanTa2:.2f} ---- {UVsTa2:.2f}")
+    print(f"{equipo2}: Promedio de tarjetas amarillas >> {(MeanTa2):.2f}")
+    print(f"tarjetas amarillas std value >> {DsTa2:.2f}")
 
-    print(f"{equipo2}: Cantidad de tarjetas rojas esperadas >> {(MeanTr2 - 1):.2f}")
-    print(f"Rango de la desviación estándar de tarjetas rojas: {UVrTr2:.2f} ---- {MeanTr2:.2f} ---- {UVsTr2:.2f}")
+    print(f"{equipo2}: Promedio de tarjetas rojas >> {(MeanTr2):.2f}")
+    print(f"tarjetas rojas std value >> {DsTr2:.2f}")
     
     PposesionB2 = (Tpases2 * 100) / (Tpases + Tpases2)
     print(f"{equipo2}: Promedio de posesión del balón >> {PposesionB2:.2f}%")
@@ -1688,16 +1662,16 @@ print("\n\nEvaluacion del modelo y probabilidad de aciertos en datos de prueba\n
 
 
 #continuas local
-print(f'\nError cuadrático medio (RMSE) continuas del local: {mse_continuas:.3f}')
-print(f'Error cuadrático medio (MSE) continuas al cuadrado del local: {math.pow(mse_continuas,2):.3f}')
-print(f'Error absoluto medio (MAE) continuas del local: {mae_continuas:.3f}')
-print(f'Coeficiente de determinación (R2) continuas del local: {r2_continuas:.3f}')
+print(f'\nError cuadrático medio (RMSE) continuas del {equipo_objetivo_1}: {mse_continuas:.3f}')
+print(f'Error cuadrático medio (MSE) continuas al cuadrado del {equipo_objetivo_1}: {math.pow(mse_continuas,2):.3f}')
+print(f'Error absoluto medio (MAE) continuas del {equipo_objetivo_1}: {mae_continuas:.3f}')
+print(f'Coeficiente de determinación (R2) continuas del {equipo_objetivo_1}: {r2_continuas:.3f}')
 
 #continuas visitante
-print(f'\nError cuadrático medio (RMSE) continuas del visitante: {mse_continuas2:.3f}')
-print(f'Error cuadrático medio (MSE) continuas al cuadrado del visitante: {math.pow(mse_continuas2,2):.3f}')
-print(f'Error absoluto medio (MAE) continuas del visitante: {mae_continuas2:.3f}')
-print(f'Coeficiente de determinación (R2) continuas del visitante: {r2_continuas2:.3f}')
+print(f'\nError cuadrático medio (RMSE) continuas del {equipo_objetivo_2}: {mse_continuas2:.3f}')
+print(f'Error cuadrático medio (MSE) continuas al cuadrado del {equipo_objetivo_2}: {math.pow(mse_continuas2,2):.3f}')
+print(f'Error absoluto medio (MAE) continuas del {equipo_objetivo_2}: {mae_continuas2:.3f}')
+print(f'Coeficiente de determinación (R2) continuas del {equipo_objetivo_2}: {r2_continuas2:.3f}')
 
 
 print("\n-----------------PREDICCIONES DEL", equipo_objetivo_1, "-----------------")
@@ -1718,9 +1692,7 @@ for idx, variable in enumerate(y_categoricas.columns):
 # Predicciones continuas sin tener en encuenta los jugadores (Tiros de esquina, goles_totales)
 for idx, variable in enumerate(y_continuas.columns):
     prediccion = predicciones_continuas_equipo1[idx]
-    prediccion_menos_mse = prediccion - mse_continuas
-    prediccion_mas_mse = prediccion + mse_continuas
-    print(f"{variable}: Predicción: {prediccion_menos_mse:.2f} ---- {prediccion:.2f} ---- {prediccion_mas_mse:.2f}")
+    print(f"{variable}: μ: {prediccion:.2f} σ: {mse_continuas:.3f}")
 
 
 print("\n-----------------PREDICCIONES DEL", equipo_objetivo_2, "-----------------")
@@ -1741,9 +1713,7 @@ for idx, variable in enumerate(y_categoricas2.columns):
 # Predicciones continuas sin tener en encuenta los jugadores (Tiros de esquina, goles_totales)
 for idx, variable in enumerate(y_continuas2.columns):
     prediccion2 = predicciones_continuas_equipo2[idx]
-    prediccion_menos_mse2 = prediccion2 - mse_continuas2
-    prediccion_mas_mse2 = prediccion2 + mse_continuas2
-    print(f"{variable}: Predicción: {prediccion_menos_mse2:.2f} ---- {prediccion2:.2f} ---- {prediccion_mas_mse2:.2f}")
+    print(f"{variable}: μ: {prediccion2:.2f} σ: {mse_continuas2:.3f}")
 #-------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
 #local porcentajes
 y_test_continuas = y_test_continuas.iloc[:, 0]
@@ -1798,8 +1768,8 @@ porc_debajo2 = np.mean(errores2 < -mse_continuas2) * 100
 
 # Mostrar resultados
 print(f"\n\nPredicciones dentro del rango visitante ±{mse_continuas2:.2f}: {porc_en_rango2:.2f}%")
-print(f"Predicciones que sobreestimaron el valor real en más de visitante {mse_continuas2:.2f}: {porc_encima2:.2f}%")
-print(f"Predicciones que subestimaron el valor real en más de visitante {mse_continuas2:.2f}: {porc_debajo2:.2f}%")
+print(f"Predicciones que sobreestimaron el valor real en más de {equipo_objetivo_2} {mse_continuas2:.2f}: {porc_encima2:.2f}%")
+print(f"Predicciones que subestimaron el valor real en más de {equipo_objetivo_2} {mse_continuas2:.2f}: {porc_debajo2:.2f}%")
 
 #Impresion de errores mas alto bajo y alto
 # Índice de mayor sobreestimación
@@ -1808,35 +1778,35 @@ idx_max_sobre2 = np.argmax(errores2)
 idx_max_sub2 = np.argmin(errores2)
 
 # Mostrar detalles
-print("\n--- Mayor sobreestimación visitante ---")
+print(f"\n--- Mayor sobreestimación {equipo_objetivo_1} ---")
 print(f"Valor real      : {y_test_continuas2.iloc[idx_max_sobre2]:.2f}")
 print(f"Predicción      : {y_pred_continuas2[idx_max_sobre2]:.2f}")
 print(f"Error (↑)       : {errores2.iloc[idx_max_sobre2]:.2f}")
 
-print("\n--- Mayor subestimación visitante ---")
+print(f"\n--- Mayor subestimación {equipo_objetivo_2} ---")
 print(f"Valor real      : {y_test_continuas2.iloc[idx_max_sub2]:.2f}")
 print(f"Predicción      : {y_pred_continuas2[idx_max_sub2]:.2f}")
 print(f"Error (↓)       : {errores2.iloc[idx_max_sub2]:.2f}")
 
 print(f"\n\nLa información a continuación se vera reflejada de forma ascendente, \n"
-      f"lo cual permitira ver de los partidos mas reciente a los mas antiguos.")
+      f"lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.")
 print("--- Metodo Markov ---")
 markov_method = MarkovMethod()
 
 print(f"\n--- Resultados de Equipo {equipo_objetivo_1}---")
 values_local = local_df["Tiros de esquina"].values[:100]
 corner_current_local = local_df.iloc[0]["Tiros de esquina"]
-print(f"--- corner actual del local: {corner_current_local}")
+print(f"--- actualCorner: {corner_current_local}")
 markov_method.exec_model(values_local, corner_current_local)
 
 localPositions = local_df[local_df['Tiros de esquina'] == corner_current_local].index.tolist()
 localCount = len(localPositions)
-print(f"\nCantidad de veces que se dio el corner [{corner_current_local}] en un partido para el local es {localCount}.\n")
+print(f"\nCantidad de veces que se dio el corner [{corner_current_local}] en un partido para el {equipo_objetivo_1} es {localCount}.\n")
 
 for i, pos in enumerate(localPositions):
     if pos > 0:
         next_val = local_df.loc[pos - 1, 'Tiros de esquina']
-        print(f"Partido#{pos+1}              corner actual:->[{corner_current_local}]      next:->[{next_val}]")
+        print(f"Partido#{pos+1}  del {equipo_objetivo_1}              corner actual:->[{corner_current_local}]      next:->[{next_val}]")
     else:
         print(f"Ultimo partido jugado, corner actual:->[{corner_current_local}]")
 
@@ -1844,17 +1814,17 @@ for i, pos in enumerate(localPositions):
 print(f"\n\n\n--- Resultados de Equipo {equipo_objetivo_2}---")
 values_visitante = visitante_df["Tiros de esquina"].values[:100]
 corner_current_visitante = visitante_df.iloc[0]["Tiros de esquina"]
-print(f"--- corner actual del visitante: {corner_current_visitante}")
+print(f"--- actualCorner: {corner_current_visitante}")
 markov_method.exec_model(values_visitante, corner_current_visitante)
 
 visitantePositions = visitante_df[visitante_df['Tiros de esquina'] == corner_current_visitante].index.tolist()
 visitanteCount = len(visitantePositions)
 
-print(f"\nCantidad de veces que se dio el corner [{corner_current_visitante}] en un partido para el visitante es {visitanteCount}.\n")
+print(f"\nCantidad de veces que se dio el corner [{corner_current_visitante}] en un partido para el {equipo_objetivo_2} es {visitanteCount}.\n")
 
 for i, pos in enumerate(visitantePositions):
     if pos > 0:
         next_val = visitante_df.loc[pos - 1, 'Tiros de esquina']
-        print(f"Partido#{pos+1}              corner actual:->[{corner_current_visitante}]      next:->[{next_val}]")
+        print(f"Partido#{pos+1} del {equipo_objetivo_2}              corner actual:->[{corner_current_visitante}]      next:->[{next_val}]")
     else:
         print(f"Ultimo partido jugado, corner actual:->[{corner_current_visitante}]")
