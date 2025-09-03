@@ -1640,16 +1640,16 @@ y_pred_continuas = model_regresion.predict(dtest)
 y_pred_continuas2 = model_regresion2.predict(dtest2)
 
 # Evaluación de las variables continuas (regresión) local 
-mse_continuas = root_mean_squared_error(y_test_continuas, y_pred_continuas)
-mae_continuas = mean_absolute_error(y_test_continuas, y_pred_continuas)
+#mse_continuas = root_mean_squared_error(y_test_continuas, y_pred_continuas)
+#mae_continuas = mean_absolute_error(y_test_continuas, y_pred_continuas)
 r2_continuas = r2_score(y_test_continuas, y_pred_continuas)
 
 # Evaluación de las variables continuas (regresión) visitante
-mse_continuas2= root_mean_squared_error(y_test_continuas2, y_pred_continuas2)
-mae_continuas2 = mean_absolute_error(y_test_continuas2, y_pred_continuas2)
+#mse_continuas2= root_mean_squared_error(y_test_continuas2, y_pred_continuas2)
+#mae_continuas2 = mean_absolute_error(y_test_continuas2, y_pred_continuas2)
 r2_continuas2 = r2_score(y_test_continuas2, y_pred_continuas2)
 
-print("\n\nEvaluacion del modelo y probabilidad de aciertos en datos de prueba\n")
+#print("\n\nEvaluacion del modelo y probabilidad de aciertos en datos de prueba\n")
 #Evaluación del modelo
 #categoricas
 #local
@@ -1660,17 +1660,20 @@ print("\n\nEvaluacion del modelo y probabilidad de aciertos en datos de prueba\n
 #accuracy_clasificacion2 = accuracy_score(y_test_categoricas2, y_pred_categoricas2)
 #print(f'\nPrecisión categoricas del visitante: {accuracy_clasificacion2:.3f}')
 
-
 #continuas local
+"""
 print(f'\nError cuadrático medio (RMSE) continuas del {equipo_objetivo_1}: {mse_continuas:.3f}')
 print(f'Error cuadrático medio (MSE) continuas al cuadrado del {equipo_objetivo_1}: {math.pow(mse_continuas,2):.3f}')
 print(f'Error absoluto medio (MAE) continuas del {equipo_objetivo_1}: {mae_continuas:.3f}')
+"""
 print(f'Coeficiente de determinación (R2) continuas del {equipo_objetivo_1}: {r2_continuas:.3f}')
 
 #continuas visitante
+"""
 print(f'\nError cuadrático medio (RMSE) continuas del {equipo_objetivo_2}: {mse_continuas2:.3f}')
 print(f'Error cuadrático medio (MSE) continuas al cuadrado del {equipo_objetivo_2}: {math.pow(mse_continuas2,2):.3f}')
 print(f'Error absoluto medio (MAE) continuas del {equipo_objetivo_2}: {mae_continuas2:.3f}')
+"""
 print(f'Coeficiente de determinación (R2) continuas del {equipo_objetivo_2}: {r2_continuas2:.3f}')
 
 
@@ -1710,11 +1713,12 @@ for idx, variable in enumerate(y_categoricas2.columns):
               f"(Prob. clase 0: {prob_0:.2f}, Prob. clase 1: {prob_1:.2f})")
 """
 
-# Predicciones continuas sin tener en encuenta los jugadores (Tiros de esquina, goles_totales)
+# Predicciones continuas (Tiros de esquina)
 for idx, variable in enumerate(y_continuas2.columns):
     prediccion2 = predicciones_continuas_equipo2[idx]
     print(f"{variable}: μ: {prediccion2:.2f} σ: {mse_continuas2:.3f}")
-#-------------------------------------Predecir si ganara con datos de un partido que ya ocurrio
+
+"""
 #local porcentajes
 y_test_continuas = y_test_continuas.iloc[:, 0]
 # Errores reales
@@ -1787,6 +1791,7 @@ print(f"\n--- Mayor subestimación {equipo_objetivo_2} ---")
 print(f"Valor real      : {y_test_continuas2.iloc[idx_max_sub2]:.2f}")
 print(f"Predicción      : {y_pred_continuas2[idx_max_sub2]:.2f}")
 print(f"Error (↓)       : {errores2.iloc[idx_max_sub2]:.2f}")
+"""
 
 print(f"\n\nLa información a continuación se vera reflejada de forma ascendente, \n"
       f"lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.")

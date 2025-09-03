@@ -32,55 +32,13 @@ Juventude: Goles esperados en la primera mitad >> -0.17
 Juventude: Goles esperados en la segunda mitad >> -0.50
 
 
-Evaluacion del modelo y probabilidad de aciertos en datos de prueba
 
-
-Error cuadrático medio (RMSE) continuas del Ceará: 1.530
-Error cuadrático medio (MSE) continuas al cuadrado del Ceará: 2.340
-Error absoluto medio (MAE) continuas del Ceará: 0.984
-Coeficiente de determinación (R2) continuas del Ceará: 0.849
-
-Error cuadrático medio (RMSE) continuas del Juventude: 0.627
-Error cuadrático medio (MSE) continuas al cuadrado del Juventude: 0.394
-Error absoluto medio (MAE) continuas del Juventude: 0.434
-Coeficiente de determinación (R2) continuas del Juventude: 0.928
 
 -----------------PREDICCIONES DEL Ceará -----------------
 Tiros de esquina: μ: 3.94 σ: 1.530
 
 -----------------PREDICCIONES DEL Juventude -----------------
 Tiros de esquina: μ: 3.92 σ: 0.627
-
-
-Predicciones dentro del rango ±1.53: 85.00%
-Predicciones que sobreestimaron el valor real en más de 1.53: 5.00%
-Predicciones que subestimaron el valor real en más de 1.53: 10.00%
-
---- Mayor sobreestimación ---
-Valor real      : 0.00
-Predicción      : 1.64
-Error (↑)       : 1.64
-
---- Mayor subestimación ---
-Valor real      : 19.00
-Predicción      : 13.30
-Error (↓)       : -5.70
-
-
-Predicciones dentro del rango visitante ±0.63: 75.00%
-Predicciones que sobreestimaron el valor real en más de Juventude 0.63: 10.00%
-Predicciones que subestimaron el valor real en más de Juventude 0.63: 15.00%
-
---- Mayor sobreestimación Ceará ---
-Valor real      : 2.00
-Predicción      : 3.56
-Error (↑)       : 1.56
-
---- Mayor subestimación Juventude ---
-Valor real      : 6.00
-Predicción      : 4.91
-Error (↓)       : -1.09
-
 
 La información a continuación se vera reflejada de forma ascendente,
 lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.

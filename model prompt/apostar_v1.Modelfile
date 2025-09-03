@@ -1,8 +1,10 @@
-FROM llama3:8b-instruct-q5_K_M
+FROM deepseek-r1:7b
 
 PARAMETER temperature 0
 PARAMETER top_p 1
 PARAMETER seed 42
+PARAMETER num_ctx 8192
+PARAMETER repeat_penalty 1.1
 
 SYSTEM """
 You are an expert analyst in football betting and predictions, specializing in corners.
