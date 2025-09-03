@@ -1640,12 +1640,12 @@ y_pred_continuas = model_regresion.predict(dtest)
 y_pred_continuas2 = model_regresion2.predict(dtest2)
 
 # Evaluación de las variables continuas (regresión) local 
-#mse_continuas = root_mean_squared_error(y_test_continuas, y_pred_continuas)
+mse_continuas = root_mean_squared_error(y_test_continuas, y_pred_continuas)
 #mae_continuas = mean_absolute_error(y_test_continuas, y_pred_continuas)
 r2_continuas = r2_score(y_test_continuas, y_pred_continuas)
 
 # Evaluación de las variables continuas (regresión) visitante
-#mse_continuas2= root_mean_squared_error(y_test_continuas2, y_pred_continuas2)
+mse_continuas2= root_mean_squared_error(y_test_continuas2, y_pred_continuas2)
 #mae_continuas2 = mean_absolute_error(y_test_continuas2, y_pred_continuas2)
 r2_continuas2 = r2_score(y_test_continuas2, y_pred_continuas2)
 
