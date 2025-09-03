@@ -1,4 +1,4 @@
-FROM deepseek-r1:7b
+FROM deepseek_r1_q5:latest
 
 PARAMETER temperature 0
 PARAMETER top_p 1

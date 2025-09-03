@@ -978,8 +978,8 @@ def calcular_desviacion_estandar_y_datos(stats):
     # Promedios
     MeanG = Tgoles / p if p != 0 else 0
     MeanG2 = Tgoles2 / p if p != 0 else 0
-    MeanC = Tcorner / p if p != 0 else 0
-    MeanC2 = Tcorner2 / p if p != 0 else 0
+    MeanC = (Tcorner / p)-1 if p != 0 else 0
+    MeanC2 = (Tcorner2 / p)-1 if p != 0 else 0
     MeanTa = TtarjetasA / p if p != 0 else 0
     MeanTa2 = TtarjetasA2 / p if p != 0 else 0
     MeanTr = TtarjetasR / p if p != 0 else 0

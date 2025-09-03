@@ -1,5 +1,5 @@
 ---------------------------------------- DATOS DEL Ceará ----------------------------------------
-Ceará: Promedio de tiros de esquina >> 4.50
+Ceará: Promedio de tiros de esquina >> 3.50
 corner std value >> 4.31
 Ceará: Promedio de goles >> 0.83
 goles std value >> 0.69
@@ -15,7 +15,7 @@ Ceará: Promedio de posesión del balón >> 48.40%
 Ceará: Goles esperados en la primera mitad >> -0.67
 Ceará: Goles esperados en la segunda mitad >> -0.50
 ---------------------------------------- DATOS DEL Juventude ----------------------------------------
-Juventude: Promedio de tiros de esquina >> 4.00
+Juventude: Promedio de tiros de esquina >> 3.00
 corner std value: >> 2.58
 Juventude: Promedio de goles >> 1.33
 goles std value >> 0.75
@@ -126,7 +126,7 @@ Partido#98 del Juventude              corner actual:->[5]      next:->[3]
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------- DATOS DEL Botafogo ----------------------------------------
-Botafogo: Promedio de tiros de esquina >> 3.83
+Botafogo: Promedio de tiros de esquina >> 2.83
 corner std value >> 2.11
 Botafogo: Promedio de goles >> 1.67
 goles std value >> 1.80
@@ -142,7 +142,7 @@ Botafogo: Promedio de posesión del balón >> 52.98%
 Botafogo: Goles esperados en la primera mitad >> -0.17
 Botafogo: Goles esperados en la segunda mitad >> -0.17
 ---------------------------------------- DATOS DEL Bragantino ----------------------------------------
-Bragantino: Promedio de tiros de esquina >> 3.17
+Bragantino: Promedio de tiros de esquina >> 2.17
 corner std value: >> 2.48
 Bragantino: Promedio de goles >> 1.00
 goles std value >> 1.41
@@ -255,7 +255,7 @@ Partido#96 del Bragantino              corner actual:->[2]      next:->[0]
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------- DATOS DEL Santos ----------------------------------------
-Santos: Promedio de tiros de esquina >> 3.33
+Santos: Promedio de tiros de esquina >> 2.33
 corner std value >> 2.36
 Santos: Promedio de goles >> 1.33
 goles std value >> 1.11
@@ -271,7 +271,7 @@ Santos: Promedio de posesión del balón >> 51.25%
 Santos: Goles esperados en la primera mitad >> -0.67
 Santos: Goles esperados en la segunda mitad >> 0.00
 ---------------------------------------- DATOS DEL Fluminense ----------------------------------------
-Fluminense: Promedio de tiros de esquina >> 4.50
+Fluminense: Promedio de tiros de esquina >> 3.50
 corner std value: >> 3.69
 Fluminense: Promedio de goles >> 1.83
 goles std value >> 0.90
@@ -370,7 +370,7 @@ Partido#87 del Fluminense              corner actual:->[8]      next:->[5]
 Partido#96 del Fluminense              corner actual:->[8]      next:->[3]
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------- DATOS DEL Flamengo ----------------------------------------
-Flamengo: Promedio de tiros de esquina >> 6.00
+Flamengo: Promedio de tiros de esquina >> 5.00
 corner std value >> 2.71
 Flamengo: Promedio de goles >> 2.83
 goles std value >> 2.41
@@ -386,7 +386,7 @@ Flamengo: Promedio de posesión del balón >> 58.77%
 Flamengo: Goles esperados en la primera mitad >> 0.50
 Flamengo: Goles esperados en la segunda mitad >> 0.33
 ---------------------------------------- DATOS DEL Grêmio ----------------------------------------
-Grêmio: Promedio de tiros de esquina >> 3.33
+Grêmio: Promedio de tiros de esquina >> 2.33
 corner std value: >> 0.75
 Grêmio: Promedio de goles >> 0.83
 goles std value >> 1.21
@@ -506,7 +506,7 @@ Partido#93 del Grêmio              corner actual:->[4]      next:->[4]
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------- DATOS DEL Cruzeiro ----------------------------------------
-Cruzeiro: Promedio de tiros de esquina >> 6.83
+Cruzeiro: Promedio de tiros de esquina >> 5.83
 corner std value >> 4.18
 Cruzeiro: Promedio de goles >> 1.67
 goles std value >> 0.47
@@ -522,7 +522,7 @@ Cruzeiro: Promedio de posesión del balón >> 47.38%
 Cruzeiro: Goles esperados en la primera mitad >> 0.00
 Cruzeiro: Goles esperados en la segunda mitad >> -0.33
 ---------------------------------------- DATOS DEL São Paulo ----------------------------------------
-São Paulo: Promedio de tiros de esquina >> 4.67
+São Paulo: Promedio de tiros de esquina >> 3.67
 corner std value: >> 2.56
 São Paulo: Promedio de goles >> 1.17
 goles std value >> 0.90
@@ -645,7 +645,7 @@ Partido#100 del São Paulo              corner actual:->[5]      next:->[7]
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------- DATOS DEL Vitória ----------------------------------------
-Vitória: Promedio de tiros de esquina >> 4.17
+Vitória: Promedio de tiros de esquina >> 3.17
 corner std value >> 1.77
 Vitória: Promedio de goles >> 1.17
 goles std value >> 0.90
@@ -661,7 +661,7 @@ Vitória: Promedio de posesión del balón >> 45.28%
 Vitória: Goles esperados en la primera mitad >> -0.50
 Vitória: Goles esperados en la segunda mitad >> -0.33
 ---------------------------------------- DATOS DEL Atlético Mineiro ----------------------------------------
-Atlético Mineiro: Promedio de tiros de esquina >> 3.67
+Atlético Mineiro: Promedio de tiros de esquina >> 2.67
 corner std value: >> 3.04
 Atlético Mineiro: Promedio de goles >> 0.83
 goles std value >> 0.69
@@ -766,7 +766,7 @@ Partido#92 del Atlético Mineiro              corner actual:->[3]      next:->[4
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------- DATOS DEL Mirassol ----------------------------------------
-Mirassol: Promedio de tiros de esquina >> 6.33
+Mirassol: Promedio de tiros de esquina >> 5.33
 corner std value >> 2.36
 Mirassol: Promedio de goles >> 1.50
 goles std value >> 0.76
@@ -782,7 +782,7 @@ Mirassol: Promedio de posesión del balón >> 45.26%
 Mirassol: Goles esperados en la primera mitad >> -0.33
 Mirassol: Goles esperados en la segunda mitad >> -0.17
 ---------------------------------------- DATOS DEL Bahía ----------------------------------------
-Bahía: Promedio de tiros de esquina >> 6.00
+Bahía: Promedio de tiros de esquina >> 5.00
 corner std value: >> 3.27
 Bahía: Promedio de goles >> 1.33
 goles std value >> 1.11
@@ -900,7 +900,7 @@ Partido#98 del Bahía              corner actual:->[7]      next:->[6]
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------- DATOS DEL Internacional ----------------------------------------
-Internacional: Promedio de tiros de esquina >> 4.67
+Internacional: Promedio de tiros de esquina >> 3.67
 corner std value >> 3.09
 Internacional: Promedio de goles >> 1.00
 goles std value >> 1.00
@@ -916,7 +916,7 @@ Internacional: Promedio de posesión del balón >> 51.33%
 Internacional: Goles esperados en la primera mitad >> -0.50
 Internacional: Goles esperados en la segunda mitad >> -0.50
 ---------------------------------------- DATOS DEL Fortaleza ----------------------------------------
-Fortaleza: Promedio de tiros de esquina >> 5.17
+Fortaleza: Promedio de tiros de esquina >> 4.17
 corner std value: >> 2.91
 Fortaleza: Promedio de goles >> 0.33
 goles std value >> 0.47
@@ -1018,7 +1018,7 @@ Partido#85 del Fortaleza              corner actual:->[11]      next:->[4]
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------- DATOS DEL Sport Recife ----------------------------------------
-Sport Recife: Promedio de tiros de esquina >> 4.33
+Sport Recife: Promedio de tiros de esquina >> 3.33
 corner std value >> 2.62
 Sport Recife: Promedio de goles >> 1.17
 goles std value >> 0.90
@@ -1034,7 +1034,7 @@ Sport Recife: Promedio de posesión del balón >> 37.26%
 Sport Recife: Goles esperados en la primera mitad >> -0.67
 Sport Recife: Goles esperados en la segunda mitad >> -0.17
 ---------------------------------------- DATOS DEL Vasco da Gama ----------------------------------------
-Vasco da Gama: Promedio de tiros de esquina >> 3.83
+Vasco da Gama: Promedio de tiros de esquina >> 2.83
 corner std value: >> 1.34
 Vasco da Gama: Promedio de goles >> 2.17
 goles std value >> 1.95
