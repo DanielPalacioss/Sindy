@@ -1,0 +1,1553 @@
+---------------------------------------- DATOS DEL Girona ----------------------------------------
+Girona: Promedio de tiros de esquina >> 2.83
+corner std value >> 3.62
+Girona: Promedio de goles >> 0.50
+goles std value >> 0.50
+Girona: Probabilidad de aciertos en remates >> 14.29%
+Probabilidad de fallar >> 85.71%
+Girona: Porcentaje de balones al arco >> 36.21%
+Porcentaje de balones fuera del arco >> 63.79%
+Girona: Promedio de tarjetas amarillas >> 1.50
+tarjetas amarillas std value >> 1.12
+Girona: Promedio de tarjetas rojas >> 0.50
+tarjetas rojas std value >> 0.76
+Girona: Promedio de posesión del balón >> 51.01%
+Girona: Goles esperados en la primera mitad >> -0.67
+Girona: Goles esperados en la segunda mitad >> -0.83
+---------------------------------------- DATOS DEL RCD Espanyol ----------------------------------------
+RCD Espanyol: Promedio de tiros de esquina >> 2.17
+corner std value: >> 2.48
+RCD Espanyol: Promedio de goles >> 2.00
+goles std value >> 0.58
+RCD Espanyol: Probabilidad de aciertos en remates >> 42.86%
+Probabilidad de fallar >> 57.14%
+RCD Espanyol: Porcentaje de balones al arco >> 39.44%
+Porcentaje de balones fuera del arco >> 60.56%
+RCD Espanyol: Promedio de tarjetas amarillas >> 2.17
+tarjetas amarillas std value >> 0.69
+RCD Espanyol: Promedio de tarjetas rojas >> 0.17
+tarjetas rojas std value >> 0.37
+RCD Espanyol: Promedio de posesión del balón >> 48.99%
+RCD Espanyol: Goles esperados en la primera mitad >> -0.33
+RCD Espanyol: Goles esperados en la segunda mitad >> 0.33
+✅ Torneo encontrado: LaLiga -> laliga-11
+Coeficiente de determinación (R2) continuas del Girona: 0.865
+Coeficiente de determinación (R2) continuas del RCD Espanyol: 0.878
+
+-----------------PREDICCIONES DEL Girona -----------------
+Tiros de esquina: μ: 3.96 σ: 0.825
+
+-----------------PREDICCIONES DEL RCD Espanyol -----------------
+Tiros de esquina: μ: 4.26 σ: 0.962
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Girona---
+--- actualCorner: 1
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.8571428571428571, 'p_igual': 0.14285714285714285, 'p_menor': 0.0}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.5142857142857142, '-1-3': 0.4857142857142857, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [1] en un partido para el Girona es 8.
+
+Ultimo partido jugado, corner actual:->[1]
+Partido#5  del Girona              corner actual:->[1]      next:->[11]
+Partido#7  del Girona              corner actual:->[1]      next:->[2]
+Partido#24  del Girona              corner actual:->[1]      next:->[3]
+Partido#48  del Girona              corner actual:->[1]      next:->[4]
+Partido#49  del Girona              corner actual:->[1]      next:->[1]
+Partido#90  del Girona              corner actual:->[1]      next:->[5]
+Partido#97  del Girona              corner actual:->[1]      next:->[3]
+
+
+
+--- Resultados de Equipo RCD Espanyol---
+--- actualCorner: 8
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.0, 'p_igual': 0.14285714285714285, 'p_menor': 0.8571428571428571}
+Probabilidades con modelo de 1er orden con bins: {'fuera_de_rango': 0.0, '7-15': 0.15789473684210525, '4-6': 0.8421052631578947}
+
+Cantidad de veces que se dio el corner [8] en un partido para el RCD Espanyol es 8.
+
+Ultimo partido jugado, corner actual:->[8]
+Partido#10 del RCD Espanyol              corner actual:->[8]      next:->[3]
+Partido#26 del RCD Espanyol              corner actual:->[8]      next:->[1]
+Partido#51 del RCD Espanyol              corner actual:->[8]      next:->[5]
+Partido#55 del RCD Espanyol              corner actual:->[8]      next:->[4]
+Partido#71 del RCD Espanyol              corner actual:->[8]      next:->[5]
+Partido#78 del RCD Espanyol              corner actual:->[8]      next:->[4]
+Partido#79 del RCD Espanyol              corner actual:->[8]      next:->[8]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Getafe ----------------------------------------
+Getafe: Promedio de tiros de esquina >> 2.33
+corner std value >> 1.70
+Getafe: Promedio de goles >> 1.17
+goles std value >> 0.90
+Getafe: Probabilidad de aciertos en remates >> 43.75%
+Probabilidad de fallar >> 56.25%
+Getafe: Porcentaje de balones al arco >> 32.00%
+Porcentaje de balones fuera del arco >> 68.00%
+Getafe: Promedio de tarjetas amarillas >> 2.00
+tarjetas amarillas std value >> 1.15
+Getafe: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Getafe: Promedio de posesión del balón >> 46.40%
+Getafe: Goles esperados en la primera mitad >> -0.50
+Getafe: Goles esperados en la segunda mitad >> -0.33
+---------------------------------------- DATOS DEL Levante ----------------------------------------
+Levante: Promedio de tiros de esquina >> 1.00
+corner std value: >> 1.83
+Levante: Promedio de goles >> 1.67
+goles std value >> 1.25
+Levante: Probabilidad de aciertos en remates >> 50.00%
+Probabilidad de fallar >> 50.00%
+Levante: Porcentaje de balones al arco >> 35.71%
+Porcentaje de balones fuera del arco >> 64.29%
+Levante: Promedio de tarjetas amarillas >> 2.33
+tarjetas amarillas std value >> 1.11
+Levante: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Levante: Promedio de posesión del balón >> 53.60%
+Levante: Goles esperados en la primera mitad >> -0.17
+Levante: Goles esperados en la segunda mitad >> -0.17
+✅ Torneo encontrado: LaLiga -> laliga-11
+Coeficiente de determinación (R2) continuas del Getafe: 0.709
+Coeficiente de determinación (R2) continuas del Levante: 0.941
+
+-----------------PREDICCIONES DEL Getafe -----------------
+Tiros de esquina: μ: 4.14 σ: 1.125
+
+-----------------PREDICCIONES DEL Levante -----------------
+Tiros de esquina: μ: 2.46 σ: 0.683
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Getafe---
+--- actualCorner: 2
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.8235294117647058, 'p_igual': 0.058823529411764705, 'p_menor': 0.11764705882352941}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.5882352941176471, '-1-3': 0.4117647058823529, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [2] en un partido para el Getafe es 19.
+
+Ultimo partido jugado, corner actual:->[2]
+Partido#2  del Getafe              corner actual:->[2]      next:->[2]
+Partido#7  del Getafe              corner actual:->[2]      next:->[3]
+Partido#9  del Getafe              corner actual:->[2]      next:->[4]
+Partido#17  del Getafe              corner actual:->[2]      next:->[3]
+Partido#20  del Getafe              corner actual:->[2]      next:->[6]
+Partido#24  del Getafe              corner actual:->[2]      next:->[6]
+Partido#25  del Getafe              corner actual:->[2]      next:->[2]
+Partido#37  del Getafe              corner actual:->[2]      next:->[5]
+Partido#41  del Getafe              corner actual:->[2]      next:->[4]
+Partido#53  del Getafe              corner actual:->[2]      next:->[6]
+Partido#55  del Getafe              corner actual:->[2]      next:->[10]
+Partido#59  del Getafe              corner actual:->[2]      next:->[6]
+Partido#65  del Getafe              corner actual:->[2]      next:->[5]
+Partido#70  del Getafe              corner actual:->[2]      next:->[3]
+Partido#72  del Getafe              corner actual:->[2]      next:->[12]
+Partido#89  del Getafe              corner actual:->[2]      next:->[4]
+Partido#99  del Getafe              corner actual:->[2]      next:->[4]
+Partido#101  del Getafe              corner actual:->[2]      next:->[1]
+
+
+
+--- Resultados de Equipo Levante---
+--- actualCorner: 1
+Probabilidades con modelo de 1er orden: {'p_mayor': 1.0, 'p_igual': 0.0, 'p_menor': 0.0}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.6176470588235294, '-1-3': 0.38235294117647056, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [1] en un partido para el Levante es 7.
+
+Ultimo partido jugado, corner actual:->[1]
+Partido#6 del Levante              corner actual:->[1]      next:->[0]
+Partido#42 del Levante              corner actual:->[1]      next:->[3]
+Partido#49 del Levante              corner actual:->[1]      next:->[6]
+Partido#52 del Levante              corner actual:->[1]      next:->[12]
+Partido#95 del Levante              corner actual:->[1]      next:->[2]
+Partido#99 del Levante              corner actual:->[1]      next:->[10]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Atlético Madrid ----------------------------------------
+Atlético Madrid: Promedio de tiros de esquina >> 6.33
+corner std value >> 1.80
+Atlético Madrid: Promedio de goles >> 1.67
+goles std value >> 0.75
+Atlético Madrid: Probabilidad de aciertos en remates >> 29.41%
+Probabilidad de fallar >> 70.59%
+Atlético Madrid: Porcentaje de balones al arco >> 43.59%
+Porcentaje de balones fuera del arco >> 56.41%
+Atlético Madrid: Promedio de tarjetas amarillas >> 1.67
+tarjetas amarillas std value >> 1.25
+Atlético Madrid: Promedio de tarjetas rojas >> 0.17
+tarjetas rojas std value >> 0.37
+Atlético Madrid: Promedio de posesión del balón >> 49.31%
+Atlético Madrid: Goles esperados en la primera mitad >> -0.17
+Atlético Madrid: Goles esperados en la segunda mitad >> -0.17
+---------------------------------------- DATOS DEL Real Madrid ----------------------------------------
+Real Madrid: Promedio de tiros de esquina >> 5.33
+corner std value: >> 2.36
+Real Madrid: Promedio de goles >> 2.50
+goles std value >> 0.76
+Real Madrid: Probabilidad de aciertos en remates >> 28.30%
+Probabilidad de fallar >> 71.70%
+Real Madrid: Porcentaje de balones al arco >> 41.73%
+Porcentaje de balones fuera del arco >> 58.27%
+Real Madrid: Promedio de tarjetas amarillas >> 1.67
+tarjetas amarillas std value >> 0.75
+Real Madrid: Promedio de tarjetas rojas >> 0.33
+tarjetas rojas std value >> 0.47
+Real Madrid: Promedio de posesión del balón >> 50.69%
+Real Madrid: Goles esperados en la primera mitad >> 0.50
+Real Madrid: Goles esperados en la segunda mitad >> 0.00
+✅ Torneo encontrado: LaLiga -> laliga-11
+Coeficiente de determinación (R2) continuas del Atlético Madrid: 0.820
+Coeficiente de determinación (R2) continuas del Real Madrid: 0.835
+
+-----------------PREDICCIONES DEL Atlético Madrid -----------------
+Tiros de esquina: μ: 6.44 σ: 1.005
+
+-----------------PREDICCIONES DEL Real Madrid -----------------
+Tiros de esquina: μ: 6.01 σ: 1.158
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Atlético Madrid---
+--- actualCorner: 8
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.125, 'p_igual': 0.0, 'p_menor': 0.875}
+Probabilidades con modelo de 1er orden con bins: {'fuera_de_rango': 0.0, '7-15': 0.21428571428571427, '4-6': 0.7857142857142857}
+
+Cantidad de veces que se dio el corner [8] en un partido para el Atlético Madrid es 9.
+
+Ultimo partido jugado, corner actual:->[8]
+Partido#4  del Atlético Madrid              corner actual:->[8]      next:->[6]
+Partido#13  del Atlético Madrid              corner actual:->[8]      next:->[2]
+Partido#43  del Atlético Madrid              corner actual:->[8]      next:->[3]
+Partido#55  del Atlético Madrid              corner actual:->[8]      next:->[6]
+Partido#61  del Atlético Madrid              corner actual:->[8]      next:->[4]
+Partido#79  del Atlético Madrid              corner actual:->[8]      next:->[2]
+Partido#89  del Atlético Madrid              corner actual:->[8]      next:->[10]
+Partido#97  del Atlético Madrid              corner actual:->[8]      next:->[4]
+
+
+
+--- Resultados de Equipo Real Madrid---
+--- actualCorner: 7
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.45454545454545453, 'p_igual': 0.0, 'p_menor': 0.5454545454545454}
+Probabilidades con modelo de 1er orden con bins: {'fuera_de_rango': 0.0, '7-15': 0.5128205128205128, '4-6': 0.48717948717948717}
+
+Cantidad de veces que se dio el corner [7] en un partido para el Real Madrid es 12.
+
+Ultimo partido jugado, corner actual:->[7]
+Partido#7 del Real Madrid              corner actual:->[7]      next:->[9]
+Partido#16 del Real Madrid              corner actual:->[7]      next:->[11]
+Partido#20 del Real Madrid              corner actual:->[7]      next:->[4]
+Partido#36 del Real Madrid              corner actual:->[7]      next:->[11]
+Partido#40 del Real Madrid              corner actual:->[7]      next:->[6]
+Partido#43 del Real Madrid              corner actual:->[7]      next:->[3]
+Partido#72 del Real Madrid              corner actual:->[7]      next:->[6]
+Partido#75 del Real Madrid              corner actual:->[7]      next:->[5]
+Partido#86 del Real Madrid              corner actual:->[7]      next:->[8]
+Partido#94 del Real Madrid              corner actual:->[7]      next:->[4]
+Partido#98 del Real Madrid              corner actual:->[7]      next:->[2]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL R.C.D. Mallorca ----------------------------------------
+R.C.D. Mallorca: Promedio de tiros de esquina >> 3.17
+corner std value >> 2.54
+R.C.D. Mallorca: Promedio de goles >> 0.83
+goles std value >> 0.69
+R.C.D. Mallorca: Probabilidad de aciertos en remates >> 19.23%
+Probabilidad de fallar >> 80.77%
+R.C.D. Mallorca: Porcentaje de balones al arco >> 40.62%
+Porcentaje de balones fuera del arco >> 59.38%
+R.C.D. Mallorca: Promedio de tarjetas amarillas >> 1.33
+tarjetas amarillas std value >> 1.11
+R.C.D. Mallorca: Promedio de tarjetas rojas >> 0.33
+tarjetas rojas std value >> 0.75
+R.C.D. Mallorca: Promedio de posesión del balón >> 47.96%
+R.C.D. Mallorca: Goles esperados en la primera mitad >> -0.67
+R.C.D. Mallorca: Goles esperados en la segunda mitad >> -0.50
+---------------------------------------- DATOS DEL Alavés ----------------------------------------
+Alavés: Promedio de tiros de esquina >> 4.00
+corner std value: >> 3.21
+Alavés: Promedio de goles >> 1.00
+goles std value >> 0.58
+Alavés: Probabilidad de aciertos en remates >> 27.27%
+Probabilidad de fallar >> 72.73%
+Alavés: Porcentaje de balones al arco >> 41.51%
+Porcentaje de balones fuera del arco >> 58.49%
+Alavés: Promedio de tarjetas amarillas >> 2.17
+tarjetas amarillas std value >> 1.34
+Alavés: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Alavés: Promedio de posesión del balón >> 52.04%
+Alavés: Goles esperados en la primera mitad >> -0.50
+Alavés: Goles esperados en la segunda mitad >> -0.50
+✅ Torneo encontrado: LaLiga -> laliga-11
+Coeficiente de determinación (R2) continuas del R.C.D. Mallorca: 0.675
+Coeficiente de determinación (R2) continuas del Alavés: 0.944
+
+-----------------PREDICCIONES DEL R.C.D. Mallorca -----------------
+Tiros de esquina: μ: 5.01 σ: 0.969
+
+-----------------PREDICCIONES DEL Alavés -----------------
+Tiros de esquina: μ: 4.82 σ: 0.781
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo R.C.D. Mallorca---
+--- actualCorner: 2
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.75, 'p_igual': 0.16666666666666666, 'p_menor': 0.08333333333333333}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.5227272727272727, '-1-3': 0.4772727272727273, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [2] en un partido para el R.C.D. Mallorca es 13.
+
+Ultimo partido jugado, corner actual:->[2]
+Partido#7  del R.C.D. Mallorca              corner actual:->[2]      next:->[3]
+Partido#11  del R.C.D. Mallorca              corner actual:->[2]      next:->[5]
+Partido#12  del R.C.D. Mallorca              corner actual:->[2]      next:->[2]
+Partido#14  del R.C.D. Mallorca              corner actual:->[2]      next:->[4]
+Partido#29  del R.C.D. Mallorca              corner actual:->[2]      next:->[0]
+Partido#31  del R.C.D. Mallorca              corner actual:->[2]      next:->[3]
+Partido#35  del R.C.D. Mallorca              corner actual:->[2]      next:->[7]
+Partido#50  del R.C.D. Mallorca              corner actual:->[2]      next:->[4]
+Partido#64  del R.C.D. Mallorca              corner actual:->[2]      next:->[5]
+Partido#65  del R.C.D. Mallorca              corner actual:->[2]      next:->[2]
+Partido#93  del R.C.D. Mallorca              corner actual:->[2]      next:->[6]
+Partido#95  del R.C.D. Mallorca              corner actual:->[2]      next:->[3]
+
+
+
+--- Resultados de Equipo Alavés---
+--- actualCorner: 7
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.2, 'p_igual': 0.0, 'p_menor': 0.8}
+Probabilidades con modelo de 1er orden con bins: {'fuera_de_rango': 0.0, '7-15': 0.3333333333333333, '4-6': 0.6666666666666666}
+
+Cantidad de veces que se dio el corner [7] en un partido para el Alavés es 6.
+
+Ultimo partido jugado, corner actual:->[7]
+Partido#20 del Alavés              corner actual:->[7]      next:->[9]
+Partido#34 del Alavés              corner actual:->[7]      next:->[2]
+Partido#51 del Alavés              corner actual:->[7]      next:->[5]
+Partido#57 del Alavés              corner actual:->[7]      next:->[4]
+Partido#77 del Alavés              corner actual:->[7]      next:->[12]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Villarreal ----------------------------------------
+Villarreal: Promedio de tiros de esquina >> 3.83
+corner std value >> 2.27
+Villarreal: Promedio de goles >> 1.67
+goles std value >> 1.70
+Villarreal: Probabilidad de aciertos en remates >> 41.67%
+Probabilidad de fallar >> 58.33%
+Villarreal: Porcentaje de balones al arco >> 28.92%
+Porcentaje de balones fuera del arco >> 71.08%
+Villarreal: Promedio de tarjetas amarillas >> 2.33
+tarjetas amarillas std value >> 1.11
+Villarreal: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Villarreal: Promedio de posesión del balón >> 48.62%
+Villarreal: Goles esperados en la primera mitad >> -0.17
+Villarreal: Goles esperados en la segunda mitad >> -0.17
+---------------------------------------- DATOS DEL Athletic ----------------------------------------
+Athletic: Promedio de tiros de esquina >> 4.83
+corner std value: >> 2.91
+Athletic: Promedio de goles >> 0.67
+goles std value >> 0.75
+Athletic: Probabilidad de aciertos en remates >> 16.00%
+Probabilidad de fallar >> 84.00%
+Athletic: Porcentaje de balones al arco >> 32.47%
+Porcentaje de balones fuera del arco >> 67.53%
+Athletic: Promedio de tarjetas amarillas >> 1.33
+tarjetas amarillas std value >> 1.37
+Athletic: Promedio de tarjetas rojas >> 0.33
+tarjetas rojas std value >> 0.47
+Athletic: Promedio de posesión del balón >> 51.38%
+Athletic: Goles esperados en la primera mitad >> -1.00
+Athletic: Goles esperados en la segunda mitad >> -0.33
+✅ Torneo encontrado: LaLiga -> laliga-11
+Coeficiente de determinación (R2) continuas del Villarreal: 0.892
+Coeficiente de determinación (R2) continuas del Athletic: 0.942
+
+-----------------PREDICCIONES DEL Villarreal -----------------
+Tiros de esquina: μ: 3.32 σ: 1.030
+
+-----------------PREDICCIONES DEL Athletic -----------------
+Tiros de esquina: μ: 5.83 σ: 0.615
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Villarreal---
+--- actualCorner: 3
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.45454545454545453, 'p_igual': 0.22727272727272727, 'p_menor': 0.3181818181818182}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.5641025641025641, '-1-3': 0.4358974358974359, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [3] en un partido para el Villarreal es 23.
+
+Ultimo partido jugado, corner actual:->[3]
+Partido#3  del Villarreal              corner actual:->[3]      next:->[3]
+Partido#4  del Villarreal              corner actual:->[3]      next:->[7]
+Partido#9  del Villarreal              corner actual:->[3]      next:->[3]
+Partido#10  del Villarreal              corner actual:->[3]      next:->[3]
+Partido#11  del Villarreal              corner actual:->[3]      next:->[5]
+Partido#12  del Villarreal              corner actual:->[3]      next:->[8]
+Partido#15  del Villarreal              corner actual:->[3]      next:->[10]
+Partido#25  del Villarreal              corner actual:->[3]      next:->[3]
+Partido#32  del Villarreal              corner actual:->[3]      next:->[3]
+Partido#33  del Villarreal              corner actual:->[3]      next:->[3]
+Partido#41  del Villarreal              corner actual:->[3]      next:->[3]
+Partido#45  del Villarreal              corner actual:->[3]      next:->[2]
+Partido#50  del Villarreal              corner actual:->[3]      next:->[8]
+Partido#54  del Villarreal              corner actual:->[3]      next:->[3]
+Partido#57  del Villarreal              corner actual:->[3]      next:->[10]
+Partido#61  del Villarreal              corner actual:->[3]      next:->[5]
+Partido#71  del Villarreal              corner actual:->[3]      next:->[6]
+Partido#74  del Villarreal              corner actual:->[3]      next:->[1]
+Partido#77  del Villarreal              corner actual:->[3]      next:->[11]
+Partido#80  del Villarreal              corner actual:->[3]      next:->[6]
+Partido#87  del Villarreal              corner actual:->[3]      next:->[5]
+Partido#93  del Villarreal              corner actual:->[3]      next:->[4]
+
+
+
+--- Resultados de Equipo Athletic---
+--- actualCorner: 8
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.5, 'p_igual': 0.0, 'p_menor': 0.5}
+Probabilidades con modelo de 1er orden con bins: {'fuera_de_rango': 0.0, '7-15': 0.41935483870967744, '4-6': 0.5806451612903226}
+
+Cantidad de veces que se dio el corner [8] en un partido para el Athletic es 7.
+
+Ultimo partido jugado, corner actual:->[8]
+Partido#67  del Athletic              corner actual:->[8]      next:->[3]
+Partido#69  del Athletic              corner actual:->[8]      next:->[7]
+Partido#74  del Athletic              corner actual:->[8]      next:->[3]
+Partido#85  del Athletic              corner actual:->[8]      next:->[3]
+Partido#94  del Athletic              corner actual:->[8]      next:->[5]
+Partido#100  del Athletic              corner actual:->[8]      next:->[8]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Racing de Estrasburgo ----------------------------------------
+Racing de Estrasburgo: Promedio de tiros de esquina >> 4.00
+corner std value >> 2.58
+Racing de Estrasburgo: Promedio de goles >> 1.67
+goles std value >> 1.11
+Racing de Estrasburgo: Probabilidad de aciertos en remates >> 32.26%
+Probabilidad de fallar >> 67.74%
+Racing de Estrasburgo: Porcentaje de balones al arco >> 42.47%
+Porcentaje de balones fuera del arco >> 57.53%
+Racing de Estrasburgo: Promedio de tarjetas amarillas >> 2.50
+tarjetas amarillas std value >> 2.22
+Racing de Estrasburgo: Promedio de tarjetas rojas >> 0.33
+tarjetas rojas std value >> 0.47
+Racing de Estrasburgo: Promedio de posesión del balón >> 46.90%
+Racing de Estrasburgo: Goles esperados en la primera mitad >> -0.50
+Racing de Estrasburgo: Goles esperados en la segunda mitad >> 0.17
+---------------------------------------- DATOS DEL Marsella ----------------------------------------
+Marsella: Promedio de tiros de esquina >> 5.67
+corner std value: >> 3.30
+Marsella: Promedio de goles >> 1.83
+goles std value >> 1.95
+Marsella: Probabilidad de aciertos en remates >> 44.00%
+Probabilidad de fallar >> 56.00%
+Marsella: Porcentaje de balones al arco >> 31.65%
+Porcentaje de balones fuera del arco >> 68.35%
+Marsella: Promedio de tarjetas amarillas >> 2.33
+tarjetas amarillas std value >> 0.75
+Marsella: Promedio de tarjetas rojas >> 0.17
+tarjetas rojas std value >> 0.37
+Marsella: Promedio de posesión del balón >> 53.10%
+Marsella: Goles esperados en la primera mitad >> 0.17
+Marsella: Goles esperados en la segunda mitad >> -0.33
+✅ Torneo encontrado: Ligue 1 -> ligue-1-35
+🆔 Ingresá el ID_365 para el equipo 'Marsella': 469
+🏷️ Ingresá el Name365 tal cual como aparece en 365 para el equipo 'Marsella': olympique-de-marseille
+Coeficiente de determinación (R2) continuas del Racing de Estrasburgo: 0.874
+Coeficiente de determinación (R2) continuas del Marsella: 0.836
+
+-----------------PREDICCIONES DEL Racing de Estrasburgo -----------------
+Tiros de esquina: μ: 4.20 σ: 0.663
+
+-----------------PREDICCIONES DEL Marsella -----------------
+Tiros de esquina: μ: 5.91 σ: 1.463
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Racing de Estrasburgo---
+--- actualCorner: 2
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.625, 'p_igual': 0.25, 'p_menor': 0.125}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.4883720930232558, '-1-3': 0.5116279069767442, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [2] en un partido para el Racing de Estrasburgo es 17.
+
+Ultimo partido jugado, corner actual:->[2]
+Partido#4  del Racing de Estrasburgo              corner actual:->[2]      next:->[2]
+Partido#5  del Racing de Estrasburgo              corner actual:->[2]      next:->[4]
+Partido#15  del Racing de Estrasburgo              corner actual:->[2]      next:->[5]
+Partido#19  del Racing de Estrasburgo              corner actual:->[2]      next:->[3]
+Partido#22  del Racing de Estrasburgo              corner actual:->[2]      next:->[7]
+Partido#34  del Racing de Estrasburgo              corner actual:->[2]      next:->[9]
+Partido#35  del Racing de Estrasburgo              corner actual:->[2]      next:->[3]
+Partido#38  del Racing de Estrasburgo              corner actual:->[2]      next:->[4]
+Partido#40  del Racing de Estrasburgo              corner actual:->[2]      next:->[6]
+Partido#41  del Racing de Estrasburgo              corner actual:->[2]      next:->[6]
+Partido#55  del Racing de Estrasburgo              corner actual:->[2]      next:->[5]
+Partido#68  del Racing de Estrasburgo              corner actual:->[2]      next:->[2]
+Partido#70  del Racing de Estrasburgo              corner actual:->[2]      next:->[2]
+Partido#71  del Racing de Estrasburgo              corner actual:->[2]      next:->[7]
+Partido#79  del Racing de Estrasburgo              corner actual:->[2]      next:->[6]
+Partido#89  del Racing de Estrasburgo              corner actual:->[2]      next:->[4]
+
+
+
+--- Resultados de Equipo Marsella---
+--- actualCorner: 5
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.42857142857142855, 'p_igual': 0.21428571428571427, 'p_menor': 0.35714285714285715}
+Probabilidades con modelo de 1er orden con bins: {'7-15': 0.53125, '4-6': 0.25, '-1-3': 0.21875}
+
+Cantidad de veces que se dio el corner [5] en un partido para el Marsella es 15.
+
+Ultimo partido jugado, corner actual:->[5]
+Partido#5  del Marsella              corner actual:->[5]      next:->[2]
+Partido#7  del Marsella              corner actual:->[5]      next:->[4]
+Partido#9  del Marsella              corner actual:->[5]      next:->[5]
+Partido#13  del Marsella              corner actual:->[5]      next:->[3]
+Partido#15  del Marsella              corner actual:->[5]      next:->[7]
+Partido#18  del Marsella              corner actual:->[5]      next:->[9]
+Partido#30  del Marsella              corner actual:->[5]      next:->[3]
+Partido#32  del Marsella              corner actual:->[5]      next:->[4]
+Partido#33  del Marsella              corner actual:->[5]      next:->[6]
+Partido#54  del Marsella              corner actual:->[5]      next:->[6]
+Partido#55  del Marsella              corner actual:->[5]      next:->[5]
+Partido#67  del Marsella              corner actual:->[5]      next:->[2]
+Partido#78  del Marsella              corner actual:->[5]      next:->[2]
+Partido#79  del Marsella              corner actual:->[5]      next:->[7]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Bayern ----------------------------------------
+Bayern: Promedio de tiros de esquina >> 4.50
+corner std value >> 1.26
+Bayern: Promedio de goles >> 4.00
+goles std value >> 1.15
+Bayern: Probabilidad de aciertos en remates >> 38.71%
+Probabilidad de fallar >> 61.29%
+Bayern: Porcentaje de balones al arco >> 52.99%
+Porcentaje de balones fuera del arco >> 47.01%
+Bayern: Promedio de tarjetas amarillas >> 2.67
+tarjetas amarillas std value >> 1.11
+Bayern: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Bayern: Promedio de posesión del balón >> 59.12%
+Bayern: Goles esperados en la primera mitad >> 1.17
+Bayern: Goles esperados en la segunda mitad >> 0.83
+---------------------------------------- DATOS DEL Werder Bremen ----------------------------------------
+Werder Bremen: Promedio de tiros de esquina >> 2.00
+corner std value: >> 1.53
+Werder Bremen: Promedio de goles >> 2.00
+goles std value >> 1.73
+Werder Bremen: Probabilidad de aciertos en remates >> 41.38%
+Probabilidad de fallar >> 58.62%
+Werder Bremen: Porcentaje de balones al arco >> 42.03%
+Porcentaje de balones fuera del arco >> 57.97%
+Werder Bremen: Promedio de tarjetas amarillas >> 2.50
+tarjetas amarillas std value >> 1.50
+Werder Bremen: Promedio de tarjetas rojas >> 0.33
+tarjetas rojas std value >> 0.47
+Werder Bremen: Promedio de posesión del balón >> 40.88%
+Werder Bremen: Goles esperados en la primera mitad >> -0.17
+Werder Bremen: Goles esperados en la segunda mitad >> 0.17
+✅ Torneo encontrado: Bundesliga -> bundesliga-25
+Coeficiente de determinación (R2) continuas del Bayern: 0.905
+Coeficiente de determinación (R2) continuas del Werder Bremen: 0.917
+
+-----------------PREDICCIONES DEL Bayern -----------------
+Tiros de esquina: μ: 5.35 σ: 0.804
+
+-----------------PREDICCIONES DEL Werder Bremen -----------------
+Tiros de esquina: μ: 2.48 σ: 0.545
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Bayern---
+--- actualCorner: 5
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.6153846153846154, 'p_igual': 0.07692307692307693, 'p_menor': 0.3076923076923077}
+Probabilidades con modelo de 1er orden con bins: {'7-15': 0.3333333333333333, '4-6': 0.5625, '-1-3': 0.10416666666666667}
+
+Cantidad de veces que se dio el corner [5] en un partido para el Bayern es 14.
+
+Ultimo partido jugado, corner actual:->[5]
+Partido#3  del Bayern              corner actual:->[5]      next:->[5]
+Partido#4  del Bayern              corner actual:->[5]      next:->[6]
+Partido#6  del Bayern              corner actual:->[5]      next:->[5]
+Partido#22  del Bayern              corner actual:->[5]      next:->[5]
+Partido#24  del Bayern              corner actual:->[5]      next:->[7]
+Partido#28  del Bayern              corner actual:->[5]      next:->[5]
+Partido#34  del Bayern              corner actual:->[5]      next:->[3]
+Partido#45  del Bayern              corner actual:->[5]      next:->[4]
+Partido#56  del Bayern              corner actual:->[5]      next:->[4]
+Partido#71  del Bayern              corner actual:->[5]      next:->[6]
+Partido#79  del Bayern              corner actual:->[5]      next:->[6]
+Partido#89  del Bayern              corner actual:->[5]      next:->[10]
+Partido#92  del Bayern              corner actual:->[5]      next:->[4]
+
+
+
+--- Resultados de Equipo Werder Bremen---
+--- actualCorner: 2
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.6153846153846154, 'p_igual': 0.07692307692307693, 'p_menor': 0.3076923076923077}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.5454545454545454, '-1-3': 0.45454545454545453, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [2] en un partido para el Werder Bremen es 14.
+
+Ultimo partido jugado, corner actual:->[2]
+Partido#10  del Werder Bremen              corner actual:->[2]      next:->[5]
+Partido#20  del Werder Bremen              corner actual:->[2]      next:->[6]
+Partido#42  del Werder Bremen              corner actual:->[2]      next:->[5]
+Partido#60  del Werder Bremen              corner actual:->[2]      next:->[5]
+Partido#68  del Werder Bremen              corner actual:->[2]      next:->[7]
+Partido#78  del Werder Bremen              corner actual:->[2]      next:->[5]
+Partido#81  del Werder Bremen              corner actual:->[2]      next:->[3]
+Partido#86  del Werder Bremen              corner actual:->[2]      next:->[4]
+Partido#89  del Werder Bremen              corner actual:->[2]      next:->[4]
+Partido#91  del Werder Bremen              corner actual:->[2]      next:->[6]
+Partido#92  del Werder Bremen              corner actual:->[2]      next:->[6]
+Partido#95  del Werder Bremen              corner actual:->[2]      next:->[10]
+Partido#97  del Werder Bremen              corner actual:->[2]      next:->[4]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Rayo Vallecano ----------------------------------------
+Rayo Vallecano: Promedio de tiros de esquina >> 5.50
+corner std value >> 1.61
+Rayo Vallecano: Promedio de goles >> 1.33
+goles std value >> 1.37
+Rayo Vallecano: Probabilidad de aciertos en remates >> 28.57%
+Probabilidad de fallar >> 71.43%
+Rayo Vallecano: Porcentaje de balones al arco >> 37.33%
+Porcentaje de balones fuera del arco >> 62.67%
+Rayo Vallecano: Promedio de tarjetas amarillas >> 2.83
+tarjetas amarillas std value >> 1.57
+Rayo Vallecano: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Rayo Vallecano: Promedio de posesión del balón >> 50.74%
+Rayo Vallecano: Goles esperados en la primera mitad >> -0.83
+Rayo Vallecano: Goles esperados en la segunda mitad >> 0.17
+---------------------------------------- DATOS DEL Sevilla ----------------------------------------
+Sevilla: Promedio de tiros de esquina >> 2.00
+corner std value: >> 1.63
+Sevilla: Promedio de goles >> 1.67
+goles std value >> 0.47
+Sevilla: Probabilidad de aciertos en remates >> 47.62%
+Probabilidad de fallar >> 52.38%
+Sevilla: Porcentaje de balones al arco >> 30.43%
+Porcentaje de balones fuera del arco >> 69.57%
+Sevilla: Promedio de tarjetas amarillas >> 3.17
+tarjetas amarillas std value >> 1.86
+Sevilla: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Sevilla: Promedio de posesión del balón >> 49.26%
+Sevilla: Goles esperados en la primera mitad >> -0.33
+Sevilla: Goles esperados en la segunda mitad >> 0.00
+✅ Torneo encontrado: LaLiga -> laliga-11
+Coeficiente de determinación (R2) continuas del Rayo Vallecano: 0.765
+Coeficiente de determinación (R2) continuas del Sevilla: 0.874
+
+-----------------PREDICCIONES DEL Rayo Vallecano -----------------
+Tiros de esquina: μ: 6.23 σ: 1.105
+
+-----------------PREDICCIONES DEL Sevilla -----------------
+Tiros de esquina: μ: 2.02 σ: 0.759
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Rayo Vallecano---
+--- actualCorner: 6
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.16666666666666666, 'p_igual': 0.16666666666666666, 'p_menor': 0.6666666666666666}
+Probabilidades con modelo de 1er orden con bins: {'7-15': 0.14285714285714285, '4-6': 0.38095238095238093, '-1-3': 0.47619047619047616}
+
+Cantidad de veces que se dio el corner [6] en un partido para el Rayo Vallecano es 13.
+
+Ultimo partido jugado, corner actual:->[6]
+Partido#117  del Rayo Vallecano              corner actual:->[6]      next:->[6]
+Partido#120  del Rayo Vallecano              corner actual:->[6]      next:->[5]
+Partido#9  del Rayo Vallecano              corner actual:->[6]      next:->[6]
+Partido#10  del Rayo Vallecano              corner actual:->[6]      next:->[9]
+Partido#29  del Rayo Vallecano              corner actual:->[6]      next:->[7]
+Partido#37  del Rayo Vallecano              corner actual:->[6]      next:->[6]
+Partido#42  del Rayo Vallecano              corner actual:->[6]      next:->[10]
+Partido#45  del Rayo Vallecano              corner actual:->[6]      next:->[4]
+Partido#55  del Rayo Vallecano              corner actual:->[6]      next:->[11]
+Partido#56  del Rayo Vallecano              corner actual:->[6]      next:->[2]
+Partido#80  del Rayo Vallecano              corner actual:->[6]      next:->[10]
+Partido#82  del Rayo Vallecano              corner actual:->[6]      next:->[8]
+
+
+
+--- Resultados de Equipo Sevilla---
+--- actualCorner: 3
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.6153846153846154, 'p_igual': 0.23076923076923078, 'p_menor': 0.15384615384615385}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.5588235294117647, '-1-3': 0.4411764705882353, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [3] en un partido para el Sevilla es 14.
+
+Ultimo partido jugado, corner actual:->[3]
+Partido#119  del Sevilla              corner actual:->[3]      next:->[6]
+Partido#3  del Sevilla              corner actual:->[3]      next:->[5]
+Partido#4  del Sevilla              corner actual:->[3]      next:->[6]
+Partido#8  del Sevilla              corner actual:->[3]      next:->[9]
+Partido#19  del Sevilla              corner actual:->[3]      next:->[7]
+Partido#20  del Sevilla              corner actual:->[3]      next:->[6]
+Partido#33  del Sevilla              corner actual:->[3]      next:->[10]
+Partido#37  del Sevilla              corner actual:->[3]      next:->[4]
+Partido#40  del Sevilla              corner actual:->[3]      next:->[11]
+Partido#47  del Sevilla              corner actual:->[3]      next:->[2]
+Partido#48  del Sevilla              corner actual:->[3]      next:->[10]
+Partido#56  del Sevilla              corner actual:->[3]      next:->[8]
+Partido#80  del Sevilla              corner actual:->[3]      next:->[7]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Elche C. F. ----------------------------------------
+Elche C. F.: Promedio de tiros de esquina >> 1.50
+corner std value >> 1.38
+Elche C. F.: Promedio de goles >> 1.33
+goles std value >> 0.47
+Elche C. F.: Probabilidad de aciertos en remates >> 40.00%
+Probabilidad de fallar >> 60.00%
+Elche C. F.: Porcentaje de balones al arco >> 33.33%
+Porcentaje de balones fuera del arco >> 66.67%
+Elche C. F.: Promedio de tarjetas amarillas >> 1.83
+tarjetas amarillas std value >> 1.07
+Elche C. F.: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Elche C. F.: Promedio de posesión del balón >> 50.89%
+Elche C. F.: Goles esperados en la primera mitad >> -0.67
+Elche C. F.: Goles esperados en la segunda mitad >> 0.00
+---------------------------------------- DATOS DEL Celta de Vigo ----------------------------------------
+Celta de Vigo: Promedio de tiros de esquina >> 4.67
+corner std value: >> 3.73
+Celta de Vigo: Promedio de goles >> 1.00
+goles std value >> 0.00
+Celta de Vigo: Probabilidad de aciertos en remates >> 27.27%
+Probabilidad de fallar >> 72.73%
+Celta de Vigo: Porcentaje de balones al arco >> 31.43%
+Porcentaje de balones fuera del arco >> 68.57%
+Celta de Vigo: Promedio de tarjetas amarillas >> 1.33
+tarjetas amarillas std value >> 0.94
+Celta de Vigo: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Celta de Vigo: Promedio de posesión del balón >> 49.11%
+Celta de Vigo: Goles esperados en la primera mitad >> -0.83
+Celta de Vigo: Goles esperados en la segunda mitad >> -0.17
+✅ Torneo encontrado: LaLiga -> laliga-11
+🆔 Ingresá el ID_365 para el equipo 'Elche C. F.': 156
+🏷️ Ingresá el Name365 tal cual como aparece en 365 para el equipo 'Elche C. F.': elche
+Coeficiente de determinación (R2) continuas del Elche C. F.: 0.912
+Coeficiente de determinación (R2) continuas del Celta de Vigo: 0.936
+
+-----------------PREDICCIONES DEL Elche C. F. -----------------
+Tiros de esquina: μ: 2.40 σ: 0.662
+
+-----------------PREDICCIONES DEL Celta de Vigo -----------------
+Tiros de esquina: μ: 5.93 σ: 0.663
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Elche C. F.---
+--- actualCorner: 3
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.5263157894736842, 'p_igual': 0.2631578947368421, 'p_menor': 0.21052631578947367}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.6363636363636364, '-1-3': 0.36363636363636365, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [3] en un partido para el Elche C. F. es 21.
+
+Ultimo partido jugado, corner actual:->[3]
+Partido#2  del Elche C. F.              corner actual:->[3]      next:->[3]
+Partido#15  del Elche C. F.              corner actual:->[3]      next:->[3]
+Partido#18  del Elche C. F.              corner actual:->[3]      next:->[2]
+Partido#22  del Elche C. F.              corner actual:->[3]      next:->[4]
+Partido#23  del Elche C. F.              corner actual:->[3]      next:->[2]
+Partido#24  del Elche C. F.              corner actual:->[3]      next:->[1]
+Partido#29  del Elche C. F.              corner actual:->[3]      next:->[0]
+Partido#30  del Elche C. F.              corner actual:->[3]      next:->[9]
+Partido#47  del Elche C. F.              corner actual:->[3]      next:->[0]
+Partido#48  del Elche C. F.              corner actual:->[3]      next:->[12]
+Partido#51  del Elche C. F.              corner actual:->[3]      next:->[4]
+Partido#52  del Elche C. F.              corner actual:->[3]      next:->[2]
+Partido#55  del Elche C. F.              corner actual:->[3]      next:->[5]
+Partido#62  del Elche C. F.              corner actual:->[3]      next:->[5]
+Partido#71  del Elche C. F.              corner actual:->[3]      next:->[3]
+Partido#81  del Elche C. F.              corner actual:->[3]      next:->[2]
+Partido#86  del Elche C. F.              corner actual:->[3]      next:->[5]
+Partido#95  del Elche C. F.              corner actual:->[3]      next:->[3]
+Partido#98  del Elche C. F.              corner actual:->[3]      next:->[2]
+Partido#100  del Elche C. F.              corner actual:->[3]      next:->[9]
+
+
+
+--- Resultados de Equipo Celta de Vigo---
+--- actualCorner: 2
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.7333333333333333, 'p_igual': 0.26666666666666666, 'p_menor': 0.0}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.6341463414634146, '-1-3': 0.36585365853658536, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [2] en un partido para el Celta de Vigo es 16.
+
+Ultimo partido jugado, corner actual:->[2]
+Partido#5  del Celta de Vigo              corner actual:->[2]      next:->[3]
+Partido#8  del Celta de Vigo              corner actual:->[2]      next:->[3]
+Partido#9  del Celta de Vigo              corner actual:->[2]      next:->[2]
+Partido#13  del Celta de Vigo              corner actual:->[2]      next:->[4]
+Partido#27  del Celta de Vigo              corner actual:->[2]      next:->[2]
+Partido#28  del Celta de Vigo              corner actual:->[2]      next:->[1]
+Partido#30  del Celta de Vigo              corner actual:->[2]      next:->[0]
+Partido#32  del Celta de Vigo              corner actual:->[2]      next:->[9]
+Partido#37  del Celta de Vigo              corner actual:->[2]      next:->[0]
+Partido#38  del Celta de Vigo              corner actual:->[2]      next:->[12]
+Partido#39  del Celta de Vigo              corner actual:->[2]      next:->[4]
+Partido#47  del Celta de Vigo              corner actual:->[2]      next:->[2]
+Partido#62  del Celta de Vigo              corner actual:->[2]      next:->[5]
+Partido#69  del Celta de Vigo              corner actual:->[2]      next:->[5]
+Partido#76  del Celta de Vigo              corner actual:->[2]      next:->[3]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Barcelona ----------------------------------------
+Barcelona: Promedio de tiros de esquina >> 5.00
+corner std value >> 3.11
+Barcelona: Promedio de goles >> 3.00
+goles std value >> 1.53
+Barcelona: Probabilidad de aciertos en remates >> 40.00%
+Probabilidad de fallar >> 60.00%
+Barcelona: Porcentaje de balones al arco >> 37.82%
+Porcentaje de balones fuera del arco >> 62.18%
+Barcelona: Promedio de tarjetas amarillas >> 1.33
+tarjetas amarillas std value >> 1.37
+Barcelona: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Barcelona: Promedio de posesión del balón >> 57.51%
+Barcelona: Goles esperados en la primera mitad >> -0.33
+Barcelona: Goles esperados en la segunda mitad >> 1.33
+---------------------------------------- DATOS DEL Real Sociedad ----------------------------------------
+Real Sociedad: Promedio de tiros de esquina >> 7.33
+corner std value: >> 2.98
+Real Sociedad: Promedio de goles >> 1.00
+goles std value >> 0.58
+Real Sociedad: Probabilidad de aciertos en remates >> 20.69%
+Probabilidad de fallar >> 79.31%
+Real Sociedad: Porcentaje de balones al arco >> 29.90%
+Porcentaje de balones fuera del arco >> 70.10%
+Real Sociedad: Promedio de tarjetas amarillas >> 2.50
+tarjetas amarillas std value >> 1.61
+Real Sociedad: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Real Sociedad: Promedio de posesión del balón >> 42.49%
+Real Sociedad: Goles esperados en la primera mitad >> -0.83
+Real Sociedad: Goles esperados en la segunda mitad >> -0.17
+✅ Torneo encontrado: LaLiga -> laliga-11
+Coeficiente de determinación (R2) continuas del Barcelona: 0.870
+Coeficiente de determinación (R2) continuas del Real Sociedad: 0.950
+
+-----------------PREDICCIONES DEL Barcelona -----------------
+Tiros de esquina: μ: 5.62 σ: 0.652
+
+-----------------PREDICCIONES DEL Real Sociedad -----------------
+Tiros de esquina: μ: 7.86 σ: 0.759
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Barcelona---
+--- actualCorner: 9
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.0, 'p_igual': 0.0, 'p_menor': 1.0}
+Probabilidades con modelo de 1er orden con bins: {'fuera_de_rango': 0.0, '7-15': 0.5, '4-6': 0.5}
+
+Cantidad de veces que se dio el corner [9] en un partido para el Barcelona es 4.
+
+Ultimo partido jugado, corner actual:->[9]
+Partido#11  del Barcelona              corner actual:->[9]      next:->[9]
+Partido#41  del Barcelona              corner actual:->[9]      next:->[3]
+Partido#46  del Barcelona              corner actual:->[9]      next:->[4]
+
+
+
+--- Resultados de Equipo Real Sociedad---
+--- actualCorner: 11
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.0, 'p_igual': 0.0, 'p_menor': 1.0}
+Probabilidades con modelo de 1er orden con bins: {'fuera_de_rango': 0.0, '7-15': 0.36363636363636365, '4-6': 0.6363636363636364}
+
+Cantidad de veces que se dio el corner [11] en un partido para el Real Sociedad es 2.
+
+Ultimo partido jugado, corner actual:->[11]
+Partido#57  del Real Sociedad              corner actual:->[11]      next:->[9]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Betis ----------------------------------------
+Betis: Promedio de tiros de esquina >> 4.17
+corner std value >> 3.29
+Betis: Promedio de goles >> 1.67
+goles std value >> 0.75
+Betis: Probabilidad de aciertos en remates >> 35.71%
+Probabilidad de fallar >> 64.29%
+Betis: Porcentaje de balones al arco >> 31.11%
+Porcentaje de balones fuera del arco >> 68.89%
+Betis: Promedio de tarjetas amarillas >> 2.17
+tarjetas amarillas std value >> 0.69
+Betis: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Betis: Promedio de posesión del balón >> 58.00%
+Betis: Goles esperados en la primera mitad >> -0.17
+Betis: Goles esperados en la segunda mitad >> -0.17
+---------------------------------------- DATOS DEL Osasuna ----------------------------------------
+Osasuna: Promedio de tiros de esquina >> 0.83
+corner std value: >> 1.67
+Osasuna: Promedio de goles >> 0.83
+goles std value >> 0.69
+Osasuna: Probabilidad de aciertos en remates >> 26.32%
+Probabilidad de fallar >> 73.68%
+Osasuna: Porcentaje de balones al arco >> 36.54%
+Porcentaje de balones fuera del arco >> 63.46%
+Osasuna: Promedio de tarjetas amarillas >> 1.83
+tarjetas amarillas std value >> 1.07
+Osasuna: Promedio de tarjetas rojas >> 0.33
+tarjetas rojas std value >> 0.47
+Osasuna: Promedio de posesión del balón >> 42.00%
+Osasuna: Goles esperados en la primera mitad >> -0.33
+Osasuna: Goles esperados en la segunda mitad >> -0.83
+✅ Torneo encontrado: LaLiga -> laliga-11
+Coeficiente de determinación (R2) continuas del Betis: 0.862
+Coeficiente de determinación (R2) continuas del Osasuna: 0.886
+
+-----------------PREDICCIONES DEL Betis -----------------
+Tiros de esquina: μ: 4.84 σ: 0.677
+
+-----------------PREDICCIONES DEL Osasuna -----------------
+Tiros de esquina: μ: 1.91 σ: 1.004
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Betis---
+--- actualCorner: 3
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.8571428571428571, 'p_igual': 0.07142857142857142, 'p_menor': 0.07142857142857142}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.8095238095238095, '-1-3': 0.19047619047619047, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [3] en un partido para el Betis es 15.
+
+Ultimo partido jugado, corner actual:->[3]
+Partido#118  del Betis              corner actual:->[3]      next:->[3]
+Partido#123  del Betis              corner actual:->[3]      next:->[3]
+Partido#125  del Betis              corner actual:->[3]      next:->[12]
+Partido#10  del Betis              corner actual:->[3]      next:->[4]
+Partido#13  del Betis              corner actual:->[3]      next:->[4]
+Partido#22  del Betis              corner actual:->[3]      next:->[5]
+Partido#25  del Betis              corner actual:->[3]      next:->[3]
+Partido#41  del Betis              corner actual:->[3]      next:->[4]
+Partido#51  del Betis              corner actual:->[3]      next:->[3]
+Partido#60  del Betis              corner actual:->[3]      next:->[4]
+Partido#70  del Betis              corner actual:->[3]      next:->[7]
+Partido#73  del Betis              corner actual:->[3]      next:->[6]
+Partido#74  del Betis              corner actual:->[3]      next:->[9]
+Partido#76  del Betis              corner actual:->[3]      next:->[7]
+
+
+
+--- Resultados de Equipo Osasuna---
+--- actualCorner: 2
+Probabilidades con modelo de 1er orden: {'p_mayor': 1.0, 'p_igual': 0.0, 'p_menor': 0.0}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.631578947368421, '-1-3': 0.3684210526315789, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [2] en un partido para el Osasuna es 10.
+
+Ultimo partido jugado, corner actual:->[2]
+Partido#4  del Osasuna              corner actual:->[2]      next:->[3]
+Partido#16  del Osasuna              corner actual:->[2]      next:->[3]
+Partido#32  del Osasuna              corner actual:->[2]      next:->[12]
+Partido#35  del Osasuna              corner actual:->[2]      next:->[4]
+Partido#43  del Osasuna              corner actual:->[2]      next:->[4]
+Partido#70  del Osasuna              corner actual:->[2]      next:->[5]
+Partido#74  del Osasuna              corner actual:->[2]      next:->[3]
+Partido#81  del Osasuna              corner actual:->[2]      next:->[4]
+Partido#90  del Osasuna              corner actual:->[2]      next:->[3]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Valencia C. F. ----------------------------------------
+Valencia C. F.: Promedio de tiros de esquina >> 4.33
+corner std value >> 2.21
+Valencia C. F.: Promedio de goles >> 1.33
+goles std value >> 1.11
+Valencia C. F.: Probabilidad de aciertos en remates >> 53.33%
+Probabilidad de fallar >> 46.67%
+Valencia C. F.: Porcentaje de balones al arco >> 30.61%
+Porcentaje de balones fuera del arco >> 69.39%
+Valencia C. F.: Promedio de tarjetas amarillas >> 1.67
+tarjetas amarillas std value >> 1.11
+Valencia C. F.: Promedio de tarjetas rojas >> 0.17
+tarjetas rojas std value >> 0.37
+Valencia C. F.: Promedio de posesión del balón >> 51.40%
+Valencia C. F.: Goles esperados en la primera mitad >> -0.67
+Valencia C. F.: Goles esperados en la segunda mitad >> 0.00
+---------------------------------------- DATOS DEL Real Oviedo ----------------------------------------
+Real Oviedo: Promedio de tiros de esquina >> 1.50
+corner std value: >> 2.06
+Real Oviedo: Promedio de goles >> 0.33
+goles std value >> 0.47
+Real Oviedo: Probabilidad de aciertos en remates >> 12.50%
+Probabilidad de fallar >> 87.50%
+Real Oviedo: Porcentaje de balones al arco >> 37.21%
+Porcentaje de balones fuera del arco >> 62.79%
+Real Oviedo: Promedio de tarjetas amarillas >> 2.00
+tarjetas amarillas std value >> 1.53
+Real Oviedo: Promedio de tarjetas rojas >> 0.33
+tarjetas rojas std value >> 0.47
+Real Oviedo: Promedio de posesión del balón >> 48.60%
+Real Oviedo: Goles esperados en la primera mitad >> -0.67
+Real Oviedo: Goles esperados en la segunda mitad >> -1.00
+✅ Torneo encontrado: LaLiga -> laliga-11
+🆔 Ingresá el ID_365 para el equipo 'Real Oviedo': 193
+🏷️ Ingresá el Name365 tal cual como aparece en 365 para el equipo 'Real Oviedo': real-oviedo
+Coeficiente de determinación (R2) continuas del Valencia C. F.: 0.786
+Coeficiente de determinación (R2) continuas del Real Oviedo: 0.782
+
+-----------------PREDICCIONES DEL Valencia C. F. -----------------
+Tiros de esquina: μ: 4.51 σ: 1.613
+
+-----------------PREDICCIONES DEL Real Oviedo -----------------
+Tiros de esquina: μ: 3.75 σ: 1.209
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Valencia C. F.---
+--- actualCorner: 3
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.5833333333333334, 'p_igual': 0.0, 'p_menor': 0.4166666666666667}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.6666666666666666, '-1-3': 0.3333333333333333, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [3] en un partido para el Valencia C. F. es 13.
+
+Ultimo partido jugado, corner actual:->[3]
+Partido#5  del Valencia C. F.              corner actual:->[3]      next:->[3]
+Partido#10  del Valencia C. F.              corner actual:->[3]      next:->[5]
+Partido#14  del Valencia C. F.              corner actual:->[3]      next:->[4]
+Partido#20  del Valencia C. F.              corner actual:->[3]      next:->[8]
+Partido#36  del Valencia C. F.              corner actual:->[3]      next:->[4]
+Partido#38  del Valencia C. F.              corner actual:->[3]      next:->[8]
+Partido#40  del Valencia C. F.              corner actual:->[3]      next:->[2]
+Partido#44  del Valencia C. F.              corner actual:->[3]      next:->[5]
+Partido#51  del Valencia C. F.              corner actual:->[3]      next:->[4]
+Partido#65  del Valencia C. F.              corner actual:->[3]      next:->[2]
+Partido#74  del Valencia C. F.              corner actual:->[3]      next:->[5]
+Partido#76  del Valencia C. F.              corner actual:->[3]      next:->[6]
+
+
+
+--- Resultados de Equipo Real Oviedo---
+--- actualCorner: 6
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.3125, 'p_igual': 0.25, 'p_menor': 0.4375}
+Probabilidades con modelo de 1er orden con bins: {'7-15': 0.17647058823529413, '4-6': 0.5882352941176471, '-1-3': 0.23529411764705882}
+
+Cantidad de veces que se dio el corner [6] en un partido para el Real Oviedo es 17.
+
+Ultimo partido jugado, corner actual:->[6]
+Partido#7  del Real Oviedo              corner actual:->[6]      next:->[3]
+Partido#13  del Real Oviedo              corner actual:->[6]      next:->[5]
+Partido#24  del Real Oviedo              corner actual:->[6]      next:->[4]
+Partido#34  del Real Oviedo              corner actual:->[6]      next:->[8]
+Partido#44  del Real Oviedo              corner actual:->[6]      next:->[4]
+Partido#45  del Real Oviedo              corner actual:->[6]      next:->[8]
+Partido#49  del Real Oviedo              corner actual:->[6]      next:->[2]
+Partido#50  del Real Oviedo              corner actual:->[6]      next:->[5]
+Partido#59  del Real Oviedo              corner actual:->[6]      next:->[4]
+Partido#63  del Real Oviedo              corner actual:->[6]      next:->[2]
+Partido#70  del Real Oviedo              corner actual:->[6]      next:->[5]
+Partido#87  del Real Oviedo              corner actual:->[6]      next:->[6]
+Partido#88  del Real Oviedo              corner actual:->[6]      next:->[2]
+Partido#89  del Real Oviedo              corner actual:->[6]      next:->[3]
+Partido#93  del Real Oviedo              corner actual:->[6]      next:->[4]
+Partido#98  del Real Oviedo              corner actual:->[6]      next:->[4]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Brentford ----------------------------------------
+Brentford: Promedio de tiros de esquina >> 3.50
+corner std value >> 2.81
+Brentford: Promedio de goles >> 1.33
+goles std value >> 0.47
+Brentford: Probabilidad de aciertos en remates >> 44.44%
+Probabilidad de fallar >> 55.56%
+Brentford: Porcentaje de balones al arco >> 38.30%
+Porcentaje de balones fuera del arco >> 61.70%
+Brentford: Promedio de tarjetas amarillas >> 1.67
+tarjetas amarillas std value >> 1.11
+Brentford: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Brentford: Promedio de posesión del balón >> 40.55%
+Brentford: Goles esperados en la primera mitad >> -0.33
+Brentford: Goles esperados en la segunda mitad >> -0.33
+---------------------------------------- DATOS DEL Manchester United ----------------------------------------
+Manchester United: Promedio de tiros de esquina >> 3.83
+corner std value: >> 1.67
+Manchester United: Promedio de goles >> 1.33
+goles std value >> 1.11
+Manchester United: Probabilidad de aciertos en remates >> 25.81%
+Probabilidad de fallar >> 74.19%
+Manchester United: Porcentaje de balones al arco >> 28.44%
+Porcentaje de balones fuera del arco >> 71.56%
+Manchester United: Promedio de tarjetas amarillas >> 0.83
+tarjetas amarillas std value >> 0.69
+Manchester United: Promedio de tarjetas rojas >> 0.17
+tarjetas rojas std value >> 0.37
+Manchester United: Promedio de posesión del balón >> 59.45%
+Manchester United: Goles esperados en la primera mitad >> -0.50
+Manchester United: Goles esperados en la segunda mitad >> -0.17
+✅ Torneo encontrado: Premier League -> premier-league-7
+Coeficiente de determinación (R2) continuas del Brentford: 0.851
+Coeficiente de determinación (R2) continuas del Manchester United: 0.960
+
+-----------------PREDICCIONES DEL Brentford -----------------
+Tiros de esquina: μ: 6.32 σ: 0.983
+
+-----------------PREDICCIONES DEL Manchester United -----------------
+Tiros de esquina: μ: 4.21 σ: 0.540
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Brentford---
+--- actualCorner: 10
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.0, 'p_igual': 0.0, 'p_menor': 1.0}
+Probabilidades con modelo de 1er orden con bins: {'fuera_de_rango': 0.0, '7-15': 0.19047619047619047, '4-6': 0.8095238095238095}
+
+Cantidad de veces que se dio el corner [10] en un partido para el Brentford es 3.
+
+Ultimo partido jugado, corner actual:->[10]
+Partido#25  del Brentford              corner actual:->[10]      next:->[10]
+Partido#45  del Brentford              corner actual:->[10]      next:->[3]
+
+
+
+--- Resultados de Equipo Manchester United---
+--- actualCorner: 5
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.42105263157894735, 'p_igual': 0.3157894736842105, 'p_menor': 0.2631578947368421}
+Probabilidades con modelo de 1er orden con bins: {'7-15': 0.34146341463414637, '4-6': 0.34146341463414637, '-1-3': 0.3170731707317073}
+
+Cantidad de veces que se dio el corner [5] en un partido para el Manchester United es 20.
+
+Ultimo partido jugado, corner actual:->[5]
+Partido#19  del Manchester United              corner actual:->[5]      next:->[10]
+Partido#25  del Manchester United              corner actual:->[5]      next:->[3]
+Partido#31  del Manchester United              corner actual:->[5]      next:->[5]
+Partido#32  del Manchester United              corner actual:->[5]      next:->[4]
+Partido#34  del Manchester United              corner actual:->[5]      next:->[3]
+Partido#49  del Manchester United              corner actual:->[5]      next:->[2]
+Partido#50  del Manchester United              corner actual:->[5]      next:->[5]
+Partido#58  del Manchester United              corner actual:->[5]      next:->[3]
+Partido#59  del Manchester United              corner actual:->[5]      next:->[5]
+Partido#64  del Manchester United              corner actual:->[5]      next:->[6]
+Partido#69  del Manchester United              corner actual:->[5]      next:->[7]
+Partido#79  del Manchester United              corner actual:->[5]      next:->[5]
+Partido#90  del Manchester United              corner actual:->[5]      next:->[4]
+Partido#91  del Manchester United              corner actual:->[5]      next:->[5]
+Partido#93  del Manchester United              corner actual:->[5]      next:->[3]
+Partido#97  del Manchester United              corner actual:->[5]      next:->[5]
+Partido#98  del Manchester United              corner actual:->[5]      next:->[3]
+Partido#99  del Manchester United              corner actual:->[5]      next:->[6]
+Partido#102  del Manchester United              corner actual:->[5]      next:->[2]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Leeds ----------------------------------------
+Leeds: Promedio de tiros de esquina >> 3.17
+corner std value >> 2.97
+Leeds: Promedio de goles >> 0.83
+goles std value >> 1.07
+Leeds: Probabilidad de aciertos en remates >> 26.32%
+Probabilidad de fallar >> 73.68%
+Leeds: Porcentaje de balones al arco >> 25.33%
+Porcentaje de balones fuera del arco >> 74.67%
+Leeds: Promedio de tarjetas amarillas >> 1.00
+tarjetas amarillas std value >> 0.82
+Leeds: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Leeds: Promedio de posesión del balón >> 52.07%
+Leeds: Goles esperados en la primera mitad >> -0.50
+Leeds: Goles esperados en la segunda mitad >> -0.67
+---------------------------------------- DATOS DEL Bournemouth ----------------------------------------
+Bournemouth: Promedio de tiros de esquina >> 5.00
+corner std value: >> 2.00
+Bournemouth: Promedio de goles >> 1.00
+goles std value >> 0.82
+Bournemouth: Probabilidad de aciertos en remates >> 25.00%
+Probabilidad de fallar >> 75.00%
+Bournemouth: Porcentaje de balones al arco >> 27.91%
+Porcentaje de balones fuera del arco >> 72.09%
+Bournemouth: Promedio de tarjetas amarillas >> 2.50
+tarjetas amarillas std value >> 1.12
+Bournemouth: Promedio de tarjetas rojas >> 0.17
+tarjetas rojas std value >> 0.37
+Bournemouth: Promedio de posesión del balón >> 47.93%
+Bournemouth: Goles esperados en la primera mitad >> -0.50
+Bournemouth: Goles esperados en la segunda mitad >> -0.50
+✅ Torneo encontrado: Premier League -> premier-league-7
+🆔 Ingresá el ID_365 para el equipo 'Leeds': 36
+🏷️ Ingresá el Name365 tal cual como aparece en 365 para el equipo 'Leeds': leeds-united
+Coeficiente de determinación (R2) continuas del Leeds: 0.907
+Coeficiente de determinación (R2) continuas del Bournemouth: 0.805
+
+-----------------PREDICCIONES DEL Leeds -----------------
+Tiros de esquina: μ: 4.03 σ: 0.909
+
+-----------------PREDICCIONES DEL Bournemouth -----------------
+Tiros de esquina: μ: 5.21 σ: 1.074
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Leeds---
+--- actualCorner: 0
+Probabilidades con modelo de 1er orden: {'p_mayor': 1.0, 'p_igual': 0.0, 'p_menor': 0.0}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.75, '-1-3': 0.25, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [0] en un partido para el Leeds es 2.
+
+Ultimo partido jugado, corner actual:->[0]
+Partido#74  del Leeds              corner actual:->[0]      next:->[0]
+
+
+
+--- Resultados de Equipo Bournemouth---
+--- actualCorner: 5
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.4, 'p_igual': 0.0, 'p_menor': 0.6}
+Probabilidades con modelo de 1er orden con bins: {'7-15': 0.3142857142857143, '4-6': 0.4, '-1-3': 0.2857142857142857}
+
+Cantidad de veces que se dio el corner [5] en un partido para el Bournemouth es 11.
+
+Ultimo partido jugado, corner actual:->[5]
+Partido#127  del Bournemouth              corner actual:->[5]      next:->[0]
+Partido#3  del Bournemouth              corner actual:->[5]      next:->[3]
+Partido#20  del Bournemouth              corner actual:->[5]      next:->[5]
+Partido#23  del Bournemouth              corner actual:->[5]      next:->[8]
+Partido#27  del Bournemouth              corner actual:->[5]      next:->[2]
+Partido#39  del Bournemouth              corner actual:->[5]      next:->[7]
+Partido#43  del Bournemouth              corner actual:->[5]      next:->[7]
+Partido#61  del Bournemouth              corner actual:->[5]      next:->[11]
+Partido#74  del Bournemouth              corner actual:->[5]      next:->[5]
+Partido#79  del Bournemouth              corner actual:->[5]      next:->[5]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Chelsea ----------------------------------------
+Chelsea: Promedio de tiros de esquina >> 3.33
+corner std value >> 1.97
+Chelsea: Promedio de goles >> 2.17
+goles std value >> 1.34
+Chelsea: Probabilidad de aciertos en remates >> 48.15%
+Probabilidad de fallar >> 51.85%
+Chelsea: Porcentaje de balones al arco >> 39.13%
+Porcentaje de balones fuera del arco >> 60.87%
+Chelsea: Promedio de tarjetas amarillas >> 2.50
+tarjetas amarillas std value >> 1.50
+Chelsea: Promedio de tarjetas rojas >> 0.17
+tarjetas rojas std value >> 0.37
+Chelsea: Promedio de posesión del balón >> 55.99%
+Chelsea: Goles esperados en la primera mitad >> -0.17
+Chelsea: Goles esperados en la segunda mitad >> 0.33
+---------------------------------------- DATOS DEL Brighton ----------------------------------------
+Brighton: Promedio de tiros de esquina >> 2.67
+corner std value: >> 1.80
+Brighton: Promedio de goles >> 2.83
+goles std value >> 2.34
+Brighton: Probabilidad de aciertos en remates >> 44.74%
+Probabilidad de fallar >> 55.26%
+Brighton: Porcentaje de balones al arco >> 48.72%
+Porcentaje de balones fuera del arco >> 51.28%
+Brighton: Promedio de tarjetas amarillas >> 2.17
+tarjetas amarillas std value >> 1.34
+Brighton: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Brighton: Promedio de posesión del balón >> 44.01%
+Brighton: Goles esperados en la primera mitad >> 0.17
+Brighton: Goles esperados en la segunda mitad >> 0.67
+✅ Torneo encontrado: Premier League -> premier-league-7
+Coeficiente de determinación (R2) continuas del Chelsea: 0.948
+Coeficiente de determinación (R2) continuas del Brighton: 0.893
+
+-----------------PREDICCIONES DEL Chelsea -----------------
+Tiros de esquina: μ: 4.19 σ: 0.795
+
+-----------------PREDICCIONES DEL Brighton -----------------
+Tiros de esquina: μ: 3.86 σ: 0.852
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Chelsea---
+--- actualCorner: 2
+Probabilidades con modelo de 1er orden: {'p_mayor': 1.0, 'p_igual': 0.0, 'p_menor': 0.0}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.9444444444444444, '-1-3': 0.05555555555555555, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [2] en un partido para el Chelsea es 5.
+
+Ultimo partido jugado, corner actual:->[2]
+Partido#128  del Chelsea              corner actual:->[2]      next:->[2]
+Partido#6  del Chelsea              corner actual:->[2]      next:->[5]
+Partido#64  del Chelsea              corner actual:->[2]      next:->[2]
+Partido#85  del Chelsea              corner actual:->[2]      next:->[6]
+
+
+
+--- Resultados de Equipo Brighton---
+--- actualCorner: 6
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.5, 'p_igual': 0.2, 'p_menor': 0.3}
+Probabilidades con modelo de 1er orden con bins: {'7-15': 0.2682926829268293, '4-6': 0.43902439024390244, '-1-3': 0.2926829268292683}
+
+Cantidad de veces que se dio el corner [6] en un partido para el Brighton es 11.
+
+Ultimo partido jugado, corner actual:->[6]
+Partido#8  del Brighton              corner actual:->[6]      next:->[2]
+Partido#13  del Brighton              corner actual:->[6]      next:->[5]
+Partido#16  del Brighton              corner actual:->[6]      next:->[2]
+Partido#27  del Brighton              corner actual:->[6]      next:->[6]
+Partido#32  del Brighton              corner actual:->[6]      next:->[6]
+Partido#55  del Brighton              corner actual:->[6]      next:->[5]
+Partido#56  del Brighton              corner actual:->[6]      next:->[11]
+Partido#57  del Brighton              corner actual:->[6]      next:->[3]
+Partido#61  del Brighton              corner actual:->[6]      next:->[4]
+Partido#77  del Brighton              corner actual:->[6]      next:->[10]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Manchester City ----------------------------------------
+Manchester City: Promedio de tiros de esquina >> 3.33
+corner std value >> 3.09
+Manchester City: Promedio de goles >> 1.50
+goles std value >> 0.96
+Manchester City: Probabilidad de aciertos en remates >> 29.03%
+Probabilidad de fallar >> 70.97%
+Manchester City: Porcentaje de balones al arco >> 38.75%
+Porcentaje de balones fuera del arco >> 61.25%
+Manchester City: Promedio de tarjetas amarillas >> 0.83
+tarjetas amarillas std value >> 0.90
+Manchester City: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Manchester City: Promedio de posesión del balón >> 60.38%
+Manchester City: Goles esperados en la primera mitad >> -0.33
+Manchester City: Goles esperados en la segunda mitad >> -0.17
+---------------------------------------- DATOS DEL Burnley ----------------------------------------
+Burnley: Promedio de tiros de esquina >> 1.83
+corner std value: >> 1.86
+Burnley: Promedio de goles >> 1.33
+goles std value >> 0.75
+Burnley: Probabilidad de aciertos en remates >> 34.78%
+Probabilidad de fallar >> 65.22%
+Burnley: Porcentaje de balones al arco >> 41.07%
+Porcentaje de balones fuera del arco >> 58.93%
+Burnley: Promedio de tarjetas amarillas >> 1.50
+tarjetas amarillas std value >> 1.71
+Burnley: Promedio de tarjetas rojas >> 0.17
+tarjetas rojas std value >> 0.37
+Burnley: Promedio de posesión del balón >> 39.62%
+Burnley: Goles esperados en la primera mitad >> -0.67
+Burnley: Goles esperados en la segunda mitad >> 0.00
+✅ Torneo encontrado: Premier League -> premier-league-7
+🆔 Ingresá el ID_365 para el equipo 'Burnley': 12
+🏷️ Ingresá el Name365 tal cual como aparece en 365 para el equipo 'Burnley': burnley
+Coeficiente de determinación (R2) continuas del Manchester City: 0.961
+Coeficiente de determinación (R2) continuas del Burnley: 0.899
+
+-----------------PREDICCIONES DEL Manchester City -----------------
+Tiros de esquina: μ: 4.03 σ: 0.739
+
+-----------------PREDICCIONES DEL Burnley -----------------
+Tiros de esquina: μ: 3.71 σ: 0.733
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Manchester City---
+--- actualCorner: 5
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.42857142857142855, 'p_igual': 0.0, 'p_menor': 0.5714285714285714}
+Probabilidades con modelo de 1er orden con bins: {'7-15': 0.625, '4-6': 0.25, '-1-3': 0.125}
+
+Cantidad de veces que se dio el corner [5] en un partido para el Manchester City es 8.
+
+Ultimo partido jugado, corner actual:->[5]
+Partido#133  del Manchester City              corner actual:->[5]      next:->[5]
+Partido#6  del Manchester City              corner actual:->[5]      next:->[1]
+Partido#9  del Manchester City              corner actual:->[5]      next:->[9]
+Partido#16  del Manchester City              corner actual:->[5]      next:->[2]
+Partido#21  del Manchester City              corner actual:->[5]      next:->[2]
+Partido#24  del Manchester City              corner actual:->[5]      next:->[7]
+Partido#64  del Manchester City              corner actual:->[5]      next:->[5]
+
+
+
+--- Resultados de Equipo Burnley---
+--- actualCorner: 2
+Probabilidades con modelo de 1er orden: {'p_mayor': 1.0, 'p_igual': 0.0, 'p_menor': 0.0}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.6, '-1-3': 0.4, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [2] en un partido para el Burnley es 7.
+
+Ultimo partido jugado, corner actual:->[2]
+Partido#47  del Burnley              corner actual:->[2]      next:->[5]
+Partido#55  del Burnley              corner actual:->[2]      next:->[1]
+Partido#61  del Burnley              corner actual:->[2]      next:->[9]
+Partido#72  del Burnley              corner actual:->[2]      next:->[2]
+Partido#74  del Burnley              corner actual:->[2]      next:->[2]
+Partido#76  del Burnley              corner actual:->[2]      next:->[7]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------- DATOS DEL Crystal Palace ----------------------------------------
+Crystal Palace: Promedio de tiros de esquina >> 3.33
+corner std value >> 3.09
+Crystal Palace: Promedio de goles >> 1.17
+goles std value >> 1.07
+Crystal Palace: Probabilidad de aciertos en remates >> 25.93%
+Probabilidad de fallar >> 74.07%
+Crystal Palace: Porcentaje de balones al arco >> 36.99%
+Porcentaje de balones fuera del arco >> 63.01%
+Crystal Palace: Promedio de tarjetas amarillas >> 2.17
+tarjetas amarillas std value >> 0.90
+Crystal Palace: Promedio de tarjetas rojas >> 0.00
+tarjetas rojas std value >> 0.00
+Crystal Palace: Promedio de posesión del balón >> 44.13%
+Crystal Palace: Goles esperados en la primera mitad >> -0.50
+Crystal Palace: Goles esperados en la segunda mitad >> -0.33
+---------------------------------------- DATOS DEL Liverpool ----------------------------------------
+Liverpool: Promedio de tiros de esquina >> 4.33
+corner std value: >> 4.03
+Liverpool: Promedio de goles >> 2.00
+goles std value >> 0.82
+Liverpool: Probabilidad de aciertos en remates >> 50.00%
+Probabilidad de fallar >> 50.00%
+Liverpool: Porcentaje de balones al arco >> 29.27%
+Porcentaje de balones fuera del arco >> 70.73%
+Liverpool: Promedio de tarjetas amarillas >> 1.67
+tarjetas amarillas std value >> 0.94
+Liverpool: Promedio de tarjetas rojas >> 0.17
+tarjetas rojas std value >> 0.37
+Liverpool: Promedio de posesión del balón >> 55.87%
+Liverpool: Goles esperados en la primera mitad >> 0.00
+Liverpool: Goles esperados en la segunda mitad >> 0.00
+✅ Torneo encontrado: Premier League -> premier-league-7
+Coeficiente de determinación (R2) continuas del Crystal Palace: 0.940
+Coeficiente de determinación (R2) continuas del Liverpool: 0.891
+
+-----------------PREDICCIONES DEL Crystal Palace -----------------
+Tiros de esquina: μ: 3.87 σ: 0.559
+
+-----------------PREDICCIONES DEL Liverpool -----------------
+Tiros de esquina: μ: 5.29 σ: 1.158
+
+
+La información a continuación se vera reflejada de forma ascendente,
+lo cual permitira ver de los partidos mas reciente a los mas antiguos de cada equipo.
+--- Metodo Markov ---
+
+--- Resultados de Equipo Crystal Palace---
+--- actualCorner: 8
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.0, 'p_igual': 0.0, 'p_menor': 1.0}
+Probabilidades con modelo de 1er orden con bins: {'fuera_de_rango': 0.0, '7-15': 0.25, '4-6': 0.75}
+
+Cantidad de veces que se dio el corner [8] en un partido para el Crystal Palace es 9.
+
+Ultimo partido jugado, corner actual:->[8]
+Partido#117  del Crystal Palace              corner actual:->[8]      next:->[8]
+Partido#2  del Crystal Palace              corner actual:->[8]      next:->[8]
+Partido#23  del Crystal Palace              corner actual:->[8]      next:->[5]
+Partido#30  del Crystal Palace              corner actual:->[8]      next:->[1]
+Partido#35  del Crystal Palace              corner actual:->[8]      next:->[3]
+Partido#38  del Crystal Palace              corner actual:->[8]      next:->[1]
+Partido#61  del Crystal Palace              corner actual:->[8]      next:->[7]
+Partido#81  del Crystal Palace              corner actual:->[8]      next:->[2]
+
+
+
+--- Resultados de Equipo Liverpool---
+--- actualCorner: 3
+Probabilidades con modelo de 1er orden: {'p_mayor': 0.6, 'p_igual': 0.2, 'p_menor': 0.2}
+Probabilidades con modelo de 1er orden con bins: {'4-6': 0.6956521739130435, '-1-3': 0.30434782608695654, 'fuera_de_rango': 0.0}
+
+Cantidad de veces que se dio el corner [3] en un partido para el Liverpool es 11.
+
+Ultimo partido jugado, corner actual:->[3]
+Partido#130  del Liverpool              corner actual:->[3]      next:->[8]
+Partido#140  del Liverpool              corner actual:->[3]      next:->[8]
+Partido#1  del Liverpool              corner actual:->[3]      next:->[5]
+Partido#16  del Liverpool              corner actual:->[3]      next:->[1]
+Partido#19  del Liverpool              corner actual:->[3]      next:->[3]
+Partido#21  del Liverpool              corner actual:->[3]      next:->[1]
+Partido#22  del Liverpool              corner actual:->[3]      next:->[7]
+Partido#42  del Liverpool              corner actual:->[3]      next:->[2]
+Partido#49  del Liverpool              corner actual:->[3]      next:->[5]
+Partido#74  del Liverpool              corner actual:->[3]      next:->[0]
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+

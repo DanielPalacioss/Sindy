@@ -31,10 +31,10 @@ from sklearn.multioutput import MultiOutputClassifier
 
 options = Options()
 # Modo sin interfaz gráfica
-options.add_argument('--headless')
-options.add_argument('--disable-gpu')  # Recomendado en modo headless (especialmente en Windows)
-options.add_argument('--disable-dev-shm-usage')  # Previene errores en contenedores
-options.add_argument('--no-sandbox')  # Evita errores en algunos entornos Linux
+#options.add_argument('--headless')
+#options.add_argument('--disable-gpu')  # Recomendado en modo headless (especialmente en Windows)
+#options.add_argument('--disable-dev-shm-usage')  # Previene errores en contenedores
+#options.add_argument('--no-sandbox')  # Evita errores en algunos entornos Linux
 
 # Opciones útiles
 options.add_argument('--disable-extensions')
@@ -48,8 +48,8 @@ options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
 
 
 # Ingreso de datos por parte del usuario
-equipo_objetivo_1 = "Sport Recife"#input("Ingresa el primer equipo objetivo: ")
-equipo_objetivo_2 = "Vasco da Gama"#input("Ingresa el segundo equipo objetivo: ")
+equipo_objetivo_1 = "Nottingham Forest"#input("Ingresa el primer equipo objetivo: ")
+equipo_objetivo_2 = "Sunderland AFC"#input("Ingresa el segundo equipo objetivo: ")
 
 # Ruta de los equipos
 equipo_objetivo_1_path_data = f"./teams_data/{equipo_objetivo_1}.csv"
@@ -80,8 +80,8 @@ if os.path.exists(equipo_objetivo_1_path_data):
                 #Ejecutar para recolectar link
                 urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
                 if not urls_equipo_1:
-                    url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} nuevamente")
-                    defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} nuevamente")
+                    url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} nuevamente: ")
+                    defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} nuevamente: ")
                     urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
                     df = df[df["Equipo"] != equipo_objetivo_1]
                     # Crear nueva fila como diccionario
@@ -104,7 +104,7 @@ if os.path.exists(equipo_objetivo_1_path_data):
                 urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
 
                 if not urls_equipo_1:
-                    url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} nuevamente")
+                    url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} nuevamente: ")
                     defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} nuevamente")
                     urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
                     # Crear nueva fila como diccionario
@@ -143,8 +143,8 @@ if os.path.exists(equipo_objetivo_1_path_data):
 
             urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
             if not urls_equipo_1:
-                url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} nuevamente")
-                defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} nuevamente")
+                url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} nuevamente: ")
+                defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} nuevamente: ")
                 urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
                 df = df[df["Equipo"] != equipo_objetivo_1]
                 # Crear nueva fila como diccionario
@@ -177,8 +177,8 @@ else:
             # Ejecutar para recolectar link
             urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
             if not urls_equipo_1:
-                url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} nuevamente")
-                defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} nuevamente")
+                url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} nuevamente: ")
+                defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} nuevamente: ")
                 urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
                 df = df[df["Equipo"] != equipo_objetivo_1]
                 # Crear nueva fila como diccionario
@@ -201,8 +201,8 @@ else:
             urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
 
             if not urls_equipo_1:
-                url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} nuevamente")
-                defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} nuevamente")
+                url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} nuevamente: ")
+                defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} nuevamente: ")
                 urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
                 # Crear nueva fila como diccionario
                 nueva_fila = {"Equipo": equipo_objetivo_1, "Link_Lista_Partidos": url,
@@ -240,8 +240,8 @@ else:
 
         urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
         if not urls_equipo_1:
-            url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} nuevamente")
-            defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} nuevamente")
+            url = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_1} nuevamente: ")
+            defaultLink = input(f"Ingrese la url de un partido x de {equipo_objetivo_1} nuevamente: ")
             urls_equipo_1 = GetMatch().getMatchs(matchsNumber, url, defaultLink)
             df = df[df["Equipo"] != equipo_objetivo_1]
             # Crear nueva fila como diccionario
@@ -275,11 +275,11 @@ if os.path.exists(equipo_objetivo_2_path_data):
                 defaultLink2 = df.loc[df["Equipo"] == equipo_objetivo_2, "Link_Partido_X"].values[0]
 
                 #Ejecutar para recolectar link
-                urls_equipo_1 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
-                if not urls_equipo_1:
-                    url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} nuevamente")
-                    defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} nuevamente")
-                    urls_equipo_1 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+                urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+                if not urls_equipo_2:
+                    url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} nuevamente: ")
+                    defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} nuevamente: ")
+                    urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
                     df = df[df["Equipo"] != equipo_objetivo_2]
                     # Crear nueva fila como diccionario
                     nueva_fila = {"Equipo": equipo_objetivo_2, "Link_Lista_Partidos": url2,
@@ -290,7 +290,7 @@ if os.path.exists(equipo_objetivo_2_path_data):
 
                     # Guardar el DataFrame actualizado en el CSV
                     df.to_csv(links_equipos_data, index=False)
-                    if (urls_equipo_1 == []):
+                    if (urls_equipo_2 == []):
                         print("Por favor valide su internet o que los links esten correctamente ingresados")
                         sys.exit(1)
 
@@ -298,12 +298,12 @@ if os.path.exists(equipo_objetivo_2_path_data):
                 matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
                 url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} ")
                 defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} ")
-                urls_equipo_1 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+                urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
 
-                if not urls_equipo_1:
-                    url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} nuevamente")
-                    defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} nuevamente")
-                    urls_equipo_1 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+                if not urls_equipo_2:
+                    url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} nuevamente: ")
+                    defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} nuevamente: ")
+                    urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
                     # Crear nueva fila como diccionario
                     nueva_fila = {"Equipo": equipo_objetivo_2, "Link_Lista_Partidos": url2,
                                   "Link_Partido_X": defaultLink2}
@@ -313,7 +313,7 @@ if os.path.exists(equipo_objetivo_2_path_data):
 
                     # Guardar el DataFrame actualizado en el CSV
                     df.to_csv(links_equipos_data, index=False)
-                    if (urls_equipo_1 == []):
+                    if (urls_equipo_2 == []):
                         print("Por favor valide su internet o que los links esten correctamente ingresados")
                         sys.exit(1)
                 else:
@@ -338,11 +338,11 @@ if os.path.exists(equipo_objetivo_2_path_data):
                 "Link_Partido_X": defaultLink2
             }])
 
-            urls_equipo_1 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
-            if not urls_equipo_1:
-                url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} nuevamente")
-                defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} nuevamente")
-                urls_equipo_1 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+            urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+            if not urls_equipo_2:
+                url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} nuevamente: ")
+                defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} nuevamente: ")
+                urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
                 df = df[df["Equipo"] != equipo_objetivo_2]
                 # Crear nueva fila como diccionario
                 nueva_fila = {"Equipo": equipo_objetivo_2, "Link_Lista_Partidos": url2,
@@ -353,7 +353,7 @@ if os.path.exists(equipo_objetivo_2_path_data):
 
                 # Guardar el DataFrame actualizado en el CSV
                 df.to_csv(links_equipos_data, index=False)
-                if (urls_equipo_1 == []):
+                if (urls_equipo_2 == []):
                     print("Por favor valide su internet o que los links esten correctamente ingresados")
                     sys.exit(1)
             else:
@@ -372,11 +372,11 @@ else:
             defaultLink2 = df.loc[df["Equipo"] == equipo_objetivo_2, "Link_Partido_X"].values[0]
 
             # Ejecutar para recolectar link
-            urls_equipo_1 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
-            if not urls_equipo_1:
-                url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} nuevamente")
-                defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} nuevamente")
-                urls_equipo_1 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+            urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+            if not urls_equipo_2:
+                url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} nuevamente: ")
+                defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} nuevamente: ")
+                urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
                 df = df[df["Equipo"] != equipo_objetivo_2]
                 # Crear nueva fila como diccionario
                 nueva_fila = {"Equipo": equipo_objetivo_2, "Link_Lista_Partidos": url2,
@@ -387,7 +387,7 @@ else:
 
                 # Guardar el DataFrame actualizado en el CSV
                 df.to_csv(links_equipos_data, index=False)
-                if (urls_equipo_1 == []):
+                if (urls_equipo_2 == []):
                     print("Por favor valide su internet o que los links esten correctamente ingresados")
                     sys.exit(1)
 
@@ -395,12 +395,12 @@ else:
             matchsNumber2 = int(input(f"¿Cuántas URLs deseas ingresar del equipo {equipo_objetivo_2}? "))
             url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} ")
             defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} ")
-            urls_equipo_1 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+            urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
 
-            if not urls_equipo_1:
-                url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} nuevamente")
-                defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} nuevamente")
-                urls_equipo_1 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+            if not urls_equipo_2:
+                url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} nuevamente: ")
+                defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} nuevamente: ")
+                urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
                 # Crear nueva fila como diccionario
                 nueva_fila = {"Equipo": equipo_objetivo_2, "Link_Lista_Partidos": url2,
                               "Link_Partido_X": defaultLink2}
@@ -410,7 +410,7 @@ else:
 
                 # Guardar el DataFrame actualizado en el CSV
                 df.to_csv(links_equipos_data, index=False)
-                if (urls_equipo_1 == []):
+                if (urls_equipo_2 == []):
                     print("Por favor valide su internet o que los links esten correctamente ingresados")
                     sys.exit(1)
             else:
@@ -435,11 +435,11 @@ else:
             "Link_Partido_X": defaultLink2
         }])
 
-        urls_equipo_1 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
-        if not urls_equipo_1:
-            url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} nuevamente")
-            defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} nuevamente")
-            urls_equipo_1 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+        urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
+        if not urls_equipo_2:
+            url2 = input(f"Ingrese la url de la lista de partidos de {equipo_objetivo_2} nuevamente: ")
+            defaultLink2 = input(f"Ingrese la url de un partido x de {equipo_objetivo_2} nuevamente: ")
+            urls_equipo_2 = GetMatch().getMatchs(matchsNumber2, url2, defaultLink2)
             df = df[df["Equipo"] != equipo_objetivo_2]
             # Crear nueva fila como diccionario
             nueva_fila = {"Equipo": equipo_objetivo_2, "Link_Lista_Partidos": url2,
@@ -450,7 +450,7 @@ else:
 
             # Guardar el DataFrame actualizado en el CSV
             df.to_csv(links_equipos_data, index=False)
-            if (urls_equipo_1 == []):
+            if (urls_equipo_2 == []):
                 print("Por favor valide su internet o que los links esten correctamente ingresados")
                 sys.exit(1)
         else:
@@ -465,7 +465,7 @@ if len(equipos_dict) == 1:
 service =  Service('chromedriver.exe')
 driver = webdriver.Chrome(service=service, options=options)
 
-Torneo = 10 #Torneo de partido a predecir, para saber que numero poner, vaya a bajo en el diccionario torneo
+Torneo = 3 #Torneo de partido a predecir, para saber que número poner, vaya abajo en el diccionario torneo
 
 if equipos_dict.get(equipo_objetivo_1, -1) == -1:
     raise Exception(f"El equipo {equipo_objetivo_1} no existe en la base de datos, por favor agregarlo")
@@ -655,15 +655,12 @@ def obtener_estadisticas(soup, equipo_objetivo):
             stat_name = row.find('th').text
             if stat_name not in estadisticas_excluidas:
                 stat_value = int(row.find_all('td')[equipo_objetivo_columna].text.strip().replace('%', ''))
+                stat_value_contrincante = int(row.find_all('td')[columna_contrincante].text.strip().replace('%', ''))
                 partido_stats[stat_name] = stat_value
+                partido_stats[f"{stat_name}_contrincante"] = stat_value_contrincante
                 if stat_name in ["Tarjetas amarillas", "Tarjetas rojas"]:
                     partido_stats["tarjetas"] += stat_value
-                    
-            if stat_name in ["Remates","Remates al arco","Posesión", "Faltas","Tarjetas amarillas","Tarjetas rojas","Tiros de esquina"]:
-                stat_value = int(row.find_all('td')[columna_contrincante].text.strip().replace('%', ''))
-                partido_stats[f"{stat_name}_contrincante"] = stat_value
-                if stat_name in ["Tarjetas amarillas", "Tarjetas rojas"]:
-                    partido_stats["tarjetas_contrincante"] += stat_value
+                    partido_stats["tarjetas_contrincante"] += stat_value_contrincante
 
         formacion_local_div = soup.find('div', class_= 'lrvl-tlt lrvl-tl lrvl-btrc')
         formacion_visitante_div = soup.find('div', class_= 'lrvl-tlt lrvl-tl lrvl-bbrc')
@@ -809,32 +806,32 @@ def procesar_urls(urls, equipo_objetivo):
     leagues_df = pd.read_csv(leagues_data_path)
     partido_stats = {}
     driver.get(urls[0]) #Por alguna razon el cargar una url x, al inicio permite que carguen las demas mas rapido, evitando que falle la primera
-    time.sleep(2)
+    time.sleep(0.5)
     for idx, url in enumerate(urls, start=1):
         cont = 0
         while(True):
-            if(cont == 5):
-                sys.exit(1)
+            if(cont == 2):
+                break;
             cont+=1
             try:
                 driver.get(url)
-                time.sleep(2.2)
+                time.sleep(1.9)
                 soup = BeautifulSoup(driver.page_source, 'html.parser')
 
                 torneo_div = soup.find('div', class_='imso-hide-overflow')
                 torneo_span = torneo_div.find('span', class_='imso-loa imso-ln')
                 torneo_nombre = torneo_span.text.strip() if torneo_span else "Torneo desconocido"
                 # Si es amistoso o torneo no reconocido, saltamos al siguiente URL
-                if 'Amistosos' in torneo_nombre or torneo_nombre not in leagues_df["name_google"].values:
-                    print(f"Torneo no válido ({torneo_nombre}), saltando URL: {url}")
-                    break
+                #if 'Amistosos' in torneo_nombre or torneo_nombre not in leagues_df["name_google"].values:
+                 #   print(f"Torneo no válido ({torneo_nombre}), saltando URL: {url}")
+                  #  break
 
                 stats = obtener_estadisticas(soup, equipo_objetivo)
                 goles_por_tiempo = obtener_goles_por_tiempo(soup, equipo_objetivo)
 
                 # Validamos que stats se haya obtenido correctamente
                 if not stats or not goles_por_tiempo:
-                    print(f"No se obtuvieron stats para {equipo_objetivo}, reintentando...")
+                    print(f"No se obtuvieron stats para {equipo_objetivo}, con url {url} reintentando...")
                     continue  # reintenta
 
                 goles_totales = goles_por_tiempo['goles_totales']
@@ -1809,8 +1806,8 @@ localCount = len(localPositions)
 print(f"\nCantidad de veces que se dio el corner [{corner_current_local}] en un partido para el {equipo_objetivo_1} es {localCount}.\n")
 
 for i, pos in enumerate(localPositions):
-    if pos > 0:
-        next_val = local_df.loc[pos - 1, 'Tiros de esquina']
+    if i > 0:
+        next_val = local_df.iloc[i - 1]['Tiros de esquina']
         print(f"Partido#{pos+1}  del {equipo_objetivo_1}              corner actual:->[{corner_current_local}]      next:->[{next_val}]")
     else:
         print(f"Ultimo partido jugado, corner actual:->[{corner_current_local}]")
@@ -1828,8 +1825,8 @@ visitanteCount = len(visitantePositions)
 print(f"\nCantidad de veces que se dio el corner [{corner_current_visitante}] en un partido para el {equipo_objetivo_2} es {visitanteCount}.\n")
 
 for i, pos in enumerate(visitantePositions):
-    if pos > 0:
-        next_val = visitante_df.loc[pos - 1, 'Tiros de esquina']
-        print(f"Partido#{pos+1} del {equipo_objetivo_2}              corner actual:->[{corner_current_visitante}]      next:->[{next_val}]")
+    if i > 0:
+        next_val = local_df.iloc[i - 1]['Tiros de esquina']
+        print(f"Partido#{pos+1}  del {equipo_objetivo_2}              corner actual:->[{corner_current_visitante}]      next:->[{next_val}]")
     else:
         print(f"Ultimo partido jugado, corner actual:->[{corner_current_visitante}]")

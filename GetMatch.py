@@ -15,14 +15,14 @@ class GetMatch:
     @staticmethod
     def reemplazar_texto(texto, nuevo_valor):
         return re.sub(r";/g.*?;", f';{nuevo_valor};', texto)
-    
+
     def getMatchs(self, matchsNumber, url, defaultLink):
         options = Options()
         # Modo sin interfaz gráfica
-        options.add_argument('--headless')
-        options.add_argument('--disable-gpu')  # Recomendado en modo headless (especialmente en Windows)
-        options.add_argument('--disable-dev-shm-usage')  # Previene errores en contenedores
-        options.add_argument('--no-sandbox')  # Evita errores en algunos entornos Linux
+        #options.add_argument('--headless=new')
+        #options.add_argument('--disable-gpu')  # Recomendado en modo headless (especialmente en Windows)
+        #options.add_argument('--disable-dev-shm-usage')  # Previene errores en contenedores
+        #options.add_argument('--no-sandbox')  # Evita errores en algunos entornos Linux
 
         # Opciones útiles
         options.add_argument('--disable-extensions')
@@ -38,17 +38,18 @@ class GetMatch:
         # Configuración de Selenium con ChromeDriver
         service =  Service('chromedriver.exe')
         driver = webdriver.Chrome(service=service, options=options)
-        cont = 0
+        retries = 0
+        matchsNumberValue = matchsNumber
         while(True):
-            if(cont == 3):
+            matchsNumber = matchsNumberValue
+            if(retries == 3):
                 sys.exit(1)
-            cont +=1
+            retries +=1
             try:
-                driver.get(url)
                 time.sleep(1)
                 driver.get(url)
                 # Esperar a que el modal se cargue
-                wait = WebDriverWait(driver, 6)  # Aumenta el tiempo de espera
+                wait = WebDriverWait(driver, 3.5)  # Aumenta el tiempo de espera
                 modal = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="sZmt3b"]/div[2]/div[2]/div/div[2]/div')))
                 cont = 0
                 if(matchsNumber < 20):
@@ -65,7 +66,7 @@ class GetMatch:
                 # Obtener la fecha y hora actual en UTC
                 now = datetime.now(timezone.utc)
 
-                time.sleep(1)
+                time.sleep(2)
 
                 # Buscar todos los divs con las clases 'imso-loa' o 'imso-ani' y filtrar por fecha
                 filtered_matchesLink = []
